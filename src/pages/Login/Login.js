@@ -1,50 +1,68 @@
 import React, { useState } from 'react';
-import  {Container,  Button, Typography, TextField}  from '@mui/material';
+import { Container, Button, Typography, TextField, Grid, Paper } from '@mui/material';
 
 const Login = () => {
   // State variables to store username and password
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  
+  const [credentials, setCredentials] = useState({ username: '', password: '' });
+
   // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     // Here you can add your logic to handle login (e.g., sending credentials to a server for authentication)
-    console.log('Username:', username);
-    console.log('Password:', password);
+    console.log('Credentials:', credentials);
     // For simplicity, let's just clear the form fields after submission
-    setUsername('');
-    setPassword('');
+    setCredentials({ username: '', password: '' });
   };
-  
+
+  // Function to handle input changes
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setCredentials({ ...credentials, [name]: value });
+  };
+
+
   return (
-    <Container maxWidth="sm">
-      <Typography variant="h4" gutterBottom>Login Page</Typography>
-      <form onSubmit={handleSubmit}>
-        <TextField
-          label="Username"
-          variant="outlined"
-          fullWidth
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-          margin="normal"
-        />
-        <TextField
-          label="Password"
-          variant="outlined"
-          fullWidth
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          margin="normal"
-        />
-        <Button variant="contained" color="primary" type="submit">
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
+    <Container maxWidth="xs">
+      <Paper elevation={3} style={{ padding: 20 }}>
+        <Typography variant="h4" align="center" color="primary" gutterBottom>
           Login
-        </Button>
-      </form>
+        </Typography>
+        <form onSubmit={handleSubmit}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                label="Username"
+                variant="outlined"
+                fullWidth
+                name="username"
+                value={credentials.username}
+                onChange={handleInputChange}
+                required
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Password"
+                variant="outlined"
+                fullWidth
+                type="password"
+                name="password"
+                value={credentials.password}
+                onChange={handleInputChange}
+                required
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Button variant="contained" color="success" type="submit" fullWidth>
+                Login
+              </Button>
+            </Grid>
+          </Grid>
+        </form>
+      </Paper>
     </Container>
+  </div>
   );
 };
 
