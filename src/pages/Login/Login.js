@@ -23,46 +23,47 @@ const Login = () => {
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
-    <Container maxWidth="xs">
-      <Paper elevation={3} style={{ padding: 20 }}>
-        <Typography variant="h4" align="center" color="primary" gutterBottom>
-          Login
-        </Typography>
-        <form onSubmit={handleSubmit}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                label="Username"
-                variant="outlined"
-                fullWidth
-                name="username"
-                value={credentials.username}
-                onChange={handleInputChange}
-                required
-              />
+      <Container maxWidth="xs">
+        <Paper elevation={3} style={{ padding: 20 }}>
+          <Typography variant="h4" align="center" color="primary" gutterBottom>
+            Login
+          </Typography>
+          <form onSubmit={handleSubmit}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  label="Username"
+                  variant="outlined"
+                  fullWidth
+                  name="username"
+                  value={credentials.username}
+                  onChange={handleInputChange}
+                  required
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="Password"
+                  variant="outlined"
+                  fullWidth
+                  type="password"
+                  name="password"
+                  value={credentials.password}
+                  onChange={handleInputChange}
+                  required
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Button variant="contained" color="success" type="submit" fullWidth 
+                onClick={event => window.location.href = '/dashbord'}>
+                  Login
+                </Button>
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Password"
-                variant="outlined"
-                fullWidth
-                type="password"
-                name="password"
-                value={credentials.password}
-                onChange={handleInputChange}
-                required
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Button variant="contained" color="success" type="submit" fullWidth>
-                Login
-              </Button>
-            </Grid>
-          </Grid>
-        </form>
-      </Paper>
-    </Container>
-  </div>
+          </form>
+        </Paper>
+      </Container>
+    </div>
   );
 };
 
