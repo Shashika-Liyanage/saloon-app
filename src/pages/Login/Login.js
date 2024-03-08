@@ -41,7 +41,7 @@ const Login = () => {
           required
           margin="normal"
         />
-        <Button variant="contained" color="primary" type="submit">
+        <Button variant="contained" color="primary" type="reset">
           Login
         </Button>
       </form>
