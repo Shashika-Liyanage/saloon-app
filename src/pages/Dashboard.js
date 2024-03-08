@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import Footer from "./Footer/Footer";
 
 const headerStyle = {
   height: '80px',
@@ -123,11 +124,12 @@ const Dashboard = () => {
         WE'LL STYLE, WHILE YOU SMILE
       </Typography>
       <div style={footerButtonStyle}>
-        <Button variant="contained" color="primary">
-          Book Now
-        </Button>
+      <Button variant="contained" color="primary" sx={{ mb: "10px", borderRadius: "20px", padding: "15px 30px", fontSize: "16px" }}>
+  Book Now
+</Button>
+
       </div>
-      <div style={footerStyle}>Footer</div>
+      <Footer/>        
     </div>
   );
 };
