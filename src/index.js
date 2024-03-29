@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard';
 import Layout from './pages/Layout/Layout';
 import Home from './pages/Home/Home';
 import NoPage from './pages/NoPage/NoPage';
+import BookingPage from './pages/Booking/BookingPage';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 ReactDOM.render(
@@ -15,6 +16,7 @@ ReactDOM.render(
           <Route index element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="dashboard" element={<Dashboard />} /> 
+          <Route path="booking" element={<BookingPage/>} /> 
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>
