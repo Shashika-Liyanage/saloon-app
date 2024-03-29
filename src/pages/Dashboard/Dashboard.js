@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import Footer from "./Footer/Footer";
+import Footer from "../Footer/Footer";
 import { Link } from "@mui/material";
 
 const headerStyle = {
