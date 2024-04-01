@@ -9,7 +9,6 @@ import {
   Typography,
 } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
-import { DatePicker } from "@mui/x-date-pickers";
 
 const BookingPage = () => {
   const [age, setAge] = useState("");
@@ -120,12 +119,7 @@ const BookingPage = () => {
                 />
               </Grid>
               <Grid item xs={3}>
-                <DatePicker
-                  selected={date}
-                  onChange={handleDateChange}
-                  showTimeSelect
-                  dateFormat="Pp"
-                />
+              
               </Grid>
             </Grid>
             <Grid

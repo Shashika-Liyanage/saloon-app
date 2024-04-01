@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Box, Grid, Link, Typography, Container, IconButton } from '@mui/material';
-import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
 
@@ -32,37 +31,40 @@ const Footer = () => {
           </Grid>
           <Grid item xs={6} sm={3} md={2}>
             <Typography variant="subtitle1" color="text.primary" gutterBottom>
-              PRODUCT
+              Site map
             </Typography>
+            <Link href="#" color="inherit" display="block">Home</Link>
             <Link href="#" color="inherit" display="block">Features</Link>
-            <Link href="#" color="inherit" display="block">Integrations</Link>
             <Link href="#" color="inherit" display="block">Pricing</Link>
-            <Link href="#" color="inherit" display="block">FAQ</Link>
+            <Link href="#" color="inherit" display="block">About</Link>
+            <Link href="#" color="inherit" display="block">How to</Link>
+            <Link href="#" color="inherit" display="block">Gallery</Link>
           </Grid>
           <Grid item xs={6} sm={3} md={2}>
             <Typography variant="subtitle1" color="text.primary" gutterBottom>
-              COMPANY
+              Categories
             </Typography>
-            <Link href="#" color="inherit" display="block">About Us</Link>
-            <Link href="#" color="inherit" display="block">Careers</Link>
-            <Link href="#" color="inherit" display="block">Privacy Policy</Link>
-            <Link href="#" color="inherit" display="block">Terms of Service</Link>
+            <Link href="#" color="inherit" display="block">Hair Care</Link>
+            <Link href="#" color="inherit" display="block">Skin Care</Link>
+            <Link href="#" color="inherit" display="block">Nails Care</Link>
+            <Link href="#" color="inherit" display="block">Body Care</Link>
+            <Link href="#" color="inherit" display="block">Bridal Service</Link>
           </Grid>
           <Grid item xs={6} sm={3} md={2}>
             <Typography variant="subtitle1" color="text.primary" gutterBottom>
-              DEVELOPERS
+              Support
             </Typography>
-            <Link href="#" color="inherit" display="block">Public API</Link>
-            <Link href="#" color="inherit" display="block">Documentation</Link>
+            <Link href="#" color="inherit" display="block">Contact</Link>
+            <Link href="#" color="inherit" display="block">privacy Policy</Link>
             <Link href="#" color="inherit" display="block">Guides</Link>
           </Grid>
           <Grid item xs={6} sm={3} md={2}>
             <Typography variant="subtitle1" color="text.primary" gutterBottom>
               SOCIAL MEDIA
             </Typography>
-            <IconButton aria-label="Facebook" color="inherit" component="a" href={socialMediaLinks.facebook}>
+            {/* <IconButton aria-label="Facebook" color="inherit" component="a" href={socialMediaLinks.facebook}>
               <FacebookIcon />
-            </IconButton>
+            </IconButton> */}
             <IconButton aria-label="Twitter" color="inherit" component="a" href={socialMediaLinks.twitter}>
               <TwitterIcon />
             </IconButton>
@@ -72,7 +74,7 @@ const Footer = () => {
           </Grid>
         </Grid>
         <Typography variant="body2" color="text.secondary" align="center" sx={{ pt: 4 }}>
-          © 2024 Company Co. All rights reserved.
+          © 2024 Salon He & SHE.
         </Typography>
       </Container>
     </Box>
