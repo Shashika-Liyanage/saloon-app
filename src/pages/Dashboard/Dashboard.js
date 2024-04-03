@@ -6,8 +6,9 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Footer from "../Footer/Footer";
-import { Link } from "@mui/material";
-
+import { Divider, Link } from "@mui/material";
+import middleImage from "../../../src/Assets/middleImage.png"
+import videoOne from "../../../src/Assets/videoOne.mp4"
 const headerStyle = {
   height: "80px",
   backgroundColor: "#333",
@@ -101,7 +102,8 @@ const Dashboard = () => {
           textAlign: "center",
           mt: "10px",
           fontWeight: "bold",
-          color: "#FF407D",
+          color: "#5F0F40",
+
         }}
       >
         OUR SERVICES
@@ -170,7 +172,16 @@ const Dashboard = () => {
             Book Now
           </Button>
         </Link>
+       
       </div>
+      {/* <video src={videoOne} type="video/mp4"></video> */}
+      <div  className="container-fluid p-0">
+        <video width="100%" id="bannerVideo" autoPlay muted loop>
+          <source src={videoOne} type="video/mp4" />
+        </video>
+      </div>
+      <Divider/>
+      <img src={middleImage} alt="middle image"></img>
       <Footer />
     </div>
   );
