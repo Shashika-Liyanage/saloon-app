@@ -109,11 +109,11 @@ const serviceChange=(event,value)=>{
               <Autocomplete
                 id="demo-simple-select-helper"
                 options={[
-                  { value: 10, label: "Gampaha" },
-                  { value: 20, label: "Veyangoda" },
-                  { value: 30, label: "Naiwala" },
-                  { value: 30, label: "Minuwangoda" },
-                  { value: 30, label: "Colombo" },
+                  {label: "Gampaha" },
+                  {label: "Veyangoda" },
+                  {label: "Naiwala" },
+                  {label: "Minuwangoda" },
+                  {label: "Colombo" },
                 ]}
        
                 getOptionLabel={(option) => option.label}
