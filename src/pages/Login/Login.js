@@ -1,17 +1,30 @@
-import React, { useState } from 'react';
-import { Container, Button, Typography, TextField, Grid, Paper } from '@mui/material';
+import React, { useState } from "react";
+import {
+  Container,
+  Button,
+  Typography,
+  TextField,
+  Grid,
+  Paper,
+} from "@mui/material";
 
+import IconButton from "@mui/material/IconButton";
+
+import GoogleIconButton from "../../Components/GoogleButton";
 const Login = () => {
   // State variables to store username and password
-  const [credentials, setCredentials] = useState({ username: '', password: '' });
+  const [credentials, setCredentials] = useState({
+    username: "",
+    password: "",
+  });
 
   // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     // Here you can add your logic to handle login (e.g., sending credentials to a server for authentication)
-    console.log('Credentials:', credentials);
+    console.log("Credentials:", credentials);
     // For simplicity, let's just clear the form fields after submission
-    setCredentials({ username: '', password: '' });
+    setCredentials({ username: "", password: "" });
   };
 
   // Function to handle input changes
@@ -20,9 +33,15 @@ const Login = () => {
     setCredentials({ ...credentials, [name]: value });
   };
 
-
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+      }}
+    >
       <Container maxWidth="xs">
         <Paper elevation={3} style={{ padding: 20 }}>
           <Typography variant="h4" align="center" color="primary" gutterBottom>
@@ -54,11 +73,28 @@ const Login = () => {
                 />
               </Grid>
               <Grid item xs={12}>
-                <Button variant="contained" color="success" type="submit" fullWidth 
-                onClick={event => window.location.href = '/dashbord'}>
+                <Button
+                  variant="contained"
+                  color="success"
+                  type="submit"
+                  fullWidth
+                  onClick={(event) => (window.location.href = "/dashbord")}
+                >
                   Login
                 </Button>
               </Grid>
+              <Grid container justifyContent="center">
+                <Grid item style={{ alignItems: "center" }}>
+                  <h4>OR</h4>
+                </Grid>
+              </Grid>
+              <Grid container justifyContent="center">
+      <Grid item style={{ alignItems: "center" }}>
+        <IconButton aria-label="googleicon" sx={{ color: "#4285F4", fontSize: 50 }} size="extra-large">
+          <GoogleIconButton />
+        </IconButton>
+      </Grid>
+    </Grid>
             </Grid>
           </form>
         </Paper>
