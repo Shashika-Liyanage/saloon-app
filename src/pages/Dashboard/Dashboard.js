@@ -32,14 +32,14 @@ const listStyle = {
   fontSize: "16px", // Set smaller font size for the list
 };
 
-const footerStyle = {
-  height: "50px",
-  backgroundColor: "#333",
-  color: "#fff",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-};
+// const footerStyle = {
+//   height: "50px",
+//   backgroundColor: "#333",
+//   color: "#fff",
+//   display: "flex",
+//   justifyContent: "center",
+//   alignItems: "center",
+// };
 
 const cardContainerStyle = {
   display: "flex",
