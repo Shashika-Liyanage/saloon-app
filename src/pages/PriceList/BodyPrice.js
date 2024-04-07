@@ -1,9 +1,9 @@
 import React from 'react'
 
-function BodyPrice() {
+const  Bodyprice =() =>{
   return (
     <div>BodyPrice</div>
   )
 }
 
-export default BodyPrice
+export default Bodyprice
