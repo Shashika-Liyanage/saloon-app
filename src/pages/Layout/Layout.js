@@ -20,6 +20,9 @@ const Layout = () => {
           <li>
             <Link to="/signup">Sign Up</Link>
           </li>
+          <li>
+            <Link to="/tableshowing">Temp Table</Link>
+          </li>
         </ul>
       </nav>
 
