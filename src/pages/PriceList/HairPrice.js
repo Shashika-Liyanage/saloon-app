@@ -14,6 +14,8 @@ function createData(
   return { name, StandardPrice };
 }
 
+
+
 const rows1 = [
   createData('Fringe Cut', 850.00 ),
   createData('Trim', 1250.00),
@@ -37,45 +39,31 @@ const rows2 = [
   createData('Ear to Ear Root Color Ammonia Free', 4000.00),
   createData('Crown Area Root Color with Ammonia', 4400.00),
   createData('Crown Area Root Color Ammonia Free', 4800.00),
-  createData('Root Touch - Up', 5700.00),
-  createData('Root Touch - Up Ammonia Free', 5800.00),
   createData('Global Color - Short', 10500.00),
   createData('Global Color - Medium', 13700.00),
   createData('Global Color - Long', 17500.00),
   createData('Global Highlight', 8800.00),
   createData('Pre - Lightning', 3500.00),
-  createData('Colour with Pre-Lightning (Per Foil)', 1100.00),
   createData('Creative Colour - Short', 12200.00),
   createData('Creative Colour - Medium', 16500.00),
   createData('Creative Colour - Long', 22000.00),
-  createData('Henna Black Color - Root', 3300.00),
   createData('Henna Black Color - Short', 3900.00),
   createData('Henna Black Color - Medium', 4100.00),
   createData('Henna Black Color - Long', 4400.00),
- 
-  
 ];
 
 const rows3 = [
   createData('Hair Massage Oil Treatment', 1300.00),
   createData('Crown Area Straightening - Short', 6100.00),
-  createData('Crown Area Straightening - Medium', 8500.00),
   createData('Crown Area Straightening - Long', 9700.00),
   createData('Ear to Ear Straightening - Short', 5300.00),
-  createData('Ear to Ear Straightening - Medium', 6500.00),
   createData('Ear to Ear Straightening - Long', 8300.00),
-  createData('Fringe Straightening', 4400.00),
   createData('Straightening - Short', 11600.00),
-  createData('Straightening - Medium', 14300.00),
   createData('Straightening - Long', 24800.00),
-  createData('Straightening - Retouch', 8600.00),
   createData('Rebonding - Short', 13200.00),
-  createData('Rebonding - Medium', 16000.00),
   createData('Rebonding - Long', 27000.00),
   createData('Keratin Treatment - Short', 22600.00),
-  createData('Keratin Treatment - Medium', 27300.00),
   createData('Keratin Treatment - Long', 40000.00),
- 
 ];
 
 const rows4 = [
@@ -95,15 +83,15 @@ const rows4 = [
 export default function BasicTable() {
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <div style={{ width: '50%' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
+        <div style={{ width: '48%', paddingRight: '10px' }}> {/* Added borderRight and paddingRight */}
           <TableContainer component={Paper}>
-            <h2>Hair Cut</h2>
+            <h2>HAIR CUT</h2>
             <Table sx={{ minWidth: 500 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell></TableCell>
-                  <TableCell align="right">Standard Price(Rs)</TableCell>
+                  <TableCell><b>Type</b></TableCell>
+                  <TableCell align="right"><b>Standard Price(Rs)</b></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -123,14 +111,14 @@ export default function BasicTable() {
           </TableContainer>
         </div>
 
-        <div style={{ width: '50%' }}>
+        <div style={{ width: '48%' }}>
           <TableContainer component={Paper}>
-            <h2>Hair Coloring</h2>
+            <h2>HAIR COLORING</h2>
             <Table sx={{ minWidth: 500 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell></TableCell>
-                  <TableCell align="right">Standard Price(Rs)</TableCell>
+                  <TableCell><b>Type</b></TableCell>
+                  <TableCell align="right"><b>Standard Price(Rs)</b></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -151,15 +139,15 @@ export default function BasicTable() {
         </div>
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <div style={{ width: '50%' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
+        <div style={{ width: '48%', paddingRight: '10px' }}> {/* Added borderRight and paddingRight */}
           <TableContainer component={Paper}>
-            <h2>Hair Treatments</h2>
+            <h2>HAIR TREATMENT</h2>
             <Table sx={{ minWidth: 500 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell></TableCell>
-                  <TableCell align="right">Standard Price(Rs)</TableCell>
+                  <TableCell><b>Type</b></TableCell>
+                  <TableCell align="right"><b>Standard Price(Rs)</b></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -179,14 +167,14 @@ export default function BasicTable() {
           </TableContainer>
         </div>
 
-        <div style={{ width: '50%' }}>
+        <div style={{ width: '48%' }}>
           <TableContainer component={Paper}>
-            <h2>Hair Spa</h2>
+            <h2>HAIR SPA</h2>
             <Table sx={{ minWidth: 500 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell></TableCell>
-                  <TableCell align="right">Standard Price(Rs)</TableCell>
+                  <TableCell><b>Type</b></TableCell>
+                  <TableCell align="right"><b>Standard Price(Rs)</b></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

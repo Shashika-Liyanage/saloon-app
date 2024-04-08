@@ -23,6 +23,9 @@ const Layout = () => {
           <li>
             <Link to="/tableshowing">Temp Table</Link>
           </li>
+          <li>
+            <Link to="/tableshowing2">Temp Table2</Link>
+          </li>
         </ul>
       </nav>
 
