@@ -8,7 +8,12 @@ import Typography from "@mui/material/Typography";
 import Footer from "../Footer/Footer";
 import { Divider, Link } from "@mui/material";
 import middleImage from "../../../src/Assets/middleImage.png"
+import Image1 from "../../../src/Assets/Image1.png"
+import map1 from "../../../src/Assets/map1.png"
 import videoOne from "../../../src/Assets/videoOne.mp4"
+import { auto } from "@popperjs/core";
+
+
 const headerStyle = {
   height: "80px",
   backgroundColor: "#333",
@@ -84,12 +89,20 @@ const Dashboard = () => {
   const handleMouseLeave = () => {
     setHoveredIndex(null);
   };
+  
+  const img = {
+    width: "100%", /* Set width to 100% of viewport width */
+    height: "auto" /* Maintain aspect ratio */
+  };
+  
+  
+  
 
   return (
     <div>
       <div style={headerStyle}>
         <Typography variant="h5" component="h1" style={salonNameStyle}>
-          SALON HE & SHE
+          SALON LILLY
         </Typography>
         <Typography variant="h4" component="h4" style={listStyle}>
           HAIR . SKIN . NAILS . BODY . BRIDAL
@@ -173,7 +186,15 @@ const Dashboard = () => {
           </Button>
         </Link>
        
+        
       </div>
+      
+      
+      <div>
+      <img className="img" src={Image1} alt="image" />
+      </div>
+  
+
       {/* <video src={videoOne} type="video/mp4"></video> */}
       <div  className="container-fluid p-0">
         <video width="100%" id="bannerVideo" autoPlay muted loop>
@@ -181,7 +202,10 @@ const Dashboard = () => {
         </video>
       </div>
       <Divider/>
-      <img src={middleImage} alt="middle image"></img>
+      <img className="img"  src={middleImage} alt="middle image"  />
+      <img className="img"  src={map1} alt="map"  />
+
+
       <Footer />
     </div>
   );

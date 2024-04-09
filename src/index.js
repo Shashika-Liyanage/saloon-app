@@ -8,7 +8,8 @@ import NoPage from './pages/NoPage/NoPage';
 import BookingPage from './pages/Booking/BookingPage';
 import SignUp from './pages/SignUp/SignUp';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Bodyprice from './pages/PriceList/BodyPrice'
+import HairPrice from './pages/PriceList/HairPrice';
+import SkinPrice from './pages/PriceList/SkinPrice';
 
 
 ReactDOM.render(
@@ -23,7 +24,9 @@ ReactDOM.render(
           <Route path="home" element={<Home/>} /> 
 
           <Route path="signup" element={<SignUp/>} /> 
-          <Route path="tableshowing" element={<Bodyprice/>} /> 
+          <Route path="tableshowing" element={<HairPrice/>} />
+          <Route path="tableshowing2" element={<SkinPrice/>} /> 
+
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>

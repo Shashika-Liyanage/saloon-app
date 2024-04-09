@@ -25,7 +25,7 @@ const Footer = () => {
         <Grid container spacing={2} justifyContent="space-between">
           <Grid item xs={12} sm={6} md={3}>
             <Typography variant="h6" color="text.primary" gutterBottom>
-            SALON HE & SHE
+            SALON LILLY
             </Typography>
             {/* Add your logo component or image here */}
           </Grid>
@@ -74,7 +74,7 @@ const Footer = () => {
           </Grid>
         </Grid>
         <Typography variant="body2" color="text.secondary" align="center" sx={{ pt: 4 }}>
-          © 2024 Salon He & SHE.
+          © 2024 Salon LILLY
         </Typography>
       </Container>
     </Box>
