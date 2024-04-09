@@ -4,7 +4,7 @@ import firebaseConfig, { auth } from "../../services/firebaseConfig";
 
 import {  useNavigate } from 'react-router-dom';
 import {  createUserWithEmailAndPassword  } from 'firebase/auth';
-
+import toast, { Toaster } from "react-hot-toast";
 const SignUp = () => {
   const navigate = useNavigate();
  
@@ -20,7 +20,7 @@ const SignUp = () => {
           const user = userCredential.user;
           console.log(user);
           navigate("/dashboard")
-
+          toast.success("Now you are Registerd!!!.");
           // ...
       })
       .catch((error) => {
@@ -139,7 +139,9 @@ const SignUp = () => {
             >
               Register Me
             </Button>
+           
           </Grid>
+          <Toaster toastOptions={{ duration: 5000 }} position="top-right" />
         </CardContent>
       </Box>
     </form>
