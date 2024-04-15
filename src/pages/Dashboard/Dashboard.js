@@ -191,7 +191,7 @@ const Dashboard = () => {
       
       
       <div>
-      <img className="img" src={Image1} alt="image" />
+      <img className="img" width="100%" src={Image1} alt="image" />
       </div>
   
 
