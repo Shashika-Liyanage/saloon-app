@@ -1,39 +1,53 @@
 import React, { useState } from "react";
-import { Button, CardContent, Grid, TextField, Typography, Box } from "@mui/material";
+import {
+  Button,
+  CardContent,
+  Grid,
+  TextField,
+  Typography,
+  Box,
+} from "@mui/material";
 import firebaseConfig, { auth } from "../../services/firebaseConfig";
 
-import {  useNavigate } from 'react-router-dom';
-import {  createUserWithEmailAndPassword  } from 'firebase/auth';
-
+import { useNavigate } from "react-router-dom";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import toast, { Toaster } from "react-hot-toast";
 const SignUp = () => {
   const navigate = useNavigate();
- 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('');
+  const [error, setError] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setconfirmPassword] = useState("");
 
   const onSubmit = async (e) => {
-    e.preventDefault()
-   
-    await createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-          // Signed in
-          const user = userCredential.user;
-          console.log(user);
-          navigate("/dashboard")
+    e.preventDefault();
 
-          // ...
-      })
-      .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log(errorCode, errorMessage);
-          // ..
-      });
-
+    try {
+        // Check if passwords match
+        if (password !== confirmPassword) {
+            throw new Error("Passwords do not match");
+        }
+        toast.success("Now you are Registered!!!");
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        // Signed in
+        const user = userCredential.user;
+        console.log("Janith", user);
+        navigate("/dashboard");
+       
+    } catch (error) {
+      toast.error("Passwords do not match !!!");
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      
     }
+};
+
   return (
     <form>
-      <Box sx={{ display: "flex", justifyContent: "space-between", mb: "70px" }}>
+      <Box
+        sx={{ display: "flex", justifyContent: "space-between", mb: "70px" }}
+      >
         <Typography
           sx={{
             ml: 26,
@@ -64,7 +78,12 @@ const SignUp = () => {
             Sign Up
           </Typography>
 
-          <Grid container spacing={3} justifyContent="center" sx={{ mt: "5px" }}>
+          <Grid
+            container
+            spacing={3}
+            justifyContent="center"
+            sx={{ mt: "5px" }}
+          >
             <Grid item xs={6}>
               <TextField
                 required
@@ -84,7 +103,12 @@ const SignUp = () => {
               />
             </Grid>
           </Grid>
-          <Grid container spacing={3} justifyContent="center" sx={{ mt: "5px" }}>
+          <Grid
+            container
+            spacing={3}
+            justifyContent="center"
+            sx={{ mt: "5px" }}
+          >
             <Grid item xs={6}>
               <TextField
                 required
@@ -98,21 +122,37 @@ const SignUp = () => {
               <TextField
                 required
                 label="Email"
-                onChange={(e) => setEmail(e.target.value)}  
+                onChange={(e) => setEmail(e.target.value)}
                 variant="outlined"
                 fullWidth
                 sx={{ bgcolor: "white" }}
               />
             </Grid>
           </Grid>
-          <Grid container spacing={3} justifyContent="center" sx={{ mt: "5px" }}>
+          <Grid
+            container
+            spacing={3}
+            justifyContent="center"
+            sx={{ mt: "5px" }}
+          >
             <Grid item xs={6}>
               <TextField
                 required
                 label="Password"
                 variant="outlined"
                 type="password"
-                onChange={(e) => setPassword(e.target.value)} 
+                onChange={(e) => setPassword(e.target.value)}
+                fullWidth
+                sx={{ bgcolor: "white" }}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                required
+                label="Conifrm Password"
+                variant="outlined"
+                type="password"
+                onChange={(e) => setconfirmPassword(e.target.value)}
                 fullWidth
                 sx={{ bgcolor: "white" }}
               />
@@ -140,6 +180,16 @@ const SignUp = () => {
               Register Me
             </Button>
           </Grid>
+          <Toaster
+            toastOptions={{
+              duration: 5000,
+              className: "",
+              style: {
+                color: "#713200",
+              },
+            }}
+            position="top-right"
+          />
         </CardContent>
       </Box>
     </form>
