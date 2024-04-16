@@ -8,23 +8,50 @@ import {
   Typography,
 } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
-
+import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 const BookingPage = () => {
-  const [branch, setBranch] = useState("");
-  const [service, setService] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const [user, setUser] = useState({
     Name: "",
-    Phone,
-    Number: "",
+    Phone: "",
     Email: "",
     Service: "",
-    Date: "",
+    Date: new Date().toISOString().split("T")[0],
     Time: "",
     Notes: "",
   });
-  const [today, setToday] = useState("");
+  const navigate = useNavigate();
+  let name, value;
+  console.log(user, "janith");
+  const data = (e) => {
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
+  };
+
+  const getdata = async (e) => {
+    const { Name, Phone, Email, Service, Date, Time, Notes } = user;
+    e.preventDefault();
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json", // Corrected typo
+      },
+      body: JSON.stringify({ Name, Phone, Email, Service, Date, Time, Notes }),
+    };
+
+    const res = await fetch(
+      "https://he-and-she-356f5-default-rtdb.firebaseio.com/UserData.json",
+      options
+    );
+    console.log(res);
+    if (res.ok) {
+      //navigate("/dashboard");
+      toast.success("Booking has been made");
+      
+    } else {
+      toast.error("Something went wrong");
+    }
+  };
 
   const date = new Date();
   const formattedDate = date
@@ -37,13 +64,20 @@ const BookingPage = () => {
     .reverse()
     .join("-");
 
-  const serviceChange = (event, value) => {
-    setService(value ? value.label : "");
+  // Event handler for input changes
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
+  };
+  // Event handler for service selection in Autocomplete
+  const handleServiceChange = (event, value) => {
+    setUser({ ...user, Service: value ? value.label : "" });
   };
 
+  // Event handler for form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission here
+    // Add form submission logic here
   };
 
   const handleChange = (event) => {
@@ -114,8 +148,8 @@ const BookingPage = () => {
                 label="Name"
                 variant="outlined"
                 fullWidth
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={user.Name}
+                onChange={data}
                 sx={{ bgcolor: "white" }}
               />
             </Grid>
@@ -123,10 +157,11 @@ const BookingPage = () => {
               <TextField
                 id="phone_number"
                 label="Phone Number"
-                name="Phone Number"
+                name="Phone"
                 variant="outlined"
-                inputProps={{ inputMode: "numeric" }}
-                onChange={handleChange}
+                value={user.Phone}
+                // inputProps={{ inputMode: "numeric" }}
+                onChange={data}
                 sx={{ bgcolor: "white" }}
               />
             </Grid>
@@ -141,13 +176,12 @@ const BookingPage = () => {
               <TextField
                 id="email"
                 name="Email"
-                required
                 label="Email"
                 type="email"
                 variant="outlined"
                 fullWidth
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={user.Email}
+                onChange={data}
                 sx={{ bgcolor: "white" }}
               />
             </Grid>
@@ -177,8 +211,8 @@ const BookingPage = () => {
                   { label: "Service E" },
                 ]}
                 getOptionLabel={(option) => option.label}
-                value={{ label: service }}
-                onChange={serviceChange}
+                value={{ label: user.Service }}
+                onChange={handleServiceChange}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -186,6 +220,7 @@ const BookingPage = () => {
                     name="Service"
                     variant="outlined"
                     required
+                    value={user.Service}
                     sx={{ bgcolor: "white" }}
                   />
                 )}
@@ -199,6 +234,8 @@ const BookingPage = () => {
                 variant="outlined"
                 type="date"
                 name="Date"
+                onChange={data}
+                value={user.Date}
                 formattedDate={formattedDate}
                 fullWidth
                 InputLabelProps={{
@@ -220,8 +257,10 @@ const BookingPage = () => {
                 required
                 label="Time"
                 name="Time"
+                value={user.Time}
                 variant="outlined"
                 select
+                onChange={data}
                 fullWidth
                 SelectProps={{
                   native: true,
@@ -248,6 +287,8 @@ const BookingPage = () => {
                 label="Notes"
                 variant="outlined"
                 name="Notes"
+                value={user.Notes}
+                onChange={data}
                 fullWidth
                 sx={{ bgcolor: "white" }}
               />
@@ -259,9 +300,20 @@ const BookingPage = () => {
               sx={{ mt: "25px", width: "400px" }}
               size="large"
               variant="contained"
+              onClick={getdata}
             >
               Book
             </Button>
+            <Toaster
+              toastOptions={{
+                duration: 5000,
+                className: "",
+                style: {
+                  color: "#713200",
+                },
+              }}
+              position="top-right"
+            />
           </Grid>
         </CardContent>
       </form>
