@@ -89,6 +89,10 @@ const Dashboard = () => {
 
   return (
     <div>
+     
+      <div>
+        <img className="img" width="40%" src={Image2} alt="image" />
+      </div>
       <Typography
         variant="h5"
         component="h1"
@@ -101,10 +105,6 @@ const Dashboard = () => {
       >
         OUR SERVICES
       </Typography>
-      <div>
-        <img className="img" width="100%" src={Image2} alt="image" />
-      </div>
-
       <Typography
         variant="h6"
         component="h6"
