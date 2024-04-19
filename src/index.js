@@ -14,9 +14,9 @@ import SkinPrice from "./pages/PriceList/SkinPrice";
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-  
+      <Layout />
       <Routes>
-         <Route path="/" element={<Layout />}/> 
+        <Route path="/" element={<Dashboard />} />
         <Route path="login" element={<Login />} />
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="booking" element={<BookingPage />} />
