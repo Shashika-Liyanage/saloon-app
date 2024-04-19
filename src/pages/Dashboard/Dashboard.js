@@ -7,16 +7,17 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Footer from "../Footer/Footer";
 import { Divider, Link } from "@mui/material";
-import middleImage from "../../../src/Assets/middleImage.png"
-import Image1 from "../../../src/Assets/Image1.png"
-import map1 from "../../../src/Assets/map1.png"
-import videoOne from "../../../src/Assets/videoOne.mp4"
+import middleImage from "../../../src/Assets/middleImage.png";
+import Image1 from "../../../src/Assets/Image1.png";
+import Image2 from "../../../src/Assets/Welcome.png";
+import map1 from "../../../src/Assets/map1.png";
+import videoOne from "../../../src/Assets/videoOne.mp4";
+import videoTwo from "../../../src/Assets/videoTwo.mp4";
 import { auto } from "@popperjs/core";
-
+import Layout from "../Layout/Layout";
 
 const headerStyle = {
   height: "80px",
-  backgroundColor: "#333",
   color: "#fff",
   display: "flex",
   alignItems: "center",
@@ -27,7 +28,7 @@ const salonNameStyle = {
   marginRight: "auto",
   fontFamily: "Arial, sans-serif",
   fontWeight: "bold",
-  fontSize: "24px",
+  fontSize: "15px",
   letterSpacing: "2px",
   textTransform: "uppercase",
 };
@@ -36,15 +37,6 @@ const listStyle = {
   marginLeft: "auto",
   fontSize: "16px", // Set smaller font size for the list
 };
-
-// const footerStyle = {
-//   height: "50px",
-//   backgroundColor: "#333",
-//   color: "#fff",
-//   display: "flex",
-//   justifyContent: "center",
-//   alignItems: "center",
-// };
 
 const cardContainerStyle = {
   display: "flex",
@@ -89,25 +81,14 @@ const Dashboard = () => {
   const handleMouseLeave = () => {
     setHoveredIndex(null);
   };
-  
+
   const img = {
-    width: "100%", /* Set width to 100% of viewport width */
-    height: "auto" /* Maintain aspect ratio */
+    width: "100%" /* Set width to 100% of viewport width */,
+    height: "auto" /* Maintain aspect ratio */,
   };
-  
-  
-  
 
   return (
     <div>
-      <div style={headerStyle}>
-        <Typography variant="h5" component="h1" style={salonNameStyle}>
-          SALON LILLY
-        </Typography>
-        <Typography variant="h4" component="h4" style={listStyle}>
-          HAIR . SKIN . NAILS . BODY . BRIDAL
-        </Typography>
-      </div>
       <Typography
         variant="h5"
         component="h1"
@@ -116,11 +97,14 @@ const Dashboard = () => {
           mt: "10px",
           fontWeight: "bold",
           color: "#5F0F40",
-
         }}
       >
         OUR SERVICES
       </Typography>
+      <div>
+        <img className="img" width="100%" src={Image2} alt="image" />
+      </div>
+
       <Typography
         variant="h6"
         component="h6"
@@ -185,26 +169,21 @@ const Dashboard = () => {
             Book Now
           </Button>
         </Link>
-       
-        
       </div>
-      
-      
+
       <div>
-      <img className="img" width="100%" src={Image1} alt="image" />
+        <img className="img" width="100%" src={Image1} alt="image" />
       </div>
-  
 
       {/* <video src={videoOne} type="video/mp4"></video> */}
-      <div  className="container-fluid p-0">
+      <div className="container-fluid p-0">
         <video width="100%" id="bannerVideo" autoPlay muted loop>
           <source src={videoOne} type="video/mp4" />
         </video>
       </div>
-      <Divider/>
-      <img className="img"  src={middleImage} alt="middle image"  />
-      <img className="img"  src={map1} alt="map"  />
-
+      <Divider />
+      <img className="img" src={middleImage} alt="middle image" />
+      <img className="img" src={map1} alt="map" />
 
       <Footer />
     </div>
