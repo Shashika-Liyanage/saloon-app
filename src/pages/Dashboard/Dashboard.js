@@ -1,7 +1,5 @@
 import React from "react";
-
 import Button from "@mui/material/Button";
-
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -13,7 +11,6 @@ import Image2 from "../../../src/Assets/Welcome.png";
 import map1 from "../../../src/Assets/map1.png";
 import videoOne from "../../../src/Assets/videoOne.mp4";
 import videoTwo from "../../../src/Assets/videoTwo.mp4";
-import { auto } from "@popperjs/core";
 import Layout from "../Layout/Layout";
 
 const headerStyle = {
@@ -89,10 +86,18 @@ const Dashboard = () => {
 
   return (
     <div>
-     
-      <div>
-        <img className="img" width="40%" src={Image2} alt="image" />
+      <div
+        style={{
+          backgroundColor: "#D20065",
+          borderBottomLeftRadius: "100px",
+          borderBottomRightRadius: "100px",
+        }}
+      >
+        {" "}
+        {/* Add background color */}
+        <img className="img" width="50%" alignItems="right"  src={Image2} alt="image" />
       </div>
+
       <Typography
         variant="h5"
         component="h1"
