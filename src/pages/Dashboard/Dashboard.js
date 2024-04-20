@@ -204,7 +204,7 @@ const Dashboard = () => {
         }}
       >
         <p> Welcome to Salon Lilly</p>
-        <p>CREATING A BEAUTIFUL COMMUNITY</p>
+        <p>CREATING  A  BEAUTIFUL  COMMUNITY</p>
         <p>Revive,Refresh,and manage with Lilly'S expertise!</p>
       </div>
       <div
@@ -219,44 +219,93 @@ const Dashboard = () => {
         <p>Look Good & Feel Good!</p>
       </div>
       <Stack direction="row" sx={{ textAlign: "center" }}>
-        <h1 style={{ margin: "0 auto" }}>
+        <h1 style={{ margin: "0 auto", color: "#EE7214" }}>
           Inspire:
-          <p>Inspire the</p>
-          <p>srilanka society</p>
-          <p>to be well groomed &</p>
-          <p>embrace to their</p>
-          <p>full potentail</p>
+          <div
+            style={{
+              textAlign: "center",
+              // fontWeight: "700",
+              fontSize: "20px",
+              color: "#3C0753",
+              fontFamily: "monospace",
+            }}
+          >
+            <p>Inspire the</p>
+            <p>srilanka society</p>
+            <p>to be well groomed &</p>
+            <p>embrace to their</p>
+            <p>full potentail</p>
+          </div>
         </h1>
-        <h1 style={{ margin: "0 auto" }}>
+        <h1 style={{ margin: "0 auto", color: "#EE7214" }}>
           Empower:
-          <p>we employee talenet</p>
-          <p>that is qualified</p>
-          <p>through the national</p>
-          <p>vocational education</p>
-          <p>and lead them to a</p>
-          <p>better life</p>
+          <div
+            style={{
+              textAlign: "center",
+              // fontWeight: "700",
+              fontSize: "20px",
+              color: "#3C0753",
+              fontFamily: "monospace",
+            }}
+          >
+            <p>we employee talenet</p>
+            <p>that is qualified</p>
+            <p>through the national</p>
+            <p>vocational education</p>
+            <p>and lead them to a</p>
+            <p>better life</p>
+          </div>
         </h1>
-        <h1 style={{ margin: "0 auto" }}>
-          Affordable
-          <p>Happy client</p>
-          <p>paying with</p>
-          <p>budget - friendly</p>
-          <p>price</p>{" "}
-         
+        <h1 style={{ margin: "0 auto", color: "#EE7214" }}>
+          Affordable:
+          <div
+            style={{
+              textAlign: "center",
+              // fontWeight: "700",
+              fontSize: "20px",
+              color: "#3C0753",
+              fontFamily: "monospace",
+            }}
+          >
+            <p>Happy client</p>
+            <p>paying with</p>
+            <p>budget - friendly</p>
+            <p>price</p>{" "}
+          </div>
         </h1>
-        <h1 style={{ margin: "0 auto" }}>
+        <h1 style={{ margin: "0 auto", color: "#EE7214" }}>
           Ambience:
-          <p>Image of</p>
-          <p>calm, stylish</p>
-          <p>salon interior</p>{" "}
+          <div
+            style={{
+              textAlign: "center",
+              // fontWeight: "700",
+              fontSize: "20px",
+              color: "#3C0753",
+              fontFamily: "monospace",
+            }}
+          >
+            <p>Image of</p>
+            <p>calm, stylish</p>
+            <p>salon interior</p>{" "}
+          </div>
         </h1>
-        <h1 style={{ margin: "0 auto" }}>
+        <h1 style={{ margin: "0 auto", color: "#EE7214" }}>
           Safe:
-          <p>Clean,</p>
-          <p>sanitized salon</p>
-          <p>with mask &</p>
-          <p>gloved</p>          
-          <p>stylist</p>{" "}
+          <div
+            style={{
+              textAlign: "center",
+              // fontWeight: "700",
+              fontSize: "20px",
+              color: "#3C0753",
+              fontFamily: "monospace",
+            }}
+          >
+            <p>Clean,</p>
+            <p>sanitized salon</p>
+            <p>with mask &</p>
+            <p>gloved</p>
+            <p>stylist</p>{" "}
+          </div>
         </h1>
       </Stack>
 
