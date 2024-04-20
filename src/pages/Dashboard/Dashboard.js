@@ -4,7 +4,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Footer from "../Footer/Footer";
-import { Divider, Link, Stack } from "@mui/material";
+import { Box, Divider, Link, Stack } from "@mui/material";
 import middleImage from "../../../src/Assets/middleImage.png";
 import Image1 from "../../../src/Assets/Image1.png";
 import Image2 from "../../../src/Assets/Welcome.png";
@@ -90,7 +90,9 @@ const Dashboard = () => {
   };
 
   return (
-    <div style={{ justifyContent: "flex-start" }}>
+
+    <div style={{ overflowX: "hidden" }}> {/* Add overflowX: hidden to prevent horizontal scrolling */}
+    <div style={{ justifyContent: "flex-start", maxWidth: "100vw" }}> {/* Set max-width to fill entire viewport width */}
       <div
         style={{
           position: "flex-start",
@@ -320,6 +322,7 @@ const Dashboard = () => {
       <img className="img" src={map1} alt="map" />
 
       <Footer />
+    </div>
     </div>
   );
 };
