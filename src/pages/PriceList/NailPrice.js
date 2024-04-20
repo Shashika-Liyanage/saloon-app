@@ -1,76 +1,82 @@
-import * as React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import * as React from "react";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import "./priceList.css";
+import salonIcon from "../../../src/Assets/salonicon.jpg";
 
-function createData(
-  name: string,
-  StandardPrice: number,
-) {
+function createData(name: string, StandardPrice: number) {
   return { name, StandardPrice };
 }
 
-
-
 const rows1 = [
-  createData('Classic Manicure', 1800.00 ),
-  createData('Classic Pedicure', 2000.00),
-  createData('Spa Manicure', 3800.00),
-  createData('Spa Pedicure', 4200.00),
-  createData('Gel Pedicure', 5000.00),
-  
- 
+  createData("Classic Manicure", 1800.0),
+  createData("Classic Pedicure", 2000.0),
+  createData("Spa Manicure", 3800.0),
+  createData("Spa Pedicure", 4200.0),
+  createData("Gel Pedicure", 5000.0),
 ];
 
 const rows2 = [
-  createData('Brow Tint', 2500.00),
-  createData('Lash Tint', 2000.00),
-  createData('Brow Lamination', 7500.00),
-  createData('Eyelash Refill', 7500.00),
-  createData('Eye Lash - Hybrid', 12500.00),
-
-  
+  createData("Brow Tint", 2500.0),
+  createData("Lash Tint", 2000.0),
+  createData("Brow Lamination", 7500.0),
+  createData("Eyelash Refill", 7500.0),
+  createData("Eye Lash - Hybrid", 12500.0),
 ];
 
 const rows3 = [
-  createData('Piercing - Nose', 2500.00),
-  createData('Piercing -Ear', 1500.00),
-  createData('Nail Art Rein Stone/ Sticker/ Each', 150.00),
-  createData('Nail Art Foils/Gold & Silver Papers Each', 200.00),
-  createData('Nail Gel Art Full Set', 1500.00),
-  createData('Acrylic Natural Nail Overlay Full Set)', 5000.00),
-  createData('Acrylic for Toes Full Set', 5500.00),
-  createData('Acrylic Individual', 700.00),
-  createData('Acrylic Soak Off', 1500.00),
-  createData('Temporary Nail Pasting (Press On)', 3500.00),
- 
+  createData("Piercing - Nose", 2500.0),
+  createData("Piercing -Ear", 1500.0),
+  createData("Nail Art Rein Stone/ Sticker/ Each", 150.0),
+  createData("Nail Art Foils/Gold & Silver Papers Each", 200.0),
+  createData("Nail Gel Art Full Set", 1500.0),
+  createData("Acrylic Natural Nail Overlay Full Set)", 5000.0),
+  createData("Acrylic for Toes Full Set", 5500.0),
+  createData("Acrylic Individual", 700.0),
+  createData("Acrylic Soak Off", 1500.0),
+  createData("Temporary Nail Pasting (Press On)", 3500.0),
 ];
-
-
 
 export default function BasicTable() {
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
-        <div style={{ width: '48%', paddingRight: '10px' }}> {/* Added borderRight and paddingRight */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginBottom: "20px",
+        }}
+      >
+        <div style={{ width: "48%", paddingRight: "10px" }}>
+          {" "}
+          {/* Added borderRight and paddingRight */}
           <TableContainer component={Paper}>
-            <h2>MANICURE | PEDICURE</h2>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <img src={salonIcon} alt="Salon Icon" className="icon" />
+              <h2 className="heading">MANICURE | PEDICURE</h2>
+            </div>
+
             <Table sx={{ minWidth: 500 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell><b>Type</b></TableCell>
-                  <TableCell align="right"><b>Standard Price(Rs)</b></TableCell>
+                  <TableCell>
+                    <b>Type</b>
+                  </TableCell>
+                  <TableCell align="right">
+                    <b>Standard Price(Rs)</b>
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {rows1.map((row) => (
                   <TableRow
                     key={row.name}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
                       {row.name}
@@ -83,21 +89,29 @@ export default function BasicTable() {
           </TableContainer>
         </div>
 
-        <div style={{ width: '48%' }}>
+        <div style={{ width: "48%" }}>
           <TableContainer component={Paper}>
-            <h2>EYE LASHES EXTENSION | MICROBLADING</h2>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <img src={salonIcon} alt="Salon Icon" className="icon" />
+              <h2 className="heading">EYE LASHES EXTENSION | MICROBLADING</h2>
+            </div>
+
             <Table sx={{ minWidth: 500 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell><b>Type</b></TableCell>
-                  <TableCell align="right"><b>Standard Price(Rs)</b></TableCell>
+                  <TableCell>
+                    <b>Type</b>
+                  </TableCell>
+                  <TableCell align="right">
+                    <b>Standard Price(Rs)</b>
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {rows2.map((row) => (
                   <TableRow
                     key={row.name}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
                       {row.name}
@@ -111,22 +125,37 @@ export default function BasicTable() {
         </div>
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
-        <div style={{ width: '48%', paddingRight: '10px' }}> {/* Added borderRight and paddingRight */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginBottom: "20px",
+        }}
+      >
+        <div style={{ width: "48%", paddingRight: "10px" }}>
+          {" "}
+          {/* Added borderRight and paddingRight */}
           <TableContainer component={Paper}>
-            <h2>NAIL LACQER | EXTENTION | TIPS</h2>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <img src={salonIcon} alt="Salon Icon" className="icon" />
+              <h2 className="heading">NAIL LACQER | EXTENTION | TIPS</h2>
+            </div>
             <Table sx={{ minWidth: 500 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell><b>Type</b></TableCell>
-                  <TableCell align="right"><b>Standard Price(Rs)</b></TableCell>
+                  <TableCell>
+                    <b>Type</b>
+                  </TableCell>
+                  <TableCell align="right">
+                    <b>Standard Price(Rs)</b>
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {rows3.map((row) => (
                   <TableRow
                     key={row.name}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
                       {row.name}
@@ -138,8 +167,6 @@ export default function BasicTable() {
             </Table>
           </TableContainer>
         </div>
-
-        
       </div>
     </div>
   );
