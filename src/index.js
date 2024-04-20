@@ -10,6 +10,7 @@ import SignUp from "./pages/SignUp/SignUp";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HairPrice from "./pages/PriceList/HairPrice";
 import SkinPrice from "./pages/PriceList/SkinPrice";
+import Admin from "./pages/admin/Admin";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -24,6 +25,7 @@ ReactDOM.render(
         <Route path="signup" element={<SignUp />} />
         <Route path="tableshowing" element={<HairPrice />} />
         <Route path="tableshowing2" element={<SkinPrice />} />
+        <Route path="admin" element={<Admin />} />
         <Route path="*" element={<NoPage />} />
         {/* </Route> */}
       </Routes>
