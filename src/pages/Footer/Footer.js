@@ -1,82 +1,169 @@
-import * as React from 'react';
-import { Box, Grid, Link, Typography, Container, IconButton } from '@mui/material';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import InstagramIcon from '@mui/icons-material/Instagram';
+import * as React from "react";
+import {
+  Box,
+  Grid,
+  Link,
+  Typography,
+  Container,
+  IconButton,
+} from "@mui/material";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import YouTubeIcon from "@mui/icons-material/YouTube";
+import Logo from "../../../src/Assets/Lillylogo.png";
 
-// Replace these with your own social media URLs
 const socialMediaLinks = {
-  facebook: '#',
-  twitter: '#',
-  instagram: '#',
+  facebook: "#",
+  twitter: "#",
+  instagram: "#",
 };
 
 const Footer = () => {
   return (
     <Box
       sx={{
-        bgcolor: 'background.paper',
-        color: 'text.secondary',
+        bgcolor: "background.paper",
+        color: "text.secondary",
         py: 3,
-        borderTop: '1px solid',
-        borderColor: 'divider',
+        borderTop: "1px solid",
+        borderColor: "divider",
       }}
     >
       <Container maxWidth={false}>
         <Grid container spacing={2} justifyContent="space-between">
           <Grid item xs={12} sm={6} md={3}>
-            <Typography variant="h6" color="text.primary" gutterBottom>
+            {/* <Typography variant="h6" sx={{color:"#FC6736",fontWeight:"700"}} color="text.primary" gutterBottom>
             SALON LILLY
-            </Typography>
+            </Typography> */}
+            <div>
+              <Link to="/dashboard">
+                <img className="img" width="70%" src={Logo} alt="image" />
+              </Link>
+            </div>
             {/* Add your logo component or image here */}
           </Grid>
           <Grid item xs={6} sm={3} md={2}>
             <Typography variant="subtitle1" color="text.primary" gutterBottom>
               Site map
             </Typography>
-            <Link href="#" color="inherit" display="block">Home</Link>
-            <Link href="#" color="inherit" display="block">Features</Link>
-            <Link href="#" color="inherit" display="block">Pricing</Link>
-            <Link href="#" color="inherit" display="block">About</Link>
-            <Link href="#" color="inherit" display="block">How to</Link>
-            <Link href="#" color="inherit" display="block">Gallery</Link>
+            <Link href="#" color="inherit" display="block">
+              Home
+            </Link>
+            <Link href="#" color="inherit" sx={{ mt: "10px" }} display="block">
+              Features
+            </Link>
+            <Link href="#" color="inherit" sx={{ mt: "10px" }} display="block">
+              Pricing
+            </Link>
+            <Link href="#" color="inherit" sx={{ mt: "10px" }} display="block">
+              About
+            </Link>
+            <Link href="#" color="inherit" sx={{ mt: "10px" }} display="block">
+              How to
+            </Link>
+            <Link href="#" color="inherit" sx={{ mt: "10px" }} display="block">
+              Gallery
+            </Link>
           </Grid>
           <Grid item xs={6} sm={3} md={2}>
             <Typography variant="subtitle1" color="text.primary" gutterBottom>
               Categories
             </Typography>
-            <Link href="#" color="inherit" display="block">Hair Care</Link>
-            <Link href="#" color="inherit" display="block">Skin Care</Link>
-            <Link href="#" color="inherit" display="block">Nails Care</Link>
-            <Link href="#" color="inherit" display="block">Body Care</Link>
-            <Link href="#" color="inherit" display="block">Bridal Service</Link>
+            <Link href="#" color="inherit" sx={{ mt: "10px" }} display="block">
+              Hair Care
+            </Link>
+            <Link href="#" color="inherit" sx={{ mt: "10px" }} display="block">
+              Skin Care
+            </Link>
+            <Link href="#" color="inherit" sx={{ mt: "10px" }} display="block">
+              Nails Care
+            </Link>
+            <Link href="#" color="inherit" sx={{ mt: "10px" }} display="block">
+              Body Care
+            </Link>
+            <Link href="#" color="inherit" sx={{ mt: "10px" }} display="block">
+              Bridal Service
+            </Link>
           </Grid>
           <Grid item xs={6} sm={3} md={2}>
             <Typography variant="subtitle1" color="text.primary" gutterBottom>
               Support
             </Typography>
-            <Link href="#" color="inherit" display="block">Contact</Link>
-            <Link href="#" color="inherit" display="block">privacy Policy</Link>
-            <Link href="#" color="inherit" display="block">Guides</Link>
+            <Link href="#" color="inherit" sx={{ mt: "10px" }} display="block">
+              Contact
+            </Link>
+            <Link href="#" color="inherit" sx={{ mt: "10px" }} display="block">
+              privacy Policy
+            </Link>
+            <Link href="#" color="inherit" sx={{ mt: "10px" }} display="block">
+              Guides
+            </Link>
           </Grid>
           <Grid item xs={6} sm={3} md={2}>
-            <Typography variant="subtitle1" color="text.primary" gutterBottom>
+            <Typography
+              variant="subtitle1"
+              sx={{ ml: "18px", fontWeight: "700" }}
+              color="text.primary"
+              gutterBottom
+            >
               SOCIAL MEDIA
             </Typography>
-            {/* <IconButton aria-label="Facebook" color="inherit" component="a" href={socialMediaLinks.facebook}>
-              <FacebookIcon />
-            </IconButton> */}
-            <IconButton aria-label="Twitter" color="inherit" component="a" href={socialMediaLinks.twitter}>
-              <TwitterIcon />
-            </IconButton>
-            <IconButton aria-label="Instagram" color="inherit" component="a" href={socialMediaLinks.instagram}>
-              <InstagramIcon />
-            </IconButton>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                width: "80px",
+              }}
+            >
+              <IconButton
+                aria-label="Facebook"
+                color="inherit"
+                component="a"
+                href={socialMediaLinks.facebook}
+                sx={{ "&:hover": { color: "#1877f2" } }} // Change color on hover
+              >
+                <FacebookIcon />
+              </IconButton>
+              <IconButton
+                aria-label="Twitter"
+                color="inherit"
+                component="a"
+                href={socialMediaLinks.twitter}
+                sx={{ "&:hover": { color: "#1da1f2" } }} // Change color on hover
+              >
+                <TwitterIcon />
+              </IconButton>
+              <IconButton
+                aria-label="Instagram"
+                color="inherit"
+                component="a"
+                href={socialMediaLinks.instagram}
+                sx={{ "&:hover": { color: "#c32aa3" } }} // Change color on hover
+              >
+                <InstagramIcon />
+              </IconButton>
+              <IconButton
+                aria-label="YouTube"
+                color="inherit"
+                component="a"
+                href={socialMediaLinks.youtube}
+                sx={{ "&:hover": { color: "#E72929" } }} // Change color on hover
+              >
+                <YouTubeIcon />
+              </IconButton>
+            </Box>
           </Grid>
         </Grid>
-        <Typography variant="body2" color="text.secondary" align="center" sx={{ pt: 4 }}>
-          © 2024 Salon LILLY
-        </Typography>
       </Container>
+      <Typography
+        variant="body2"
+        color="text.secondary"
+        align="center"
+        sx={{ pt: 4, fontSize: "15px" }}
+      >
+        © 2024 SALON LILLY
+      </Typography>
     </Box>
   );
 };

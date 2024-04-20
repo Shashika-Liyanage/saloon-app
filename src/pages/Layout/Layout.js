@@ -1,5 +1,5 @@
 import { Outlet, Link } from "react-router-dom";
-import React from "react";
+import React, { useState } from "react";
 import "./Layout.css"; //
 import { Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +10,7 @@ const Layout = () => {
   const login = () => {
     navigate("/login");
   };
+  const [isLoggedIn,setIsLoggedIn]=useState(true)
   const headerStyle = {
     height: "100px",
     color: "#fff",
@@ -63,6 +64,7 @@ const Layout = () => {
               <li>
                 <Link to="/tableshowing2">Temp Table2</Link>
               </li>
+              {isLoggedIn && (
               <li>
                 <Button
                   variant="outlined"
@@ -77,6 +79,7 @@ const Layout = () => {
                   Login
                 </Button>
               </li>
+              )}
             </ul>
           </nav>
         </Typography>
