@@ -1,25 +1,26 @@
 import { Outlet, Link } from "react-router-dom";
-import React from "react";
+import React, { useState } from "react";
 import "./Layout.css"; //
 import { Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-
+import Logo from "../../../src/Assets/Lillylogo.png";
 const Layout = () => {
   const navigate = useNavigate();
 
   const login = () => {
     navigate("/login");
   };
+  const [isLoggedIn,setIsLoggedIn]=useState(true)
   const headerStyle = {
-    height: "80px",
+    height: "100px",
     color: "#fff",
     display: "flex",
     alignItems: "center",
+    justifyContent: "space-between", // Align content to the left and right edges
     padding: "0 20px",
   };
 
   const salonNameStyle = {
-    marginRight: "auto",
     fontFamily: "Arial, sans-serif",
     fontWeight: "bold",
     fontSize: "15px",
@@ -27,16 +28,26 @@ const Layout = () => {
     textTransform: "uppercase",
   };
 
+  const navStyle = {
+    display: "flex",
+    alignItems: "center",
+  };
+
   return (
     <>
       <div style={headerStyle}>
+        <div>
+        <Link to="/dashboard">
+          <img className="img" width="30%" src={Logo} alt="image" />
+          </Link>
+        </div>
         <Typography
           variant="h6"
           sx={{ mt: "5px" }}
           component="h6"
           style={salonNameStyle}
         >
-          <nav className="horizontal-nav">
+          <nav className="horizontal-nav" style={navStyle}>
             <ul>
               <li>
                 <Link to="/dashboard">Dashboard</Link>
@@ -62,6 +73,7 @@ const Layout = () => {
               <li>
                 <Link to="/tableshowing5">Bridal</Link>
               </li>
+              {isLoggedIn && (
               <li>
                 <Button
                   variant="outlined"
@@ -76,11 +88,11 @@ const Layout = () => {
                   Login
                 </Button>
               </li>
+              )}
             </ul>
           </nav>
-
-          <Outlet />
         </Typography>
+        <Outlet />
       </div>
     </>
   );

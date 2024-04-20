@@ -47,7 +47,6 @@ const BookingPage = () => {
     if (res.ok) {
       //navigate("/dashboard");
       toast.success("Booking has been made");
-      
     } else {
       toast.error("Something went wrong");
     }
@@ -263,7 +262,8 @@ const BookingPage = () => {
                 onChange={data}
                 fullWidth
                 SelectProps={{
-                  native: true,
+                  native: true, // Keep native select enabled
+                  // Add padding to the native select
                 }}
                 sx={{ bgcolor: "white", fontWeight: "800" }}
               >
