@@ -4,13 +4,16 @@ import "./Layout.css"; //
 import { Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../../src/Assets/Lillylogo.png";
+
 const Layout = () => {
   const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Initialize isLoggedIn to false
 
   const login = () => {
     navigate("/login");
+  
   };
-  const [isLoggedIn,setIsLoggedIn]=useState(true)
+
   const headerStyle = {
     height: "100px",
     color: "#fff",
@@ -37,8 +40,8 @@ const Layout = () => {
     <>
       <div style={headerStyle}>
         <div>
-        <Link to="/dashboard">
-          <img className="img" width="30%" src={Logo} alt="image" />
+          <Link to="/dashboard">
+            <img className="img" width="30%" src={Logo} alt="image" />
           </Link>
         </div>
         <Typography
@@ -73,21 +76,27 @@ const Layout = () => {
               <li>
                 <Link to="/tableshowing5">Bridal</Link>
               </li>
-              {isLoggedIn && (
               <li>
-                <Button
-                  variant="outlined"
-                  sx={{
-                    borderRadius: "20px",
-                    fontWeight: "700",
-                    "&:hover": { backgroundColor: "#D20062", color: "#F8F6E3" },
-                    color: "black",
-                  }}
-                  onClick={login}
-                >
-                  Login
-                </Button>
+                <Link to="/admin">Temp Table2</Link>
               </li>
+              {isLoggedIn && ( 
+                <li>
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      borderRadius: "20px",
+                      fontWeight: "700",
+                      "&:hover": {
+                        backgroundColor: "#D20062",
+                        color: "#F8F6E3",
+                      },
+                      color: "black",
+                    }}
+                    onClick={login}
+                  >
+                    Login
+                  </Button>
+                </li>
               )}
             </ul>
           </nav>
