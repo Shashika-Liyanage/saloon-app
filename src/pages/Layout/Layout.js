@@ -62,10 +62,19 @@ const Layout = () => {
                 <Link to="/booking">BookingPage</Link>
               </li>
               <li>
-                <Link to="/tableshowing">Temp Table</Link>
+                <Link to="/tableshowing1">Hair</Link>
               </li>
               <li>
-                <Link to="/tableshowing2">Temp Table2</Link>
+                <Link to="/tableshowing2">Skin</Link>
+              </li>
+              <li>
+                <Link to="/tableshowing3">Nail</Link>
+              </li>
+              <li>
+                <Link to="/tableshowing4">Body</Link>
+              </li>
+              <li>
+                <Link to="/tableshowing5">Bridal</Link>
               </li>
               <li>
                 <Link to="/admin">Temp Table2</Link>
