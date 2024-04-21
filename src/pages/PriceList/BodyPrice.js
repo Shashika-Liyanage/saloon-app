@@ -8,6 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import "./priceList.css";
 import salonIcon from "../../../src/Assets/salonicon.jpg";
+import BodyImage from "../../../src/Assets/bodyImage.jpg";
 
 function createData(name: string, StandardPrice: number) {
   return { name, StandardPrice };
@@ -38,16 +39,18 @@ const rows2 = [
 export default function BasicTable() {
   return (
     <div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginBottom: "20px",
-        }}
-      >
-        <div style={{ width: "48%", paddingRight: "10px" }}>
-          {" "}
-          {/* Added borderRight and paddingRight */}
+      <div className="container">
+        <div className="image-boxB">
+          <img src={BodyImage} alt="body Image" className="body-image" />
+
+          <div className="BtextB">
+            <h2>Salon Lilly Body Prices</h2>
+          </div>
+        </div>
+      </div>
+
+      <div className="table">
+        <div className="table-wrapper">
           <TableContainer component={Paper}>
             <div style={{ display: "flex", alignItems: "center" }}>
               <img src={salonIcon} alt="Salon Icon" className="icon" />
