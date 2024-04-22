@@ -1,19 +1,25 @@
 import { Outlet, Link } from "react-router-dom";
 import React, { useState } from "react";
 import "./Layout.css"; //
-import { Button, Typography } from "@mui/material";
+import { Button, Menu, MenuItem, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../../src/Assets/Lillylogo.png";
-
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 const Layout = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Initialize isLoggedIn to false
 
   const login = () => {
     navigate("/login");
-  
   };
-
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   const headerStyle = {
     height: "100px",
     color: "#fff",
@@ -31,11 +37,6 @@ const Layout = () => {
     textTransform: "uppercase",
   };
 
-  const navStyle = {
-    display: "flex",
-    alignItems: "center",
-  };
-
   return (
     <>
       <div style={headerStyle}>
@@ -50,16 +51,16 @@ const Layout = () => {
           component="h6"
           style={salonNameStyle}
         >
-          <nav className="horizontal-nav" style={navStyle}>
+          <nav className="horizontal-nav">
             <ul>
               <li>
                 <Link to="/dashboard">Dashboard</Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="/home">Home</Link>
-              </li>
+              </li> */}
               <li>
-                <Link to="/booking">BookingPage</Link>
+                <Link to="/booking">Booking</Link>
               </li>
               <li>
                 <Link to="/tableshowing1">Hair</Link>
@@ -76,10 +77,10 @@ const Layout = () => {
               <li>
                 <Link to="/tableshowing5">Bridal</Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="/admin">Temp Table2</Link>
-              </li>
-              {isLoggedIn && ( 
+              </li> */}
+              {/* {!isLoggedIn && (
                 <li>
                   <Button
                     variant="outlined"
@@ -94,10 +95,36 @@ const Layout = () => {
                     }}
                     onClick={login}
                   >
-                    Login
+                    <AccountCircleIcon sx={{ marginRight: "5px", }} />{" "}
+           
+                    Login 
                   </Button>
                 </li>
-              )}
+              )} */}
+              <div>
+                <Button
+                  id="basic-button"
+                  aria-controls={open ? "basic-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? "true" : undefined}
+                  onClick={handleClick}
+                >
+                  Dashboard
+                </Button>
+                <Menu
+                  id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    "aria-labelledby": "basic-button",
+                  }}
+                >
+                  <MenuItem onClick={handleClose}>Profile</MenuItem>
+                  <MenuItem onClick={handleClose}>My account</MenuItem>
+                  <MenuItem onClick={handleClose}>Logout</MenuItem>
+                </Menu>
+              </div>
             </ul>
           </nav>
         </Typography>
