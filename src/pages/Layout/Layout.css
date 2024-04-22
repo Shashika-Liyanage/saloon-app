@@ -12,6 +12,7 @@
 
 .horizontal-nav ul li {
   margin-left: 20px; /* Adjust spacing between links */
+
 }
 
 .horizontal-nav ul li:first-child {
@@ -19,7 +20,7 @@
 }
 
 .horizontal-nav ul li a {
-  text-decoration: none;
+  text-decoration: dotted;
 }
 
 /* Style for the Login link */

@@ -44,9 +44,17 @@ const BookingPage = () => {
       options
     );
     console.log(res);
+
     if (res.ok) {
-      //navigate("/dashboard");
-      toast.success("Booking has been made");
+      
+      toast.success("Booking confirmed");
+    setTimeout(()=>{
+      toast.success("You're being redirected to the Dashboard!!!!!! ");
+      setTimeout(()=>{
+        navigate("/dashboard");
+      },3000)
+    },1000)
+  
     } else {
       toast.error("Something went wrong");
     }
@@ -86,7 +94,7 @@ const BookingPage = () => {
     // otherwise, continue with the rest of your logic
     // ...
   };
-
+  //
   return (
     <Box
       sx={{
