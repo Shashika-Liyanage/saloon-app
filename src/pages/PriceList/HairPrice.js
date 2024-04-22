@@ -82,9 +82,9 @@ export default function BasicTable() {
   return (
     <div>
       <div className="container">
-        <div className="image-box">
-          <img src={HairImage} alt="Hair Image" className="image" />
-          <div className="Btext">
+        <div className="image-boxH">
+          <img src={HairImage} alt="Hair Image" className="imageH" />
+          <div className="BtextH">
             <h2>Salon Lilly Hair Prices</h2>
           </div>
         </div>
@@ -94,8 +94,8 @@ export default function BasicTable() {
         <div className="table-wrapper">
           <TableContainer component={Paper}>
             <div style={{ display: "flex", alignItems: "center" }}>
-              <img src={salonIcon} alt="Salon Icon" className="icon" />
-              <h2 className="heading">HAIR CUT</h2>
+              <img src={salonIcon} alt="Salon Icon" className="icon" style={{ color: "#BC7FCD" }}/>
+              <h2 className="headingH">HAIR CUT</h2>
             </div>
 
             <Table sx={{ minWidth: 500 }} aria-label="simple table">
@@ -130,7 +130,7 @@ export default function BasicTable() {
           <TableContainer component={Paper}>
             <div style={{ display: "flex", alignItems: "center" }}>
               <img src={salonIcon} alt="Salon Icon" className="icon" />
-              <h2 className="heading">HAIR COLORING</h2>
+              <h2 className="headingH">HAIR COLORING</h2>
             </div>
 
             <Table sx={{ minWidth: 500 }} aria-label="simple table">
@@ -169,7 +169,7 @@ export default function BasicTable() {
           <TableContainer component={Paper}>
             <div style={{ display: "flex", alignItems: "center" }}>
               <img src={salonIcon} alt="Salon Icon" className="icon" />
-              <h2 className="heading">HAIR TREATMENT</h2>
+              <h2 className="headingH">HAIR TREATMENT</h2>
             </div>
 
             <Table sx={{ minWidth: 500 }} aria-label="simple table">
@@ -204,7 +204,7 @@ export default function BasicTable() {
           <TableContainer component={Paper}>
             <div style={{ display: "flex", alignItems: "center" }}>
               <img src={salonIcon} alt="Salon Icon" className="icon" />
-              <h2 className="heading">HAIR SPA</h2>
+              <h2 className="headingH">HAIR SPA</h2>
             </div>
             <Table sx={{ minWidth: 500 }} aria-label="simple table">
               <TableHead>

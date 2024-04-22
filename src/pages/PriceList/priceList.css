@@ -1,10 +1,17 @@
 .highlighted {
     color: #FF69B4; 
   }
-  
-  .heading {
+  .headingH {
+    color: #BC7FCD;
+  }
+  .headingS {
     color: #FF69B4;
   }
+  .headingN {
+    color: #D875C7;
+  }
+  
+
   .table {
     display: flex;
     justify-content: space-evenly;
@@ -28,6 +35,80 @@
     align-items: center;
     flex-direction: column; /* Align items vertically */
   }
+
+
+  .imageH {
+    width: 25%;
+    max-width: 55%;
+    display: block;
+    border-radius: 55px;
+  }
+  .BtextH {
+    position: absolute;
+    font-size: 28px;
+    font-family: cursive;
+    top: 35%;
+    left: 60%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  .image-boxH {
+    width: 75%;
+    margin-bottom: 10px;
+    background-color: #BC7FCD;
+    border-radius: 55px;
+  }
+
+
+  .imageS {
+    width: 25%;
+    max-width: 55%;
+    display: block;
+    border-radius: 55px;
+  }
+  
+  .BtextS {
+    position: absolute;
+    font-size: 28px;
+    font-family: cursive;
+    top: 35%;
+    left: 60%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  
+  .image-boxS {
+    width: 75%;
+    margin-bottom: 10px;
+    background-color: #FF69B4; 
+    border-radius: 55px;
+  }
+  
+
+.image-boxN {
+  width: 75%;
+  margin-bottom: 10px;
+  background-color: #BC7FCD; /* Match background color with hair interface */
+  border-radius: 55px;
+}
+
+.imageN {
+  width: 25%;
+  max-width: 55%;
+  display: block;
+  border-radius: 55px;
+}
+
+.BtextN {
+  position: absolute;
+  font-size: 28px;
+  font-family: cursive;
+  top: 35%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
  
   .nail-image {
     width: 35%;
@@ -57,13 +138,13 @@
   }
 
 
-  .image {
+  .imageH {
     width: 25%;
     max-width: 55%;
     display: block;
     border-radius: 55px;
   }
-  .Btext {
+  .BtextH {
     position: absolute;
     font-size: 28px;
     font-family: cursive;
@@ -72,10 +153,10 @@
     transform: translate(-50%, -50%);
     text-align: center;
   }
-  .image-box {
+  .image-boxH {
     width: 75%;
     margin-bottom: 10px;
-    background-color: #FF6699;
+    background-color: #BC7FCD;
     border-radius: 55px;
   }
 

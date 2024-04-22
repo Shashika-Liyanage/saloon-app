@@ -33,50 +33,49 @@ const rows = [
 export default function BasicTable() {
   return (
     <div>
-    <div className="container">
-        <div className="image-box">
-        <img src={SkinImage} alt="Skin Image" className="image" />
-
-          <div className="Btext"><h2>Salon Lilly Skin Prices</h2></div>
+      <div className="container">
+        <div className="image-boxS">
+          <img src={SkinImage} alt="Skin Image" className="imageS" />
+          <div className="BtextS">
+            <h2>Salon Lilly Skin Prices</h2>
+          </div>
         </div>
-        </div>
-    <div className="table">
-      <div className="table-wrapper">
-      <TableContainer component={Paper}>
-
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <img src={salonIcon} alt="Salon Icon" className="icon" />
-          <h2 className="heading">CLEAN UP | FACIAL | THREADING</h2>
-        </div>
-
-        <Table sx={{ minWidth: 500 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>
-                <b>Type</b>
-              </TableCell>
-              <TableCell align="right">
-                <b>Standard Price(Rs)</b>
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <TableRow
-                key={row.name}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="right">{row.StandardPrice}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
       </div>
-    </div>
+      <div className="table">
+        <div className="table-wrapper">
+          <TableContainer component={Paper}>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <img src={salonIcon} alt="Salon Icon" className="icon" />
+              <h2 className="headingS">CLEAN UP | FACIAL | THREADING</h2>
+            </div>
+            <Table sx={{ minWidth: 500 }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>
+                    <b>Type</b>
+                  </TableCell>
+                  <TableCell align="right">
+                    <b>Standard Price(Rs)</b>
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows.map((row) => (
+                  <TableRow
+                    key={row.name}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row">
+                      {row.name}
+                    </TableCell>
+                    <TableCell align="right">{row.StandardPrice}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </div>
+      </div>
     </div>
   );
 }
