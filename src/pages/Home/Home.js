@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { auth } from "../../services/firebaseConfig";
 import toast, { Toaster } from "react-hot-toast";
 import { Avatar, Button, Grid } from "@mui/material";
-
+import bg from "../../Assets/salonBg.jpg";
 const Home = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
@@ -23,21 +23,6 @@ const Home = () => {
     };
   }, []);
 
-  const handleLogout = () => {
-    signOut(auth)
-      .then(() => {
-        // Sign-out successful.
-        navigate("/login");
-
-        // Show toast notification
-        toast.success("Logged out successfully.");
-      })
-      .catch((error) => {
-        // An error happened.
-
-        toast.error("Error logging out. Please try again.");
-      });
-  };
   // Function to generate a random color based on user data
   const generateRandomColor = (data) => {
     const hash = data.split("").reduce((acc, char) => {
@@ -62,8 +47,19 @@ const Home = () => {
   };
   return (
     <>
-      <Grid container alignItems="center" justifyContent="center">
-        <Avatar
+      {/* <img className="img" width="auto" height="500px" src={bg} alt="image" /> */}
+      <div
+        style={{
+          position: "flex-start",
+          textAlign: "flex-start",
+          backgroundColor: "#D20065",
+          borderBottomLeftRadius: "250px",
+          borderBottomRightRadius: "250px",
+          overflow: "hidden",
+        }}
+        
+      >
+          <Avatar
           alt={user ? getFirstLetter(getFirstNameFromEmail(user.email)) : ""}
           src="/static/images/avatar/1.jpg"
           sx={{
@@ -73,17 +69,17 @@ const Home = () => {
             backgroundColor: avatarColor,
           }}
         />
-      </Grid>
+ 
 
-      <Grid container alignItems="center" justifyContent="center">
-        <Grid alignText="center">
+
+    
           <h1 style={{ color: "#824D74" }}>Hello </h1>
           <div
             style={{ display: "block", color: "#824D74", fontWeight: "bold" }}
           >
             {user && <h1>{getFirstNameFromEmail(user.email)}</h1>}
           </div>
-          <div>
+          {/* <div>
             <Button
               sx={{ alignContent: "center" }}
               variant="contained"
@@ -92,9 +88,27 @@ const Home = () => {
               Log out
             </Button>
             <Toaster position="top-right" />
-          </div>
-        </Grid>
-      </Grid>
+          </div> */}
+
+        {" "}
+        {/* Add background color */}
+        <img
+          className="img"
+          width="50%"
+          height="auto"
+          alignItems="left"
+          src={bg}
+          alt="image"
+          style={{
+            borderBottomLeftRadius: "50px",
+            borderBottomRightRadius: "280px",
+          }}
+        />
+        
+        </div>
+
+      
+  
     </>
   );
 };
