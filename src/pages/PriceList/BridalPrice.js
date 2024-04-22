@@ -8,6 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import "./priceList.css";
 import salonIcon from "../../../src/Assets/salonicon.jpg";
+import BridalImage from "../../../src/Assets/bridalImage.png";
 
 function createData(name: string, StandardPrice: number) {
   return { name, StandardPrice };
@@ -27,20 +28,24 @@ const rows1 = [
 export default function BasicTable() {
   return (
     <div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginBottom: "20px",
-        }}
-      >
-        <div style={{ width: "48%", paddingRight: "10px" }}>
+      <div className="container">
+        <div className="image-boxBr">
+          <img src={BridalImage} alt="bridal Image" className="image" />
+
+          <div className="BtextBr">
+            <h2>Salon Lilly Bridal Prices</h2>
+          </div>
+        </div>
+      </div>
+
+      <div className="table">
+        <div className="table-wrapper">
           <TableContainer component={Paper}>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div style={{ display: "flex", alignItems: "center" }}>
               <img src={salonIcon} alt="Salon Icon" className="icon" />
               <h2 className="heading">DRESSING</h2>
             </div>
-           
+
             <Table sx={{ minWidth: 500 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
@@ -67,7 +72,13 @@ export default function BasicTable() {
               </TableBody>
             </Table>
 
-            <div style={{ display: 'flex', alignItems: 'center', marginTop: "10px" }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginTop: "10px",
+              }}
+            >
               <img src={salonIcon} alt="Salon Icon" className="icon" />
               <h3 style={{ color: "#FF69B4", marginLeft: "10px" }}>
                 BRIDAL - Please Contact +94 778512478 More details

@@ -8,6 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import "./priceList.css";
 import salonIcon from "../../../src/Assets/salonicon.jpg";
+import NailImage from "../../../src/Assets/nailImageN.jpg";
 
 function createData(name: string, StandardPrice: number) {
   return { name, StandardPrice };
@@ -45,16 +46,16 @@ const rows3 = [
 export default function BasicTable() {
   return (
     <div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginBottom: "20px",
-        }}
-      >
-        <div style={{ width: "48%", paddingRight: "10px" }}>
-          {" "}
-          {/* Added borderRight and paddingRight */}
+       <div className="container">
+        <div className="image-boxN">
+        <img src={NailImage} alt="Nail Image" className="nail-image" />
+
+          <div className="BtextN"><h2>Salon Lilly Nail Prices</h2></div>
+        </div>
+        </div>
+
+      <div className="table">
+        <div className="table-wrapper">
           <TableContainer component={Paper}>
             <div style={{ display: "flex", alignItems: "center" }}>
               <img src={salonIcon} alt="Salon Icon" className="icon" />
@@ -125,16 +126,8 @@ export default function BasicTable() {
         </div>
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginBottom: "20px",
-        }}
-      >
-        <div style={{ width: "48%", paddingRight: "10px" }}>
-          {" "}
-          {/* Added borderRight and paddingRight */}
+      <div className="table">
+        <div className="table-wrapper">
           <TableContainer component={Paper}>
             <div style={{ display: "flex", alignItems: "center" }}>
               <img src={salonIcon} alt="Salon Icon" className="icon" />
