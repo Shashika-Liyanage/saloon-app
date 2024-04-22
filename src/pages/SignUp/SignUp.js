@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   CardContent,
@@ -157,16 +157,7 @@ const SignUp = () => {
                 sx={{ bgcolor: "white" }}
               />
             </Grid>
-            <Grid item xs={6}>
-              {/* <TextField
-                required
-                label="Confirm Password"
-                variant="outlined"
-                fullWidth
-                type="password"
-                sx={{ bgcolor: "white" }}
-              /> */}
-            </Grid>
+       
           </Grid>
 
           <Grid item>
