@@ -18,6 +18,7 @@ import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import GoogleIconButton from "../../Components/GoogleButton";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
+
 const Login = () => {
   // State variables to store username and password
   const [credentials, setCredentials] = useState({
@@ -33,6 +34,7 @@ const Login = () => {
       console.log("Google sign-in success:", result);
       toast.success("Logged in successfully.");
       // Redirect user to dashboard page after successful sign-in
+   
       window.location.href = "/dashboard";
     } catch (error) {
       console.error("Google sign-in error:", error.message);
