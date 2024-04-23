@@ -1,24 +1,48 @@
 import { Outlet, Link } from "react-router-dom";
 import React, { useState } from "react";
 import "./Layout.css"; //
-import { Button, Menu, MenuItem, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Menu, MenuItem, Typography } from "@mui/material";
 import Logo from "../../../src/Assets/Lillylogo.png";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { auth } from "../../services/firebaseConfig";
+import toast, { Toaster } from "react-hot-toast";
+import { Avatar, Button, Grid } from "@mui/material";
+import instaicn from "../../Assets/instaicn.png";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 const Layout = () => {
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Initialize isLoggedIn to false
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Initially not logged in
+  const [anchorEl, setAnchorEl] = useState(null); // State for menu anchor
 
   const login = () => {
     navigate("/login");
   };
-  const [anchorEl, setAnchorEl] = React.useState(null);
+
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const openProfile = () => {
+    navigate("/home");
+  };
+  const handleLogout = () => {
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+        navigate("/login");
+
+        // Show toast notification
+        toast.success("You have been logged out successfully..");
+      })
+      .catch((error) => {
+        // An error happened.
+
+        toast.error("Error logging out. Please try again.");
+      });
   };
   const headerStyle = {
     height: "100px",
@@ -95,36 +119,49 @@ const Layout = () => {
                     }}
                     onClick={login}
                   >
-                    <AccountCircleIcon sx={{ marginRight: "5px", }} />{" "}
+                   
            
                     Login 
                   </Button>
                 </li>
               )} */}
-              <div>
-                <Button
-                  id="basic-button"
-                  aria-controls={open ? "basic-menu" : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={open ? "true" : undefined}
-                  onClick={handleClick}
-                >
-                  Dashboard
-                </Button>
-                <Menu
-                  id="basic-menu"
-                  anchorEl={anchorEl}
-                  open={open}
-                  onClose={handleClose}
-                  MenuListProps={{
-                    "aria-labelledby": "basic-button",
-                  }}
-                >
-                  <MenuItem onClick={handleClose}>Profile</MenuItem>
-                  <MenuItem onClick={handleClose}>My account</MenuItem>
-                  <MenuItem onClick={handleClose}>Logout</MenuItem>
-                </Menu>
-              </div>
+              {!isLoggedIn && (
+                <>
+                  <AccountCircleOutlinedIcon
+                    id="basic-button"
+                    variant="contained"
+                    aria-controls={open ? "basic-menu" : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? "true" : undefined}
+                    onClick={handleClick}
+                    sx={{
+                      fontSize: "40px",
+                      mb: "20px",
+                      ml: "20px",
+                      fontWeight: "700",
+                      "&:hover": {
+                        backgroundColor: "#D20062",
+                        color: "#F8F6E3",
+                      },
+                      color: "black",
+                    }}
+                  ></AccountCircleOutlinedIcon>
+
+                  <Menu
+                    id="basic-menu"
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    MenuListProps={{
+                      "aria-labelledby": "basic-button",
+                    }}
+                  >
+                    <MenuItem onClick={openProfile}>Profile</MenuItem>
+
+                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                  </Menu>
+                </>
+              )}
             </ul>
           </nav>
         </Typography>
