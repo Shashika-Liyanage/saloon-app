@@ -15,6 +15,8 @@ import NailPrice from "./pages/PriceList/NailPrice";
 import Bodyprice from "./pages/PriceList/BodyPrice";
 import BridalPrice from "./pages/PriceList/BridalPrice";
 import CheckOut from "./pages/CheckOut/CheckOut";
+import BookingDetails from "./pages/Booking/BookingDetails";
+import PaymentDetails from "./pages/Payment/PaymentDetails";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -34,6 +36,8 @@ ReactDOM.render(
         <Route path="tableshowing4" element={<Bodyprice />} />
         <Route path="tableshowing5" element={<BridalPrice />} />
         <Route path="checkout" element={<CheckOut />} />
+        <Route path="bookingdetails" element={< BookingDetails/>} />
+        <Route path="paymentdetails" element={< PaymentDetails/>} />
         <Route path="*" element={<NoPage />} />
         {/* </Route> */}
       </Routes>
