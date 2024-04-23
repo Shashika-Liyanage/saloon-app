@@ -1,81 +1,116 @@
-import { Button, TextField } from "@mui/material";
-import React, { useState } from "react";
-
+import { Grid, TextField } from "@mui/material";
+import React from "react";
+import Image2 from "../../../src/Assets/debitCard.jpg";
+import Image3 from "../../../src/Assets/debitCardBack.jpg";
+import CardLogo from "../../../src/Assets/cardLogos.png";
+import OrderSummary from "../Order Summary/OrderSummary";
 const PaymentDetails = () => {
-  const [cardNumber, setCardNumber] = useState("");
-  const [expiry, setExpiry] = useState("");
-  const [cvv, setCvv] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    // Validation: Ensure all fields are filled
-    if (!cardNumber || !expiry || !cvv) {
-      setErrorMessage("Please fill in all fields.");
-      return;
-    }
-
-    // Validation: Ensure card number is a valid format
-    const cardNumberRegex = /^\d{16}$/;
-    if (!cardNumberRegex.test(cardNumber)) {
-      setErrorMessage("Please enter a valid card number.");
-      return;
-    }
-
-    // Validation: Ensure expiry date is in MM/YY format
-    const expiryRegex = /^(0[1-9]|1[0-2])\/?([0-9]{2})$/;
-    if (!expiryRegex.test(expiry)) {
-      setErrorMessage("Please enter a valid expiry date in MM/YY format.");
-      return;
-    }
-
-    // Validation: Ensure CVV is a 3-digit number
-    const cvvRegex = /^\d{3}$/;
-    if (!cvvRegex.test(cvv)) {
-      setErrorMessage("Please enter a valid CVV.");
-      return;
-    }
-
-    // If validation passes, proceed with payment processing
-    console.log("Card Number:", cardNumber);
-    console.log("Expiry:", expiry);
-    console.log("CVV:", cvv);
-    // Reset error message after successful submission
-    setErrorMessage("");
-  };
-
   return (
-    <form onSubmit={handleSubmit}>
-   
-      <TextField
-        type="text"
-        label="Card Number"
-        value={cardNumber}
-        onChange={(e) => setCardNumber(e.target.value)}
-        required
-      />
-      
-      <TextField
-        label="Expiry"
-        type="text"
-        value={expiry}
-        onChange={(e) => setExpiry(e.target.value)}
-        placeholder="MM/YY"
-        required
-      />
-      <TextField
-        label="CVV"
-        type="text"
-        value={cvv}
-        onChange={(e) => setCvv(e.target.value)}
-        required
-      />
-      <Button variant="contained" color="success" type="submit">
-        Pay
-      </Button>
-      {errorMessage && <div>{errorMessage}</div>}
-    </form>
+    <>
+      <Grid container spacing={3} sx={{ ml: "50px", mt: "25px" }}>
+        <img
+          className="img"
+          width="23%"
+          height="auto"
+          alignItems="left"
+          src={Image2}
+          alt="image"
+        />
+        <img
+          className="img"
+          width="23%"
+          height="auto"
+          alignItems="left"
+          src={Image3}
+          alt="image"
+        />
+       
+        <OrderSummary/>
+  
+      </Grid>
+      <Grid
+        container
+        spacing={3}
+        justifyContent={"left"}
+        sx={{ mt: "5px", ml: "10px" }}
+      >
+        <Grid item xs={6}>
+          <TextField
+            id="Name_on_Card"
+            name="Name on Card"
+            label="Name on Card"
+            variant="outlined"
+            fullWidth
+            sx={{ bgcolor: "white" }}
+          />
+        </Grid>
+      </Grid>
+      <Grid
+        container
+        spacing={3}
+        justifyContent={"left"}
+        sx={{ mt: "5px", ml: "10px" }}
+      >
+        <Grid item xs={6}>
+          <TextField
+            id="Card_Number"
+            required
+            name="Card Number"
+            label="Card Number"
+            variant="outlined"
+            fullWidth
+            sx={{ bgcolor: "white" }}
+          />
+        </Grid>
+      </Grid>
+      <Grid
+        container
+        spacing={3}
+        justifyContent={"left"}
+        sx={{ mt: "5px", ml: "10px" }}
+      >
+        <Grid item xs={2}>
+          <TextField
+            id="Month"
+            required
+            name="Month"
+            label="Month"
+            variant="outlined"
+            fullWidth
+            sx={{ bgcolor: "white" }}
+          />
+        </Grid>
+        <Grid item xs={2}>
+          <TextField
+            id="Year"
+            required
+            name="Year"
+            label="Year"
+            variant="outlined"
+            fullWidth
+            sx={{ bgcolor: "white" }}
+          />
+        </Grid>
+        <Grid item xs={2}>
+          <TextField
+            id="CVC"
+            required
+            name="CVC"
+            label="CVC"
+            variant="outlined"
+            fullWidth
+            sx={{ bgcolor: "white" }}
+          />
+          <img
+            className="img"
+            width="83%"
+            alignItems="right"
+            src={CardLogo}
+            alt="image"
+          />
+        </Grid>
+      </Grid>
+    </>
   );
 };
 
