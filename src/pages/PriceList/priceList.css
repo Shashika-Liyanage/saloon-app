@@ -82,49 +82,15 @@
     margin-bottom: 10px;
     background-color: #FF69B4; 
     border-radius: 55px;
+    height: 60%;
   }
   
-
-.image-boxN {
-  width: 75%;
-  margin-bottom: 10px;
-  background-color: #BC7FCD; /* Match background color with hair interface */
-  border-radius: 55px;
-}
-
-.imageN {
-  width: 25%;
-  max-width: 55%;
-  display: block;
-  border-radius: 55px;
-}
-
-.BtextN {
-  position: absolute;
-  font-size: 28px;
-  font-family: cursive;
-  top: 35%;
-  left: 60%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
-
- 
-  .nail-image {
-    width: 35%;
-    max-width: 45%;
+  
+  .imageN {
+    width: 25%;
+    max-width: 55%;
     display: block;
-    margin-bottom: 0px; /* Adjust as needed */
-    margin-top: 0px;
-    border-radius: 55px;
-    
-  }
-  .image-boxN {
-    width: 70%;
-    height: 40%;
-    margin-bottom: 10px;
-    background-color: #FF6699;
-    border-radius: 55px;
+    border-radius: 50px;
   }
   
   .BtextN {
@@ -136,15 +102,23 @@
     transform: translate(-50%, -50%);
     text-align: center;
   }
+  
+  .image-boxN {
+    width: 75%;
+    margin-bottom: 10px;
+    background-color: #FF69B4; 
+    border-radius: 55px;
+  }
 
 
-  .imageH {
+  .imageB {
     width: 25%;
     max-width: 55%;
     display: block;
     border-radius: 55px;
   }
-  .BtextH {
+  
+  .BtextB {
     position: absolute;
     font-size: 28px;
     font-family: cursive;
@@ -153,48 +127,36 @@
     transform: translate(-50%, -50%);
     text-align: center;
   }
-  .image-boxH {
+  
+  .image-boxB {
     width: 75%;
     margin-bottom: 10px;
-    background-color: #BC7FCD;
+    background-color: #FF69B4; 
     border-radius: 55px;
   }
 
-  .body-image {
+
+  
+  .imageBr {
     width: 25%;
     max-width: 55%;
     display: block;
     border-radius: 55px;
-    
-  }
-  .image-boxB {
-    width: 75%;
-    margin-bottom: 10px;
-    background-color: #FF6699;
-    border-radius: 55px;
   }
   
-  .BtextB {
-    position: absolute;
-    font-size: 28px;
-    font-family: cursive;
-    top: 28%;
-    left: 60%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-  }
-  .image-boxBr {
-    width: 85%;
-    margin-bottom: 10px;
-    background-color: #FF6699;
-    border-radius: 55px;
-  }
   .BtextBr {
     position: absolute;
     font-size: 28px;
     font-family: cursive;
-    top: 25%;
+    top: 30%;
     left: 60%;
     transform: translate(-50%, -50%);
     text-align: center;
+  }
+  
+  .image-boxBr {
+    width: 75%;
+    margin-bottom: 10px;
+    background-color: #FF69B4; 
+    border-radius: 55px;
   }

@@ -8,7 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import "./priceList.css";
 import salonIcon from "../../../src/Assets/salonicon.jpg";
-import SkinImage from "../../../src/Assets/skinImage.jpg";
+import SkinImage from "../../../src/Assets/skinImage1.png";
 
 function createData(name: string, StandardPrice: number) {
   return { name, StandardPrice };
