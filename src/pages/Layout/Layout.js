@@ -44,6 +44,9 @@ const Layout = () => {
         toast.error("Error logging out. Please try again.");
       });
   };
+  const disableLogout =()=>{
+    
+  }
   const headerStyle = {
     height: "100px",
     color: "#fff",
