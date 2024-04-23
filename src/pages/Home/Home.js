@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { signOut } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../services/firebaseConfig";
 import toast, { Toaster } from "react-hot-toast";
 import { Avatar, Button, Grid } from "@mui/material";
 import bg from "../../Assets/salonBg.jpg";
+import Image2 from "../../../src/Assets/Welcome.png";
 const Home = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
@@ -39,8 +40,18 @@ const Home = () => {
   };
   // Function to extract first part of the email address before the "@"
   const getFirstNameFromEmail = (email) => {
-    return email.split("@")[0];
+    // Use a regular expression to match only alphanumeric characters before the "@" symbol
+    const cleanEmail = email.match(/^[a-zA-Z]+/);
+    // Check if cleanEmail is not null
+    if (cleanEmail) {
+      // Return the matched alphanumeric characters
+      return cleanEmail[0];
+    } else {
+      // Return an empty string if no match is found
+      return "";
+    }
   };
+
   // Function to get the first letter of the first name
   const getFirstLetter = (name) => {
     return name.charAt(0).toUpperCase();
@@ -57,44 +68,12 @@ const Home = () => {
           borderBottomRightRadius: "250px",
           overflow: "hidden",
         }}
-        
       >
-          <Avatar
-          alt={user ? getFirstLetter(getFirstNameFromEmail(user.email)) : ""}
-          src="/static/images/avatar/1.jpg"
-          sx={{
-            width: 156,
-            height: 156,
-            fontSize: "90px",
-            backgroundColor: avatarColor,
-          }}
-        />
- 
-
-
-    
-          <h1 style={{ color: "#824D74" }}>Hello </h1>
-          <div
-            style={{ display: "block", color: "#824D74", fontWeight: "bold" }}
-          >
-            {user && <h1>{getFirstNameFromEmail(user.email)}</h1>}
-          </div>
-          {/* <div>
-            <Button
-              sx={{ alignContent: "center" }}
-              variant="contained"
-              onClick={handleLogout}
-            >
-              Log out
-            </Button>
-            <Toaster position="top-right" />
-          </div> */}
-
         {" "}
         {/* Add background color */}
         <img
           className="img"
-          width="50%"
+          width="30%"
           height="auto"
           alignItems="left"
           src={bg}
@@ -104,11 +83,34 @@ const Home = () => {
             borderBottomRightRadius: "280px",
           }}
         />
-        
+        <div
+          style={{
+            position: "fixed",
+            top: "150px",
+            left: "70%",
+            transform: "translateX(-50%)",
+            display: "flex",
+            alignItems: "center", // Center items vertically
+            fontSize: "56px",
+            fontWeight: "700",
+            color: "#fff",
+          }}
+        >
+          <span>Hello</span> {/* "Hello" text */}
+          <span
+            role="img"
+            aria-label="wave"
+            style={{ fontSize: "56px", marginLeft: "20px" }} // Adjust spacing between "Hello" and emoji
+          >
+            👋
+          </span>
+          {user && (
+            <h4 style={{ marginLeft: "10px" }}>
+              {getFirstNameFromEmail(user.email)}
+            </h4>
+          )}
         </div>
-
-      
-  
+      </div>
     </>
   );
 };
