@@ -1,15 +1,13 @@
 import { Outlet, Link } from "react-router-dom";
 import React, { useState } from "react";
 import "./Layout.css"; //
-import { Menu, MenuItem, Typography } from "@mui/material";
+import { Button, Menu, MenuItem, Typography } from "@mui/material";
 import Logo from "../../../src/Assets/Lillylogo.png";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../services/firebaseConfig";
 import toast, { Toaster } from "react-hot-toast";
-import { Avatar, Button, Grid } from "@mui/material";
-import instaicn from "../../Assets/instaicn.png";
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import femaleAvatar from "../../Assets/female_Avatar.png";
 const Layout = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Initially not logged in
@@ -44,9 +42,7 @@ const Layout = () => {
         toast.error("Error logging out. Please try again.");
       });
   };
-  const disableLogout =()=>{
-    
-  }
+  const disableLogout = () => {};
   const headerStyle = {
     height: "100px",
     color: "#fff",
@@ -81,74 +77,61 @@ const Layout = () => {
           <nav className="horizontal-nav">
             <ul>
               <li>
-                <Link to="/dashboard">Dashboard</Link>
+                <Link to="/Dashboard">Dashboard</Link>
               </li>
               {/* <li>
                 <Link to="/home">Home</Link>
               </li> */}
               <li>
-                <Link to="/booking">Booking</Link>
+                <Link to="/Booking">Booking</Link>
               </li>
               <li>
-                <Link to="/tableshowing1">Hair</Link>
+                <Link to="/HairPrices">Hair</Link>
               </li>
               <li>
-                <Link to="/tableshowing2">Skin</Link>
+                <Link to="/SkinPrices">Skin</Link>
               </li>
               <li>
-                <Link to="/tableshowing3">Nail</Link>
+                <Link to="/NailPrices">Nail</Link>
               </li>
               <li>
-                <Link to="/tableshowing4">Body</Link>
+                <Link to="/BodyPrices">Body</Link>
               </li>
               <li>
-                <Link to="/tableshowing5">Bridal</Link>
+                <Link to="/BridalPrices">Bridal</Link>
               </li>
-              {/* <li>
-                <Link to="/admin">Temp Table2</Link>
-              </li> */}
-              {/* {!isLoggedIn && (
-                <li>
-                  <Button
-                    variant="outlined"
-                    sx={{
-                      borderRadius: "20px",
-                      fontWeight: "700",
-                      "&:hover": {
-                        backgroundColor: "#D20062",
-                        color: "#F8F6E3",
-                      },
-                      color: "black",
-                    }}
-                    onClick={login}
-                  >
-                   
-           
-                    Login 
-                  </Button>
-                </li>
-              )} */}
               {!isLoggedIn && (
                 <>
-                  <AccountCircleOutlinedIcon
+                  <button
                     id="basic-button"
-                    variant="contained"
+                    variant="contained" // Assuming you're using Material UI
                     aria-controls={open ? "basic-menu" : undefined}
                     aria-haspopup="true"
                     aria-expanded={open ? "true" : undefined}
                     onClick={handleClick}
-                    sx={{
-                      fontSize: "40px",
-                      mb: "20px",
-                      ml: "20px",
-                      fontWeight: "700",
-                      "&:hover": {
-                        backgroundColor: "#D20062",
-                        color: "#F8F6E3",
-                      },
-                      color: "black",
+                    style={{
+                      backgroundColor: "#fff", // Adjust background color if desired
+                      border: "4px solid #ccc", // Add border if needed
+                      borderRadius: "20px", // Add border radius if desired
+                      padding: "5px 20px", // Adjust padding if needed
+                      cursor: "pointer", // Ensure clickable behavior
+                      display: "flex", // Allow image to be aligned within the button
+                      alignItems: "center", // Center image vertically within the button
+                      mb:"28px"
                     }}
-                  ></AccountCircleOutlinedIcon>
+                  >
+                    <img
+                      src={femaleAvatar}
+                      alt="Profile Avatar"
+                      style={{
+                        width: "30px",
+                        height: "30px",
+                       alignItems:"center"
+
+                      }} // Adjust image size and margin as needed
+                    />
+                 
+                  </button>
 
                   <Menu
                     id="basic-menu"

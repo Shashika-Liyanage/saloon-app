@@ -24,21 +24,21 @@ ReactDOM.render(
       <Layout />
       <Routes>
         <Route path="/" element={<Dashboard />} />
-        <Route path="login" element={<Login />} />
-        <Route path="dashboard" element={<Dashboard />} />
-        <Route path="booking" element={<BookingPage />} />
-        <Route path="home" element={<Home />} />
-        <Route path="signup" element={<SignUp />} />
-        <Route path="tableshowing1" element={<HairPrice />} />
-        <Route path="tableshowing2" element={<SkinPrice />} />
-        <Route path="admin" element={<Admin />} />
-        <Route path="tableshowing3" element={<NailPrice />} />
-        <Route path="tableshowing4" element={<Bodyprice />} />
-        <Route path="tableshowing5" element={<BridalPrice />} />
-        <Route path="checkout" element={<CheckOut />} />
-        <Route path="bookingdetails" element={< BookingDetails/>} />
-        <Route path="paymentdetails" element={< PaymentDetails/>} />
-        <Route path="ordersummury" element={< PaymentDetails/>} />
+        <Route path="Login" element={<Login />} />
+        <Route path="Dashboard" element={<Dashboard />} />
+        <Route path="Booking" element={<BookingPage />} />
+        <Route path="Home" element={<Home />} />
+        <Route path="SignUp" element={<SignUp />} />
+        <Route path="HairPrices" element={<HairPrice />} />
+        <Route path="SkinPrices" element={<SkinPrice />} />
+        <Route path="Admin" element={<Admin />} />
+        <Route path="NailPrices" element={<NailPrice />} />
+        <Route path="BodyPrices" element={<Bodyprice />} />
+        <Route path="BridalPrices" element={<BridalPrice />} />
+        <Route path="Checkout" element={<CheckOut />} />
+        <Route path="BookingDetails" element={< BookingDetails/>} />
+        <Route path="PaymentDetails" element={< PaymentDetails/>} />
+        <Route path="OrderSummury" element={< PaymentDetails/>} />
         <Route path="*" element={<NoPage />} />
         {/* </Route> */}
       </Routes>
