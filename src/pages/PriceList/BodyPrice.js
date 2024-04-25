@@ -41,7 +41,7 @@ export default function BasicTable() {
     <div>
       <div className="container">
         <div className="image-boxB">
-          <img src={BodyImage} alt="body Image" className="body-image" />
+          <img src={BodyImage} alt="body Image" className="imageB" />
 
           <div className="BtextB">
             <h2>Salon Lilly Body Prices</h2>

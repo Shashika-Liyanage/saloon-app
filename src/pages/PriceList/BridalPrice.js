@@ -30,7 +30,7 @@ export default function BasicTable() {
     <div>
       <div className="container">
         <div className="image-boxBr">
-          <img src={BridalImage} alt="bridal Image" className="image" />
+          <img src={BridalImage} alt="bridal Image" className="imageBr" />
 
           <div className="BtextBr">
             <h2>Salon Lilly Bridal Prices</h2>
