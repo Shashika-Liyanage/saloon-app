@@ -1,20 +1,23 @@
 import { Outlet, Link } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Layout.css"; //
-import { Menu, MenuItem, Typography } from "@mui/material";
+import { Button, Menu, MenuItem, Tooltip, Typography } from "@mui/material";
 import Logo from "../../../src/Assets/Lillylogo.png";
-import { signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../services/firebaseConfig";
 import toast, { Toaster } from "react-hot-toast";
-import { Avatar, Button, Grid } from "@mui/material";
-import instaicn from "../../Assets/instaicn.png";
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import femaleAvatar from "../../Assets/female_Avatar.png";
 const Layout = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Initially not logged in
   const [anchorEl, setAnchorEl] = useState(null); // State for menu anchor
-
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsLoggedIn(!!user); // Set isLoggedIn based on user object existence
+      return unsubscribe; // Cleanup function to prevent memory leaks
+    });
+  }, [auth]); //
   const login = () => {
     navigate("/login");
   };
@@ -44,9 +47,7 @@ const Layout = () => {
         toast.error("Error logging out. Please try again.");
       });
   };
-  const disableLogout =()=>{
-    
-  }
+  const disableLogout = () => {};
   const headerStyle = {
     height: "100px",
     color: "#fff",
@@ -81,75 +82,73 @@ const Layout = () => {
           <nav className="horizontal-nav">
             <ul>
               <li>
-                <Link to="/dashboard">Dashboard</Link>
+                <Link to="/Dashboard">Dashboard</Link>
               </li>
               {/* <li>
                 <Link to="/home">Home</Link>
               </li> */}
               <li>
-                <Link to="/booking">Booking</Link>
+                <Link to="/Booking">Booking</Link>
               </li>
               <li>
-                <Link to="/tableshowing1">Hair</Link>
+                <Link to="/HairPrices">Hair</Link>
               </li>
               <li>
-                <Link to="/tableshowing2">Skin</Link>
+                <Link to="/SkinPrices">Skin</Link>
               </li>
               <li>
-                <Link to="/tableshowing3">Nail</Link>
+                <Link to="/NailPrices">Nail</Link>
               </li>
               <li>
-                <Link to="/tableshowing4">Body</Link>
+                <Link to="/BodyPrices">Body</Link>
               </li>
               <li>
-                <Link to="/tableshowing5">Bridal</Link>
+                <Link to="/BridalPrices">Bridal</Link>
               </li>
-              {/* <li>
-                <Link to="/admin">Temp Table2</Link>
-              </li> */}
-              {/* {!isLoggedIn && (
-                <li>
-                  <Button
-                    variant="outlined"
-                    sx={{
-                      borderRadius: "20px",
-                      fontWeight: "700",
-                      "&:hover": {
-                        backgroundColor: "#D20062",
-                        color: "#F8F6E3",
-                      },
-                      color: "black",
-                    }}
-                    onClick={login}
-                  >
-                   
-           
-                    Login 
-                  </Button>
-                </li>
-              )} */}
-              {!isLoggedIn && (
+              {!isLoggedIn && ( // Conditionally render the login button only when not logged in
+                <Button
+                  style={{
+                
+                    display: "flex",
+                    alignItems: "center",
+                    mb: "38px", // Added margin bottom
+                    marginLeft: "20px", // Adjusted margin left to push the avatar to the right
+                  }}
+                  variant="contained"
+                  onClick={login}
+                >
+                  Login
+                </Button>
+              )}
+              {isLoggedIn && (
                 <>
-                  <AccountCircleOutlinedIcon
-                    id="basic-button"
-                    variant="contained"
-                    aria-controls={open ? "basic-menu" : undefined}
-                    aria-haspopup="true"
-                    aria-expanded={open ? "true" : undefined}
-                    onClick={handleClick}
-                    sx={{
-                      fontSize: "40px",
-                      mb: "20px",
-                      ml: "20px",
-                      fontWeight: "700",
-                      "&:hover": {
-                        backgroundColor: "#D20062",
-                        color: "#F8F6E3",
-                      },
-                      color: "black",
-                    }}
-                  ></AccountCircleOutlinedIcon>
-
+                  <Tooltip title={"Profile Section"}>
+                    <button
+                      id="basic-button"
+                      variant="contained"
+                      aria-controls={open ? "basic-menu" : undefined}
+                      aria-haspopup="true"
+                      aria-expanded={open ? "true" : undefined}
+                      onClick={handleClick}
+                      style={{
+                        // cursor: "pointer",
+                        display: "flex",
+                        alignItems: "center",
+                        mb: "38px", // Added margin bottom
+                        marginLeft: "20px", // Adjusted margin left to push the avatar to the right
+                      }}
+                    >
+                      <img
+                        src={femaleAvatar}
+                        alt="Profile Avatar"
+                        style={{
+                          width: "30px",
+                          height: "30px",
+                          alignItems: "center",
+                        }}
+                      />
+                    </button>
+                  </Tooltip>
                   <Menu
                     id="basic-menu"
                     anchorEl={anchorEl}
