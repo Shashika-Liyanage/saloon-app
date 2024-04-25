@@ -38,6 +38,7 @@ ReactDOM.render(
         <Route path="checkout" element={<CheckOut />} />
         <Route path="bookingdetails" element={< BookingDetails/>} />
         <Route path="paymentdetails" element={< PaymentDetails/>} />
+        <Route path="ordersummury" element={< PaymentDetails/>} />
         <Route path="*" element={<NoPage />} />
         {/* </Route> */}
       </Routes>
