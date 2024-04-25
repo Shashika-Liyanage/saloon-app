@@ -1,9 +1,9 @@
 import { Outlet, Link } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Layout.css"; //
-import { Button, Menu, MenuItem, Typography } from "@mui/material";
+import { Button, Menu, MenuItem, Tooltip, Typography } from "@mui/material";
 import Logo from "../../../src/Assets/Lillylogo.png";
-import { signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../services/firebaseConfig";
 import toast, { Toaster } from "react-hot-toast";
@@ -12,7 +12,12 @@ const Layout = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Initially not logged in
   const [anchorEl, setAnchorEl] = useState(null); // State for menu anchor
-
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsLoggedIn(!!user); // Set isLoggedIn based on user object existence
+      return unsubscribe; // Cleanup function to prevent memory leaks
+    });
+  }, [auth]); //
   const login = () => {
     navigate("/login");
   };
@@ -100,39 +105,50 @@ const Layout = () => {
               <li>
                 <Link to="/BridalPrices">Bridal</Link>
               </li>
-              {!isLoggedIn && (
+              {!isLoggedIn && ( // Conditionally render the login button only when not logged in
+                <Button
+                  style={{
+                
+                    display: "flex",
+                    alignItems: "center",
+                    mb: "38px", // Added margin bottom
+                    marginLeft: "20px", // Adjusted margin left to push the avatar to the right
+                  }}
+                  variant="contained"
+                  onClick={login}
+                >
+                  Login
+                </Button>
+              )}
+              {isLoggedIn && (
                 <>
-                  <button
-                    id="basic-button"
-                    variant="contained" // Assuming you're using Material UI
-                    aria-controls={open ? "basic-menu" : undefined}
-                    aria-haspopup="true"
-                    aria-expanded={open ? "true" : undefined}
-                    onClick={handleClick}
-                    style={{
-                      backgroundColor: "#fff", // Adjust background color if desired
-                      border: "4px solid #ccc", // Add border if needed
-                      borderRadius: "20px", // Add border radius if desired
-                      padding: "5px 20px", // Adjust padding if needed
-                      cursor: "pointer", // Ensure clickable behavior
-                      display: "flex", // Allow image to be aligned within the button
-                      alignItems: "center", // Center image vertically within the button
-                      mb:"28px"
-                    }}
-                  >
-                    <img
-                      src={femaleAvatar}
-                      alt="Profile Avatar"
+                  <Tooltip title={"Profile Section"}>
+                    <button
+                      id="basic-button"
+                      variant="contained"
+                      aria-controls={open ? "basic-menu" : undefined}
+                      aria-haspopup="true"
+                      aria-expanded={open ? "true" : undefined}
+                      onClick={handleClick}
                       style={{
-                        width: "30px",
-                        height: "30px",
-                       alignItems:"center"
-
-                      }} // Adjust image size and margin as needed
-                    />
-                 
-                  </button>
-
+                        // cursor: "pointer",
+                        display: "flex",
+                        alignItems: "center",
+                        mb: "38px", // Added margin bottom
+                        marginLeft: "20px", // Adjusted margin left to push the avatar to the right
+                      }}
+                    >
+                      <img
+                        src={femaleAvatar}
+                        alt="Profile Avatar"
+                        style={{
+                          width: "30px",
+                          height: "30px",
+                          alignItems: "center",
+                        }}
+                      />
+                    </button>
+                  </Tooltip>
                   <Menu
                     id="basic-menu"
                     anchorEl={anchorEl}
