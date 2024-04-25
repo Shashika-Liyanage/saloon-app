@@ -46,20 +46,21 @@ const rows3 = [
 export default function BasicTable() {
   return (
     <div>
-       <div className="container">
+      <div className="container">
         <div className="image-boxN">
-        <img src={NailImage} alt="Nail Image" className="nail-image" />
-
-          <div className="BtextN"><h2>Salon Lilly Nail Prices</h2></div>
+          <img src={NailImage} alt="Nail Image" className="imageN" />
+          <div className="BtextN">
+            <h2>Salon Lilly Nail Prices</h2>
+          </div>
         </div>
-        </div>
+      </div>
 
       <div className="table">
         <div className="table-wrapper">
           <TableContainer component={Paper}>
             <div style={{ display: "flex", alignItems: "center" }}>
               <img src={salonIcon} alt="Salon Icon" className="icon" />
-              <h2 className="heading">MANICURE | PEDICURE</h2>
+              <h2 className="headingN">MANICURE | PEDICURE</h2>
             </div>
 
             <Table sx={{ minWidth: 500 }} aria-label="simple table">
@@ -94,7 +95,7 @@ export default function BasicTable() {
           <TableContainer component={Paper}>
             <div style={{ display: "flex", alignItems: "center" }}>
               <img src={salonIcon} alt="Salon Icon" className="icon" />
-              <h2 className="heading">EYE LASHES EXTENSION | MICROBLADING</h2>
+              <h2 className="headingN">EYE LASHES EXTENSION | MICROBLADING</h2>
             </div>
 
             <Table sx={{ minWidth: 500 }} aria-label="simple table">
@@ -131,7 +132,7 @@ export default function BasicTable() {
           <TableContainer component={Paper}>
             <div style={{ display: "flex", alignItems: "center" }}>
               <img src={salonIcon} alt="Salon Icon" className="icon" />
-              <h2 className="heading">NAIL LACQER | EXTENTION | TIPS</h2>
+              <h2 className="headingN">NAIL LACQER | EXTENTION | TIPS</h2>
             </div>
             <Table sx={{ minWidth: 500 }} aria-label="simple table">
               <TableHead>
