@@ -167,6 +167,7 @@ const BookingPage = () => {
                 name="Phone"
                 variant="outlined"
                 value={user.Phone}
+                fullWidth
                 // inputProps={{ inputMode: "numeric" }}
                 onChange={data}
                 sx={{ bgcolor: "white" }}
@@ -198,6 +199,7 @@ const BookingPage = () => {
                 sx={{ bgcolor: "white" }}
                 disabled
                 value={"Negambo"}
+                fullWidth
               />
             </Grid>
           </Grid>
@@ -220,6 +222,7 @@ const BookingPage = () => {
                 getOptionLabel={(option) => option.label}
                 value={{ label: user.Service }}
                 onChange={handleServiceChange}
+                fullWidth
                 renderInput={(params) => (
                   <TextField
                     {...params}

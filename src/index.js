@@ -18,6 +18,13 @@ import CheckOut from "./pages/CheckOut/CheckOut";
 import BookingDetails from "./pages/Booking/BookingDetails";
 import PaymentDetails from "./pages/Payment/PaymentDetails";
 import ReviewBooking from "./pages/ReviewBooking/ReviewBooking";
+import NewApoinment from "./pages/admin/NewApoinment";
+import Appoinment from "./pages/admin/Appoinment";
+import AddAdmin from "./pages/admin/AddAdmin";
+import { Inbox } from "@mui/icons-material";
+import SentMail from "./pages/admin/SentMail";
+import Setting from "./pages/admin/Setting";
+import LogOut from "./pages/admin/LogOut";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -40,6 +47,13 @@ ReactDOM.render(
         <Route path="BookingDetails" element={< BookingDetails/>} />
         <Route path="PaymentDetails" element={< PaymentDetails/>} />
         <Route path="OrderSummury" element={< ReviewBooking/>} />
+        <Route path="NewApoinment" element={< NewApoinment/>} />
+        <Route path="Apoinments" element={< Appoinment/>} />
+        <Route path="AddAdmin" element={< AddAdmin/>} />
+        <Route path="Inbox" element={< Inbox/>} />
+        <Route path="SentMail" element={< SentMail/>} />
+        <Route path="Setting" element={< Setting/>} />
+        <Route path="LogOut" element={< LogOut/>} />
         <Route path="*" element={<NoPage />} />
         {/* </Route> */}
       </Routes>
