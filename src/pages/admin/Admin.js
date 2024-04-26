@@ -31,14 +31,16 @@ import {
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import Paper from "@mui/material/Paper";
+import { useNavigate } from "react-router-dom";
+
 
 const drawerWidth = 240;
 
-function Admin(props) {
+const  Admin=(props)=> {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
-
+  const navigate = useNavigate();
   const handleDrawerClose = () => {
     setIsClosing(true);
     setMobileOpen(false);
@@ -53,6 +55,8 @@ function Admin(props) {
       setMobileOpen(!mobileOpen);
     }
   };
+
+
   const shapeStyles = { bgcolor: "primary.main", width: 20, height: 20 };
   const shapeCircleStyles = { borderRadius: "50%" };
 
@@ -60,7 +64,7 @@ function Admin(props) {
     <div>
       <List>
         {[
-          { text: "Appointments", icon: <CalendarMonthIcon sx={{color:"#ED9455"}}/> },
+          { text: "Appointments",  icon: <CalendarMonthIcon  sx={{color:"#ED9455"}}/> },
           { text: "Add Admin", icon: <AdminPanelSettingsIcon sx={{color:"#DD5746"}}/> },
           { text: "Inbox", icon: <EmailIcon sx={{color:"#90D26D"}} /> },
           { text: "Sent Mail", icon: <ForwardToInboxIcon sx={{color:"#5755FE"}} /> },
@@ -111,6 +115,9 @@ function Admin(props) {
       "Test"
     ),
   ];
+  const openApoinment=(e)=>{
+    navigate("/NewApoinment")
+  }
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -194,6 +201,7 @@ function Admin(props) {
             variant="contained"
             sx={{ textTransform: "capitalize", marginRight: "auto", }}
             color="success"
+            onClick={openApoinment}
           >
             {" "}
             <AddIcon />
