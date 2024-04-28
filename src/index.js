@@ -25,6 +25,7 @@ import { Inbox } from "@mui/icons-material";
 import SentMail from "./pages/admin/SentMail";
 import Setting from "./pages/admin/Setting";
 import LogOut from "./pages/admin/LogOut";
+import AdminLogin from "./pages/admin/AdminLogin";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -54,6 +55,7 @@ ReactDOM.render(
         <Route path="SentMail" element={< SentMail/>} />
         <Route path="Setting" element={< Setting/>} />
         <Route path="LogOut" element={< LogOut/>} />
+        <Route path="AdminLogin" element={< AdminLogin/>} />
         <Route path="*" element={<NoPage />} />
         {/* </Route> */}
       </Routes>

@@ -22,6 +22,7 @@ import ForwardToInboxIcon from "@mui/icons-material/ForwardToInbox";
 import {
   Badge,
   Button,
+  Stack,
   Table,
   TableBody,
   TableCell,
@@ -33,10 +34,9 @@ import AddIcon from "@mui/icons-material/Add";
 import Paper from "@mui/material/Paper";
 import { useNavigate } from "react-router-dom";
 
-
 const drawerWidth = 240;
 
-const  Admin=(props)=> {
+const Admin = (props) => {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
@@ -56,16 +56,19 @@ const  Admin=(props)=> {
     }
   };
 
+  const GoToBookingPage = () => {
+    navigate("/booking");
+  };
 
   const shapeStyles = { bgcolor: "primary.main", width: 20, height: 20 };
   const shapeCircleStyles = { borderRadius: "50%" };
 
   const drawer = (
     <div>
-      <List>
+      {/* <List>
         {[
           { text: "Appointments",  icon: <CalendarMonthIcon  sx={{color:"#ED9455"}}/> },
-          { text: "Add Admin", icon: <AdminPanelSettingsIcon sx={{color:"#DD5746"}}/> },
+          { text: "Add Admin", icon: <AdminPanelSettingsIcon      sx={{color:"#DD5746"}} onClick={GoToBookingPage}/> },
           { text: "Inbox", icon: <EmailIcon sx={{color:"#90D26D"}} /> },
           { text: "Sent Mail", icon: <ForwardToInboxIcon sx={{color:"#5755FE"}} /> },
           { text: "Settings", icon: <SettingsIcon  sx={{color:"#9CAFAA"}}/> },
@@ -78,10 +81,60 @@ const  Admin=(props)=> {
             </ListItemButton>
           </ListItem>
         ))}
-      </List>
-      <Typography sx={{ mt: "300px", ml: "45px" }}>
-        Lilly Web Version 1.0
-      </Typography>
+      </List> */}
+      <Stack direction="column" spacing={5} sx={{ mt: "20px" }}>
+        <Button
+          variant="contained"
+          fullWidth
+          sx={{ backgroundColor: "#ED9455", fontWeight: "600", color: "white" }}
+        >
+          <CalendarMonthIcon />
+       
+          Appointments
+        </Button>
+        <Button
+          variant="contained"
+          fullWidth
+          sx={{ backgroundColor: "#ED9455", fontWeight: "600", color: "white" ,ml:"20px"}}
+        >
+          <AdminPanelSettingsIcon />
+          Add Admin
+        </Button>
+        <Button
+          variant="contained"
+          fullWidth
+          sx={{ backgroundColor: "#ED9455", fontWeight: "600", color: "white" }}
+        >
+          {" "}
+          <EmailIcon />
+          Inbox
+        </Button>
+        <Button
+          variant="contained"
+          fullWidth
+          sx={{ backgroundColor: "#ED9455", fontWeight: "600", color: "white" }}
+        >
+          <ForwardToInboxIcon />
+          Sent Mail
+        </Button>
+        <Button
+          variant="contained"
+          fullWidth
+          sx={{ backgroundColor: "#ED9455", fontWeight: "600", color: "white" }}
+        >
+          <SettingsIcon />
+          Settings
+        </Button>
+        <Button
+          variant="contained"
+          fullWidth
+          sx={{ backgroundColor: "#ED9455", fontWeight: "600", color: "white" }}
+        >
+          <PowerSettingsNewIcon />
+          LogOut
+        </Button>
+      </Stack>
+ 
     </div>
   );
   function createData(Customer, PhoneNumber, Service, Date, Time, Notes) {
@@ -115,9 +168,9 @@ const  Admin=(props)=> {
       "Test"
     ),
   ];
-  const openApoinment=(e)=>{
-    navigate("/NewApoinment")
-  }
+  const openApoinment = (e) => {
+    navigate("/NewApoinment");
+  };
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -199,7 +252,7 @@ const  Admin=(props)=> {
         <div style={{ display: "flex", alignItems: "center" }}>
           <Button
             variant="contained"
-            sx={{ textTransform: "capitalize", marginRight: "auto", }}
+            sx={{ textTransform: "capitalize", marginRight: "auto" }}
             color="success"
             onClick={openApoinment}
           >
@@ -328,6 +381,6 @@ const  Admin=(props)=> {
       </Box>
     </Box>
   );
-}
+};
 
 export default Admin;
