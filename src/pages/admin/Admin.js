@@ -33,6 +33,9 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import Paper from "@mui/material/Paper";
 import { useNavigate } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import toast from "react-hot-toast";
+import { auth } from "../../services/firebaseConfig";
 
 const drawerWidth = 240;
 
@@ -56,10 +59,37 @@ const Admin = (props) => {
     }
   };
 
-  const GoToBookingPage = () => {
+  const goToBookingPage = () => {
     navigate("/booking");
   };
+  const goToAppointments = () => {
+    navigate("/Apoinments");
+  };
+  const goToAddAdmin = () => {
+    navigate("/AddAdmin");
+  };
+  const goToInbox = () => {
+    navigate("/Inbox");
+  };
+  const goToSentMail = () => {
+    navigate("/SentMail");
+  };
+  const goToSettings = () => {
+    navigate("/Setting");
+  };
+  const handleLogOut =()=>{
+    signOut(auth)
+    .then(()=>{
+      navigate("/AdminLogin")
+      // Show toast notification
+      toast.success("You have been logged out successfully..");
+    })
+    .catch((error) => {
+      // An error happened.
 
+      toast.error("Error logging out. Please try again.");
+    });
+  }
   const shapeStyles = { bgcolor: "primary.main", width: 20, height: 20 };
   const shapeCircleStyles = { borderRadius: "50%" };
 
@@ -84,23 +114,30 @@ const Admin = (props) => {
       </List> */}
       <Stack direction="column" spacing={5} sx={{ mt: "20px" }}>
         <Button
+          onClick={goToAppointments}
           variant="contained"
           fullWidth
           sx={{ backgroundColor: "#ED9455", fontWeight: "600", color: "white" }}
         >
           <CalendarMonthIcon />
-       
           Appointments
         </Button>
         <Button
+          onClick={goToAddAdmin}
           variant="contained"
           fullWidth
-          sx={{ backgroundColor: "#ED9455", fontWeight: "600", color: "white" ,ml:"20px"}}
+          sx={{
+            backgroundColor: "#ED9455",
+            fontWeight: "600",
+            color: "white",
+            ml: "20px",
+          }}
         >
           <AdminPanelSettingsIcon />
           Add Admin
         </Button>
         <Button
+          onClick={goToInbox}
           variant="contained"
           fullWidth
           sx={{ backgroundColor: "#ED9455", fontWeight: "600", color: "white" }}
@@ -110,6 +147,7 @@ const Admin = (props) => {
           Inbox
         </Button>
         <Button
+          onClick={goToSentMail}
           variant="contained"
           fullWidth
           sx={{ backgroundColor: "#ED9455", fontWeight: "600", color: "white" }}
@@ -118,6 +156,7 @@ const Admin = (props) => {
           Sent Mail
         </Button>
         <Button
+          onClick={goToSettings}
           variant="contained"
           fullWidth
           sx={{ backgroundColor: "#ED9455", fontWeight: "600", color: "white" }}
@@ -126,6 +165,7 @@ const Admin = (props) => {
           Settings
         </Button>
         <Button
+        onClick={handleLogOut}
           variant="contained"
           fullWidth
           sx={{ backgroundColor: "#ED9455", fontWeight: "600", color: "white" }}
@@ -134,7 +174,6 @@ const Admin = (props) => {
           LogOut
         </Button>
       </Stack>
- 
     </div>
   );
   function createData(Customer, PhoneNumber, Service, Date, Time, Notes) {
