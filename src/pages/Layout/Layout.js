@@ -15,7 +15,7 @@ const Layout = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setIsLoggedIn(!!user); // Set isLoggedIn based on user object existence
-      return unsubscribe; // Cleanup function to prevent memory leaks
+      return unsubscribe; // Cleanup function to prevent memory leaksa
     });
   }, [auth]); //
   const login = () => {
