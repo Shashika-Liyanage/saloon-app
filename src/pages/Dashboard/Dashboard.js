@@ -15,6 +15,9 @@ import Layout from "../Layout/Layout";
 import BookingPage from "../Booking/BookingPage";
 import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+
+
+
 const headerStyle = {
   height: "80px",
   color: "#fff",
@@ -128,6 +131,12 @@ const Dashboard = () => {
                 borderRadius: "20px",
                 padding: "15px 30px",
                 fontSize: "16px",
+                backgroundColor: "#F27BBD",
+                fontFamily: "Georgia",
+                "&:hover": {
+                  backgroundColor: "#E659A1", 
+              }
+                
               }}
             >
               Book Now
@@ -139,10 +148,13 @@ const Dashboard = () => {
             position: "absolute",
             top: "350px", // Adjust the top position as needed
             left: "50%",
-            color: "#fff",
+            color: "#FFF7FC",
             transform: "translateX(-50%)",
-            fontSize: "56px",
-            fontWeight: "700",
+            fontSize: "60px",
+            fontWeight: "600",
+            fontFamily: "Georgia"
+
+           
           }}
         >
           Welcome to Salon Lilly
@@ -156,7 +168,8 @@ const Dashboard = () => {
           textAlign: "center",
           mt: "10px",
           fontWeight: "bold",
-          color: "#ff6a00",
+          color: "#99154E",
+          fontFamily: "Georgia",
         }}
       >
         OUR SERVICES
@@ -168,8 +181,10 @@ const Dashboard = () => {
             key={index}
             style={{
               ...cardStyle,
-              backgroundColor: hoveredIndex === index ? "#D20065" : "inherit",
+              
+              backgroundColor: hoveredIndex === index ? "#E659A1" : "#FED7E2", 
             }}
+            
             sx={cardStyle}
             onMouseEnter={() => handleMouseEnter(index)}
             onMouseLeave={handleMouseLeave}
@@ -179,18 +194,24 @@ const Dashboard = () => {
               <Typography
                 variant="h5"
                 component="h2"
+                fontFamily= "cursive"
                 sx={{ fontWeight: "bold" }}
               >
                 {["HAIR", "SKIN", "NAILS", "BODY", "BRIDAL"][index]}
               </Typography>
+              
+            
             </CardContent>
           </Card>
         ))}
       </div>
       <Typography
-        variant="h2"
+        variant="h3"
         align="center"
-        color={"#D20065"}
+        fontWeight= "bold"
+       
+        fontFamily= "Georgia"
+        color={"#99154E"}
         sx={{ mt: "10px" }}
         gutterBottom
       >
@@ -199,36 +220,52 @@ const Dashboard = () => {
 
       <div
         style={{
+          
           textAlign: "center",
           fontWeight: "700",
-          fontSize: "36px",
-          color: "#D20065",
+          fontSize: "50px",
+          fontFamily: "Georgia",
+          color: "#E659A1",
         }}
       >
         <p> Welcome to Salon Lilly</p>
-        <p>CREATING  A  BEAUTIFUL  COMMUNITY</p>
-        <p>Revive,Refresh,and manage with Lilly'S expertise!</p>
+        <Typography
+        variant="h3"
+        align="center"
+        fontWeight= "bold"
+       
+        fontFamily= "Georgia"
+        color={"#99154E"}
+        sx={{ mt: "10px" }}
+        gutterBottom
+      >
+        CREATING  A  BEAUTIFUL  COMMUNITY
+      </Typography>
+      
+      
+        
       </div>
       <div
         style={{
           textAlign: "center",
           // fontWeight: "700",
           fontSize: "50px",
-          color: "#D20065",
-          fontFamily: "monospace",
+          color: "#E659A1",
+          
+          fontFamily: "cursive",
         }}
       >
         <p>Look Good & Feel Good!</p>
       </div>
-      <Stack direction="row" sx={{ textAlign: "center" }}>
-        <h1 style={{ margin: "0 auto", color: "#EE7214" }}>
+      <Stack direction="row" sx={{ textAlign: "center",  backgroundColor: "#FDEFEF"}}>
+        <h1 style={{ margin: "0 auto", color: "#99154E", fontFamily: "Georgia" }}>
           Inspire:
           <div
             style={{
               textAlign: "center",
               // fontWeight: "700",
               fontSize: "20px",
-              color: "#3C0753",
+              color: "#E659A1",
               fontFamily: "monospace",
             }}
           >
@@ -239,14 +276,14 @@ const Dashboard = () => {
             <p>full potentail</p>
           </div>
         </h1>
-        <h1 style={{ margin: "0 auto", color: "#EE7214" }}>
+        <h1 style={{ margin: "0 auto", color: "#99154E", fontFamily: "Georgia" }}>
           Empower:
           <div
             style={{
               textAlign: "center",
               // fontWeight: "700",
               fontSize: "20px",
-              color: "#3C0753",
+              color: "#1B1A17",
               fontFamily: "monospace",
             }}
           >
@@ -258,14 +295,14 @@ const Dashboard = () => {
             <p>better life</p>
           </div>
         </h1>
-        <h1 style={{ margin: "0 auto", color: "#EE7214" }}>
+        <h1 style={{ margin: "0 auto", color: "#99154E", fontFamily: "Georgia" }}>
           Affordable:
           <div
             style={{
               textAlign: "center",
               // fontWeight: "700",
               fontSize: "20px",
-              color: "#3C0753",
+              color: "#E659A1",
               fontFamily: "monospace",
             }}
           >
@@ -275,14 +312,14 @@ const Dashboard = () => {
             <p>price</p>{" "}
           </div>
         </h1>
-        <h1 style={{ margin: "0 auto", color: "#EE7214" }}>
+        <h1 style={{ margin: "0 auto", color: "#99154E", fontFamily: "Georgia" }}>
           Ambience:
           <div
             style={{
               textAlign: "center",
-              // fontWeight: "700",
+              
               fontSize: "20px",
-              color: "#3C0753",
+              color: "#1B1A17",
               fontFamily: "monospace",
             }}
           >
@@ -291,14 +328,14 @@ const Dashboard = () => {
             <p>salon interior</p>{" "}
           </div>
         </h1>
-        <h1 style={{ margin: "0 auto", color: "#EE7214" }}>
+        <h1 style={{ margin: "0 auto", color: "#99154E", fontFamily: "Georgia" }}>
           Safe:
           <div
             style={{
               textAlign: "center",
               // fontWeight: "700",
               fontSize: "20px",
-              color: "#3C0753",
+              color: "#E659A1",
               fontFamily: "monospace",
             }}
           >
@@ -318,7 +355,7 @@ const Dashboard = () => {
         </video>
       </div>
       <Divider />
-      <img className="img" src={middleImage} alt="middle image" />
+      
       <img className="img" src={map1} alt="map" />
 
       <Footer />

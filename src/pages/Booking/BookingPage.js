@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from "react";
+import Autocomplete from "@mui/material/Autocomplete";
+import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import Footer from "../Footer/Footer";
 import {
   Box,
   Button,
@@ -7,9 +11,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import Autocomplete from "@mui/material/Autocomplete";
-import toast, { Toaster } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+
 const BookingPage = () => {
   const [user, setUser] = useState({
     Name: "",
@@ -46,15 +48,13 @@ const BookingPage = () => {
     console.log(res);
 
     if (res.ok) {
-      
       toast.success("Booking confirmed");
-    setTimeout(()=>{
-      toast.success("You're being redirected to the Dashboard!!!!!! ");
-      setTimeout(()=>{
-        navigate("/dashboard");
-      },3000)
-    },1000)
-  
+      setTimeout(() => {
+        toast.success("You're being redirected to the Dashboard!!!!!! ");
+        setTimeout(() => {
+          navigate("/dashboard");
+        }, 3000);
+      }, 1000);
     } else {
       toast.error("Something went wrong");
     }
@@ -76,6 +76,7 @@ const BookingPage = () => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
+
   // Event handler for service selection in Autocomplete
   const handleServiceChange = (event, value) => {
     setUser({ ...user, Service: value ? value.label : "" });
@@ -111,7 +112,9 @@ const BookingPage = () => {
           fontWeight: 700,
           fontSize: 50,
           mt: "100px",
-          color: "#824D74",
+          color: "#99154E",
+          fontFamily: "Georgia",
+
         }}
       >
         we style,
@@ -124,9 +127,9 @@ const BookingPage = () => {
           sx={{
             alignContent: "center",
             textAlign: "center",
-            backgroundColor: "#dddddd",
-            boxShadow: "0 20px 0px rgba(0,0,0,0.1)",
-            borderRadius: 8,
+            backgroundColor: "#EED3D9",
+            boxShadow: "0 20px 0px rgba(#EED3D9)",
+            borderRadius: 10,
             padding: 4,
           }}
         >
@@ -135,7 +138,8 @@ const BookingPage = () => {
               fontWeight: 700,
               fontSize: 40,
               mt: "10px",
-              color: "#FC6736",
+              color: "#99154E",
+              fontFamily: "Georgia",
             }}
           >
             Book An Appointment
@@ -272,6 +276,9 @@ const BookingPage = () => {
                 select
                 onChange={data}
                 fullWidth
+                InputLabelProps={{
+                  shrink: true,
+                }}
                 SelectProps={{
                   native: true, // Keep native select enabled
                   // Add padding to the native select
@@ -304,16 +311,29 @@ const BookingPage = () => {
                 sx={{ bgcolor: "white" }}
               />
             </Grid>
-          </Grid>
+          </Grid> <br></br>
           <Grid item>
             <Button
               type="submit"
-              sx={{ mt: "25px", width: "400px" }}
+              sx={{
+                mb: "10px",
+                borderRadius: "20px",
+                padding: "15px 30px",
+                fontSize: "16px",
+                backgroundColor: "#F27BBD",
+                fontFamily: "Georgia",
+                "&:hover": {
+                  backgroundColor: "#E659A1", 
+              }
+                
+              }}
               size="large"
+              
               variant="contained"
+              fullWidth
               onClick={getdata}
             >
-              Book
+              Book Now
             </Button>
             <Toaster
               toastOptions={{
@@ -327,9 +347,13 @@ const BookingPage = () => {
             />
           </Grid>
         </CardContent>
+     
       </form>
+     
     </Box>
+    
   );
+  
 };
 
 export default BookingPage;
