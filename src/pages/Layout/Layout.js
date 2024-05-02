@@ -99,7 +99,7 @@ const Layout = () => {
               <li>
                 <Link to="/BridalPrices">Bridal</Link>
               </li>
-              {!isLoggedIn && ( // Conditionally render the login button only when not logged in
+              {!isLoggedIn && ( // Conditionally render the login button only when not logged ina
                 <Button
                   style={{
                 
