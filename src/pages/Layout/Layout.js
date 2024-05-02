@@ -21,7 +21,7 @@ const Layout = () => {
   const login = () => {
     navigate("/login");
   };
-
+ 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -37,34 +37,35 @@ const Layout = () => {
       .then(() => {
         // Sign-out successful.
         navigate("/login");
-
+ 
         // Show toast notification
         toast.success("You have been logged out successfully..");
       })
       .catch((error) => {
         // An error happened.
-
+ 
         toast.error("Error logging out. Please try again.");
       });
   };
   const disableLogout = () => {};
   const headerStyle = {
     height: "100px",
-    color: "#fff",
+    color: "#99154E",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between", // Align content to the left and right edges
     padding: "0 20px",
   };
-
+ 
   const salonNameStyle = {
-    fontFamily: "Arial, sans-serif",
     fontWeight: "bold",
     fontSize: "15px",
     letterSpacing: "2px",
     textTransform: "uppercase",
+    fontFamily: "Arial, sans-serif",
+    color: "#99154E",
   };
-
+ 
   return (
     <>
       <div style={headerStyle}>
@@ -99,14 +100,21 @@ const Layout = () => {
               <li>
                 <Link to="/BridalPrices">Bridal</Link>
               </li>
-              {!isLoggedIn && ( // Conditionally render the login button only when not logged ina
+              <li>
+                <Link to="/about">About</Link>
+              </li>
+              {!isLoggedIn && ( // Conditionally render the login button only when not logged in
                 <Button
                   style={{
-                
                     display: "flex",
                     alignItems: "center",
                     mb: "38px", // Added margin bottom
                     marginLeft: "20px", // Adjusted margin left to push the avatar to the right
+                    backgroundColor: "#F27BBD",
+                    fontFamily: "Georgia",
+                    "&:hover": {
+                      backgroundColor: "#E659A1",
+                    },
                   }}
                   variant="contained"
                   onClick={login}
@@ -153,7 +161,7 @@ const Layout = () => {
                     }}
                   >
                     <MenuItem onClick={openProfile}>Profile</MenuItem>
-
+ 
                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
                   </Menu>
                 </>
@@ -166,5 +174,5 @@ const Layout = () => {
     </>
   );
 };
-
+ 
 export default Layout;
