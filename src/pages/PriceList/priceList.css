@@ -2,13 +2,13 @@
     color: #FF69B4; 
   }
   .headingH {
-    color: #BC7FCD;
+    color: #FF69B4;
   }
   .headingS {
     color: #FF69B4;
   }
   .headingN {
-    color: #D875C7;
+    color: #FF69B4;
   }
   
 
@@ -55,7 +55,7 @@
   .image-boxH {
     width: 75%;
     margin-bottom: 10px;
-    background-color: #BC7FCD;
+    background-color: #FF69B4;
     border-radius: 55px;
   }
 

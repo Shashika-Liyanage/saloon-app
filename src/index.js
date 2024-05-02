@@ -25,6 +25,7 @@ import { Inbox } from "@mui/icons-material";
 import SentMail from "./pages/admin/SentMail";
 import Setting from "./pages/admin/Setting";
 import LogOut from "./pages/admin/LogOut";
+import About from "./pages/About/about";
 import AdminLogin from "./pages/admin/AdminLogin";
 
 ReactDOM.render(
@@ -44,6 +45,7 @@ ReactDOM.render(
         <Route path="NailPrices" element={<NailPrice />} />
         <Route path="BodyPrices" element={<Bodyprice />} />
         <Route path="BridalPrices" element={<BridalPrice />} />
+        <Route path="About" element={<About />} />
         <Route path="Checkout" element={<CheckOut />} />
         <Route path="BookingDetails" element={< BookingDetails/>} />
         <Route path="PaymentDetails" element={< PaymentDetails/>} />

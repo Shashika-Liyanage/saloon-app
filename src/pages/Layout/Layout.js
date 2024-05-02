@@ -50,7 +50,7 @@ const Layout = () => {
   const disableLogout = () => {};
   const headerStyle = {
     height: "100px",
-    color: "#fff",
+    color: "#99154E",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between", // Align content to the left and right edges
@@ -58,11 +58,12 @@ const Layout = () => {
   };
 
   const salonNameStyle = {
-    fontFamily: "Arial, sans-serif",
     fontWeight: "bold",
     fontSize: "15px",
     letterSpacing: "2px",
     textTransform: "uppercase",
+    fontFamily: "Arial, sans-serif",
+    color: "#99154E",
   };
 
   return (
@@ -82,12 +83,6 @@ const Layout = () => {
           <nav className="horizontal-nav">
             <ul>
               <li>
-                <Link to="/Dashboard">Dashboard</Link>
-              </li>
-              {/* <li>
-                <Link to="/home">Home</Link>
-              </li> */}
-              <li>
                 <Link to="/Booking">Booking</Link>
               </li>
               <li>
@@ -105,14 +100,21 @@ const Layout = () => {
               <li>
                 <Link to="/BridalPrices">Bridal</Link>
               </li>
+              <li>
+                <Link to="/about">About</Link>
+              </li>
               {!isLoggedIn && ( // Conditionally render the login button only when not logged in
                 <Button
                   style={{
-                
                     display: "flex",
                     alignItems: "center",
                     mb: "38px", // Added margin bottom
                     marginLeft: "20px", // Adjusted margin left to push the avatar to the right
+                    backgroundColor: "#F27BBD",
+                    fontFamily: "Georgia",
+                    "&:hover": {
+                      backgroundColor: "#E659A1",
+                    },
                   }}
                   variant="contained"
                   onClick={login}

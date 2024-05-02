@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Footer from "../Footer/Footer";
 import {
   Container,
   Button,
@@ -78,19 +79,24 @@ const Login = () => {
         justifyContent: "center",
         alignItems: "center",
         minHeight: "100vh",
+      
+        
       }}
     >
       <Container maxWidth="xs">
-        <Paper elevation={3} style={{ padding: 20 }}>
+        <Paper elevation={3} style={{ padding: 30 }}>
           <Typography
             variant="h4"
             align="center"
             color="primary"
-            sx={{ fontWeight: 700, fontSize: 35, color: "#5E3B4D" }}
+            sx={{ fontWeight: 700, fontSize: 35, color: "#99154E", fontFamily: "Georgia" }}
             gutterBottom
           >
             Login
           </Typography>
+          
+                
+               
           <form>
             <Grid container spacing={2}>
               <Grid item xs={12}>
@@ -121,9 +127,23 @@ const Login = () => {
                   type="submit"
                   fullWidth
                   onClick={onLogin}
+                  sx={{
+                    mb: "10px",
+                    borderRadius: "20px",
+                    padding: "15px 30px",
+                    fontSize: "16px",
+                    backgroundColor: "#F27BBD",
+                    fontFamily: "Georgia",
+                    "&:hover": {
+                      backgroundColor: "#E659A1", 
+                  }
+                    
+                  }}
+                  
                 >
                   Login
                 </Button>
+             
                 <Toaster
                   toastOptions={{ duration: 9000 }}
                   position="top-right"
@@ -173,10 +193,15 @@ const Login = () => {
                   </Grid>
                 </Grid>
               </Grid>
+          
             </Grid>
+         
+
           </form>
         </Paper>
+      
       </Container>
+     
     </div>
   );
 };

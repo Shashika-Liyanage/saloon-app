@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Footer from "../Footer/Footer";
 import {
   Button,
   CardContent,
@@ -49,15 +50,17 @@ const SignUp = () => {
         sx={{ display: "flex", justifyContent: "space-between", mb: "70px" }}
       >
         <Typography
-          sx={{
-            ml: 26,
-            textTransform: "uppercase",
-            textAlign: "center",
-            fontWeight: 700,
-            fontSize: 45,
-            mt: "100px",
-            color: "#824D74",
-          }}
+         sx={{
+          ml: 26,
+          textTransform: "uppercase",
+          textAlign: "center",
+          fontWeight: 700,
+          fontSize: 50,
+          mt: "100px",
+          color: "#99154E",
+          fontFamily: "Georgia",
+
+        }}
         >
           Love Us,
           <br /> Register and
@@ -68,13 +71,15 @@ const SignUp = () => {
           sx={{
             alignContent: "center",
             textAlign: "center",
-            backgroundColor: "#dddddd",
-            boxShadow: "0 20px 0px rgba(0,0,0,0.1)",
-            borderRadius: 8,
+            backgroundColor: "#EED3D9",
+            boxShadow: "0 20px 0px rgba(#EED3D9)",
+            borderRadius: 10,
             padding: 4,
+            
           }}
         >
-          <Typography sx={{ fontWeight: 700, fontSize: 35, color: "#5E3B4D" }}>
+          <Typography sx={{ fontWeight: 700, fontSize: 35, color: "#5E3B4D",  color: "#99154E",
+          fontFamily: "Georgia", }}>
             Sign Up
           </Typography>
 
@@ -158,14 +163,26 @@ const SignUp = () => {
               />
             </Grid>
        
-          </Grid>
+          </Grid><br></br>
 
           <Grid item>
             <Button
-              sx={{ mt: "25px", width: "400px", backgroundColor: "#4E9F3D" }}
+             sx={{
+              mb: "10px",
+              borderRadius: "20px",
+              padding: "15px 30px",
+              fontSize: "16px",
+              backgroundColor: "#F27BBD",
+              fontFamily: "Georgia",
+              "&:hover": {
+                backgroundColor: "#E659A1", 
+            }
+              
+            }}
               size="large"
               variant="contained"
               type="submit"
+              fullWidth
               onClick={onSubmit}
             >
               Register Me
@@ -183,7 +200,9 @@ const SignUp = () => {
           />
         </CardContent>
       </Box>
+      <Footer />
     </form>
+    
   );
 };
 
