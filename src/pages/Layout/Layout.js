@@ -21,7 +21,7 @@ const Layout = () => {
   const login = () => {
     navigate("/login");
   };
-
+ 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -37,13 +37,13 @@ const Layout = () => {
       .then(() => {
         // Sign-out successful.
         navigate("/login");
-
+ 
         // Show toast notification
         toast.success("You have been logged out successfully..");
       })
       .catch((error) => {
         // An error happened.
-
+ 
         toast.error("Error logging out. Please try again.");
       });
   };
@@ -56,7 +56,7 @@ const Layout = () => {
     justifyContent: "space-between", // Align content to the left and right edges
     padding: "0 20px",
   };
-
+ 
   const salonNameStyle = {
     fontWeight: "bold",
     fontSize: "15px",
@@ -65,7 +65,7 @@ const Layout = () => {
     fontFamily: "Arial, sans-serif",
     color: "#99154E",
   };
-
+ 
   return (
     <>
       <div style={headerStyle}>
@@ -161,7 +161,7 @@ const Layout = () => {
                     }}
                   >
                     <MenuItem onClick={openProfile}>Profile</MenuItem>
-
+ 
                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
                   </Menu>
                 </>
@@ -174,5 +174,5 @@ const Layout = () => {
     </>
   );
 };
-
+ 
 export default Layout;
