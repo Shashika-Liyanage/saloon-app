@@ -82,12 +82,6 @@ const Layout = () => {
           <nav className="horizontal-nav">
             <ul>
               <li>
-                <Link to="/Dashboard">Dashboard</Link>
-              </li>
-              {/* <li>
-                <Link to="/home">Home</Link>
-              </li> */}
-              <li>
                 <Link to="/Booking">Booking</Link>
               </li>
               <li>
