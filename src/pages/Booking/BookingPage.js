@@ -3,6 +3,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import Footer from "../Footer/Footer";
+
 import {
   Box,
   Button,
@@ -11,6 +12,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+
 
 const BookingPage = () => {
   const [user, setUser] = useState({
@@ -36,7 +38,7 @@ const BookingPage = () => {
     const options = {
       method: "POST",
       headers: {
-        "Content-Type": "application/json", // Corrected typo
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ Name, Phone, Email, Service, Date, Time, Notes }),
     };
@@ -59,7 +61,7 @@ const BookingPage = () => {
       toast.error("Something went wrong");
     }
   };
-
+  console.log("User State:", user);
   const date = new Date();
   const formattedDate = date
     .toLocaleDateString("en-GB", {
@@ -71,10 +73,9 @@ const BookingPage = () => {
     .reverse()
     .join("-");
 
-  // Event handler for input changes
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
+  // Function to check if all form fields are filled
+  const isFormFilled = () => {
+    return Object.values(user).every((value) => value.trim() !== "");
   };
 
   // Event handler for service selection in Autocomplete
@@ -86,6 +87,11 @@ const BookingPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Add form submission logic here
+    if (isFormFilled()) {
+      // Your submission logic here
+    } else {
+      toast.error("Please fill in all fields");
+    }
   };
 
   const handleChange = (event) => {
@@ -96,6 +102,9 @@ const BookingPage = () => {
     // ...
   };
   //
+  const goToCheckOutPage = () => {
+    navigate("/Checkout");
+  };
   return (
     <Box
       sx={{
@@ -114,7 +123,6 @@ const BookingPage = () => {
           mt: "100px",
           color: "#99154E",
           fontFamily: "Georgia",
-
         }}
       >
         we style,
@@ -144,7 +152,6 @@ const BookingPage = () => {
           >
             Book An Appointment
           </Typography>
-
           <Grid
             container
             spacing={3}
@@ -311,10 +318,12 @@ const BookingPage = () => {
                 sx={{ bgcolor: "white" }}
               />
             </Grid>
-          </Grid> <br></br>
+          </Grid>{" "}
+          <br></br>
           <Grid item>
             <Button
               type="submit"
+              disabled={!isFormFilled()}
               sx={{
                 mb: "10px",
                 borderRadius: "20px",
@@ -323,18 +332,18 @@ const BookingPage = () => {
                 backgroundColor: "#F27BBD",
                 fontFamily: "Georgia",
                 "&:hover": {
-                  backgroundColor: "#E659A1", 
-              }
-                
+                  backgroundColor: "#E659A1",
+                },
               }}
               size="large"
-              
               variant="contained"
               fullWidth
-              onClick={getdata}
+              // onClick={getdata}
+              onClick={goToCheckOutPage}
             >
-              Book Now
+              Go to Check Out Page
             </Button>
+
             <Toaster
               toastOptions={{
                 duration: 5000,
@@ -346,14 +355,12 @@ const BookingPage = () => {
               position="top-right"
             />
           </Grid>
+
         </CardContent>
-     
       </form>
      
     </Box>
-    
   );
-  
 };
 
 export default BookingPage;
