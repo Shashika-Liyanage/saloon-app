@@ -37,7 +37,7 @@ import { signOut } from "firebase/auth";
 import toast from "react-hot-toast";
 import { auth } from "../../services/firebaseConfig";
 
-const drawerWidth = 240;
+const drawerWidth = 280;
 
 const Admin = (props) => {
   const { window } = props;
@@ -90,34 +90,15 @@ const Admin = (props) => {
       toast.error("Error logging out. Please try again.");
     });
   }
-  const shapeStyles = { bgcolor: "primary.main", width: 20, height: 20 };
-  const shapeCircleStyles = { borderRadius: "50%" };
 
   const drawer = (
     <div>
-      {/* <List>
-        {[
-          { text: "Appointments",  icon: <CalendarMonthIcon  sx={{color:"#ED9455"}}/> },
-          { text: "Add Admin", icon: <AdminPanelSettingsIcon      sx={{color:"#DD5746"}} onClick={GoToBookingPage}/> },
-          { text: "Inbox", icon: <EmailIcon sx={{color:"#90D26D"}} /> },
-          { text: "Sent Mail", icon: <ForwardToInboxIcon sx={{color:"#5755FE"}} /> },
-          { text: "Settings", icon: <SettingsIcon  sx={{color:"#9CAFAA"}}/> },
-          { text: "LogOut", icon: <PowerSettingsNewIcon sx={{color:"#E72929"}}/> },
-        ].map((item, index) => (
-          <ListItem key={item.text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List> */}
-      <Stack direction="column" spacing={5} sx={{ mt: "20px" }}>
+        <Stack direction="column" spacing={5} sx={{ mt: "20px" }}>
         <Button
           onClick={goToAppointments}
           variant="contained"
           fullWidth
-          sx={{ backgroundColor: "#ED9455", fontWeight: "600", color: "white" }}
+          sx={{  fontWeight: "600", color: "white" }}
         >
           <CalendarMonthIcon />
           Appointments
@@ -127,7 +108,7 @@ const Admin = (props) => {
           variant="contained"
           fullWidth
           sx={{
-            backgroundColor: "#ED9455",
+            
             fontWeight: "600",
             color: "white",
             ml: "20px",
@@ -140,7 +121,7 @@ const Admin = (props) => {
           onClick={goToInbox}
           variant="contained"
           fullWidth
-          sx={{ backgroundColor: "#ED9455", fontWeight: "600", color: "white" }}
+          sx={{ fontWeight: "600", color: "white" }}
         >
           {" "}
           <EmailIcon />
@@ -150,7 +131,7 @@ const Admin = (props) => {
           onClick={goToSentMail}
           variant="contained"
           fullWidth
-          sx={{ backgroundColor: "#ED9455", fontWeight: "600", color: "white" }}
+          sx={{ fontWeight: "600", color: "white" }}
         >
           <ForwardToInboxIcon />
           Sent Mail
@@ -159,7 +140,7 @@ const Admin = (props) => {
           onClick={goToSettings}
           variant="contained"
           fullWidth
-          sx={{ backgroundColor: "#ED9455", fontWeight: "600", color: "white" }}
+          sx={{  fontWeight: "600", color: "white" }}
         >
           <SettingsIcon />
           Settings
@@ -168,7 +149,7 @@ const Admin = (props) => {
         onClick={handleLogOut}
           variant="contained"
           fullWidth
-          sx={{ backgroundColor: "#ED9455", fontWeight: "600", color: "white" }}
+          sx={{fontWeight: "600", color: "white" }}
         >
           <PowerSettingsNewIcon />
           LogOut
@@ -215,23 +196,16 @@ const Admin = (props) => {
       <CssBaseline />
 
       <AppBar
-        position="fixed"
+        position="absolute"
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
-          marginTop: "6px",
+         
+          
         }}
       >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
-          >
-            <MenuIcon />
-          </IconButton>
+        <Toolbar sx={{backgroundColor:"#99154E",  mb:"20px"}}>
+      
           <Typography variant="h6" noWrap component="div">
             Lilly's Admin Panel
           </Typography>
