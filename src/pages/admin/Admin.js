@@ -94,7 +94,7 @@ const Admin = (props) => {
   const drawer = (
     <div>
         <Stack direction="column" spacing={5} sx={{ mt: "20px" }}>
-        <Button
+        {/* <Button
           onClick={goToAppointments}
           variant="contained"
           fullWidth
@@ -102,7 +102,7 @@ const Admin = (props) => {
         >
           <CalendarMonthIcon />
           Appointments
-        </Button>
+        </Button> */}
         <Button
           onClick={goToAddAdmin}
           variant="contained"
@@ -117,7 +117,7 @@ const Admin = (props) => {
           <AdminPanelSettingsIcon />
           Add Admin
         </Button>
-        <Button
+        {/* <Button
           onClick={goToInbox}
           variant="contained"
           fullWidth
@@ -126,7 +126,7 @@ const Admin = (props) => {
           {" "}
           <EmailIcon />
           Inbox
-        </Button>
+        </Button> */}
         <Button
           onClick={goToSentMail}
           variant="contained"
