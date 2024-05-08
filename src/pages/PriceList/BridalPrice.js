@@ -6,9 +6,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Footer from "../Footer/Footer";
 import "./priceList.css";
 import salonIcon from "../../../src/Assets/salonicon.jpg";
-import BridalImage from "../../../src/Assets/bridalImage.png";
+import BridalImage from "../../../src/Assets/BridalImg.png";
 
 function createData(name: string, StandardPrice: number) {
   return { name, StandardPrice };
@@ -41,10 +42,11 @@ export default function BasicTable() {
       <div className="table">
         <div className="table-wrapper">
           <TableContainer component={Paper}>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <img src={salonIcon} alt="Salon Icon" className="icon" />
-              <h2 className="heading">DRESSING</h2>
+          <div style={{ display: "flex", alignItems: "center" }}>
+              <img src={salonIcon} alt="Salon Icon" className="icon" style={{ color: "#BC7FCD" }}/>
+              <h2 className="headingBr">DRESSING</h2>
             </div>
+
 
             <Table sx={{ minWidth: 500 }} aria-label="simple table">
               <TableHead>
@@ -80,13 +82,14 @@ export default function BasicTable() {
               }}
             >
               <img src={salonIcon} alt="Salon Icon" className="icon" />
-              <h3 style={{ color: "#FF69B4", marginLeft: "10px" }}>
-                BRIDAL - Please Contact +94 778512478 More details
+              <h3 style={{ color: "#D63484", marginLeft: "10px" }}>
+                BRIDAL - Please Contact +94 778512478 More Details
               </h3>
             </div>
           </TableContainer>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

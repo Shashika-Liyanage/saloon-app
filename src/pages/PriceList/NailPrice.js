@@ -6,9 +6,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Footer from "../Footer/Footer";
 import "./priceList.css";
 import salonIcon from "../../../src/Assets/salonicon.jpg";
-import NailImage from "../../../src/Assets/nailImageN.jpg";
+import NailImage from "../../../src/Assets/NailImg.png";
 
 function createData(name: string, StandardPrice: number) {
   return { name, StandardPrice };
@@ -162,6 +163,7 @@ export default function BasicTable() {
           </TableContainer>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
