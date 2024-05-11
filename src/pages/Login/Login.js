@@ -35,7 +35,7 @@ const Login = () => {
       console.log("Google sign-in success:", result);
       toast.success("Logged in successfully.");
       // Redirect user to dashboard page after successful sign-in
-   
+
       window.location.href = "/dashboard";
     } catch (error) {
       console.error("Google sign-in error:", error.message);
@@ -56,7 +56,7 @@ const Login = () => {
         password
       );
       // Successful login
-      
+
       navigate("/dashboard");
       console.log(userCredential.user);
       toast.success("Logged in successfully.");
@@ -79,8 +79,6 @@ const Login = () => {
         justifyContent: "center",
         alignItems: "center",
         minHeight: "100vh",
-      
-        
       }}
     >
       <Container maxWidth="xs">
@@ -89,14 +87,17 @@ const Login = () => {
             variant="h4"
             align="center"
             color="primary"
-            sx={{ fontWeight: 700, fontSize: 35, color: "#99154E", fontFamily: "Georgia" }}
+            sx={{
+              fontWeight: 700,
+              fontSize: 35,
+              color: "#99154E",
+              fontFamily: "Georgia",
+            }}
             gutterBottom
           >
             Login
           </Typography>
-          
-                
-               
+
           <form>
             <Grid container spacing={2}>
               <Grid item xs={12}>
@@ -135,15 +136,13 @@ const Login = () => {
                     backgroundColor: "#F27BBD",
                     fontFamily: "Georgia",
                     "&:hover": {
-                      backgroundColor: "#E659A1", 
-                  }
-                    
+                      backgroundColor: "#E659A1",
+                    },
                   }}
-                  
                 >
                   Login
                 </Button>
-             
+
                 <Toaster
                   toastOptions={{ duration: 9000 }}
                   position="top-right"
@@ -155,13 +154,21 @@ const Login = () => {
                   color="primary"
                   style={{ textTransform: "none", mt: "25px" }}
                 >
-                  <Typography variant="body1" onClick={onSignUp}>
+                  <Typography
+                    variant="body1"
+                    onClick={onSignUp}
+                    style={{ color: "#E659A1" }}
+                  >
                     Don't have an account? Sign Up
                   </Typography>
                 </Button>
               </Grid>
 
-              <Grid container justifyContent="center" sx={{ mt: "10px" }}>
+              <Grid
+                container
+                justifyContent="center"
+                sx={{ ml: "40px", mt: "20px" }}
+              >
                 <Grid item style={{ alignItems: "center" }}>
                   <Typography variant="h7">OR</Typography>
                 </Grid>
@@ -175,7 +182,7 @@ const Login = () => {
                         size="extra-large"
                         sx={{
                           textTransform: "none",
-                          color: "black",
+                          color: "#E659A1",
                           fontWeight: "520",
                         }}
                         onClick={logGoogleUser}
@@ -193,15 +200,10 @@ const Login = () => {
                   </Grid>
                 </Grid>
               </Grid>
-          
             </Grid>
-         
-
           </form>
         </Paper>
-      
       </Container>
-     
     </div>
   );
 };

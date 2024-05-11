@@ -2,26 +2,36 @@
     color: #FF69B4; 
   }
   .headingH {
-    color: #FF69B4;
+    color: #f196a7;
   }
   .headingS {
-    color: #FF69B4;
+    color: #FB88B4;
   }
   .headingN {
-    color: #FF69B4;
+    color: #F4538A;
   }
+  .headingB {
+    color: #FF5BAE;
+  }
+  .headingBr {
+    color: #D63484;
+  }
+  
   
 
   .table {
     display: flex;
     justify-content: space-evenly;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
+   
+   
   }
   .table-wrapper {
     width: 48%;
     padding-right: 5px;
     margin-left: 0px;
     margin-right: 0px;
+    
   }
   .icon {
     width: 30px; 
@@ -34,6 +44,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column; /* Align items vertically */
+    margin-bottom: 20px;
   }
 
 
@@ -55,7 +66,7 @@
   .image-boxH {
     width: 75%;
     margin-bottom: 10px;
-    background-color: #FF69B4;
+    background-color: #f196a7;
     border-radius: 55px;
   }
 
@@ -80,9 +91,8 @@
   .image-boxS {
     width: 75%;
     margin-bottom: 10px;
-    background-color: #FF69B4; 
+    background-color: #FB88B4;
     border-radius: 55px;
-    height: 60%;
   }
   
   
@@ -97,7 +107,7 @@
     position: absolute;
     font-size: 28px;
     font-family: cursive;
-    top: 30%;
+    top: 35%;
     left: 60%;
     transform: translate(-50%, -50%);
     text-align: center;
@@ -106,7 +116,7 @@
   .image-boxN {
     width: 75%;
     margin-bottom: 10px;
-    background-color: #FF69B4; 
+    background-color: #F4538A;
     border-radius: 55px;
   }
 
@@ -131,7 +141,7 @@
   .image-boxB {
     width: 75%;
     margin-bottom: 10px;
-    background-color: #FF69B4; 
+    background-color: #FF5BAE;
     border-radius: 55px;
   }
 
@@ -146,9 +156,10 @@
   
   .BtextBr {
     position: absolute;
+    position: absolute;
     font-size: 28px;
     font-family: cursive;
-    top: 30%;
+    top: 35%;
     left: 60%;
     transform: translate(-50%, -50%);
     text-align: center;
@@ -157,6 +168,6 @@
   .image-boxBr {
     width: 75%;
     margin-bottom: 10px;
-    background-color: #FF69B4; 
+    background-color: #D63484;
     border-radius: 55px;
   }

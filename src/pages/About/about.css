@@ -18,4 +18,44 @@
     line-height: 1.6;
     font-family: cursive;
   }
+  .imageMap {
+    width: 55%;
+    max-width: 45%;
+    display: block;
+    border-radius: 10px;
+  
+  }
+
+ 
+  .about-container {
+    background-color: #FDE5EC; /* Background color for the box */
+    padding: 20px; /* Padding around the content */
+    margin-bottom: 20px; /* Bottom margin to create space between the box and the image */
+    border-radius: 10px;
+  }
+  
+ 
+  .image-container {
+      margin-top: 20px; /* Add margin to create space between the text box and the image */
+      text-align: center; /* Center the image horizontally */
+      border: 2.5px solid  #D20065; /* Add a black border */
+      padding: 5px; /* Add padding to the container */
+      margin-bottom: 50px; 
+  }
+  
+  .icon-container {
+    
+    text-align: center;
+   
+    padding: 5px;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .icon {
+    margin-top: 10px; /* Adjust spacing between icons */
+  }
+  
   
