@@ -58,6 +58,7 @@ ReactDOM.render(
         <Route path="Setting" element={< Setting/>} />
         <Route path="LogOut" element={< LogOut/>} />
         <Route path="AdminLogin" element={< AdminLogin/>} />
+        <Route path="ReviewBooking" element={< ReviewBooking/>} />
         <Route path="*" element={<NoPage />} />
         {/* </Route> */}
       </Routes>

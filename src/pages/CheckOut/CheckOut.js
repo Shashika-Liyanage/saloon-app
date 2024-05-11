@@ -9,7 +9,7 @@ import BookingDetails from "../Booking/BookingDetails";
 import PaymentDetails from "../Payment/PaymentDetails";
 import ReviewBooking from "../ReviewBooking/ReviewBooking";
 
-const steps = ["Booking Details", "Payment Details", "Review the Booking"];
+const steps = ["Payment Details", "Review the Booking"];
 
 const CheckOut = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -29,10 +29,8 @@ const CheckOut = () => {
   const getStepContent = (step) => {
     switch (step) {
       case 0:
-        return <BookingDetails />;
-      case 1:
         return <PaymentDetails />;
-      case 2:
+      case 1:
         return <ReviewBooking />;
       default:
         return "Unknown step";
@@ -78,7 +76,7 @@ const CheckOut = () => {
               </Button>
               <Box sx={{ flex: "1 1 auto" }} />
               <Button onClick={handleNext} variant="contained" color="primary">
-                {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                {activeStep === steps.length - 1 ? "Place The Booking" : "Next"}
               </Button>
             </Box>
             {getStepContent(activeStep)}

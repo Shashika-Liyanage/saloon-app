@@ -1,16 +1,31 @@
 import { Grid, TextField } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import Image2 from "../../../src/Assets/debitCard.jpg";
 import Image3 from "../../../src/Assets/debitCardBack.jpg";
 import CardLogo from "../../../src/Assets/cardLogos.png";
-
+import ReviewBooking from "../ReviewBooking/ReviewBooking";
 
 const PaymentDetails = () => {
+  const [test1,istest1]=useState(null)
   return (
-    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "80vh" ,mt:"10px"}}>
-      <div style={{ width: "100%",justifyContent: "center",alignItems: "center", }}>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "80vh",
+        mt: "10px",
+      }}
+    >
+      <div
+        style={{
+          width: "100%",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <Grid container spacing={3}>
-          <Grid item xs={6} sx={{ml:4}}>
+          <Grid item xs={6} sx={{ ml: 4 }}>
             <img
               className="img"
               width="50%"
