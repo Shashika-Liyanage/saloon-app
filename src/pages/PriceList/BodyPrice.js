@@ -6,9 +6,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Footer from "../Footer/Footer";
 import "./priceList.css";
 import salonIcon from "../../../src/Assets/salonicon.jpg";
-import BodyImage from "../../../src/Assets/bodyImage.jpg";
+import BodyImage from "../../../src/Assets/BodyImg.png";
 
 function createData(name: string, StandardPrice: number) {
   return { name, StandardPrice };
@@ -52,9 +53,9 @@ export default function BasicTable() {
       <div className="table">
         <div className="table-wrapper">
           <TableContainer component={Paper}>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <img src={salonIcon} alt="Salon Icon" className="icon" />
-              <h2 className="heading">WAXING</h2>
+          <div style={{ display: "flex", alignItems: "center" }}>
+              <img src={salonIcon} alt="Salon Icon" className="icon" style={{ color: "#BC7FCD" }}/>
+              <h2 className="headingB">WAXING</h2>
             </div>
 
             <Table sx={{ minWidth: 500 }} aria-label="simple table">
@@ -87,11 +88,11 @@ export default function BasicTable() {
 
         <div style={{ width: "48%" }}>
           <TableContainer component={Paper}>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <img src={salonIcon} alt="Salon Icon" className="icon" />
-              <h2 className="heading">DE-TANNING PREMIUM</h2>
+          <div style={{ display: "flex", alignItems: "center" }}>
+              <img src={salonIcon} alt="Salon Icon" className="icon" style={{ color: "#BC7FCD" }}/>
+              <h2 className="headingB"> DE-TANNING PREMIUM</h2>
             </div>
-
+           
             <Table sx={{ minWidth: 500 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
@@ -120,6 +121,7 @@ export default function BasicTable() {
           </TableContainer>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
