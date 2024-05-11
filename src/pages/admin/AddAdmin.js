@@ -1,9 +1,8 @@
-
 import React, { useState, useEffect } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import Footer from "../Footer/Footer";
+
 
 import {
   Box,
@@ -109,6 +108,8 @@ const AddAdmin = () => {
   return (
     <Box
       sx={{
+        marginLeft: "25%",
+        marginLeft: "25%",
         display: "flex",
         justifyContent: "space-between",
         mb: "70px",
@@ -124,6 +125,7 @@ const AddAdmin = () => {
             boxShadow: "0 20px 0px rgba(#EED3D9)",
             borderRadius: 10,
             padding: 4,
+        
           }}
         >
           <Typography
@@ -145,10 +147,10 @@ const AddAdmin = () => {
           >
             <Grid item xs={5}>
               <TextField
-                id="name"
+                id="Fname"
                 required
-                name="Name"
-                label="Name"
+                name="FName"
+                label="First Name"
                 variant="outlined"
                 fullWidth
                 value={user.Name}
@@ -157,14 +159,14 @@ const AddAdmin = () => {
               />
             </Grid>
             <Grid item xs={5}>
-              <TextField
-                id="phone_number"
-                label="Phone Number"
-                name="Phone"
+            <TextField
+                id="Lname"
+                required
+                name="LName"
+                label="Last Name"
                 variant="outlined"
-                value={user.Phone}
                 fullWidth
-                // inputProps={{ inputMode: "numeric" }}
+                value={user.Name}
                 onChange={data}
                 sx={{ bgcolor: "white" }}
               />
@@ -178,14 +180,14 @@ const AddAdmin = () => {
             sx={{ mt: "5px" }}
           >
             <Grid item xs={5}>
-              <TextField
-                id="email"
-                name="Email"
-                label="Email"
-                type="email"
+            <TextField
+                id="phone_number"
+                label="Phone Number"
+                name="Phone"
                 variant="outlined"
+                value={user.Phone}
                 fullWidth
-                value={user.Email}
+                // inputProps={{ inputMode: "numeric" }}
                 onChange={data}
                 sx={{ bgcolor: "white" }}
               />
