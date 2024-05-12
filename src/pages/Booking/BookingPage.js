@@ -12,6 +12,8 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { saveBookingData } from "../redux/BookingDataSlice";
 
 
 const BookingPage = () => {
@@ -25,6 +27,8 @@ const BookingPage = () => {
     Notes: "",
   });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   let name, value;
   console.log(user, "janith");
   const data = (e) => {
@@ -89,6 +93,8 @@ const BookingPage = () => {
     // Add form submission logic here
     if (isFormFilled()) {
       // Your submission logic here
+      dispatch(saveBookingData(user));
+      goToCheckOutPage();
     } else {
       toast.error("Please fill in all fields");
     }
@@ -339,7 +345,7 @@ const BookingPage = () => {
               variant="contained"
               fullWidth
               // onClick={getdata}
-              onClick={goToCheckOutPage}
+              // onClick={goToCheckOutPage}
             >
               Go to Check Out Page
             </Button>

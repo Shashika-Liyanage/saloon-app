@@ -5,8 +5,10 @@ import Image3 from "../../../src/Assets/debitCardBack.jpg";
 import CardLogo from "../../../src/Assets/cardLogos.png";
 import ReviewBooking from "../ReviewBooking/ReviewBooking";
 
-const PaymentDetails = () => {
-  const [test1,istest1]=useState(null)
+const PaymentDetails = ({ bookingData }) => {
+  console.log("booking data => ", bookingData);
+
+  const [test1, istest1] = useState(null);
   return (
     <div
       style={{
@@ -24,6 +26,14 @@ const PaymentDetails = () => {
           alignItems: "center",
         }}
       >
+        <Grid container>
+          <Grid item xs={6}>
+          </Grid>
+          <Grid item xs={6}>
+            
+          </Grid>
+        </Grid>
+
         <Grid container spacing={3}>
           <Grid item xs={6} sx={{ ml: 4 }}>
             <img
