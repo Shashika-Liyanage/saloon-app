@@ -28,6 +28,7 @@ import Setting from "./pages/admin/Setting";
 import LogOut from "./pages/admin/LogOut";
 import About from "./pages/About/about";
 import AdminLogin from "./pages/admin/AdminLogin";
+import PriceUpdate from './pages/admin/PriceUpdate';
 
 function App() {
   return (
@@ -61,6 +62,7 @@ function App() {
             <Route path="LogOut" element={<LogOut />} />
             <Route path="AdminLogin" element={<AdminLogin />} />
             <Route path="ReviewBooking" element={<ReviewBooking />} />
+            <Route path="PriceUpdate" element={<PriceUpdate />} />
             <Route path="*" element={<NoPage />} />
             {/* </Route> */}
           </Routes>
