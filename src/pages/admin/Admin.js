@@ -77,23 +77,26 @@ const Admin = (props) => {
   const goToSettings = () => {
     navigate("/Setting");
   };
-  const handleLogOut =()=>{
+  const goToUpdateTables = () => {
+    navigate("/PriceUpdate");
+  };
+  const handleLogOut = () => {
     signOut(auth)
-    .then(()=>{
-      navigate("/AdminLogin")
-      // Show toast notification
-      toast.success("You have been logged out successfully..");
-    })
-    .catch((error) => {
-      // An error happened.
+      .then(() => {
+        navigate("/AdminLogin");
+        // Show toast notification
+        toast.success("You have been logged out successfully..");
+      })
+      .catch((error) => {
+        // An error happened.
 
-      toast.error("Error logging out. Please try again.");
-    });
-  }
+        toast.error("Error logging out. Please try again.");
+      });
+  };
 
   const drawer = (
     <div>
-        <Stack direction="column" spacing={5} sx={{ mt: "20px" }}>
+      <Stack direction="column" spacing={5} sx={{ mt: "20px" }}>
         {/* <Button
           onClick={goToAppointments}
           variant="contained"
@@ -108,7 +111,6 @@ const Admin = (props) => {
           variant="contained"
           fullWidth
           sx={{
-            
             fontWeight: "600",
             color: "white",
             ml: "20px",
@@ -116,6 +118,19 @@ const Admin = (props) => {
         >
           <AdminPanelSettingsIcon />
           Add Admin
+        </Button>
+        <Button
+          onClick={UpdateTables}
+          variant="contained"
+          fullWidth
+          sx={{
+            fontWeight: "600",
+            color: "white",
+            ml: "20px",
+          }}
+        >
+          <AdminPanelSettingsIcon />
+          Update Tables
         </Button>
         {/* <Button
           onClick={goToInbox}
@@ -140,16 +155,16 @@ const Admin = (props) => {
           onClick={goToSettings}
           variant="contained"
           fullWidth
-          sx={{  fontWeight: "600", color: "white" }}
+          sx={{ fontWeight: "600", color: "white" }}
         >
           <SettingsIcon />
           Settings
         </Button>
         <Button
-        onClick={handleLogOut}
+          onClick={handleLogOut}
           variant="contained"
           fullWidth
-          sx={{fontWeight: "600", color: "white" }}
+          sx={{ fontWeight: "600", color: "white" }}
         >
           <PowerSettingsNewIcon />
           LogOut
@@ -200,12 +215,9 @@ const Admin = (props) => {
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
-         
-          
         }}
       >
-        <Toolbar sx={{backgroundColor:"#99154E",  mb:"20px"}}>
-      
+        <Toolbar sx={{ backgroundColor: "#99154E", mb: "20px" }}>
           <Typography variant="h6" noWrap component="div">
             Lilly's Admin Panel
           </Typography>
