@@ -120,7 +120,7 @@ const Admin = (props) => {
           Add Admin
         </Button>
         <Button
-          onClick={UpdateTables}
+          onClick={goToUpdateTables}
           variant="contained"
           fullWidth
           sx={{
