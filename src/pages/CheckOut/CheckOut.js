@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -8,10 +8,16 @@ import Typography from "@mui/material/Typography";
 import BookingDetails from "../Booking/BookingDetails";
 import PaymentDetails from "../Payment/PaymentDetails";
 import ReviewBooking from "../ReviewBooking/ReviewBooking";
+import { useSelector } from "react-redux";
+import { selectBookingData } from "../redux/BookingDataSlice";
+import { useNavigate } from "react-router-dom";
 
 const steps = ["Payment Details", "Review the Booking"];
 
 const CheckOut = () => {
+  const navigate = useNavigate();
+  const bookingData = useSelector(selectBookingData);
+
   const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => {
@@ -29,13 +35,17 @@ const CheckOut = () => {
   const getStepContent = (step) => {
     switch (step) {
       case 0:
-        return <PaymentDetails />;
+        return <PaymentDetails bookingData={bookingData} />;
       case 1:
         return <ReviewBooking />;
       default:
         return "Unknown step";
     }
   };
+
+  // useEffect(() => {
+  //   if(!bookingData) navigate('/Booking')
+  // },[bookingData])
 
   return (
     <Box sx={{ width: "100%" }}>
