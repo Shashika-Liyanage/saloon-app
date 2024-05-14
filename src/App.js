@@ -62,7 +62,7 @@ function App() {
             <Route path="LogOut" element={<LogOut />} />
             <Route path="AdminLogin" element={<AdminLogin />} />
             <Route path="ReviewBooking" element={<ReviewBooking />} />
-            <Route path="PriceUpdate" element={<PriceUpdate />} />
+            <Route path="np" element={<PriceUpdate />} />
             <Route path="*" element={<NoPage />} />
             {/* </Route> */}
           </Routes>
