@@ -107,20 +107,21 @@ const Admin = (props) => {
           Appointments
         </Button> */}
         <Button
-          onClick={goToAddAdmin}
-          variant="contained"
-          fullWidth
-          sx={{
-            fontWeight: "600",
-            color: "white",
-            ml: "20px",
-          }}
-        >
-          <AdminPanelSettingsIcon />
-          Add Admin
-        </Button>
+  onClick={goToUpdateTables}
+  variant="contained"
+  fullWidth
+  sx={{
+    fontWeight: "600",
+    color: "white",
+    ml: "20px",
+  }}
+>
+  <AdminPanelSettingsIcon />
+  Update Tables
+</Button>
+
         <Button
-          onClick={UpdateTables}
+          onClick={goToUpdateTables}
           variant="contained"
           fullWidth
           sx={{
