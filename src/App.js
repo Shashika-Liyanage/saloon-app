@@ -1,4 +1,3 @@
-import React from 'react'
 import { Provider as ReduxProvider } from "react-redux";
 import Store from "./pages/redux/Store";
 import Login from "./pages/Login/Login";
@@ -62,7 +61,7 @@ function App() {
             <Route path="LogOut" element={<LogOut />} />
             <Route path="AdminLogin" element={<AdminLogin />} />
             <Route path="ReviewBooking" element={<ReviewBooking />} />
-            <Route path="PriceUpdate" element={<PriceUpdate />} />
+            <Route path="np" element={<PriceUpdate />} />
             <Route path="*" element={<NoPage />} />
             {/* </Route> */}
           </Routes>

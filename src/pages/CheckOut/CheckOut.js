@@ -43,9 +43,9 @@ const CheckOut = () => {
     }
   };
 
-  // useEffect(() => {
-  //   if(!bookingData) navigate('/Booking')
-  // },[bookingData])
+  useEffect(() => {
+    if(!bookingData) navigate('/Booking')
+  },[bookingData])
 
   return (
     <Box sx={{ width: "100%" }}>
