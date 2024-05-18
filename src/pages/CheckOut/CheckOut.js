@@ -5,7 +5,6 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import BookingDetails from "../Booking/BookingDetails";
 import PaymentDetails from "../Payment/PaymentDetails";
 import ReviewBooking from "../ReviewBooking/ReviewBooking";
 import { useSelector } from "react-redux";

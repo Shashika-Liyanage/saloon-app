@@ -4,38 +4,27 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Footer from "../Footer/Footer";
-import { Box, Divider, Link, Stack } from "@mui/material";
+import {Divider, Link, Stack } from "@mui/material";
 import Image2 from "../../../src/Assets/Welcome.png";
 import map1 from "../../../src/Assets/map1.png";
 import videoOne from "../../../src/Assets/videoOne.mp4";
-import videoTwo from "../../../src/Assets/videoTwo.mp4";
-import Layout from "../Layout/Layout";
-import BookingPage from "../Booking/BookingPage";
-import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 
-const headerStyle = {
-  height: "80px",
-  color: "#fff",
-  display: "flex",
-  alignItems: "center",
-  padding: "0 20px",
-};
 
-const salonNameStyle = {
-  marginRight: "auto",
-  fontFamily: "Arial, sans-serif",
-  fontWeight: "bold",
-  fontSize: "15px",
-  letterSpacing: "2px",
-  textTransform: "uppercase",
-};
+// const salonNameStyle = {
+//   marginRight: "auto",
+//   fontFamily: "Arial, sans-serif",
+//   fontWeight: "bold",
+//   fontSize: "15px",
+//   letterSpacing: "2px",
+//   textTransform: "uppercase",
+// };
 
-const listStyle = {
-  marginLeft: "auto",
-  fontSize: "16px", // Set smaller font size for the list
-};
+// const listStyle = {
+//   marginLeft: "auto",
+//   fontSize: "16px", // Set smaller font size for the list
+// };
 
 const cardContainerStyle = {
   display: "flex",
@@ -114,7 +103,7 @@ const Dashboard = () => {
             height="auto"
             alignItems="left"
             src={Image2}
-            alt="image"
+            alt="Imgn"
             style={{
               borderBottomLeftRadius: "50px",
               borderBottomRightRadius: "280px",

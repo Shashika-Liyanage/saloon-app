@@ -1,7 +1,6 @@
 import {
   Autocomplete,
   Box,
-  Button,
   CardContent,
   Grid,
   TextField,
@@ -207,7 +206,7 @@ const ReviewBooking = () => {
               alignItems="left"
             
               src={CardLogo}
-              alt="image"
+              alt="imN"
             />
           <Toaster
             toastOptions={{

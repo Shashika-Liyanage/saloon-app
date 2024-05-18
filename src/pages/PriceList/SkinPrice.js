@@ -36,7 +36,7 @@ export default function BasicTable() {
     <div>
       <div className="container">
         <div className="image-boxS">
-          <img src={SkinImage} alt="Skin Image" className="imageS" />
+          <img src={SkinImage} alt="Salon Lilly Skin Prices" className="imageS" />
           <div className="BtextS">
             <h2>Salon Lilly Skin Prices</h2>
           </div>

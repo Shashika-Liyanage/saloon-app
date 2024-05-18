@@ -43,7 +43,7 @@ const Footer = () => {
                 <img className="img" width="70%" src={Logo} alt="image" />
               </Link>
             </div>
-            {/* Add your logo component or image here */}
+            
           </Grid>
           <Grid item xs={6} sm={3} md={2}>
             <Typography variant="subtitle1" color="text.primary" gutterBottom>

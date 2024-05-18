@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { signOut } from "firebase/auth";
-import { Link, useNavigate } from "react-router-dom";
+//import { signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 import { auth } from "../../services/firebaseConfig";
-import toast, { Toaster } from "react-hot-toast";
-import { Avatar, Button, Grid } from "@mui/material";
 import bg from "../../Assets/salonBg.jpg";
-import Image2 from "../../../src/Assets/Welcome.png";
+
 const Home = () => {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const [user, setUser] = useState(null);
-  const [avatarColor, setAvatarColor] = useState("#000"); //default color for avatar
+  const [setAvatarColor] = useState("#000"); //default color for avatar
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((userData) => {

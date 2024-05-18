@@ -1,9 +1,9 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import Footer from "../Footer/Footer";
+
 
 import {
   Box,
@@ -26,7 +26,7 @@ const NewApoinment = () => {
     Notes: "",
   });
   const navigate = useNavigate();
-  let name, value;
+  
   console.log(user, "janith");
   const data = (e) => {
     const { name, value } = e.target;

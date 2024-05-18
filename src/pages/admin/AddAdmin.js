@@ -1,6 +1,6 @@
 
-import React, { useState, useEffect } from "react";
-import Autocomplete from "@mui/material/Autocomplete";
+import React, { useState } from "react";
+//import Autocomplete from "@mui/material/Autocomplete";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
@@ -26,7 +26,7 @@ const AddAdmin = () => {
     Notes: "",
   });
   const navigate = useNavigate();
-  let name, value;
+  //let name, value;
   console.log(user, "janith");
   const data = (e) => {
     const { name, value } = e.target;
@@ -95,13 +95,13 @@ const AddAdmin = () => {
     }
   };
 
-  const handleChange = (event) => {
-    if (event.target.value.match(/[^0-9]/)) {
-      event.preventDefault();
-    }
+  // const handleChange = (event) => {
+  //   if (event.target.value.match(/[^0-9]/)) {
+  //     event.preventDefault();
+  //   }
     // otherwise, continue with the rest of your logic
     // ...
-  };
+  //};
   //
   const goToCheckOutPage = () => {
     navigate("/Checkout");
@@ -109,7 +109,6 @@ const AddAdmin = () => {
   return (
     <Box
       sx={{
-        marginLeft: "25%",
         marginLeft: "25%",
         display: "flex",
         justifyContent: "space-between",

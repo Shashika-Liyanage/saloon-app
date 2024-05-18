@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import Footer from "../Footer/Footer";
 import {
   Button,
@@ -8,13 +8,13 @@ import {
   Typography,
   Box,
 } from "@mui/material";
-import firebaseConfig, { auth } from "../../services/firebaseConfig";
+import { auth } from "../../services/firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import toast, { Toaster } from "react-hot-toast";
 const SignUp = () => {
   const navigate = useNavigate();
-  const [error, setError] = useState();
+  //const [error, setError] = useState();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setconfirmPassword] = useState("");
@@ -77,7 +77,7 @@ const SignUp = () => {
             
           }}
         >
-          <Typography sx={{ fontWeight: 700, fontSize: 35, color: "#5E3B4D",  color: "#99154E",
+          <Typography sx={{ fontWeight: 700, fontSize: 35, color: "#99154E",
           fontFamily: "Georgia", }}>
             Sign Up
           </Typography>

@@ -1,24 +1,16 @@
 import { Card, CardContent, Grid, Stack, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import Image2 from "../../../src/Assets/debitCard.jpg";
 import Image3 from "../../../src/Assets/debitCardBack.jpg";
 import CardLogo from "../../../src/Assets/cardLogos.png";
-import ReviewBooking from "../ReviewBooking/ReviewBooking";
+
 
 const PaymentDetails = ({ bookingData }) => {
   console.log("booking data => ", bookingData);
 
-  const [test1, istest1] = useState(null);
+  
   return (
-    <div
-      // style={{
-      //   display: "flex",
-      //   justifyContent: "center",
-      //   alignItems: "center",
-      //   height: "80vh",
-      //   mt: "5px",
-      // }}
-    >
+    
       <div
         style={{
           width: "100%",
@@ -36,7 +28,7 @@ const PaymentDetails = ({ bookingData }) => {
                   width="40%"
                   height="auto"
                   src={Image2}
-                  alt="image"
+                  alt="imN"
                   loading="lazy"
                 />
                 <img
@@ -44,7 +36,7 @@ const PaymentDetails = ({ bookingData }) => {
                   width="40%"
                   height="auto"
                   src={Image3}
-                  alt="image"
+                  alt="ImN"
                   loading="lazy"
                 />
               </Stack>
@@ -99,7 +91,7 @@ const PaymentDetails = ({ bookingData }) => {
                   className="img"
                   width="20%"
                   src={CardLogo}
-                  alt="image"
+                  alt="ImN"
                 />
               </div>
             </Stack>
@@ -119,7 +111,7 @@ const PaymentDetails = ({ bookingData }) => {
           </Grid>
         </Grid>
       </div>
-    </div>
+    
   );
 };
 
