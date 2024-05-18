@@ -28,53 +28,57 @@ import Setting from "./pages/admin/Setting";
 import LogOut from "./pages/admin/LogOut";
 import About from "./pages/About/about";
 import AdminLogin from "./pages/admin/AdminLogin";
-import PriceUpdate from "./pages/admin/PriceUpdate";
-import AlertDialogSlide from "./pages/ChatBot/Pop";
-import ChatbotLauncher from "./pages/ChatBot/Chatbot";
-import Chatbot from "./pages/ChatBot/Chatbot";
+import PriceUpdate from './pages/admin/Update/PriceUpdate';
+import AlertDialogSlide from './pages/ChatBot/Pop';
+import ChatbotLauncher from './pages/ChatBot/Chatbot';
+import Chatbot from './pages/ChatBot/Chatbot';
+import UpdateHair from './pages/admin/Update/Update Hair Section/UpdateHair';
+
 
 function App() {
   return (
-    <ReduxProvider store={Store}>
-      <BrowserRouter>
-        <Layout />
-        <Routes>
-          <Route exact path="/" element={<Dashboard />} />
-          <Route path="Login" element={<Login />} />
-          <Route path="Dashboard" element={<Dashboard />} />
-          <Route path="Booking" element={<BookingPage />} />
-          <Route path="Home" element={<Home />} />
-          <Route path="SignUp" element={<SignUp />} />
-          <Route path="HairPrices" element={<HairPrice />} />
-          <Route path="SkinPrices" element={<SkinPrice />} />
-          <Route path="Admin" element={<Admin />} />
-          <Route path="NailPrices" element={<NailPrice />} />
-          <Route path="BodyPrices" element={<Bodyprice />} />
-          <Route path="BridalPrices" element={<BridalPrice />} />
-          <Route path="About" element={<About />} />
-          <Route path="Checkout" element={<CheckOut />} />
-          <Route path="BookingDetails" element={<BookingDetails />} />
-          <Route path="PaymentDetails" element={<PaymentDetails />} />
-          <Route path="OrderSummury" element={<ReviewBooking />} />
-          <Route path="NewApoinment" element={<NewApoinment />} />
-          <Route path="Apoinments" element={<Appoinment />} />
-          <Route path="AddAdmin" element={<AddAdmin />} />
-          <Route path="Inbox" element={<Inbox />} />
-          <Route path="SentMail" element={<SentMail />} />
-          <Route path="Setting" element={<Setting />} />
-          <Route path="LogOut" element={<LogOut />} />
-          <Route path="AdminLogin" element={<AdminLogin />} />
-          <Route path="ReviewBooking" element={<ReviewBooking />} />
-          <Route path="Alert" element={<AlertDialogSlide />} />
-          <Route path="ChatBot" element={<ChatbotLauncher />} />
-          <Route path="ChatBotui" element={<Chatbot />} />
-          <Route path="np" element={<PriceUpdate />} />
-          <Route path="*" element={<NoPage />} />
+      <ReduxProvider store={Store}>
+        <BrowserRouter>
+          <Layout />
+          <Routes>
+            <Route exact path="/" element={<Dashboard />} />
+            <Route path="Login" element={<Login />} />
+            <Route path="Dashboard" element={<Dashboard />} />
+            <Route path="Booking" element={<BookingPage />} />
+            <Route path="Home" element={<Home />} />
+            <Route path="SignUp" element={<SignUp />} />
+            <Route path="HairPrices" element={<HairPrice />} />
+            <Route path="SkinPrices" element={<SkinPrice />} />
+            <Route path="Admin" element={<Admin />} />
+            <Route path="NailPrices" element={<NailPrice />} />
+            <Route path="BodyPrices" element={<Bodyprice />} />
+            <Route path="BridalPrices" element={<BridalPrice />} />
+            <Route path="About" element={<About />} />
+            <Route path="Checkout" element={<CheckOut />} />
+            <Route path="BookingDetails" element={<BookingDetails />} />
+            <Route path="PaymentDetails" element={<PaymentDetails />} />
+            <Route path="OrderSummury" element={<ReviewBooking />} />
+            <Route path="NewApoinment" element={<NewApoinment />} />
+            <Route path="Apoinments" element={<Appoinment />} />
+            <Route path="AddAdmin" element={<AddAdmin />} />
+            <Route path="Inbox" element={<Inbox />} />
+            <Route path="SentMail" element={<SentMail />} />
+            <Route path="Setting" element={<Setting />} />
+            <Route path="LogOut" element={<LogOut />} />
+            <Route path="AdminLogin" element={<AdminLogin />} />
+            <Route path="ReviewBooking" element={<ReviewBooking />} />
+            <Route path="Alert" element={<AlertDialogSlide />} />
+            <Route path="ChatBot" element={<ChatbotLauncher />} />
+            <Route path="ChatBotui" element={<Chatbot />} />
+            <Route path="PriceUpdate" element={<PriceUpdate />} />
+            <Route path="UpdateHair" element={<UpdateHair />} />
+            <Route path="*" element={<NoPage />} />
 
-          {/* </Route> */}
-        </Routes>
-      </BrowserRouter>
-    </ReduxProvider>
+           
+            {/* </Route> */}
+          </Routes>
+        </BrowserRouter>
+      </ReduxProvider>
   );
 }
 
