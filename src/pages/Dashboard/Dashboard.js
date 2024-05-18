@@ -13,6 +13,7 @@ import Layout from "../Layout/Layout";
 import BookingPage from "../Booking/BookingPage";
 import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import AlertDialogSlide from "../ChatBot/Pop";
 
 
 const headerStyle = {
@@ -373,7 +374,9 @@ const Dashboard = () => {
         </div>
         <Divider />
         <img className="img" src={map1} alt="map" />
+     
         <Footer />
+  
       </div>
     </div>
   );
