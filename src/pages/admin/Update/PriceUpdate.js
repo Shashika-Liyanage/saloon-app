@@ -8,120 +8,114 @@ import {
   CardContent,
   Stack,
   Fade,
-  Modal,
   Backdrop,
   Dialog,
   TextField,
 } from "@mui/material";
-import UpdateHair from "./Update Hair Section/UpdateHair";
-
-
+//import UpdateHair from "./Update Hair Section/UpdateHair";
 
 const PriceUpdate = () => {
-  const [open, setOpen] = useState(false);
+  //const [setOpen] = useState(false);
   //For the hair section
   const [showHaircutModal, setShowHaircutModal] = useState(false);
   const [showHairColoringModal, setshowHairColoringModal] = useState(false);
   const [showHairSpaModal, setshowHairSpaModal] = useState(false);
   const [showHairTreatModal, setshowHairTreatModal] = useState(false);
 
+  // For the Skin Section
 
-  // For the Skin Section 
+  const [showCleanUpModal, setshowCleanUpModal] = useState(false);
+  const [showFacialModal, setFacialModal] = useState(false);
+  const [showThreadingModal, setThreadingModal] = useState(false);
 
-  const [showCleanUpModal,setshowCleanUpModal]=useState(false);
-  const [showFacialModal,setFacialModal]=useState(false);
-  const [showThreadingModal,setThreadingModal]=useState(false);
+  //For the Nail Section
 
-  //For the Nail Section 
+  const [showManicureModal, setshowManicureModal] = useState(false);
+  const [showPedicureModal, setshowPedicureModal] = useState(false);
+  const [showMicroBladingModal, setshowMicroBladingModal] = useState(false);
+  const [showNailNaModal, setshowNailNaModal] = useState(false);
 
-  const[showManicureModal,setshowManicureModal]=useState(false);
-  const[showPedicureModal,setshowPedicureModal]=useState(false);
-  const[showMicroBladingModal,setshowMicroBladingModal]=useState(false);
-  const[showNailNaModal,setshowNailNaModal]=useState(false);
+  //For the Body Section
+  const [showWaxingModal, setShowWaxingModal] = useState(false);
+  const [showDetainingModal, setshowDetainingModal] = useState(false);
 
+  //For the Bridal Section
+  const [showDressingModal, setshowDressingModal] = useState(false);
 
-  //For the Body Section 
-  const[showWaxingModal,setShowWaxingModal]=useState(false);
-  const[showDetainingModal,setshowDetainingModal]=useState(false);
+  // Function to handle button click and open the modal in Bridal section
+  const handlebridalButtonClick = () => {
+    setshowDressingModal(true);
+  };
 
-  //For the Bridal Section 
-  const[showDressingModal,setshowDressingModal]=useState(false);
+  // Function to close the modal  in Boyd section
+  const handleCloseModalBridal = () => {
+    setshowDressingModal(false);
+  };
 
-  // Function to handle button click and open the modal in Bridal section 
-const handlebridalButtonClick=()=>{
-  setshowDressingModal(true)
-}
+  // Function to handle button click and open the modal in Body section
+  const handleBodyButtonClick = () => {
+    setShowWaxingModal(true);
+    setshowDetainingModal(true);
+  };
 
-   // Function to close the modal  in Boyd section 
-const handleCloseModalBridal=()=>{
-  setshowDressingModal(false)
-}
+  // Function to close the modal  in Boyd section
+  const handleCloseModalBody = () => {
+    setShowWaxingModal(false);
+    setshowDetainingModal(false);
+  };
 
-  // Function to handle button click and open the modal in Body section 
-const handleBodyButtonClick=()=>{
-  setShowWaxingModal(true)
-  setshowDetainingModal(true)
-}
+  // Function to handle button click and open the modal in Nail section
+  const handleNailButtonClick = () => {
+    setshowManicureModal(true);
+    setshowPedicureModal(true);
+    setshowMicroBladingModal(true);
+    setshowNailNaModal(true);
+  };
 
- // Function to close the modal  in Boyd section 
-const handleCloseModalBody=()=>{
-  setShowWaxingModal(false)
-  setshowDetainingModal(false)
-}
+  // Function to close the modal  in Skin section
 
-// Function to handle button click and open the modal in Nail section 
-const handleNailButtonClick=()=>{
-  setshowManicureModal(true)
-  setshowPedicureModal(true)
-  setshowMicroBladingModal(true)
-  setshowNailNaModal(true)
-  
-}
+  const handleCloseModalNail = () => {
+    setshowManicureModal(false);
+    setshowPedicureModal(false);
+    setshowMicroBladingModal(false);
+    setshowNailNaModal(false);
+  };
+  // Function to handle button click and open the modal in Skin section
+  const handleSkinButtonClick = () => {
+    setshowCleanUpModal(true);
+    setFacialModal(true);
+    setThreadingModal(true);
+  };
 
-  // Function to close the modal  in Skin section 
+  // Function to close the modal  in Skin section
+  const handleCloseModalSkin = () => {
+    setshowCleanUpModal(false);
+    setFacialModal(false);
+    setThreadingModal(false);
+  };
 
-  const handleCloseModalNail=()=>{
-    setshowManicureModal(false)
-    setshowPedicureModal(false)
-    setshowMicroBladingModal(false)
-    setshowNailNaModal(false)
-  }
-// Function to handle button click and open the modal in Skin section 
-const handleSkinButtonClick=()=>{
-  setshowCleanUpModal(true)
-  setFacialModal(true)
-  setThreadingModal(true)
-}
-
-  // Function to close the modal  in Skin section 
-const handleCloseModalSkin=()=>{
-  setshowCleanUpModal(false)
-  setFacialModal(false)
-  setThreadingModal(false)
-}
-
-  // Function to handle button click and open the modal in Hair section 
+  // Function to handle button click and open the modal in Hair section
   const handleHairButtonClick = () => {
     setShowHaircutModal(true);
-    setshowHairColoringModal(true)
-    setshowHairSpaModal(true)
-    setshowHairTreatModal(true)
+    setshowHairColoringModal(true);
+    setshowHairSpaModal(true);
+    setshowHairTreatModal(true);
   };
 
-  // Function to close the modal in Hair section 
+  // Function to close the modal in Hair section
   const handleCloseModal = () => {
     setShowHaircutModal(false);
-    setshowHairColoringModal(false)
-    setshowHairSpaModal(false)
-    setshowHairTreatModal(false)
+    setshowHairColoringModal(false);
+    setshowHairSpaModal(false);
+    setshowHairTreatModal(false);
   };
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
 
   // Custom Card component
   const CustomCard = ({ children }) => {
@@ -136,7 +130,6 @@ const handleCloseModalSkin=()=>{
 
   return (
     <>
-
       <Box sx={{ flexGrow: 2 }}>
         <Grid container spacing={3}>
           <CustomCard>
@@ -150,10 +143,14 @@ const handleCloseModalSkin=()=>{
                 </Button>
               </Grid>
               <Grid item xs={4}>
-                <Button variant="contained" onClick={handleHairButtonClick}>Update Hair Coloring Price </Button>
+                <Button variant="contained" onClick={handleHairButtonClick}>
+                  Update Hair Coloring Price{" "}
+                </Button>
               </Grid>{" "}
               <Grid item xs={4}>
-                <Button variant="contained" onClick={handleHairButtonClick}>Update Hair Spa Price </Button>
+                <Button variant="contained" onClick={handleHairButtonClick}>
+                  Update Hair Spa Price{" "}
+                </Button>
               </Grid>
               <Grid item xs={4}>
                 <Button variant="contained" onClick={handleHairButtonClick}>
@@ -169,13 +166,19 @@ const handleCloseModalSkin=()=>{
             </Typography>
             <Stack direction="row" spacing={2}>
               <Grid item xs={4}>
-                <Button onClick={handleSkinButtonClick} variant="contained">Update CleanUp Price </Button>
+                <Button onClick={handleSkinButtonClick} variant="contained">
+                  Update CleanUp Price{" "}
+                </Button>
               </Grid>
               <Grid item xs={4}>
-                <Button onClick={handleSkinButtonClick} variant="contained">Update Facial Price </Button>
+                <Button onClick={handleSkinButtonClick} variant="contained">
+                  Update Facial Price{" "}
+                </Button>
               </Grid>{" "}
               <Grid item xs={4}>
-                <Button onClick={handleSkinButtonClick} variant="contained">Update Threading Price </Button>
+                <Button onClick={handleSkinButtonClick} variant="contained">
+                  Update Threading Price{" "}
+                </Button>
               </Grid>
               <Grid item xs={4}>
                 <Button disabled variant="contained">
@@ -190,16 +193,24 @@ const handleCloseModalSkin=()=>{
             </Typography>
             <Stack direction="row" spacing={2}>
               <Grid item xs={4}>
-                <Button onClick={handleNailButtonClick}  variant="contained">Update Manicure Price </Button>
+                <Button onClick={handleNailButtonClick} variant="contained">
+                  Update Manicure Price{" "}
+                </Button>
               </Grid>
               <Grid item xs={4}>
-                <Button onClick={handleNailButtonClick}  variant="contained">Update Pedicure Price </Button>
+                <Button onClick={handleNailButtonClick} variant="contained">
+                  Update Pedicure Price{" "}
+                </Button>
               </Grid>{" "}
               <Grid item xs={4}>
-                <Button onClick={handleNailButtonClick}  variant="contained">Update Microblading Price </Button>
+                <Button onClick={handleNailButtonClick} variant="contained">
+                  Update Microblading Price{" "}
+                </Button>
               </Grid>
               <Grid item xs={4}>
-                <Button onClick={handleNailButtonClick}  variant="contained">Update Nail Price </Button>
+                <Button onClick={handleNailButtonClick} variant="contained">
+                  Update Nail Price{" "}
+                </Button>
               </Grid>
             </Stack>
           </CustomCard>
@@ -209,10 +220,14 @@ const handleCloseModalSkin=()=>{
             </Typography>
             <Stack direction="row" spacing={2}>
               <Grid item xs={4}>
-                <Button onClick={handleBodyButtonClick} variant="contained">Update Waxing Price </Button>
+                <Button onClick={handleBodyButtonClick} variant="contained">
+                  Update Waxing Price{" "}
+                </Button>
               </Grid>
               <Grid item xs={4}>
-                <Button onClick={handleBodyButtonClick} variant="contained">De-Tanning premium Price </Button>
+                <Button onClick={handleBodyButtonClick} variant="contained">
+                  De-Tanning premium Price{" "}
+                </Button>
               </Grid>{" "}
               <Grid item xs={4}>
                 <Button disabled variant="contained">
@@ -232,7 +247,9 @@ const handleCloseModalSkin=()=>{
             </Typography>
             <Stack direction="row" spacing={2}>
               <Grid item xs={4}>
-                <Button onClick={handlebridalButtonClick} variant="contained">Update DRESSING Price </Button>
+                <Button onClick={handlebridalButtonClick} variant="contained">
+                  Update DRESSING Price{" "}
+                </Button>
               </Grid>
               <Grid item xs={4}>
                 <Button disabled variant="contained">
@@ -266,16 +283,16 @@ const handleCloseModalSkin=()=>{
           timeout: 500,
         }}
         sx={{
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            maxWidth: '550px', 
-            maxHeight:"550px"
-          }}
+          marginLeft: "auto",
+          marginRight: "auto",
+          maxWidth: "550px",
+          maxHeight: "550px",
+        }}
       >
         <Fade in={showHaircutModal}>
           <div>
-            <Typography 
-            align="center"
+            <Typography
+              align="center"
               fontWeight={"700"}
               id="transition-modal-title"
               variant="h6"
@@ -293,12 +310,16 @@ const handleCloseModalSkin=()=>{
                 variant="outlined"
                 disabled
                 fontWeight={"700"}
-                
               />
 
-              <TextField id="filled-basic" label="Price" variant="outlined" required />
+              <TextField
+                id="filled-basic"
+                label="Price"
+                variant="outlined"
+                required
+              />
             </Stack>
-            <Stack mt={5} ml={17} mb={5}  direction="row" spacing={4}>
+            <Stack mt={5} ml={17} mb={5} direction="row" spacing={4}>
               <Grid item xs={6}>
                 <Button
                   variant="contained"
@@ -322,9 +343,9 @@ const handleCloseModalSkin=()=>{
         </Fade>
       </Dialog>
 
- {/* Modal for updating Hair Coloring Price */}
+      {/* Modal for updating Hair Coloring Price */}
 
- <Dialog
+      <Dialog
         open={showHairColoringModal}
         onClose={handleCloseModal}
         aria-labelledby="transition-modal-title"
@@ -335,16 +356,16 @@ const handleCloseModalSkin=()=>{
           timeout: 500,
         }}
         sx={{
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            maxWidth: '550px', 
-            maxHeight:"550px"
-          }}
+          marginLeft: "auto",
+          marginRight: "auto",
+          maxWidth: "550px",
+          maxHeight: "550px",
+        }}
       >
         <Fade in={showHairColoringModal}>
           <div>
-            <Typography 
-            align="center"
+            <Typography
+              align="center"
               fontWeight={"700"}
               id="transition-modal-title"
               variant="h6"
@@ -362,12 +383,16 @@ const handleCloseModalSkin=()=>{
                 variant="outlined"
                 disabled
                 fontWeight={"700"}
-                
               />
 
-              <TextField id="filled-basic" label="Price" variant="outlined" required />
+              <TextField
+                id="filled-basic"
+                label="Price"
+                variant="outlined"
+                required
+              />
             </Stack>
-            <Stack mt={5} ml={17} mb={5}  direction="row" spacing={4}>
+            <Stack mt={5} ml={17} mb={5} direction="row" spacing={4}>
               <Grid item xs={6}>
                 <Button
                   variant="contained"
@@ -391,8 +416,8 @@ const handleCloseModalSkin=()=>{
         </Fade>
       </Dialog>
 
-       {/* Modal for updating  Hair Spa Price */}
-       <Dialog
+      {/* Modal for updating  Hair Spa Price */}
+      <Dialog
         open={showHairSpaModal}
         onClose={handleCloseModal}
         aria-labelledby="transition-modal-title"
@@ -403,16 +428,16 @@ const handleCloseModalSkin=()=>{
           timeout: 500,
         }}
         sx={{
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            maxWidth: '550px', 
-            maxHeight:"550px"
-          }}
+          marginLeft: "auto",
+          marginRight: "auto",
+          maxWidth: "550px",
+          maxHeight: "550px",
+        }}
       >
         <Fade in={showHairSpaModal}>
           <div>
-            <Typography 
-            align="center"
+            <Typography
+              align="center"
               fontWeight={"700"}
               id="transition-modal-title"
               variant="h6"
@@ -430,12 +455,16 @@ const handleCloseModalSkin=()=>{
                 variant="outlined"
                 disabled
                 fontWeight={"700"}
-                
               />
 
-              <TextField id="filled-basic" label="Price" variant="outlined" required />
+              <TextField
+                id="filled-basic"
+                label="Price"
+                variant="outlined"
+                required
+              />
             </Stack>
-            <Stack mt={5} ml={17} mb={5}  direction="row" spacing={4}>
+            <Stack mt={5} ml={17} mb={5} direction="row" spacing={4}>
               <Grid item xs={6}>
                 <Button
                   variant="contained"
@@ -458,8 +487,8 @@ const handleCloseModalSkin=()=>{
           </div>
         </Fade>
       </Dialog>
-          {/* Modal for updating  Hair Treatments Price */}
-          <Dialog
+      {/* Modal for updating  Hair Treatments Price */}
+      <Dialog
         open={showHairTreatModal}
         onClose={handleCloseModal}
         aria-labelledby="transition-modal-title"
@@ -470,16 +499,16 @@ const handleCloseModalSkin=()=>{
           timeout: 500,
         }}
         sx={{
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            maxWidth: '550px', 
-            maxHeight:"550px"
-          }}
+          marginLeft: "auto",
+          marginRight: "auto",
+          maxWidth: "550px",
+          maxHeight: "550px",
+        }}
       >
         <Fade in={showHairTreatModal}>
           <div>
-            <Typography 
-            align="center"
+            <Typography
+              align="center"
               fontWeight={"700"}
               id="transition-modal-title"
               variant="h6"
@@ -497,12 +526,16 @@ const handleCloseModalSkin=()=>{
                 variant="outlined"
                 disabled
                 fontWeight={"700"}
-                
               />
 
-              <TextField id="filled-basic" label="Price" variant="outlined" required />
+              <TextField
+                id="filled-basic"
+                label="Price"
+                variant="outlined"
+                required
+              />
             </Stack>
-            <Stack mt={5} ml={17} mb={5}  direction="row" spacing={4}>
+            <Stack mt={5} ml={17} mb={5} direction="row" spacing={4}>
               <Grid item xs={6}>
                 <Button
                   variant="contained"
@@ -526,10 +559,9 @@ const handleCloseModalSkin=()=>{
         </Fade>
       </Dialog>
 
-
-{/* Skin Section*/}
-             {/* Modal for updating  Skin cleanup  Price */}
-             <Dialog
+      {/* Skin Section*/}
+      {/* Modal for updating  Skin cleanup  Price */}
+      <Dialog
         open={showCleanUpModal}
         onClose={handleCloseModalNail}
         aria-labelledby="transition-modal-title"
@@ -540,16 +572,16 @@ const handleCloseModalSkin=()=>{
           timeout: 500,
         }}
         sx={{
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            maxWidth: '550px', 
-            maxHeight:"550px"
-          }}
+          marginLeft: "auto",
+          marginRight: "auto",
+          maxWidth: "550px",
+          maxHeight: "550px",
+        }}
       >
         <Fade in={showCleanUpModal}>
           <div>
-            <Typography 
-            align="center"
+            <Typography
+              align="center"
               fontWeight={"700"}
               id="transition-modal-title"
               variant="h6"
@@ -567,12 +599,16 @@ const handleCloseModalSkin=()=>{
                 variant="outlined"
                 disabled
                 fontWeight={"700"}
-                
               />
 
-              <TextField id="filled-basic" label="Price" variant="outlined" required />
+              <TextField
+                id="filled-basic"
+                label="Price"
+                variant="outlined"
+                required
+              />
             </Stack>
-            <Stack mt={5} ml={17} mb={5}  direction="row" spacing={4}>
+            <Stack mt={5} ml={17} mb={5} direction="row" spacing={4}>
               <Grid item xs={6}>
                 <Button
                   variant="contained"
@@ -596,9 +632,8 @@ const handleCloseModalSkin=()=>{
         </Fade>
       </Dialog>
 
-
-              {/* Modal for updating  Facial Pricess  Price */}
-              <Dialog
+      {/* Modal for updating  Facial Pricess  Price */}
+      <Dialog
         open={showFacialModal}
         onClose={handleCloseModalSkin}
         aria-labelledby="transition-modal-title"
@@ -609,16 +644,16 @@ const handleCloseModalSkin=()=>{
           timeout: 500,
         }}
         sx={{
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            maxWidth: '550px', 
-            maxHeight:"550px"
-          }}
+          marginLeft: "auto",
+          marginRight: "auto",
+          maxWidth: "550px",
+          maxHeight: "550px",
+        }}
       >
         <Fade in={showFacialModal}>
           <div>
-            <Typography 
-            align="center"
+            <Typography
+              align="center"
               fontWeight={"700"}
               id="transition-modal-title"
               variant="h6"
@@ -636,12 +671,16 @@ const handleCloseModalSkin=()=>{
                 variant="outlined"
                 disabled
                 fontWeight={"700"}
-                
               />
 
-              <TextField id="filled-basic" label="Price" variant="outlined" required />
+              <TextField
+                id="filled-basic"
+                label="Price"
+                variant="outlined"
+                required
+              />
             </Stack>
-            <Stack mt={5} ml={17} mb={5}  direction="row" spacing={4}>
+            <Stack mt={5} ml={17} mb={5} direction="row" spacing={4}>
               <Grid item xs={6}>
                 <Button
                   variant="contained"
@@ -665,8 +704,8 @@ const handleCloseModalSkin=()=>{
         </Fade>
       </Dialog>
 
-                  {/* Modal for updating Threading Pricess   Price */}
-                  <Dialog
+      {/* Modal for updating Threading Pricess   Price */}
+      <Dialog
         open={showThreadingModal}
         onClose={handleCloseModalSkin}
         aria-labelledby="transition-modal-title"
@@ -677,16 +716,16 @@ const handleCloseModalSkin=()=>{
           timeout: 500,
         }}
         sx={{
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            maxWidth: '550px', 
-            maxHeight:"550px"
-          }}
+          marginLeft: "auto",
+          marginRight: "auto",
+          maxWidth: "550px",
+          maxHeight: "550px",
+        }}
       >
         <Fade in={showThreadingModal}>
           <div>
-            <Typography 
-            align="center"
+            <Typography
+              align="center"
               fontWeight={"700"}
               id="transition-modal-title"
               variant="h6"
@@ -704,12 +743,16 @@ const handleCloseModalSkin=()=>{
                 variant="outlined"
                 disabled
                 fontWeight={"700"}
-                
               />
 
-              <TextField id="filled-basic" label="Price" variant="outlined" required />
+              <TextField
+                id="filled-basic"
+                label="Price"
+                variant="outlined"
+                required
+              />
             </Stack>
-            <Stack mt={5} ml={17} mb={5}  direction="row" spacing={4}>
+            <Stack mt={5} ml={17} mb={5} direction="row" spacing={4}>
               <Grid item xs={6}>
                 <Button
                   variant="contained"
@@ -733,9 +776,8 @@ const handleCloseModalSkin=()=>{
         </Fade>
       </Dialog>
 
-      
-                  {/* Modal for updating Manicure Pricess   Price */}
-                  <Dialog
+      {/* Modal for updating Manicure Pricess   Price */}
+      <Dialog
         open={showManicureModal}
         onClose={handleCloseModalNail}
         aria-labelledby="transition-modal-title"
@@ -746,16 +788,16 @@ const handleCloseModalSkin=()=>{
           timeout: 500,
         }}
         sx={{
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            maxWidth: '550px', 
-            maxHeight:"550px"
-          }}
+          marginLeft: "auto",
+          marginRight: "auto",
+          maxWidth: "550px",
+          maxHeight: "550px",
+        }}
       >
         <Fade in={showManicureModal}>
           <div>
-            <Typography 
-            align="center"
+            <Typography
+              align="center"
               fontWeight={"700"}
               id="transition-modal-title"
               variant="h6"
@@ -773,12 +815,16 @@ const handleCloseModalSkin=()=>{
                 variant="outlined"
                 disabled
                 fontWeight={"700"}
-                
               />
 
-              <TextField id="filled-basic" label="Price" variant="outlined" required />
+              <TextField
+                id="filled-basic"
+                label="Price"
+                variant="outlined"
+                required
+              />
             </Stack>
-            <Stack mt={5} ml={17} mb={5}  direction="row" spacing={4}>
+            <Stack mt={5} ml={17} mb={5} direction="row" spacing={4}>
               <Grid item xs={6}>
                 <Button
                   variant="contained"
@@ -802,8 +848,8 @@ const handleCloseModalSkin=()=>{
         </Fade>
       </Dialog>
 
-                    {/* Modal for updating Pedicure Pricess   Price */}
-                    <Dialog
+      {/* Modal for updating Pedicure Pricess   Price */}
+      <Dialog
         open={showPedicureModal}
         onClose={handleCloseModalNail}
         aria-labelledby="transition-modal-title"
@@ -814,16 +860,16 @@ const handleCloseModalSkin=()=>{
           timeout: 500,
         }}
         sx={{
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            maxWidth: '550px', 
-            maxHeight:"550px"
-          }}
+          marginLeft: "auto",
+          marginRight: "auto",
+          maxWidth: "550px",
+          maxHeight: "550px",
+        }}
       >
         <Fade in={showPedicureModal}>
           <div>
-            <Typography 
-            align="center"
+            <Typography
+              align="center"
               fontWeight={"700"}
               id="transition-modal-title"
               variant="h6"
@@ -841,12 +887,16 @@ const handleCloseModalSkin=()=>{
                 variant="outlined"
                 disabled
                 fontWeight={"700"}
-                
               />
 
-              <TextField id="filled-basic" label="Price" variant="outlined" required />
+              <TextField
+                id="filled-basic"
+                label="Price"
+                variant="outlined"
+                required
+              />
             </Stack>
-            <Stack mt={5} ml={17} mb={5}  direction="row" spacing={4}>
+            <Stack mt={5} ml={17} mb={5} direction="row" spacing={4}>
               <Grid item xs={6}>
                 <Button
                   variant="contained"
@@ -870,8 +920,8 @@ const handleCloseModalSkin=()=>{
         </Fade>
       </Dialog>
 
-                          {/* Modal for updating Microblading Pricess   Price */}
-                          <Dialog
+      {/* Modal for updating Microblading Pricess   Price */}
+      <Dialog
         open={showMicroBladingModal}
         onClose={handleCloseModalNail}
         aria-labelledby="transition-modal-title"
@@ -882,16 +932,16 @@ const handleCloseModalSkin=()=>{
           timeout: 500,
         }}
         sx={{
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            maxWidth: '550px', 
-            maxHeight:"550px"
-          }}
+          marginLeft: "auto",
+          marginRight: "auto",
+          maxWidth: "550px",
+          maxHeight: "550px",
+        }}
       >
         <Fade in={showMicroBladingModal}>
           <div>
-            <Typography 
-            align="center"
+            <Typography
+              align="center"
               fontWeight={"700"}
               id="transition-modal-title"
               variant="h6"
@@ -909,12 +959,16 @@ const handleCloseModalSkin=()=>{
                 variant="outlined"
                 disabled
                 fontWeight={"700"}
-                
               />
 
-              <TextField id="filled-basic" label="Price" variant="outlined" required />
+              <TextField
+                id="filled-basic"
+                label="Price"
+                variant="outlined"
+                required
+              />
             </Stack>
-            <Stack mt={5} ml={17} mb={5}  direction="row" spacing={4}>
+            <Stack mt={5} ml={17} mb={5} direction="row" spacing={4}>
               <Grid item xs={6}>
                 <Button
                   variant="contained"
@@ -938,8 +992,8 @@ const handleCloseModalSkin=()=>{
         </Fade>
       </Dialog>
 
-                                {/* Modal for updating Nail Pricess   Price */}
-                                <Dialog
+      {/* Modal for updating Nail Pricess   Price */}
+      <Dialog
         open={showNailNaModal}
         onClose={handleCloseModalNail}
         aria-labelledby="transition-modal-title"
@@ -950,16 +1004,16 @@ const handleCloseModalSkin=()=>{
           timeout: 500,
         }}
         sx={{
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            maxWidth: '550px', 
-            maxHeight:"550px"
-          }}
+          marginLeft: "auto",
+          marginRight: "auto",
+          maxWidth: "550px",
+          maxHeight: "550px",
+        }}
       >
         <Fade in={showNailNaModal}>
           <div>
-            <Typography 
-            align="center"
+            <Typography
+              align="center"
               fontWeight={"700"}
               id="transition-modal-title"
               variant="h6"
@@ -977,12 +1031,16 @@ const handleCloseModalSkin=()=>{
                 variant="outlined"
                 disabled
                 fontWeight={"700"}
-                
               />
 
-              <TextField id="filled-basic" label="Price" variant="outlined" required />
+              <TextField
+                id="filled-basic"
+                label="Price"
+                variant="outlined"
+                required
+              />
             </Stack>
-            <Stack mt={5} ml={17} mb={5}  direction="row" spacing={4}>
+            <Stack mt={5} ml={17} mb={5} direction="row" spacing={4}>
               <Grid item xs={6}>
                 <Button
                   variant="contained"
@@ -1005,8 +1063,8 @@ const handleCloseModalSkin=()=>{
           </div>
         </Fade>
       </Dialog>
-                                      {/* Modal for updating Body section Pricess   Price */}
-                                      <Dialog
+      {/* Modal for updating Body section Pricess   Price */}
+      <Dialog
         open={showWaxingModal}
         onClose={handleCloseModalBody}
         aria-labelledby="transition-modal-title"
@@ -1017,16 +1075,16 @@ const handleCloseModalSkin=()=>{
           timeout: 500,
         }}
         sx={{
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            maxWidth: '550px', 
-            maxHeight:"550px"
-          }}
+          marginLeft: "auto",
+          marginRight: "auto",
+          maxWidth: "550px",
+          maxHeight: "550px",
+        }}
       >
         <Fade in={showWaxingModal}>
           <div>
-            <Typography 
-            align="center"
+            <Typography
+              align="center"
               fontWeight={"700"}
               id="transition-modal-title"
               variant="h6"
@@ -1044,12 +1102,16 @@ const handleCloseModalSkin=()=>{
                 variant="outlined"
                 disabled
                 fontWeight={"700"}
-                
               />
 
-              <TextField id="filled-basic" label="Price" variant="outlined" required />
+              <TextField
+                id="filled-basic"
+                label="Price"
+                variant="outlined"
+                required
+              />
             </Stack>
-            <Stack mt={5} ml={17} mb={5}  direction="row" spacing={4}>
+            <Stack mt={5} ml={17} mb={5} direction="row" spacing={4}>
               <Grid item xs={6}>
                 <Button
                   variant="contained"
@@ -1072,8 +1134,8 @@ const handleCloseModalSkin=()=>{
           </div>
         </Fade>
       </Dialog>
-                                            {/* Modal for updating Body section Pricess   Price */}
-                                            <Dialog
+      {/* Modal for updating Body section Pricess   Price */}
+      <Dialog
         open={showDetainingModal}
         onClose={handleCloseModalBody}
         aria-labelledby="transition-modal-title"
@@ -1084,16 +1146,16 @@ const handleCloseModalSkin=()=>{
           timeout: 500,
         }}
         sx={{
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            maxWidth: '550px', 
-            maxHeight:"550px"
-          }}
+          marginLeft: "auto",
+          marginRight: "auto",
+          maxWidth: "550px",
+          maxHeight: "550px",
+        }}
       >
         <Fade in={showDetainingModal}>
           <div>
-            <Typography 
-            align="center"
+            <Typography
+              align="center"
               fontWeight={"700"}
               id="transition-modal-title"
               variant="h6"
@@ -1111,12 +1173,16 @@ const handleCloseModalSkin=()=>{
                 variant="outlined"
                 disabled
                 fontWeight={"700"}
-                
               />
 
-              <TextField id="filled-basic" label="Price" variant="outlined" required />
+              <TextField
+                id="filled-basic"
+                label="Price"
+                variant="outlined"
+                required
+              />
             </Stack>
-            <Stack mt={5} ml={17} mb={5}  direction="row" spacing={4}>
+            <Stack mt={5} ml={17} mb={5} direction="row" spacing={4}>
               <Grid item xs={6}>
                 <Button
                   variant="contained"
@@ -1139,10 +1205,9 @@ const handleCloseModalSkin=()=>{
           </div>
         </Fade>
       </Dialog>
-      
 
-                                         {/* Modal for updating Bridal  section Pricess   Price */}
-                                         <Dialog
+      {/* Modal for updating Bridal  section Pricess   Price */}
+      <Dialog
         open={showDressingModal}
         onClose={handleCloseModalBridal}
         aria-labelledby="transition-modal-title"
@@ -1153,16 +1218,16 @@ const handleCloseModalSkin=()=>{
           timeout: 500,
         }}
         sx={{
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            maxWidth: '550px', 
-            maxHeight:"550px"
-          }}
+          marginLeft: "auto",
+          marginRight: "auto",
+          maxWidth: "550px",
+          maxHeight: "550px",
+        }}
       >
         <Fade in={showDressingModal}>
           <div>
-            <Typography 
-            align="center"
+            <Typography
+              align="center"
               fontWeight={"700"}
               id="transition-modal-title"
               variant="h6"
@@ -1180,12 +1245,16 @@ const handleCloseModalSkin=()=>{
                 variant="outlined"
                 disabled
                 fontWeight={"700"}
-                
               />
 
-              <TextField id="filled-basic" label="Price" variant="outlined" required />
+              <TextField
+                id="filled-basic"
+                label="Price"
+                variant="outlined"
+                required
+              />
             </Stack>
-            <Stack mt={5} ml={17} mb={5}  direction="row" spacing={4}>
+            <Stack mt={5} ml={17} mb={5} direction="row" spacing={4}>
               <Grid item xs={6}>
                 <Button
                   variant="contained"
@@ -1208,7 +1277,7 @@ const handleCloseModalSkin=()=>{
           </div>
         </Fade>
       </Dialog>
-</>
+    </>
   );
 };
 
