@@ -31,6 +31,7 @@ import AdminLogin from "./pages/admin/AdminLogin";
 import PriceUpdate from './pages/admin/PriceUpdate';
 import AlertDialogSlide from './pages/ChatBot/Pop';
 import ChatbotLauncher from './pages/ChatBot/Chatbot';
+import Chatbot from './pages/ChatBot/Chatbot';
 
 
 function App() {
@@ -67,6 +68,7 @@ function App() {
             <Route path="ReviewBooking" element={<ReviewBooking />} />
             <Route path="Alert" element={<AlertDialogSlide />} />
             <Route path="ChatBot" element={<ChatbotLauncher />} />
+            <Route path="ChatBotui" element={<Chatbot />} />
           
 
             <Route path="np" element={<PriceUpdate />} />
