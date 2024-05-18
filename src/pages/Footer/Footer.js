@@ -12,6 +12,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import Logo from "../../../src/Assets/Lillylogo.png";
+import AlertDialogSlide from "../ChatBot/Pop";
 
 const socialMediaLinks = {
   facebook: "#",
@@ -165,6 +166,7 @@ const Footer = () => {
       >
         © 2024 SALON LILLY
       </Typography>
+      <AlertDialogSlide></AlertDialogSlide>
     </Box>
   );
 };

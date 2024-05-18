@@ -29,6 +29,8 @@ import LogOut from "./pages/admin/LogOut";
 import About from "./pages/About/about";
 import AdminLogin from "./pages/admin/AdminLogin";
 import PriceUpdate from './pages/admin/PriceUpdate';
+import AlertDialogSlide from './pages/ChatBot/Pop';
+import ChatbotLauncher from './pages/ChatBot/Chatbot';
 
 
 function App() {
@@ -63,8 +65,13 @@ function App() {
             <Route path="LogOut" element={<LogOut />} />
             <Route path="AdminLogin" element={<AdminLogin />} />
             <Route path="ReviewBooking" element={<ReviewBooking />} />
+            <Route path="Alert" element={<AlertDialogSlide />} />
+            <Route path="ChatBot" element={<ChatbotLauncher />} />
+          
+
             <Route path="np" element={<PriceUpdate />} />
             <Route path="*" element={<NoPage />} />
+
            
             {/* </Route> */}
           </Routes>
