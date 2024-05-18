@@ -4,6 +4,7 @@ import './Chatbot.css';
 
 const commonQuestions = {
   "Hi": "How can I help you?",
+  "hi":"How can I help you?",
   "What is your Name?": "Salon Lilly.",
   "How do I book?": "Call 077 2186654 or book online.",
   "What services do you offer?": "Haircuts, coloring, styling, manicures, pedicures, facials, and massages.",
@@ -82,25 +83,5 @@ const Chatbot = ({ isOpen, onClose }) => {
     </div>
   );
 };
+export default Chatbot
 
-const ChatbotLauncher = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleChatbot = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const handleChatbotClose = () => {
-    setIsOpen(false);
-  };
-
-  return (
-    <div className="chatbot-launcher">
-      {/* <button className="chatbot-button" onClick={toggleChatbot}>Ask?.........</button> */}
-      {/* <Chatbot isOpen={isOpen} onClose={handleChatbotClose} /> */}
-    </div>
-  );
-  
-};
-
-export default ChatbotLauncher;

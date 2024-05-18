@@ -9,6 +9,7 @@ import Image2 from "../../../src/Assets/Welcome.png";
 import map1 from "../../../src/Assets/map1.png";
 import videoOne from "../../../src/Assets/videoOne.mp4";
 import { useNavigate } from "react-router-dom";
+import AlertDialogSlide from "../ChatBot/Pop";
 
 
 
@@ -362,7 +363,9 @@ const Dashboard = () => {
         </div>
         <Divider />
         <img className="img" src={map1} alt="map" />
+     
         <Footer />
+  
       </div>
     </div>
   );
