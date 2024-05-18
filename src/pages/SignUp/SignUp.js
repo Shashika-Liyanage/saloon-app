@@ -9,7 +9,6 @@ import {
   Box,
 } from "@mui/material";
 import firebaseConfig, { auth } from "../../services/firebaseConfig";
-
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import toast, { Toaster } from "react-hot-toast";

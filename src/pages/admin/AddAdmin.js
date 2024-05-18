@@ -1,8 +1,9 @@
+
 import React, { useState, useEffect } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import Footer from "../Footer/Footer";
+
 
 import {
   Box,
@@ -12,59 +13,111 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../services/firebaseConfig";
+
 
 const AddAdmin = () => {
+  const [user, setUser] = useState({
+    Name: "",
+    Phone: "",
+    Email: "",
+    Service: "",
+    Date: new Date().toISOString().split("T")[0],
+    Time: "",
+    Notes: "",
+  });
   const navigate = useNavigate();
-  const [error, setError] = useState();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setconfirmPassword] = useState("");
+  let name, value;
+  console.log(user, "janith");
+  const data = (e) => {
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
+  };
 
-  const onSubmit = async (e) => {
+  const getdata = async (e) => {
+    const { Name, Phone, Email, Service, Date, Time, Notes } = user;
     e.preventDefault();
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ Name, Phone, Email, Service, Date, Time, Notes }),
+    };
 
-    try {
-      // Check if passwords match
-      if (password !== confirmPassword) {
-        throw new Error("Passwords do not match");
-      }
-      toast.success("Now you are Registered!!!");
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      // Signed in
-      const user = userCredential.user;
+    const res = await fetch(
+      "https://he-and-she-356f5-default-rtdb.firebaseio.com/UserData.json",
+      options
+    );
+    console.log(res);
 
-      navigate("/Admin");
-    } catch (error) {
-      toast.error("Passwords do not match !!!");
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
+    if (res.ok) {
+      toast.success("Booking confirmed");
+      setTimeout(() => {
+        toast.success("You're being redirected to the Dashboard!!!!!! ");
+        setTimeout(() => {
+          navigate("/dashboard");
+        }, 3000);
+      }, 1000);
+    } else {
+      toast.error("Something went wrong");
     }
   };
+  console.log("User State:", user);
+  const date = new Date();
+  const formattedDate = date
+    .toLocaleDateString("en-GB", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    })
+    .split("/")
+    .reverse()
+    .join("-");
 
+  // Function to check if all form fields are filled
   const isFormFilled = () => {
-    return email.trim() !== "" && password.trim() !== "" && confirmPassword.trim() !== "";
+    return Object.values(user).every((value) => value.trim() !== "");
   };
-  
+
+  // Event handler for service selection in Autocomplete
+  const handleServiceChange = (event, value) => {
+    setUser({ ...user, Service: value ? value.label : "" });
+  };
+
+  // Event handler for form submission
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Add form submission logic here
     if (isFormFilled()) {
+      // Your submission logic here
     } else {
       toast.error("Please fill in all fields");
     }
   };
 
+  const handleChange = (event) => {
+    if (event.target.value.match(/[^0-9]/)) {
+      event.preventDefault();
+    }
+    // otherwise, continue with the rest of your logic
+    // ...
+  };
+  //
+  const goToCheckOutPage = () => {
+    navigate("/Checkout");
+  };
   return (
-    <form>
-      <Box
-        sx={{ display: "flex", justifyContent: "space-between", mb: "70px" }}
-      >
+    <Box
+      sx={{
+        marginLeft: "25%",
+        marginLeft: "25%",
+        display: "flex",
+        justifyContent: "space-between",
+        mb: "70px",
+      }}
+    >
+
+      <form onSubmit={handleSubmit}>
         <CardContent
           sx={{
             alignContent: "center",
@@ -73,67 +126,83 @@ const AddAdmin = () => {
             boxShadow: "0 20px 0px rgba(#EED3D9)",
             borderRadius: 10,
             padding: 4,
+        
           }}
         >
           <Typography
             sx={{
               fontWeight: 700,
-              fontSize: 35,
-              color: "#5E3B4D",
+              fontSize: 40,
+              mt: "10px",
               color: "#99154E",
               fontFamily: "Georgia",
             }}
           >
-            Create an Admin
+           Welcome to Admin Creation
           </Typography>
-
           <Grid
             container
             spacing={3}
-            justifyContent="center"
+            justifyContent={"center"}
             sx={{ mt: "5px" }}
           >
-            <Grid item xs={6}>
+            <Grid item xs={5}>
               <TextField
+                id="Fname"
                 required
+                name="FName"
                 label="First Name"
                 variant="outlined"
                 fullWidth
+                value={user.Name}
+                onChange={data}
                 sx={{ bgcolor: "white" }}
               />
             </Grid>
-            <Grid item xs={6}>
-              <TextField
+            <Grid item xs={5}>
+            <TextField
+                id="Lname"
                 required
+                name="LName"
                 label="Last Name"
                 variant="outlined"
                 fullWidth
+                value={user.Name}
+                onChange={data}
                 sx={{ bgcolor: "white" }}
               />
+              
             </Grid>
           </Grid>
           <Grid
             container
             spacing={3}
-            justifyContent="center"
+            justifyContent={"center"}
             sx={{ mt: "5px" }}
           >
-            <Grid item xs={6}>
-              <TextField
-                required
+            <Grid item xs={5}>
+            <TextField
+                id="phone_number"
                 label="Phone Number"
+                name="Phone"
                 variant="outlined"
+                value={user.Phone}
                 fullWidth
+                // inputProps={{ inputMode: "numeric" }}
+                onChange={data}
                 sx={{ bgcolor: "white" }}
               />
             </Grid>
-            <Grid item xs={6}>
-              <TextField
-                required
+            <Grid item xs={5}>
+            <TextField
+                id="email"
+                name="Email"
                 label="Email"
-                onChange={(e) => setEmail(e.target.value)}
+                type="email"
                 variant="outlined"
                 fullWidth
+                value={user.Email}
+                onChange={data}
                 sx={{ bgcolor: "white" }}
               />
             </Grid>
@@ -141,36 +210,41 @@ const AddAdmin = () => {
           <Grid
             container
             spacing={3}
-            justifyContent="center"
+            justifyContent={"center"}
             sx={{ mt: "5px" }}
           >
-            <Grid item xs={6}>
-              <TextField
-                required
+            <Grid item xs={5}>
+            <TextField
+                id="password"
+                name="Password"
                 label="Password"
-                variant="outlined"
                 type="password"
-                onChange={(e) => setPassword(e.target.value)}
+                variant="outlined"
                 fullWidth
+                value={user.Email}
+                onChange={data}
                 sx={{ bgcolor: "white" }}
               />
             </Grid>
-            <Grid item xs={6}>
-              <TextField
-                required
-                label="Conifrm Password"
+            <Grid item xs={5}>
+            <TextField
+                id="confirm Password"
+                name="Confirm Password"
+                label="Confirm Password"
+                type="confirm Password"
                 variant="outlined"
-                type="password"
-                onChange={(e) => setconfirmPassword(e.target.value)}
                 fullWidth
+                value={user.Email}
+                onChange={data}
                 sx={{ bgcolor: "white" }}
               />
             </Grid>
           </Grid>
+     
           <br></br>
-
           <Grid item>
             <Button
+              type="submit"
               disabled={!isFormFilled()}
               sx={{
                 mb: "10px",
@@ -185,27 +259,29 @@ const AddAdmin = () => {
               }}
               size="large"
               variant="contained"
-              type="submit"
-              fullWidth
-              onClick={onSubmit}
+              
+              // onClick={getdata}
+              onClick={goToCheckOutPage}
             >
-              Register Me
+             Create An Admin
             </Button>
+
+            <Toaster
+              toastOptions={{
+                duration: 5000,
+                className: "",
+                style: {
+                  color: "#713200",
+                },
+              }}
+              position="top-right"
+            />
           </Grid>
-          <Toaster
-            toastOptions={{
-              duration: 5000,
-              className: "",
-              style: {
-                color: "#713200",
-              },
-            }}
-            position="top-right"
-          />
+
         </CardContent>
-      </Box>
-      <Footer />
-    </form>
+      </form>
+     
+    </Box>
   );
 };
 

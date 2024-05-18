@@ -5,8 +5,6 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Footer from "../Footer/Footer";
 import { Box, Divider, Link, Stack } from "@mui/material";
-import middleImage from "../../../src/Assets/middleImage.png";
-import Image1 from "../../../src/Assets/Image1.png";
 import Image2 from "../../../src/Assets/Welcome.png";
 import map1 from "../../../src/Assets/map1.png";
 import videoOne from "../../../src/Assets/videoOne.mp4";
@@ -15,6 +13,7 @@ import Layout from "../Layout/Layout";
 import BookingPage from "../Booking/BookingPage";
 import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+
 
 const headerStyle = {
   height: "80px",
