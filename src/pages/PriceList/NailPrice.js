@@ -49,7 +49,11 @@ export default function BasicTable() {
     <div>
       <div className="container">
         <div className="image-boxN">
-          <img src={NailImage} alt="Nail Image" className="imageN" />
+          <img
+            src={NailImage}
+            alt="Salon Lilly Nail Prices"
+            className="imageN"
+          />
           <div className="BtextN">
             <h2>Salon Lilly Nail Prices</h2>
           </div>

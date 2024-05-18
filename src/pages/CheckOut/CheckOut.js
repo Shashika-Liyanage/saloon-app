@@ -1,21 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import BookingDetails from "../Booking/BookingDetails";
 import PaymentDetails from "../Payment/PaymentDetails";
 import ReviewBooking from "../ReviewBooking/ReviewBooking";
 import { useSelector } from "react-redux";
 import { selectBookingData } from "../redux/BookingDataSlice";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 
 const steps = ["Payment Details", "Review the Booking"];
 
 const CheckOut = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const bookingData = useSelector(selectBookingData);
 
   const [activeStep, setActiveStep] = useState(0);
@@ -43,9 +42,9 @@ const CheckOut = () => {
     }
   };
 
-  useEffect(() => {
-    if(!bookingData) navigate('/Booking')
-  },[bookingData])
+  // useEffect(() => {
+  //   if(!bookingData) navigate('/Booking')
+  // },[bookingData])
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -73,7 +72,6 @@ const CheckOut = () => {
           </React.Fragment>
         ) : (
           <React.Fragment>
-            
             <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
               <Button
                 variant="contained"
@@ -91,7 +89,6 @@ const CheckOut = () => {
             </Box>
             {getStepContent(activeStep)}
           </React.Fragment>
-          
         )}
       </Box>
     </Box>

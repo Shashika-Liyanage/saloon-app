@@ -2,9 +2,6 @@ import React from "react";
 import "./about.css";
 import map1 from "../../../src/Assets/map1.png";
 import Footer from "../Footer/Footer";
-import whatsapp from "../../../src/Assets/whatsapp.jpg";
-import call from "../../../src/Assets/call icon.jpg";
-import atIc from "../../../src/Assets/aticone.jpg";
 
 function About() {
   return (
@@ -38,7 +35,6 @@ function About() {
 
       <div className="image-container">
         <img className="imageMap" src={map1} alt="map" />
-
       </div>
 
       <Footer />

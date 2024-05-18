@@ -4,20 +4,11 @@ import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
-import IconButton from "@mui/material/IconButton";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import EmailIcon from "@mui/icons-material/Email";
 import ForwardToInboxIcon from "@mui/icons-material/ForwardToInbox";
 import {
   Badge,
@@ -40,9 +31,9 @@ import { auth } from "../../services/firebaseConfig";
 const drawerWidth = 280;
 
 const Admin = (props) => {
-  const { window } = props;
+  //const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [isClosing, setIsClosing] = React.useState(false);
+  const [setIsClosing] = React.useState(false);
   const navigate = useNavigate();
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -53,24 +44,24 @@ const Admin = (props) => {
     setIsClosing(false);
   };
 
-  const handleDrawerToggle = () => {
-    if (!isClosing) {
-      setMobileOpen(!mobileOpen);
-    }
-  };
+  // const handleDrawerToggle = () => {
+  //   if (!isClosing) {
+  //     setMobileOpen(!mobileOpen);
+  //   }
+  // };
 
-  const goToBookingPage = () => {
-    navigate("/booking");
-  };
-  const goToAppointments = () => {
-    navigate("/Apoinments");
-  };
-  const goToAddAdmin = () => {
-    navigate("/AddAdmin");
-  };
-  const goToInbox = () => {
-    navigate("/Inbox");
-  };
+  // const goToBookingPage = () => {
+  //   navigate("/booking");
+  // };
+  // const goToAppointments = () => {
+  //   navigate("/Apoinments");
+  // };
+  // const goToAddAdmin = () => {
+  //   navigate("/AddAdmin");
+  // };
+  // const goToInbox = () => {
+  //   navigate("/Inbox");
+  // };
   const goToSentMail = () => {
     navigate("/SentMail");
   };
@@ -107,18 +98,18 @@ const Admin = (props) => {
           Appointments
         </Button> */}
         <Button
-  onClick={goToUpdateTables}
-  variant="contained"
-  fullWidth
-  sx={{
-    fontWeight: "600",
-    color: "white",
-    ml: "20px",
-  }}
->
-  <AdminPanelSettingsIcon />
-  Update Tables
-</Button>
+          onClick={goToUpdateTables}
+          variant="contained"
+          fullWidth
+          sx={{
+            fontWeight: "600",
+            color: "white",
+            ml: "20px",
+          }}
+        >
+          <AdminPanelSettingsIcon />
+          Update Tables
+        </Button>
 
         <Button
           onClick={goToUpdateTables}

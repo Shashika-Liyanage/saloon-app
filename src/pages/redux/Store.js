@@ -3,8 +3,8 @@ import thunk from "redux-thunk";
 import BookingDataSlice from "./BookingDataSlice";
 
 export default configureStore({
-    reducer: {
-        bookingDataManagement: BookingDataSlice
-    },
-    middleware: [thunk],
-  });
+  reducer: {
+    bookingDataManagement: BookingDataSlice,
+  },
+  middleware: [thunk],
+});

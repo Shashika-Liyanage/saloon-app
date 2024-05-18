@@ -11,7 +11,6 @@ import "./priceList.css";
 import salonIcon from "../../../src/Assets/salonicon.jpg";
 import HairImage from "../../../src/Assets/HairImage.png";
 
-
 function createData(name: string, StandardPrice: number) {
   return { name, StandardPrice };
 }
@@ -85,7 +84,11 @@ export default function BasicTable() {
     <div>
       <div className="container">
         <div className="image-boxH">
-          <img src={HairImage} alt="Hair Image" className="imageH" />
+          <img
+            src={HairImage}
+            alt="Salon Lilly Hair Prices"
+            className="imageH"
+          />
           <div className="BtextH">
             <h2>Salon Lilly Hair Prices</h2>
           </div>
@@ -96,7 +99,12 @@ export default function BasicTable() {
         <div className="table-wrapper">
           <TableContainer component={Paper}>
             <div style={{ display: "flex", alignItems: "center" }}>
-              <img src={salonIcon} alt="Salon Icon" className="icon" style={{ color: "#BC7FCD" }}/>
+              <img
+                src={salonIcon}
+                alt="Salon Icon"
+                className="icon"
+                style={{ color: "#BC7FCD" }}
+              />
               <h2 className="headingH">HAIR CUT</h2>
             </div>
 
@@ -164,9 +172,7 @@ export default function BasicTable() {
         </div>
       </div>
 
-      <div
-       className="table"
-      >
+      <div className="table">
         <div className="table-wrapper">
           <TableContainer component={Paper}>
             <div style={{ display: "flex", alignItems: "center" }}>

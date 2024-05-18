@@ -31,7 +31,11 @@ export default function BasicTable() {
     <div>
       <div className="container">
         <div className="image-boxBr">
-          <img src={BridalImage} alt="bridal Image" className="imageBr" />
+          <img
+            src={BridalImage}
+            alt="Salon Lilly Bridal Prices"
+            className="imageBr"
+          />
 
           <div className="BtextBr">
             <h2>Salon Lilly Bridal Prices</h2>
@@ -42,11 +46,15 @@ export default function BasicTable() {
       <div className="table">
         <div className="table-wrapper">
           <TableContainer component={Paper}>
-          <div style={{ display: "flex", alignItems: "center" }}>
-              <img src={salonIcon} alt="Salon Icon" className="icon" style={{ color: "#BC7FCD" }}/>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <img
+                src={salonIcon}
+                alt="Salon Icon"
+                className="icon"
+                style={{ color: "#BC7FCD" }}
+              />
               <h2 className="headingBr">DRESSING</h2>
             </div>
-
 
             <Table sx={{ minWidth: 500 }} aria-label="simple table">
               <TableHead>

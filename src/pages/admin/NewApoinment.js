@@ -1,9 +1,7 @@
-
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import Footer from "../Footer/Footer";
 
 import {
   Box,
@@ -13,7 +11,6 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-
 
 const NewApoinment = () => {
   const [user, setUser] = useState({
@@ -26,43 +23,43 @@ const NewApoinment = () => {
     Notes: "",
   });
   const navigate = useNavigate();
-  let name, value;
+
   console.log(user, "janith");
   const data = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
 
-  const getdata = async (e) => {
-    const { Name, Phone, Email, Service, Date, Time, Notes } = user;
-    e.preventDefault();
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ Name, Phone, Email, Service, Date, Time, Notes }),
-    };
+  // const getdata = async (e) => {
+  //   const { Name, Phone, Email, Service, Date, Time, Notes } = user;
+  //   e.preventDefault();
+  //   const options = {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({ Name, Phone, Email, Service, Date, Time, Notes }),
+  //   };
 
-    const res = await fetch(
-      "https://he-and-she-356f5-default-rtdb.firebaseio.com/UserData.json",
-      options
-    );
-    console.log(res);
+  //   const res = await fetch(
+  //     "https://he-and-she-356f5-default-rtdb.firebaseio.com/UserData.json",
+  //     options
+  //   );
+  //   console.log(res);
 
-    if (res.ok) {
-      toast.success("Booking confirmed");
-      setTimeout(() => {
-        toast.success("You're being redirected to the Dashboard!!!!!! ");
-        setTimeout(() => {
-          navigate("/dashboard");
-        }, 3000);
-      }, 1000);
-    } else {
-      toast.error("Something went wrong");
-    }
-  };
-  console.log("User State:", user);
+  //   if (res.ok) {
+  //     toast.success("Booking confirmed");
+  //     setTimeout(() => {
+  //       toast.success("You're being redirected to the Dashboard!!!!!! ");
+  //       setTimeout(() => {
+  //         navigate("/dashboard");
+  //       }, 3000);
+  //     }, 1000);
+  //   } else {
+  //     toast.error("Something went wrong");
+  //   }
+  // };
+  // console.log("User State:", user);
   const date = new Date();
   const formattedDate = date
     .toLocaleDateString("en-GB", {
@@ -95,13 +92,13 @@ const NewApoinment = () => {
     }
   };
 
-  const handleChange = (event) => {
-    if (event.target.value.match(/[^0-9]/)) {
-      event.preventDefault();
-    }
-    // otherwise, continue with the rest of your logic
-    // ...
-  };
+  // const handleChange = (event) => {
+  //   if (event.target.value.match(/[^0-9]/)) {
+  //     event.preventDefault();
+  //   }
+  //   // otherwise, continue with the rest of your logic
+  //   // ...
+  // };
   //
   const goToCheckOutPage = () => {
     navigate("/Checkout");
@@ -114,7 +111,6 @@ const NewApoinment = () => {
         mb: "70px",
       }}
     >
-
       <form onSubmit={handleSubmit}>
         <CardContent
           sx={{
@@ -168,7 +164,6 @@ const NewApoinment = () => {
                 onChange={data}
                 sx={{ bgcolor: "white" }}
               />
-              
             </Grid>
           </Grid>
           <Grid
@@ -339,7 +334,8 @@ const NewApoinment = () => {
                 fullWidth
                 sx={{ bgcolor: "white" }}
               />
-            </Grid>     <Grid item xs={5}>
+            </Grid>{" "}
+            <Grid item xs={5}>
               <TextField
                 id="notes"
                 label="Notes"
@@ -352,7 +348,6 @@ const NewApoinment = () => {
               />
             </Grid>
           </Grid>{" "}
-          
           <br></br>
           <Grid item>
             <Button
@@ -371,11 +366,10 @@ const NewApoinment = () => {
               }}
               size="large"
               variant="contained"
-              
               // onClick={getdata}
               onClick={goToCheckOutPage}
             >
-             Place  The Appoinment
+              Place The Appoinment
             </Button>
 
             <Toaster
@@ -389,10 +383,8 @@ const NewApoinment = () => {
               position="top-right"
             />
           </Grid>
-
         </CardContent>
       </form>
-     
     </Box>
   );
 };

@@ -13,7 +13,6 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import Logo from "../../../src/Assets/Lillylogo.png";
 import AlertDialogSlide from "../ChatBot/Pop";
-import Chatbot from "../ChatBot/Chatbot";
 
 const socialMediaLinks = {
   facebook: "#",
@@ -22,12 +21,9 @@ const socialMediaLinks = {
 };
 
 const Footer = () => {
-
-
   return (
     <Box
       sx={{
-      
         bgcolor: "#FDEFEF",
         color: "text.secondary",
         py: 3,
@@ -43,10 +39,9 @@ const Footer = () => {
             </Typography> */}
             <div>
               <Link to="/dashboard">
-                <img className="img" width="70%" src={Logo} alt="image" />
+                <img className="img" width="70%" src={Logo} alt="ImN" />
               </Link>
             </div>
-            {/* Add your logo component or image here */}
           </Grid>
           <Grid item xs={6} sm={3} md={2}>
             <Typography variant="subtitle1" color="text.primary" gutterBottom>
@@ -156,7 +151,6 @@ const Footer = () => {
                 sx={{ "&:hover": { color: "#E72929" } }} // Change color on hover
               >
                 <YouTubeIcon />
-                
               </IconButton>
             </Box>
           </Grid>
@@ -169,12 +163,10 @@ const Footer = () => {
         sx={{ pt: 4, fontSize: "15px" }}
       >
         © 2024 SALON LILLY
-
       </Typography>
-   
-      <AlertDialogSlide/>
+
+      <AlertDialogSlide />
     </Box>
- 
   );
 };
 

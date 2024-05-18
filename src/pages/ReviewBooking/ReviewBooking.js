@@ -1,7 +1,6 @@
 import {
   Autocomplete,
   Box,
-  Button,
   CardContent,
   Grid,
   TextField,
@@ -13,10 +12,7 @@ import CardLogo from "../../../src/Assets/cardLogos.png";
 const ReviewBooking = () => {
   return (
     <>
-      <Box
-        sx={{ display: "flex", justifyContent: "center", mb: "70px" }}
-      >
-       
+      <Box sx={{ display: "flex", justifyContent: "center", mb: "70px" }}>
         <CardContent
           sx={{
             alignContent: "center",
@@ -30,7 +26,7 @@ const ReviewBooking = () => {
           <Typography sx={{ fontWeight: 700, fontSize: 35, color: "#5E3B4D" }}>
             Review the Booking
           </Typography>
-      
+
           <Grid
             container
             spacing={3}
@@ -190,25 +186,24 @@ const ReviewBooking = () => {
                 // value={user.Notes}
                 // onChange={data}
                 fullWidth
-                sx={{ bgcolor: "white",mb:"20px"}}
+                sx={{ bgcolor: "white", mb: "20px" }}
               />
             </Grid>
           </Grid>
           <Typography
-          sx={{ color: "#86469C", fontWeight: "700", fontSize: "30px" }}
-        >
-          Payment Method:{" "}
-          <span style={{ fontWeight: "600" }}>Card Payment</span>
-        </Typography>
-       
+            sx={{ color: "#86469C", fontWeight: "700", fontSize: "30px" }}
+          >
+            Payment Method:{" "}
+            <span style={{ fontWeight: "600" }}>Card Payment</span>
+          </Typography>
+
           <img
-              className="img"
-              width="40%"
-              alignItems="left"
-            
-              src={CardLogo}
-              alt="image"
-            />
+            className="img"
+            width="40%"
+            alignItems="left"
+            src={CardLogo}
+            alt="imN"
+          />
           <Toaster
             toastOptions={{
               duration: 5000,

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from "react";
 import { Provider as ReduxProvider } from "react-redux";
 import Store from "./pages/redux/Store";
 import Login from "./pages/Login/Login";

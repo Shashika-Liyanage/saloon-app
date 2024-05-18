@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Footer from "../Footer/Footer";
 import {
   Container,
   Button,
@@ -22,10 +21,10 @@ import toast, { Toaster } from "react-hot-toast";
 
 const Login = () => {
   // State variables to store username and password
-  const [credentials, setCredentials] = useState({
-    username: "",
-    password: "",
-  });
+  // const [credentials, setCredentials] = useState({
+  //   username: "",
+  //   password: "",
+  // });
 
   // Function to handle Google sign-in
   const logGoogleUser = async () => {

@@ -7,37 +7,33 @@ import {
   Grid,
   Paper,
 } from "@mui/material";
-import {
-  GoogleAuthProvider,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-} from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../services/firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 
 const AdminLogin = () => {
   // State variables to store username and password
-  const [credentials, setCredentials] = useState({
-    username: "",
-    password: "",
-  });
+  // const [credentials, setCredentials] = useState({
+  //   username: "",
+  //   password: "",
+  // });
 
   // Function to handle Google sign-in
-  const logGoogleUser = async () => {
-    try {
-      const provider = new GoogleAuthProvider();
-      const result = await signInWithPopup(auth, provider);
-      console.log("Google sign-in success:", result);
-      toast.success("Logged in successfully.");
-      // Redirect user to dashboard page after successful sign-in
-   
-      window.location.href = "/dashboard";
-    } catch (error) {
-      console.error("Google sign-in error:", error.message);
-      toast.error("Google sign-in error:");
-    }
-  };
+  // const logGoogleUser = async () => {
+  //   try {
+  //     const provider = new GoogleAuthProvider();
+  //     const result = await signInWithPopup(auth, provider);
+  //     console.log("Google sign-in success:", result);
+  //     toast.success("Logged in successfully.");
+  //     // Redirect user to dashboard page after successful sign-in
+
+  //     window.location.href = "/dashboard";
+  //   } catch (error) {
+  //     console.error("Google sign-in error:", error.message);
+  //     toast.error("Google sign-in error:");
+  //   }
+  // };
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -52,7 +48,7 @@ const AdminLogin = () => {
         password
       );
       // Successful login
-      
+
       navigate("/admin");
       console.log(userCredential.user);
       toast.success("Logged in successfully.");
@@ -63,7 +59,6 @@ const AdminLogin = () => {
       toast.error("Please Enter the Username and Password");
     }
   };
-
 
   return (
     <div
@@ -87,7 +82,7 @@ const AdminLogin = () => {
           </Typography>
           <form>
             <Grid container spacing={2}>
-              <Grid item xs={12} sx={{mt:"20px"}}>
+              <Grid item xs={12} sx={{ mt: "20px" }}>
                 <TextField
                   label="Username"
                   variant="outlined"
@@ -97,7 +92,7 @@ const AdminLogin = () => {
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </Grid>
-              <Grid item xs={12}sx={{mt:"20px"}}>
+              <Grid item xs={12} sx={{ mt: "20px" }}>
                 <TextField
                   label="Password"
                   variant="outlined"
@@ -108,7 +103,7 @@ const AdminLogin = () => {
                   required
                 />
               </Grid>
-              <Grid item xs={12} sx={{mt:"20px",mb:"20px"}}>
+              <Grid item xs={12} sx={{ mt: "20px", mb: "20px" }}>
                 <Button
                   variant="contained"
                   color="primary"
@@ -123,8 +118,6 @@ const AdminLogin = () => {
                   position="top-right"
                 />
               </Grid>
-
-       
             </Grid>
           </form>
         </Paper>
