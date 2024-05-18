@@ -1,41 +1,40 @@
 import React, { useEffect, useState } from "react";
 //import { signOut } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 import { auth } from "../../services/firebaseConfig";
 import bg from "../../Assets/salonBg.jpg";
 
 const Home = () => {
   //const navigate = useNavigate();
   const [user, setUser] = useState(null);
-  const [setAvatarColor] = useState("#000"); //default color for avatar
 
   useEffect(() => {
+    // const generateRandomColor = (data) => {
+    //   const hash = data.split("").reduce((acc, char) => {
+    //     return char.charCodeAt(0) + ((acc << 5) - acc);
+    //   }, 0);
+
+    //   // Generate a full 6-digit hexadecimal color code
+    //   const color =
+    //     "#" +
+    //     ("000000" + ((hash & 0x00ffffff) | 0xa0a0a0).toString(16)).slice(-6);
+    //   console.log("Generated Color:", color); // Check the generated color
+    //   return color;
+    // };
+
     const unsubscribe = auth.onAuthStateChanged((userData) => {
       setUser(userData);
       if (userData) {
-        setAvatarColor(generateRandomColor(userData.email));
+        // const color = generateRandomColor(userData.email);
+        // Use the color if needed
       }
     });
 
     return () => {
       unsubscribe(); // Unsubscribe from the auth state listener when component unmounts
     };
-  }, []);
+  }, []); // Empty dependency array ensures this effect runs only once
 
-  // Function to generate a random color based on user data
-  const generateRandomColor = (data) => {
-    const hash = data.split("").reduce((acc, char) => {
-      return char.charCodeAt(0) + ((acc << 5) - acc);
-    }, 0);
-
-    // Generate a full 6-digit hexadecimal color code
-    const color =
-      "#" +
-      ("000000" + ((hash & 0x00ffffff) | 0xa0a0a0).toString(16)).slice(-6);
-    console.log("Generated Color:", color); // Check the generated color
-    setAvatarColor(color); // Ensure avatarColor is being set
-    return color;
-  };
   // Function to extract first part of the email address before the "@"
   const getFirstNameFromEmail = (email) => {
     // Use a regular expression to match only alphanumeric characters before the "@" symbol
@@ -50,13 +49,8 @@ const Home = () => {
     }
   };
 
-  // Function to get the first letter of the first name
-  const getFirstLetter = (name) => {
-    return name.charAt(0).toUpperCase();
-  };
   return (
     <>
-      {/* <img className="img" width="auto" height="500px" src={bg} alt="image" /> */}
       <div
         style={{
           position: "flex-start",
@@ -75,7 +69,7 @@ const Home = () => {
           height="auto"
           alignItems="left"
           src={bg}
-          alt="image"
+          alt="ImN"
           style={{
             borderBottomLeftRadius: "50px",
             borderBottomRightRadius: "280px",

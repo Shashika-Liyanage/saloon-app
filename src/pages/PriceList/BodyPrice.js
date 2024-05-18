@@ -42,7 +42,11 @@ export default function BasicTable() {
     <div>
       <div className="container">
         <div className="image-boxB">
-          <img src={BodyImage} alt="Salon Lilly Body Prices" className="imageB" />
+          <img
+            src={BodyImage}
+            alt="Salon Lilly Body Prices"
+            className="imageB"
+          />
 
           <div className="BtextB">
             <h2>Salon Lilly Body Prices</h2>
@@ -53,8 +57,13 @@ export default function BasicTable() {
       <div className="table">
         <div className="table-wrapper">
           <TableContainer component={Paper}>
-          <div style={{ display: "flex", alignItems: "center" }}>
-              <img src={salonIcon} alt="Salon Icon" className="icon" style={{ color: "#BC7FCD" }}/>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <img
+                src={salonIcon}
+                alt="Salon Icon"
+                className="icon"
+                style={{ color: "#BC7FCD" }}
+              />
               <h2 className="headingB">WAXING</h2>
             </div>
 
@@ -88,11 +97,16 @@ export default function BasicTable() {
 
         <div style={{ width: "48%" }}>
           <TableContainer component={Paper}>
-          <div style={{ display: "flex", alignItems: "center" }}>
-              <img src={salonIcon} alt="Salon Icon" className="icon" style={{ color: "#BC7FCD" }}/>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <img
+                src={salonIcon}
+                alt="Salon Icon"
+                className="icon"
+                style={{ color: "#BC7FCD" }}
+              />
               <h2 className="headingB"> DE-TANNING PREMIUM</h2>
             </div>
-           
+
             <Table sx={{ minWidth: 500 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
@@ -125,7 +139,3 @@ export default function BasicTable() {
     </div>
   );
 }
-
-
-
-

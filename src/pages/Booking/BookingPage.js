@@ -3,7 +3,6 @@ import Autocomplete from "@mui/material/Autocomplete";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-
 import {
   Box,
   Button,
@@ -14,7 +13,6 @@ import {
 } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { saveBookingData } from "../redux/BookingDataSlice";
-
 
 const BookingPage = () => {
   const [user, setUser] = useState({
@@ -36,35 +34,35 @@ const BookingPage = () => {
     setUser({ ...user, [name]: value });
   };
 
-  const getdata = async (e) => {
-    const { Name, Phone, Email, Service, Date, Time, Notes } = user;
-    e.preventDefault();
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ Name, Phone, Email, Service, Date, Time, Notes }),
-    };
+  // const getdata = async (e) => {
+  //   const { Name, Phone, Email, Service, Date, Time, Notes } = user;
+  //   e.preventDefault();
+  //   const options = {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({ Name, Phone, Email, Service, Date, Time, Notes }),
+  //   };
 
-    const res = await fetch(
-      "https://he-and-she-356f5-default-rtdb.firebaseio.com/UserData.json",
-      options
-    );
-    console.log(res);
+  //   const res = await fetch(
+  //     "https://he-and-she-356f5-default-rtdb.firebaseio.com/UserData.json",
+  //     options
+  //   );
+  //   console.log(res);
 
-    if (res.ok) {
-      toast.success("Booking confirmed");
-      setTimeout(() => {
-        toast.success("You're being redirected to the Dashboard!!!!!! ");
-        setTimeout(() => {
-          navigate("/dashboard");
-        }, 3000);
-      }, 1000);
-    } else {
-      toast.error("Something went wrong");
-    }
-  };
+  //   if (res.ok) {
+  //     toast.success("Booking confirmed");
+  //     setTimeout(() => {
+  //       toast.success("You're being redirected to the Dashboard!!!!!! ");
+  //       setTimeout(() => {
+  //         navigate("/dashboard");
+  //       }, 3000);
+  //     }, 1000);
+  //   } else {
+  //     toast.error("Something went wrong");
+  //   }
+  // };
   console.log("User State:", user);
   const date = new Date();
   const formattedDate = date
@@ -100,13 +98,13 @@ const BookingPage = () => {
     }
   };
 
-  const handleChange = (event) => {
-    if (event.target.value.match(/[^0-9]/)) {
-      event.preventDefault();
-    }
-    // otherwise, continue with the rest of your logic
-    // ...
-  };
+  // const handleChange = (event) => {
+  //   // if (event.target.value.match(/[^0-9]/)) {
+  //   //   event.preventDefault();
+  //   // }
+  //   // otherwise, continue with the rest of your logic
+  //   // ...
+  // };
   //
   const goToCheckOutPage = () => {
     navigate("/Checkout");
@@ -361,10 +359,8 @@ const BookingPage = () => {
               position="top-right"
             />
           </Grid>
-
         </CardContent>
       </form>
-     
     </Box>
   );
 };

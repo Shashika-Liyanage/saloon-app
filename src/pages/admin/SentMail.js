@@ -11,14 +11,12 @@
 //   Typography,
 // } from "@mui/material";
 
-
 // const SentMail = () => {
 //   const [fromEmail, setFromEmail] = useState('');
 //   const [carbon, setCarbon] = useState('');
 //   const [toEmail, setToEmail] = useState('');
 //   const [subject, setSubject] = useState('');
 //   const [message, setMessage] = useState('');
-
 
 //   const handleSubmit = (e) => {
 //     e.preventDefault();
@@ -64,7 +62,6 @@
 //       message.trim() !== ""
 //     );
 //   };
-  
 
 //   return (
 //     <Box

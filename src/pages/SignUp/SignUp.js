@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import Footer from "../Footer/Footer";
 import {
   Button,
@@ -23,25 +23,27 @@ const SignUp = () => {
     e.preventDefault();
 
     try {
-        // Check if passwords match
-        if (password !== confirmPassword) {
-            throw new Error("Passwords do not match");
-        }
-        toast.success("Now you are Registered!!!");
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        // Signed in
-        const user = userCredential.user;
-        console.log("Janith", user);
-        navigate("/dashboard");
-       
+      // Check if passwords match
+      if (password !== confirmPassword) {
+        throw new Error("Passwords do not match");
+      }
+      toast.success("Now you are Registered!!!");
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      // Signed in
+      const user = userCredential.user;
+      console.log("Janith", user);
+      navigate("/dashboard");
     } catch (error) {
       toast.error("Passwords do not match !!!");
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-      
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
     }
-};
+  };
 
   return (
     <form>
@@ -49,17 +51,16 @@ const SignUp = () => {
         sx={{ display: "flex", justifyContent: "space-between", mb: "70px" }}
       >
         <Typography
-         sx={{
-          ml: 26,
-          textTransform: "uppercase",
-          textAlign: "center",
-          fontWeight: 700,
-          fontSize: 50,
-          mt: "100px",
-          color: "#99154E",
-          fontFamily: "Georgia",
-
-        }}
+          sx={{
+            ml: 26,
+            textTransform: "uppercase",
+            textAlign: "center",
+            fontWeight: 700,
+            fontSize: 50,
+            mt: "100px",
+            color: "#99154E",
+            fontFamily: "Georgia",
+          }}
         >
           Love Us,
           <br /> Register and
@@ -74,11 +75,16 @@ const SignUp = () => {
             boxShadow: "0 20px 0px rgba(#EED3D9)",
             borderRadius: 10,
             padding: 4,
-            
           }}
         >
-          <Typography sx={{ fontWeight: 700, fontSize: 35, color: "#99154E",
-          fontFamily: "Georgia", }}>
+          <Typography
+            sx={{
+              fontWeight: 700,
+              fontSize: 35,
+              color: "#99154E",
+              fontFamily: "Georgia",
+            }}
+          >
             Sign Up
           </Typography>
 
@@ -161,23 +167,22 @@ const SignUp = () => {
                 sx={{ bgcolor: "white" }}
               />
             </Grid>
-       
-          </Grid><br></br>
+          </Grid>
+          <br></br>
 
           <Grid item>
             <Button
-             sx={{
-              mb: "10px",
-              borderRadius: "20px",
-              padding: "15px 30px",
-              fontSize: "16px",
-              backgroundColor: "#F27BBD",
-              fontFamily: "Georgia",
-              "&:hover": {
-                backgroundColor: "#E659A1", 
-            }
-              
-            }}
+              sx={{
+                mb: "10px",
+                borderRadius: "20px",
+                padding: "15px 30px",
+                fontSize: "16px",
+                backgroundColor: "#F27BBD",
+                fontFamily: "Georgia",
+                "&:hover": {
+                  backgroundColor: "#E659A1",
+                },
+              }}
               size="large"
               variant="contained"
               type="submit"
@@ -201,7 +206,6 @@ const SignUp = () => {
       </Box>
       <Footer />
     </form>
-    
   );
 };
 

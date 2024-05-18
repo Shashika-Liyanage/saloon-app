@@ -33,7 +33,7 @@ const drawerWidth = 280;
 const Admin = (props) => {
   //const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [isClosing, setIsClosing] = React.useState(false);
+  const [setIsClosing] = React.useState(false);
   const navigate = useNavigate();
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -44,24 +44,24 @@ const Admin = (props) => {
     setIsClosing(false);
   };
 
-  const handleDrawerToggle = () => {
-    if (!isClosing) {
-      setMobileOpen(!mobileOpen);
-    }
-  };
+  // const handleDrawerToggle = () => {
+  //   if (!isClosing) {
+  //     setMobileOpen(!mobileOpen);
+  //   }
+  // };
 
-  const goToBookingPage = () => {
-    navigate("/booking");
-  };
-  const goToAppointments = () => {
-    navigate("/Apoinments");
-  };
-  const goToAddAdmin = () => {
-    navigate("/AddAdmin");
-  };
-  const goToInbox = () => {
-    navigate("/Inbox");
-  };
+  // const goToBookingPage = () => {
+  //   navigate("/booking");
+  // };
+  // const goToAppointments = () => {
+  //   navigate("/Apoinments");
+  // };
+  // const goToAddAdmin = () => {
+  //   navigate("/AddAdmin");
+  // };
+  // const goToInbox = () => {
+  //   navigate("/Inbox");
+  // };
   const goToSentMail = () => {
     navigate("/SentMail");
   };
@@ -98,18 +98,18 @@ const Admin = (props) => {
           Appointments
         </Button> */}
         <Button
-  onClick={goToUpdateTables}
-  variant="contained"
-  fullWidth
-  sx={{
-    fontWeight: "600",
-    color: "white",
-    ml: "20px",
-  }}
->
-  <AdminPanelSettingsIcon />
-  Update Tables
-</Button>
+          onClick={goToUpdateTables}
+          variant="contained"
+          fullWidth
+          sx={{
+            fontWeight: "600",
+            color: "white",
+            ml: "20px",
+          }}
+        >
+          <AdminPanelSettingsIcon />
+          Update Tables
+        </Button>
 
         <Button
           onClick={goToUpdateTables}

@@ -1,9 +1,7 @@
-
 import React, { useState } from "react";
 //import Autocomplete from "@mui/material/Autocomplete";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-
 
 import {
   Box,
@@ -13,7 +11,6 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-
 
 const AddAdmin = () => {
   const [user, setUser] = useState({
@@ -33,46 +30,46 @@ const AddAdmin = () => {
     setUser({ ...user, [name]: value });
   };
 
-  const getdata = async (e) => {
-    const { Name, Phone, Email, Service, Date, Time, Notes } = user;
-    e.preventDefault();
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ Name, Phone, Email, Service, Date, Time, Notes }),
-    };
+  // const getdata = async (e) => {
+  //   const { Name, Phone, Email, Service, Date, Time, Notes } = user;
+  //   e.preventDefault();
+  //   const options = {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({ Name, Phone, Email, Service, Date, Time, Notes }),
+  //   };
 
-    const res = await fetch(
-      "https://he-and-she-356f5-default-rtdb.firebaseio.com/UserData.json",
-      options
-    );
-    console.log(res);
+  //   const res = await fetch(
+  //     "https://he-and-she-356f5-default-rtdb.firebaseio.com/UserData.json",
+  //     options
+  //   );
+  //   console.log(res);
 
-    if (res.ok) {
-      toast.success("Booking confirmed");
-      setTimeout(() => {
-        toast.success("You're being redirected to the Dashboard!!!!!! ");
-        setTimeout(() => {
-          navigate("/dashboard");
-        }, 3000);
-      }, 1000);
-    } else {
-      toast.error("Something went wrong");
-    }
-  };
+  //   if (res.ok) {
+  //     toast.success("Booking confirmed");
+  //     setTimeout(() => {
+  //       toast.success("You're being redirected to the Dashboard!!!!!! ");
+  //       setTimeout(() => {
+  //         navigate("/dashboard");
+  //       }, 3000);
+  //     }, 1000);
+  //   } else {
+  //     toast.error("Something went wrong");
+  //   }
+  // };
   console.log("User State:", user);
-  const date = new Date();
-  const formattedDate = date
-    .toLocaleDateString("en-GB", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    })
-    .split("/")
-    .reverse()
-    .join("-");
+  // const date = new Date();
+  // const formattedDate = date
+  //   .toLocaleDateString("en-GB", {
+  //     year: "numeric",
+  //     month: "2-digit",
+  //     day: "2-digit",
+  //   })
+  //   .split("/")
+  //   .reverse()
+  //   .join("-");
 
   // Function to check if all form fields are filled
   const isFormFilled = () => {
@@ -80,9 +77,9 @@ const AddAdmin = () => {
   };
 
   // Event handler for service selection in Autocomplete
-  const handleServiceChange = (event, value) => {
-    setUser({ ...user, Service: value ? value.label : "" });
-  };
+  // const handleServiceChange = (event, value) => {
+  //   setUser({ ...user, Service: value ? value.label : "" });
+  // };
 
   // Event handler for form submission
   const handleSubmit = (e) => {
@@ -99,8 +96,8 @@ const AddAdmin = () => {
   //   if (event.target.value.match(/[^0-9]/)) {
   //     event.preventDefault();
   //   }
-    // otherwise, continue with the rest of your logic
-    // ...
+  // otherwise, continue with the rest of your logic
+  // ...
   //};
   //
   const goToCheckOutPage = () => {
@@ -115,7 +112,6 @@ const AddAdmin = () => {
         mb: "70px",
       }}
     >
-
       <form onSubmit={handleSubmit}>
         <CardContent
           sx={{
@@ -125,7 +121,6 @@ const AddAdmin = () => {
             boxShadow: "0 20px 0px rgba(#EED3D9)",
             borderRadius: 10,
             padding: 4,
-        
           }}
         >
           <Typography
@@ -137,7 +132,7 @@ const AddAdmin = () => {
               fontFamily: "Georgia",
             }}
           >
-           Welcome to Admin Creation
+            Welcome to Admin Creation
           </Typography>
           <Grid
             container
@@ -159,7 +154,7 @@ const AddAdmin = () => {
               />
             </Grid>
             <Grid item xs={5}>
-            <TextField
+              <TextField
                 id="Lname"
                 required
                 name="LName"
@@ -170,7 +165,6 @@ const AddAdmin = () => {
                 onChange={data}
                 sx={{ bgcolor: "white" }}
               />
-              
             </Grid>
           </Grid>
           <Grid
@@ -180,7 +174,7 @@ const AddAdmin = () => {
             sx={{ mt: "5px" }}
           >
             <Grid item xs={5}>
-            <TextField
+              <TextField
                 id="phone_number"
                 label="Phone Number"
                 name="Phone"
@@ -193,7 +187,7 @@ const AddAdmin = () => {
               />
             </Grid>
             <Grid item xs={5}>
-            <TextField
+              <TextField
                 id="email"
                 name="Email"
                 label="Email"
@@ -213,7 +207,7 @@ const AddAdmin = () => {
             sx={{ mt: "5px" }}
           >
             <Grid item xs={5}>
-            <TextField
+              <TextField
                 id="password"
                 name="Password"
                 label="Password"
@@ -226,7 +220,7 @@ const AddAdmin = () => {
               />
             </Grid>
             <Grid item xs={5}>
-            <TextField
+              <TextField
                 id="confirm Password"
                 name="Confirm Password"
                 label="Confirm Password"
@@ -239,7 +233,7 @@ const AddAdmin = () => {
               />
             </Grid>
           </Grid>
-     
+
           <br></br>
           <Grid item>
             <Button
@@ -258,11 +252,10 @@ const AddAdmin = () => {
               }}
               size="large"
               variant="contained"
-              
               // onClick={getdata}
               onClick={goToCheckOutPage}
             >
-             Create An Admin
+              Create An Admin
             </Button>
 
             <Toaster
@@ -276,10 +269,8 @@ const AddAdmin = () => {
               position="top-right"
             />
           </Grid>
-
         </CardContent>
       </form>
-     
     </Box>
   );
 };

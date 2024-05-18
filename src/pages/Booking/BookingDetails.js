@@ -1,4 +1,4 @@
-import { Autocomplete, Grid, TextField} from "@mui/material";
+import { Autocomplete, Grid, TextField } from "@mui/material";
 import React from "react";
 
 const BookingDetails = (BookingPage) => {

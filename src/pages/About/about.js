@@ -3,7 +3,6 @@ import "./about.css";
 import map1 from "../../../src/Assets/map1.png";
 import Footer from "../Footer/Footer";
 
-
 function About() {
   return (
     <div>
@@ -36,7 +35,6 @@ function About() {
 
       <div className="image-container">
         <img className="imageMap" src={map1} alt="map" />
-
       </div>
 
       <Footer />
