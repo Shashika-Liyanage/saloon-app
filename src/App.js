@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react';
 import { Provider as ReduxProvider } from "react-redux";
 import Store from "./pages/redux/Store";
 import Login from "./pages/Login/Login";
@@ -28,6 +29,7 @@ import LogOut from "./pages/admin/LogOut";
 import About from "./pages/About/about";
 import AdminLogin from "./pages/admin/AdminLogin";
 import PriceUpdate from './pages/admin/PriceUpdate';
+
 
 function App() {
   return (
@@ -63,6 +65,7 @@ function App() {
             <Route path="ReviewBooking" element={<ReviewBooking />} />
             <Route path="np" element={<PriceUpdate />} />
             <Route path="*" element={<NoPage />} />
+           
             {/* </Route> */}
           </Routes>
         </BrowserRouter>
