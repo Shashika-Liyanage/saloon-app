@@ -15,16 +15,14 @@ import {
   OutlinedInput,
   MenuItem,
 } from "@mui/material";
-import { getDatabase, ref, get, set ,remove} from "firebase/database";
+import { getDatabase, ref, get, set ,remove, update} from "firebase/database";
 import { useParams } from "react-router-dom";
 import app from "../../../services/firebaseConfig";
 import toast, { Toaster } from "react-hot-toast";
-import { Message } from "@mui/icons-material";
 const PriceUpdate = () => {
-  const { saloonIdParam } = useParams();
   const [inputType, setInputType] = useState("");
   const [inputPrice, setInputPrice] = useState("");
-  const { firebaseId } = useParams();
+  const { saloonIdParam } = useParams();
   const [typeOptions, setTypeOptions] = useState([]);
   const [priceOptions, setPriceOptions] = useState([]);
   
@@ -32,7 +30,7 @@ const PriceUpdate = () => {
   //fetch data use for hair section
     const fetchData = async () => {
       const db = getDatabase();
-      const dbRef = ref(db, "createprice/haircut/"+firebaseId);
+      const dbRef = ref(db, "createprice/haircut/"+saloonIdParam);
       const snapshot = await get(dbRef);
 
       if (snapshot.exists()) {
@@ -40,7 +38,7 @@ const PriceUpdate = () => {
         setInputType(targetObject.type);
         setInputPrice(targetObject.price);
       } else {
-       console.error(Message)
+        toast.error("No Data Available ");
       }
       
 
@@ -66,23 +64,37 @@ const PriceUpdate = () => {
       }
     };
     fetchData();
-  }, [firebaseId]);
+  }, [saloonIdParam]);
 
 //overwrite data (update) use for hair section
   const overWriteData = async () => {
-    const db = getDatabase(app);
-    const newPostRef = ref(db, "createprice/haircut/"+firebaseId);
-    set(newPostRef, {
-      type: inputType,
-      price: inputPrice,
-    })
-      .then(() => {
-        toast.success("New Price  Updated Succesfully");
-      })
-      .catch((error) => {
-        toast.error("Data has not created ");
-      });
+    try {
+      const db = getDatabase(app);
+      const dbRef = ref(db, `createprice/haircut/${saloonIdParam}`);
+  
+      const snapshot = await get(dbRef);
+      if (snapshot.exists()) {
+        await update(dbRef, {
+          type: inputType,
+          price: inputPrice,
+        });
+        toast.success("Price Updated Successfully");
+      } else {
+        toast.error("Record not found");
+      }
+    } catch (error) {
+      toast.error("Failed to update price");
+      console.error("Error updating price:", error);
+    }
   };
+  
+  
+  // const deleteData = async () => {
+  //   const db = getDatabase();
+  //   const dbRef = ref(db, "createprice/haircut/"+saloonIdParam);
+  //   await remove(dbRef);
+  //   window.location.reload();
+  // };
 
 //delete data for hair section
 const deleteData =async(saloonIdParam)=>{
@@ -295,7 +307,6 @@ const deleteData =async(saloonIdParam)=>{
             id="transition-modal-title"
             variant="h6"
             component="h2"
-            color={"primary"}
           >
             Update Hair Cut Prices
           </Typography>
@@ -308,7 +319,6 @@ const deleteData =async(saloonIdParam)=>{
               value={inputType}
               onChange={handleTypeChange}
               fullWidth
-              label="Type" 
               input={<OutlinedInput label="Type" />}
             >
               {typeOptions.map((option) => (
@@ -329,7 +339,7 @@ const deleteData =async(saloonIdParam)=>{
           </Stack>
           <Stack mt={10} ml={10} mb={5} direction="row" sx={{mr:10}}  spacing={10}>
             <Grid item xs={4}>
-              <Button variant="contained" color="error" onClick={() => deleteData(saloonIdParam)}>
+              <Button variant="contained" color="error" onClick={deleteData}>
                 Delete
               </Button>
             </Grid>
