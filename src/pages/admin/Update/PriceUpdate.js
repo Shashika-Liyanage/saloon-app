@@ -15,7 +15,7 @@ import {
   OutlinedInput,
   MenuItem,
 } from "@mui/material";
-import { getDatabase, ref, get, push, set ,remove} from "firebase/database";
+import { getDatabase, ref, get, set ,remove} from "firebase/database";
 import { useParams } from "react-router-dom";
 import app from "../../../services/firebaseConfig";
 import toast, { Toaster } from "react-hot-toast";
@@ -139,6 +139,7 @@ const deleteData =async(saloonIdParam)=>{
     setshowDetainingModal(false);
   };
   // Function to handle button click and open the modal in Nail section
+  // eslint-disable-next-line
   const handleNailButtonClick = () => {
     setshowManicureModal(true);
     setshowPedicureModal(true);
@@ -153,6 +154,7 @@ const deleteData =async(saloonIdParam)=>{
     setshowNailNaModal(false);
   };
   // Function to handle button click and open the modal in Skin section
+ // eslint-disable-next-line
   const handleSkinButtonClick = () => {
     setshowCleanUpModal(true);
     setFacialModal(true);
@@ -165,6 +167,7 @@ const deleteData =async(saloonIdParam)=>{
     setThreadingModal(false);
   };
   // Function to handle button click and open the modal in Hair section
+ // eslint-disable-next-line
   const handleHairButtonClick = () => {
     setShowHaircutModal(true);
     setshowHairColoringModal(true);

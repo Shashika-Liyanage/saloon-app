@@ -8,7 +8,6 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Footer from "../Footer/Footer";
 import "./priceList.css";
-import salonIcon from "../../../src/Assets/salonicon.jpg";
 import HairImage from "../../../src/Assets/HairImage.png";
 import { getDatabase, ref, get } from "firebase/database";
 
