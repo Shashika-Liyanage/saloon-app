@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Grid,
@@ -11,81 +11,167 @@ import {
   Backdrop,
   Dialog,
   TextField,
+  Select,
+  OutlinedInput,
+  MenuItem,
 } from "@mui/material";
+import { getDatabase, ref, get, push, set ,remove} from "firebase/database";
+import { useParams } from "react-router-dom";
+import app from "../../../services/firebaseConfig";
+import toast, { Toaster } from "react-hot-toast";
+import { Message } from "@mui/icons-material";
 const PriceUpdate = () => {
-  //const [setOpen] = useState(false);
+  const { saloonIdParam } = useParams();
+  const [inputType, setInputType] = useState("");
+  const [inputPrice, setInputPrice] = useState("");
+  const { firebaseId } = useParams();
+  const [typeOptions, setTypeOptions] = useState([]);
+  const [priceOptions, setPriceOptions] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const db = getDatabase();
+      const dbRef = ref(db, "createprice/haircut/"+firebaseId);
+      const snapshot = await get(dbRef);
+
+      if (snapshot.exists()) {
+        const targetObject = snapshot.val();
+        setInputType(targetObject.type);
+        setInputPrice(targetObject.price);
+      } else {
+       console.error(Message)
+      }
+      
+
+      // Fetch data for options in Select field
+      const optionsRef = ref(db, "createprice/haircut"); // Change this to the appropriate ref
+      const optionsSnapshot = await get(optionsRef);
+      if (optionsSnapshot.exists()) {
+        const optionsData = optionsSnapshot.val();
+        const optionsArray = Object.values(optionsData).map(
+          (option) => option.type
+        );
+        setTypeOptions(optionsArray);
+      }
+// Fetch data for options in Price field
+      const optionsReftwo=ref(db,"createprice/haircut")
+      const optiontwoSnapshot=await get(optionsReftwo);
+      if(optiontwoSnapshot.exists()){
+       const optionsDatatwo =optiontwoSnapshot.val();
+       const optionArrayTwo=Object.values(optionsDatatwo).map(
+        (option)=>option.price
+       );
+       setPriceOptions(optionArrayTwo)
+      }
+    };
+    fetchData();
+  }, [firebaseId]);
+
+  const overWriteData = async () => {
+    const db = getDatabase(app);
+    const newPostRef = ref(db, "createprice/haircut/"+firebaseId);
+    set(newPostRef, {
+      type: inputType,
+      price: inputPrice,
+    })
+      .then(() => {
+        toast.success("New Price  Updated Succesfully");
+      })
+      .catch((error) => {
+        toast.error("Data has not created ");
+      });
+  };
+const deleteData =async(saloonIdParam)=>{
+  const db=getDatabase(app)
+  const dbRef=ref(db,"createprice/haircut/"+saloonIdParam);
+  await remove(dbRef);
+  window.location.reload()
+}
+
+  const handleTypeChange = (e) => {
+    setInputType(e.target.value);
+    // Find the index of the selected type in typeOptions array
+    const selectedIndex = typeOptions.indexOf(e.target.value);
+    // If the selected type exists in the array, set the corresponding price
+    if (selectedIndex !== -1) {
+      setInputPrice(priceOptions[selectedIndex]);
+    }
+  };
+  const handlePriceChange = (e) => {
+    setInputPrice(e.target.value);
+  };
+
   //For the hair section
   const [showHaircutModal, setShowHaircutModal] = useState(false);
   const [showHairColoringModal, setshowHairColoringModal] = useState(false);
   const [showHairSpaModal, setshowHairSpaModal] = useState(false);
   const [showHairTreatModal, setshowHairTreatModal] = useState(false);
-  // For the Skin Section 
-  const [showCleanUpModal,setshowCleanUpModal]=useState(false);
-  const [showFacialModal,setFacialModal]=useState(false);
-  const [showThreadingModal,setThreadingModal]=useState(false);
-  //For the Nail Section 
-  const[showManicureModal,setshowManicureModal]=useState(false);
-  const[showPedicureModal,setshowPedicureModal]=useState(false);
-  const[showMicroBladingModal,setshowMicroBladingModal]=useState(false);
-  const[showNailNaModal,setshowNailNaModal]=useState(false);
-  //For the Body Section 
-  const[showWaxingModal,setShowWaxingModal]=useState(false);
-  const[showDetainingModal,setshowDetainingModal]=useState(false);
-  //For the Bridal Section 
-  const[showDressingModal,setshowDressingModal]=useState(false);
+  // For the Skin Section
+  const [showCleanUpModal, setshowCleanUpModal] = useState(false);
+  const [showFacialModal, setFacialModal] = useState(false);
+  const [showThreadingModal, setThreadingModal] = useState(false);
+  //For the Nail Section
+  const [showManicureModal, setshowManicureModal] = useState(false);
+  const [showPedicureModal, setshowPedicureModal] = useState(false);
+  const [showMicroBladingModal, setshowMicroBladingModal] = useState(false);
+  const [showNailNaModal, setshowNailNaModal] = useState(false);
+  //For the Body Section
+  const [showWaxingModal, setShowWaxingModal] = useState(false);
+  const [showDetainingModal, setshowDetainingModal] = useState(false);
+  //For the Bridal Section
+  const [showDressingModal, setshowDressingModal] = useState(false);
 
-  // Function to handle button click and open the modal in Bridal section 
-const handlebridalButtonClick=()=>{
-  setshowDressingModal(true)
-}
- // Function to close the modal  in Boyd section 
-const handleCloseModalBridal=()=>{
-  setshowDressingModal(false)
-}
-// Function to handle button click and open the modal in Body section 
-const handleBodyButtonClick=()=>{
-  setShowWaxingModal(true)
-  setshowDetainingModal(true)
-}
-// Function to close the modal  in Boyd section 
-const handleCloseModalBody=()=>{
-  setShowWaxingModal(false)
-  setshowDetainingModal(false)
-}
-// Function to handle button click and open the modal in Nail section 
-const handleNailButtonClick=()=>{
-  setshowManicureModal(true)
-  setshowPedicureModal(true)
-  setshowMicroBladingModal(true)
-  setshowNailNaModal(true)
-  }
-  // Function to close the modal  in Nail section 
-  const handleCloseModalNail=()=>{
-    setshowManicureModal(false)
-    setshowPedicureModal(false)
-    setshowMicroBladingModal(false)
-    setshowNailNaModal(false)
-  }
-// Function to handle button click and open the modal in Skin section 
-const handleSkinButtonClick=()=>{
-  setshowCleanUpModal(true)
-  setFacialModal(true)
-  setThreadingModal(true)
-}
- // Function to close the modal  in Skin section 
-const handleCloseModalSkin=()=>{
-  setshowCleanUpModal(false)
-  setFacialModal(false)
-  setThreadingModal(false)
-}
-// Function to handle button click and open the modal in Hair section 
+  // Function to handle button click and open the modal in Bridal section
+  const handlebridalButtonClick = () => {
+    setshowDressingModal(true);
+  };
+  // Function to close the modal  in Boyd section
+  const handleCloseModalBridal = () => {
+    setshowDressingModal(false);
+  };
+  // Function to handle button click and open the modal in Body section
+  const handleBodyButtonClick = () => {
+    setShowWaxingModal(true);
+    setshowDetainingModal(true);
+  };
+  // Function to close the modal  in Boyd section
+  const handleCloseModalBody = () => {
+    setShowWaxingModal(false);
+    setshowDetainingModal(false);
+  };
+  // Function to handle button click and open the modal in Nail section
+  const handleNailButtonClick = () => {
+    setshowManicureModal(true);
+    setshowPedicureModal(true);
+    setshowMicroBladingModal(true);
+    setshowNailNaModal(true);
+  };
+  // Function to close the modal  in Nail section
+  const handleCloseModalNail = () => {
+    setshowManicureModal(false);
+    setshowPedicureModal(false);
+    setshowMicroBladingModal(false);
+    setshowNailNaModal(false);
+  };
+  // Function to handle button click and open the modal in Skin section
+  const handleSkinButtonClick = () => {
+    setshowCleanUpModal(true);
+    setFacialModal(true);
+    setThreadingModal(true);
+  };
+  // Function to close the modal  in Skin section
+  const handleCloseModalSkin = () => {
+    setshowCleanUpModal(false);
+    setFacialModal(false);
+    setThreadingModal(false);
+  };
+  // Function to handle button click and open the modal in Hair section
   const handleHairButtonClick = () => {
     setShowHaircutModal(true);
     setshowHairColoringModal(true);
     setshowHairSpaModal(true);
     setshowHairTreatModal(true);
   };
- // Function to close the modal in Hair section 
+  // Function to close the modal in Hair section
   const handleCloseModal = () => {
     setShowHaircutModal(false);
     setshowHairColoringModal(false);
@@ -93,9 +179,7 @@ const handleCloseModalSkin=()=>{
     setshowHairTreatModal(false);
   };
  
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
+  
   // Custom Card component
   const CustomCard = ({ children }) => {
     return (
@@ -121,10 +205,14 @@ const handleCloseModalSkin=()=>{
                 </Button>
               </Grid>
               <Grid item xs={4}>
-                <Button variant="contained" onClick={setshowHairColoringModal}>Update Hair Coloring Price </Button>
+                <Button variant="contained" onClick={setshowHairColoringModal}>
+                  Update Hair Coloring Price{" "}
+                </Button>
               </Grid>{" "}
               <Grid item xs={4}>
-                <Button variant="contained" onClick={setshowHairSpaModal}>Update Hair Spa Price </Button>
+                <Button variant="contained" onClick={setshowHairSpaModal}>
+                  Update Hair Spa Price{" "}
+                </Button>
               </Grid>
               <Grid item xs={4}>
                 <Button variant="contained" onClick={setshowHairTreatModal}>
@@ -140,13 +228,19 @@ const handleCloseModalSkin=()=>{
             </Typography>
             <Stack direction="row" spacing={2}>
               <Grid item xs={4}>
-                <Button onClick={setshowCleanUpModal} variant="contained">Update CleanUp Price </Button>
+                <Button onClick={setshowCleanUpModal} variant="contained">
+                  Update CleanUp Price{" "}
+                </Button>
               </Grid>
               <Grid item xs={4}>
-                <Button onClick={setFacialModal} variant="contained">Update Facial Price </Button>
+                <Button onClick={setFacialModal} variant="contained">
+                  Update Facial Price{" "}
+                </Button>
               </Grid>{" "}
               <Grid item xs={4}>
-                <Button onClick={setThreadingModal} variant="contained">Update Threading Price </Button>
+                <Button onClick={setThreadingModal} variant="contained">
+                  Update Threading Price{" "}
+                </Button>
               </Grid>
               <Grid item xs={4}>
                 <Button disabled variant="contained">
@@ -161,16 +255,24 @@ const handleCloseModalSkin=()=>{
             </Typography>
             <Stack direction="row" spacing={2}>
               <Grid item xs={4}>
-                <Button onClick={setshowManicureModal}  variant="contained">Update Manicure Price </Button>
+                <Button onClick={setshowManicureModal} variant="contained">
+                  Update Manicure Price{" "}
+                </Button>
               </Grid>
               <Grid item xs={4}>
-                <Button onClick={setshowPedicureModal}  variant="contained">Update Pedicure Price </Button>
+                <Button onClick={setshowPedicureModal} variant="contained">
+                  Update Pedicure Price{" "}
+                </Button>
               </Grid>{" "}
               <Grid item xs={4}>
-                <Button onClick={setshowMicroBladingModal}  variant="contained">Update Microblading Price </Button>
+                <Button onClick={setshowMicroBladingModal} variant="contained">
+                  Update Microblading Price{" "}
+                </Button>
               </Grid>
               <Grid item xs={4}>
-                <Button onClick={setshowNailNaModal}  variant="contained">Update Nail Price </Button>
+                <Button onClick={setshowNailNaModal} variant="contained">
+                  Update Nail Price{" "}
+                </Button>
               </Grid>
             </Stack>
           </CustomCard>
@@ -233,75 +335,80 @@ const handleCloseModalSkin=()=>{
       {/* Modal for updating Hair Cut Price */}
 
       <Dialog
-        open={showHaircutModal}
-        onClose={handleCloseModal}
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-        sx={{
-          marginLeft: "auto",
-          marginRight: "auto",
-          maxWidth: "550px",
-          maxHeight: "550px",
-        }}
-      >
-        <Fade in={showHaircutModal}>
-          <div>
-            <Typography
-              align="center"
-              fontWeight={"700"}
-              id="transition-modal-title"
-              variant="h6"
-              component="h2"
+      open={showHaircutModal}
+      onClose={handleCloseModal}
+      aria-labelledby="transition-modal-title"
+      aria-describedby="transition-modal-description"
+      closeAfterTransition
+      BackdropComponent={Backdrop}
+      BackdropProps={{
+        timeout: 500,
+      }}
+      sx={{
+        px:4,
+        margin: '0 auto', // Center the modal horizontally
+      }}
+    >
+      <Fade in={showHaircutModal}>
+        <div>
+          <Typography
+            align="center"
+            fontWeight={700}
+            id="transition-modal-title"
+            variant="h6"
+            component="h2"
+            color={"primary"}
+          >
+            Update Hair Cut Prices
+          </Typography>
+          <Typography id="transition-modal-description" sx={{ mt: 5 }}>
+            {/* Modal content */}
+          </Typography>
+          <Stack direction="row" spacing={1}>
+            {/* Select for type */}
+            <Select
+              value={inputType}
+              onChange={handleTypeChange}
+              fullWidth
+              label="Type" 
+              input={<OutlinedInput label="Type" />}
             >
-              Update Hair Cut Pricess
-            </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 3 }}>
-              {/* Modal content */}
-            </Typography>
-            <Stack direction="row" spacing={3}>
-              <TextField
-                id="outlined-basic"
-                label="Type"
-                variant="outlined"
-                disabled
-                fontWeight={"700"}
-              />
-
-              <TextField
-                id="filled-basic"
-                label="Price"
-                variant="outlined"
-                required
-              />
-            </Stack>
-            <Stack mt={5} ml={17} mb={5} direction="row" spacing={4}>
-              <Grid item xs={6}>
-                <Button
-                  variant="contained"
-                  color="error"
-                  onClick={handleCloseModal}
-                >
-                  Close{" "}
-                </Button>
-              </Grid>
-              <Grid item xs={6}>
-                <Button
-                  variant="contained"
-                  color="success"
-                  onClick={handleCloseModal}
-                >
-                  Update
-                </Button>
-              </Grid>{" "}
-            </Stack>
-          </div>
-        </Fade>
-      </Dialog>
+              {typeOptions.map((option) => (
+                <MenuItem key={option} value={option}>
+                  {option}
+                </MenuItem>
+              ))}
+            </Select>
+            <TextField
+              id="filled-basic"
+              label="Price"
+              variant="outlined"
+              value={inputPrice}
+              onChange={handlePriceChange}
+              required
+              fullWidth
+            />
+          </Stack>
+          <Stack mt={10} ml={10} mb={5} direction="row" sx={{mr:10}}  spacing={10}>
+            <Grid item xs={4}>
+              <Button variant="contained" color="error" onClick={() => deleteData(saloonIdParam)}>
+                Delete
+              </Button>
+            </Grid>
+            <Grid item xs={4}>
+              <Button variant="contained" color="warning" onClick={handleCloseModal}>
+                Close
+              </Button>
+            </Grid>
+            <Grid item xs={4}>
+              <Button variant="contained" color="success" onClick={overWriteData}>
+                Update
+              </Button>
+            </Grid>
+          </Stack>
+        </div>
+      </Fade>
+    </Dialog>
 
       {/* Modal for updating Hair Coloring Price */}
 
@@ -835,7 +942,7 @@ const handleCloseModalSkin=()=>{
               variant="h6"
               component="h2"
             >
-             Update Pedicure Price
+              Update Pedicure Price
             </Typography>
             <Typography id="transition-modal-description" sx={{ mt: 3 }}>
               {/* Modal content */}
@@ -1237,6 +1344,16 @@ const handleCloseModalSkin=()=>{
           </div>
         </Fade>
       </Dialog>
+      <Toaster
+              toastOptions={{
+                duration: 5000,
+                className: "",
+                style: {
+                  color: "#713200",
+                },
+              }}
+              position="top-right"
+            />
     </>
   );
 };
