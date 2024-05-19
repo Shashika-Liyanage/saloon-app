@@ -22,6 +22,7 @@ function ReadData() {
       const snapshot = await get(dbRef);
 
       if (snapshot.exists()) {
+        
         sethairPriceArray(Object.values(snapshot.val()));
       } else {
         console.error("No data available");
