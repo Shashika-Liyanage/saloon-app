@@ -15,7 +15,7 @@ import {
   OutlinedInput,
   MenuItem,
 } from "@mui/material";
-import { getDatabase, ref, get, set ,remove, update} from "firebase/database";
+import { getDatabase, ref, get, set, remove, update } from "firebase/database";
 import { useParams } from "react-router-dom";
 import app from "../../../services/firebaseConfig";
 import toast, { Toaster } from "react-hot-toast";
@@ -25,12 +25,12 @@ const PriceUpdate = () => {
   const { saloonIdParam } = useParams();
   const [typeOptions, setTypeOptions] = useState([]);
   const [priceOptions, setPriceOptions] = useState([]);
-  
+
   useEffect(() => {
-  //fetch data use for hair section
+    //fetch data use for hair section
     const fetchData = async () => {
       const db = getDatabase();
-      const dbRef = ref(db, "createprice/haircut/"+saloonIdParam);
+      const dbRef = ref(db, "createprice/haircut/" + saloonIdParam);
       const snapshot = await get(dbRef);
 
       if (snapshot.exists()) {
@@ -40,7 +40,6 @@ const PriceUpdate = () => {
       } else {
         toast.error("No Data Available ");
       }
-      
 
       // Fetch data for options in Select field
       const optionsRef = ref(db, "createprice/haircut"); // Change this to the appropriate ref
@@ -52,26 +51,26 @@ const PriceUpdate = () => {
         );
         setTypeOptions(optionsArray);
       }
-// Fetch data for options in Price field
-      const optionsReftwo=ref(db,"createprice/haircut")
-      const optiontwoSnapshot=await get(optionsReftwo);
-      if(optiontwoSnapshot.exists()){
-       const optionsDatatwo =optiontwoSnapshot.val();
-       const optionArrayTwo=Object.values(optionsDatatwo).map(
-        (option)=>option.price
-       );
-       setPriceOptions(optionArrayTwo)
+      // Fetch data for options in Price field
+      const optionsReftwo = ref(db, "createprice/haircut");
+      const optiontwoSnapshot = await get(optionsReftwo);
+      if (optiontwoSnapshot.exists()) {
+        const optionsDatatwo = optiontwoSnapshot.val();
+        const optionArrayTwo = Object.values(optionsDatatwo).map(
+          (option) => option.price
+        );
+        setPriceOptions(optionArrayTwo);
       }
     };
     fetchData();
   }, [saloonIdParam]);
 
-//overwrite data (update) use for hair section
+  //overwrite data (update) use for hair section
   const overWriteData = async () => {
     try {
       const db = getDatabase(app);
       const dbRef = ref(db, `createprice/haircut/${saloonIdParam}`);
-  
+
       const snapshot = await get(dbRef);
       if (snapshot.exists()) {
         await update(dbRef, {
@@ -87,22 +86,13 @@ const PriceUpdate = () => {
       console.error("Error updating price:", error);
     }
   };
-  
-  
-  // const deleteData = async () => {
-  //   const db = getDatabase();
-  //   const dbRef = ref(db, "createprice/haircut/"+saloonIdParam);
-  //   await remove(dbRef);
-  //   window.location.reload();
-  // };
 
-//delete data for hair section
-const deleteData =async(saloonIdParam)=>{
-  const db=getDatabase(app)
-  const dbRef=ref(db,"createprice/haircut/"+saloonIdParam);
-  await remove(dbRef);
-  window.location.reload()
-}
+  const deleteData = async () => {
+    const db = getDatabase();
+    const dbRef = ref(db, "createprice/haircut/" + saloonIdParam);
+    await remove(dbRef);
+    window.location.reload();
+  };
 
   const handleTypeChange = (e) => {
     setInputType(e.target.value);
@@ -171,7 +161,7 @@ const deleteData =async(saloonIdParam)=>{
     setshowNailNaModal(false);
   };
   // Function to handle button click and open the modal in Skin section
- // eslint-disable-next-line
+  // eslint-disable-next-line
   const handleSkinButtonClick = () => {
     setshowCleanUpModal(true);
     setFacialModal(true);
@@ -184,7 +174,7 @@ const deleteData =async(saloonIdParam)=>{
     setThreadingModal(false);
   };
   // Function to handle button click and open the modal in Hair section
- // eslint-disable-next-line
+  // eslint-disable-next-line
   const handleHairButtonClick = () => {
     setShowHaircutModal(true);
     setshowHairColoringModal(true);
@@ -198,12 +188,11 @@ const deleteData =async(saloonIdParam)=>{
     setshowHairSpaModal(false);
     setshowHairTreatModal(false);
   };
- 
-  
+
   // Custom Card component
   const CustomCard = ({ children }) => {
     return (
-      <Grid item xs={12}>
+      <Grid item xs={5}>
         <Card>
           <CardContent>{children}</CardContent>
         </Card>
@@ -212,72 +201,134 @@ const deleteData =async(saloonIdParam)=>{
   };
   return (
     <>
-      <Box sx={{ flexGrow: 2 }}>
-        <Grid container spacing={3}>
+      <Box>
+        <Typography fontWeight={"700"} align="center" variant="h6">
+          Update/Delete Table Data
+        </Typography>
+        <Grid
+          container
+          spacing={2}
+          sx={{ justifyContent: "center", marginY: "auto" }}
+        >
           <CustomCard>
-            <Typography fontWeight={"700"} variant="h6">
+            <Typography fontWeight={"700"} align="center" variant="h6">
               Hair Section
             </Typography>
-            <Stack direction="row" spacing={2}>
+            <Stack
+              direction="row"
+              spacing={2}
+              sx={{ justifyContent: "center" }}
+            >
               <Grid item xs={4}>
-                <Button onClick={setShowHaircutModal} variant="contained">
-                  Update Hair Cut Price{" "}
+                <Button
+                  sx={{ textAlign: "center" }}
+                  onClick={setShowHaircutModal}
+                  variant="contained"
+                >
+                  Hair Cut Price
                 </Button>
               </Grid>
-              
             </Stack>
           </CustomCard>
 
           <CustomCard>
-            <Typography fontWeight={"700"} variant="h6">
+            <Typography fontWeight={"700"} align="center" variant="h6">
               Skin Section
             </Typography>
-            <Stack direction="row" spacing={2}>
+            <Stack
+              sx={{ justifyContent: "center" }}
+              direction="row"
+              spacing={2}
+            >
               <Grid item xs={4}>
-                <Button onClick={setshowCleanUpModal} variant="contained">
-                  Update CleanUp Price{" "}
+                <Button
+                  sx={{ textAlign: "center" }}
+                  onClick={setshowCleanUpModal}
+                  variant="contained"
+                >
+                  CleanUp Price{" "}
                 </Button>
               </Grid>
-             
             </Stack>
           </CustomCard>
           <CustomCard>
-            <Typography fontWeight={"700"} variant="h6">
+            <Typography align="center" fontWeight={"700"} variant="h6">
               Nail Section
             </Typography>
-            <Stack direction="row" spacing={2}>
+            <Stack
+              sx={{ justifyContent: "center" }}
+              direction="row"
+              spacing={2}
+            >
               <Grid item xs={4}>
-              <Button onClick={setshowPedicureModal} variant="contained">
-                  Update Pedicure Price{" "}
+                <Button
+                  sx={{ textAlign: "center" }}
+                  onClick={setshowPedicureModal}
+                  variant="contained"
+                >
+                  Pedicure Price{" "}
                 </Button>
               </Grid>
-              
             </Stack>
           </CustomCard>
           <CustomCard>
-            <Typography fontWeight={"700"} variant="h6">
+            <Typography align="center" fontWeight={"700"} variant="h6">
               Body Section
             </Typography>
-            <Stack direction="row" spacing={2}>
+            <Stack
+              sx={{ justifyContent: "center" }}
+              direction="row"
+              spacing={2}
+            >
               <Grid item xs={4}>
-                <Button onClick={handleBodyButtonClick} variant="contained">
-                  Update Waxing Price{" "}
+                <Button
+                  sx={{ textAlign: "center" }}
+                  onClick={handleBodyButtonClick}
+                  variant="contained"
+                >
+                  Waxing Price{" "}
                 </Button>
               </Grid>
-            
             </Stack>
           </CustomCard>
           <CustomCard>
-            <Typography fontWeight={"700"} variant="h6">
+            <Typography align="center" fontWeight={"700"} variant="h6">
               Bridal Section
             </Typography>
-            <Stack direction="row" spacing={2}>
+            <Stack
+              sx={{ justifyContent: "center" }}
+              direction="row"
+              spacing={2}
+            >
               <Grid item xs={4}>
-                <Button onClick={handlebridalButtonClick} variant="contained">
-                  Update DRESSING Price{" "}
+                <Button
+                  sx={{ textAlign: "center" }}
+                  onClick={handlebridalButtonClick}
+                  variant="contained"
+                >
+                  DRESSING Price{" "}
                 </Button>
               </Grid>
-             
+            </Stack>
+          </CustomCard>
+          <CustomCard>
+            <Typography align="center" fontWeight={"700"} variant="h6">
+              Testing Section
+            </Typography>
+            <Stack
+              sx={{ justifyContent: "center" }}
+              direction="row"
+              spacing={2}
+            >
+              <Grid item xs={4}>
+                <Button
+                  sx={{ textAlign: "center" }}
+                  onClick={handlebridalButtonClick}
+                  variant="contained"
+                >
+                  Testing Section{" "}
+                </Button>
+              </Grid>
             </Stack>
           </CustomCard>
         </Grid>
@@ -285,78 +336,93 @@ const deleteData =async(saloonIdParam)=>{
       {/* Modal for updating Hair Cut Price */}
 
       <Dialog
-      open={showHaircutModal}
-      onClose={handleCloseModal}
-      aria-labelledby="transition-modal-title"
-      aria-describedby="transition-modal-description"
-      closeAfterTransition
-      BackdropComponent={Backdrop}
-      BackdropProps={{
-        timeout: 500,
-      }}
-      sx={{
-        px:4,
-        margin: '0 auto', // Center the modal horizontally
-      }}
-    >
-      <Fade in={showHaircutModal}>
-        <div>
-          <Typography
-            align="center"
-            fontWeight={700}
-            id="transition-modal-title"
-            variant="h6"
-            component="h2"
-          >
-            Update Hair Cut Prices
-          </Typography>
-          <Typography id="transition-modal-description" sx={{ mt: 5 }}>
-            {/* Modal content */}
-          </Typography>
-          <Stack direction="row" spacing={1}>
-            {/* Select for type */}
-            <Select
-              value={inputType}
-              onChange={handleTypeChange}
-              fullWidth
-              input={<OutlinedInput label="Type" />}
+        open={showHaircutModal}
+        onClose={handleCloseModal}
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+        sx={{
+          px: 4,
+          margin: "0 auto", // Center the modal horizontally
+        }}
+      >
+        <Fade in={showHaircutModal}>
+          <div>
+            <Typography
+              align="center"
+              fontWeight={700}
+              id="transition-modal-title"
+              variant="h6"
+              component="h2"
             >
-              {typeOptions.map((option) => (
-                <MenuItem key={option} value={option}>
-                  {option}
-                </MenuItem>
-              ))}
-            </Select>
-            <TextField
-              id="filled-basic"
-              label="Price"
-              variant="outlined"
-              value={inputPrice}
-              onChange={handlePriceChange}
-              required
-              fullWidth
-            />
-          </Stack>
-          <Stack mt={10} ml={10} mb={5} direction="row" sx={{mr:10}}  spacing={10}>
-            <Grid item xs={4}>
-              <Button variant="contained" color="error" onClick={deleteData}>
-                Delete
-              </Button>
-            </Grid>
-            <Grid item xs={4}>
-              <Button variant="contained" color="warning" onClick={handleCloseModal}>
-                Close
-              </Button>
-            </Grid>
-            <Grid item xs={4}>
-              <Button variant="contained" color="success" onClick={overWriteData}>
-                Update
-              </Button>
-            </Grid>
-          </Stack>
-        </div>
-      </Fade>
-    </Dialog>
+              Hair Cut Prices
+            </Typography>
+            <Typography id="transition-modal-description" sx={{ mt: 5 }}>
+              {/* Modal content */}
+            </Typography>
+            <Stack direction="row" spacing={1}>
+              {/* Select for type */}
+              <Select
+                value={inputType}
+                onChange={handleTypeChange}
+                fullWidth
+                input={<OutlinedInput label="Type" />}
+              >
+                {typeOptions.map((option) => (
+                  <MenuItem key={option} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </Select>
+              <TextField
+                id="filled-basic"
+                label="Price"
+                variant="outlined"
+                value={inputPrice}
+                onChange={handlePriceChange}
+                required
+                fullWidth
+              />
+            </Stack>
+            <Stack
+              mt={10}
+              ml={10}
+              mb={5}
+              direction="row"
+              sx={{ mr: 10 }}
+              spacing={10}
+            >
+              <Grid item xs={4}>
+                <Button variant="contained" color="error" onClick={deleteData}>
+                  Delete
+                </Button>
+              </Grid>
+              <Grid item xs={4}>
+                <Button
+                  variant="contained"
+                  color="warning"
+                  onClick={handleCloseModal}
+                >
+                  Close
+                </Button>
+              </Grid>
+              <Grid item xs={4}>
+                <Button
+                  variant="contained"
+                  color="success"
+                  onClick={overWriteData}
+                >
+                  Update
+                </Button>
+              </Grid>
+            </Stack>
+          </div>
+        </Fade>
+      </Dialog>
 
       {/* Modal for updating Hair Coloring Price */}
 
@@ -386,7 +452,7 @@ const deleteData =async(saloonIdParam)=>{
               variant="h6"
               component="h2"
             >
-              Update Hair Coloring
+              Hair Coloring
             </Typography>
             <Typography id="transition-modal-description" sx={{ mt: 3 }}>
               {/* Modal content */}
@@ -1293,15 +1359,15 @@ const deleteData =async(saloonIdParam)=>{
         </Fade>
       </Dialog>
       <Toaster
-              toastOptions={{
-                duration: 5000,
-                className: "",
-                style: {
-                  color: "#713200",
-                },
-              }}
-              position="top-right"
-            />
+        toastOptions={{
+          duration: 5000,
+          className: "",
+          style: {
+            color: "#713200",
+          },
+        }}
+        position="top-right"
+      />
     </>
   );
 };
