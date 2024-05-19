@@ -25,7 +25,9 @@ const PriceUpdate = () => {
   const { saloonIdParam } = useParams();
   const [typeOptions, setTypeOptions] = useState([]);
   const [priceOptions, setPriceOptions] = useState([]);
+  
   useEffect(() => {
+  //fetch data use for hair section
     const fetchData = async () => {
       const db = getDatabase();
       const dbRef = ref(db, "createprice/haircut/"+saloonIdParam);
@@ -64,6 +66,7 @@ const PriceUpdate = () => {
     fetchData();
   }, [saloonIdParam]);
 
+//overwrite data (update) use for hair section
   const overWriteData = async () => {
     try {
       const db = getDatabase(app);
@@ -86,12 +89,20 @@ const PriceUpdate = () => {
   };
   
   
-  const deleteData = async () => {
-    const db = getDatabase();
-    const dbRef = ref(db, "createprice/haircut/"+saloonIdParam);
-    await remove(dbRef);
-    window.location.reload();
-  };
+  // const deleteData = async () => {
+  //   const db = getDatabase();
+  //   const dbRef = ref(db, "createprice/haircut/"+saloonIdParam);
+  //   await remove(dbRef);
+  //   window.location.reload();
+  // };
+
+//delete data for hair section
+const deleteData =async(saloonIdParam)=>{
+  const db=getDatabase(app)
+  const dbRef=ref(db,"createprice/haircut/"+saloonIdParam);
+  await remove(dbRef);
+  window.location.reload()
+}
 
   const handleTypeChange = (e) => {
     setInputType(e.target.value);
@@ -130,7 +141,7 @@ const PriceUpdate = () => {
   const handlebridalButtonClick = () => {
     setshowDressingModal(true);
   };
-  // Function to close the modal  in Boyd section
+  // Function to close the modal  in Body section
   const handleCloseModalBridal = () => {
     setshowDressingModal(false);
   };
@@ -139,7 +150,7 @@ const PriceUpdate = () => {
     setShowWaxingModal(true);
     setshowDetainingModal(true);
   };
-  // Function to close the modal  in Boyd section
+  // Function to close the modal  in Body section
   const handleCloseModalBody = () => {
     setShowWaxingModal(false);
     setshowDetainingModal(false);
@@ -213,21 +224,7 @@ const PriceUpdate = () => {
                   Update Hair Cut Price{" "}
                 </Button>
               </Grid>
-              <Grid item xs={4}>
-                <Button variant="contained" onClick={setshowHairColoringModal}>
-                  Update Hair Coloring Price{" "}
-                </Button>
-              </Grid>{" "}
-              <Grid item xs={4}>
-                <Button variant="contained" onClick={setshowHairSpaModal}>
-                  Update Hair Spa Price{" "}
-                </Button>
-              </Grid>
-              <Grid item xs={4}>
-                <Button variant="contained" onClick={setshowHairTreatModal}>
-                  Update Hair Treatments Price{" "}
-                </Button>
-              </Grid>
+              
             </Stack>
           </CustomCard>
 
@@ -241,21 +238,7 @@ const PriceUpdate = () => {
                   Update CleanUp Price{" "}
                 </Button>
               </Grid>
-              <Grid item xs={4}>
-                <Button onClick={setFacialModal} variant="contained">
-                  Update Facial Price{" "}
-                </Button>
-              </Grid>{" "}
-              <Grid item xs={4}>
-                <Button onClick={setThreadingModal} variant="contained">
-                  Update Threading Price{" "}
-                </Button>
-              </Grid>
-              <Grid item xs={4}>
-                <Button disabled variant="contained">
-                  Under constractions
-                </Button>
-              </Grid>
+             
             </Stack>
           </CustomCard>
           <CustomCard>
@@ -264,25 +247,11 @@ const PriceUpdate = () => {
             </Typography>
             <Stack direction="row" spacing={2}>
               <Grid item xs={4}>
-                <Button onClick={setshowManicureModal} variant="contained">
-                  Update Manicure Price{" "}
-                </Button>
-              </Grid>
-              <Grid item xs={4}>
-                <Button onClick={setshowPedicureModal} variant="contained">
+              <Button onClick={setshowPedicureModal} variant="contained">
                   Update Pedicure Price{" "}
                 </Button>
-              </Grid>{" "}
-              <Grid item xs={4}>
-                <Button onClick={setshowMicroBladingModal} variant="contained">
-                  Update Microblading Price{" "}
-                </Button>
               </Grid>
-              <Grid item xs={4}>
-                <Button onClick={setshowNailNaModal} variant="contained">
-                  Update Nail Price{" "}
-                </Button>
-              </Grid>
+              
             </Stack>
           </CustomCard>
           <CustomCard>
@@ -295,21 +264,7 @@ const PriceUpdate = () => {
                   Update Waxing Price{" "}
                 </Button>
               </Grid>
-              <Grid item xs={4}>
-                <Button onClick={handleBodyButtonClick} variant="contained">
-                  De-Tanning premium Price{" "}
-                </Button>
-              </Grid>{" "}
-              <Grid item xs={4}>
-                <Button disabled variant="contained">
-                  Update Hair Spa Price{" "}
-                </Button>
-              </Grid>
-              <Grid item xs={4}>
-                <Button disabled variant="contained">
-                  Update Hair Treatments Price{" "}
-                </Button>
-              </Grid>
+            
             </Stack>
           </CustomCard>
           <CustomCard>
@@ -322,21 +277,7 @@ const PriceUpdate = () => {
                   Update DRESSING Price{" "}
                 </Button>
               </Grid>
-              <Grid item xs={4}>
-                <Button disabled variant="contained">
-                  De-Tanning premium Price{" "}
-                </Button>
-              </Grid>{" "}
-              <Grid item xs={4}>
-                <Button disabled variant="contained">
-                  Update Hair Spa Price{" "}
-                </Button>
-              </Grid>
-              <Grid item xs={4}>
-                <Button disabled variant="contained">
-                  Update Hair Treatments Price{" "}
-                </Button>
-              </Grid>
+             
             </Stack>
           </CustomCard>
         </Grid>
