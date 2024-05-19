@@ -26,6 +26,8 @@ const PriceUpdate = () => {
   const [typeOptions, setTypeOptions] = useState([]);
   const [priceOptions, setPriceOptions] = useState([]);
 
+
+//Hair Price-------------------
   useEffect(() => {
     //fetch data use for hair section
     const fetchData = async () => {
@@ -66,7 +68,7 @@ const PriceUpdate = () => {
   }, [saloonIdParam]);
 
   //overwrite data (update) use for hair section
-  const overWriteData = async () => {
+  const overWriteHair = async () => {
     try {
       const db = getDatabase(app);
       const dbRef = ref(db, `UpdatePrice/haircut/${saloonIdParam}`);
@@ -87,12 +89,288 @@ const PriceUpdate = () => {
     }
   };
 
-  const deleteData = async () => {
+  const deleteHair = async () => {
     const db = getDatabase();
     const dbRef = ref(db, "DeletePrice/haircut/" + saloonIdParam);
     await remove(dbRef);
     window.location.reload();
   };
+
+//skin Price-----------
+  useEffect(() => {
+    //fetch data use for hair section
+    const fetchData = async () => {
+      const db = getDatabase();
+      const dbRef = ref(db, "createprice/SkinPrice/" + saloonIdParam);
+      const snapshot = await get(dbRef);
+
+      if (snapshot.exists()) {
+        const targetObject = snapshot.val();
+        setInputType(targetObject.type);
+        setInputPrice(targetObject.price);
+      } else {
+        toast.error("No Data Available ");
+      }
+
+      // Fetch data for options in Select field
+      const optionsRef = ref(db, "createprice/SkinPrice"); // Change this to the appropriate ref
+      const optionsSnapshot = await get(optionsRef);
+      if (optionsSnapshot.exists()) {
+        const optionsData = optionsSnapshot.val();
+        const optionsArray = Object.values(optionsData).map(
+          (option) => option.type
+        );
+        setTypeOptions(optionsArray);
+      }
+      // Fetch data for options in Price field
+      const optionsReftwo = ref(db, "createPrice/SkinPrice");
+      const optiontwoSnapshot = await get(optionsReftwo);
+      if (optiontwoSnapshot.exists()) {
+        const optionsDatatwo = optiontwoSnapshot.val();
+        const optionArrayTwo = Object.values(optionsDatatwo).map(
+          (option) => option.price
+        );
+        setPriceOptions(optionArrayTwo);
+      }
+    };
+    fetchData();
+  }, [saloonIdParam]);
+    //overwrite data (update) use for hair section
+    const overWriteSkin = async () => {
+      try {
+        const db = getDatabase(app);
+        const dbRef = ref(db, `UpdatePrice/SkinPrice/${saloonIdParam}`);
+  
+        const snapshot = await get(dbRef);
+        if (snapshot.exists()) {
+          await update(dbRef, {
+            type: inputType,
+            price: inputPrice,
+          });
+          toast.success("Price Updated Successfully");
+        } else {
+          toast.error("Record not found");
+        }
+      } catch (error) {
+        toast.error("Failed to update price");
+        console.error("Error updating price:", error);
+      }
+    };
+  
+    const deleteSkin = async () => {
+      const db = getDatabase();
+      const dbRef = ref(db, "DeletePrice/SkinPrice/" + saloonIdParam);
+      await remove(dbRef);
+      window.location.reload();
+    };
+  
+
+  //Nail Price-------------------
+  useEffect(() => {
+    //fetch data use for hair section
+    const fetchData = async () => {
+      const db = getDatabase();
+      const dbRef = ref(db, "createprice/nailPrice/" + saloonIdParam);
+      const snapshot = await get(dbRef);
+
+      if (snapshot.exists()) {
+        const targetObject = snapshot.val();
+        setInputType(targetObject.type);
+        setInputPrice(targetObject.price);
+      } else {
+        toast.error("No Data Available ");
+      }
+
+      // Fetch data for options in Select field
+      const optionsRef = ref(db, "createprice/nailPrice"); // Change this to the appropriate ref
+      const optionsSnapshot = await get(optionsRef);
+      if (optionsSnapshot.exists()) {
+        const optionsData = optionsSnapshot.val();
+        const optionsArray = Object.values(optionsData).map(
+          (option) => option.type
+        );
+        setTypeOptions(optionsArray);
+      }
+      // Fetch data for options in Price field
+      const optionsReftwo = ref(db, "createPrice/nailPrice");
+      const optiontwoSnapshot = await get(optionsReftwo);
+      if (optiontwoSnapshot.exists()) {
+        const optionsDatatwo = optiontwoSnapshot.val();
+        const optionArrayTwo = Object.values(optionsDatatwo).map(
+          (option) => option.price
+        );
+        setPriceOptions(optionArrayTwo);
+      }
+    };
+    fetchData();
+  }, [saloonIdParam]);
+
+  //overwrite data (update) use for hair section
+  const overWriteNail = async () => {
+    try {
+      const db = getDatabase(app);
+      const dbRef = ref(db, `UpdatePrice/nailPrice/${saloonIdParam}`);
+
+      const snapshot = await get(dbRef);
+      if (snapshot.exists()) {
+        await update(dbRef, {
+          type: inputType,
+          price: inputPrice,
+        });
+        toast.success("Price Updated Successfully");
+      } else {
+        toast.error("Record not found");
+      }
+    } catch (error) {
+      toast.error("Failed to update price");
+      console.error("Error updating price:", error);
+    }
+  };
+
+  const deleteNail = async () => {
+    const db = getDatabase();
+    const dbRef = ref(db, "DeletePrice/nailPrice/" + saloonIdParam);
+    await remove(dbRef);
+    window.location.reload();
+  };
+
+  //Body Price-----------
+  useEffect(() => {
+    //fetch data use for hair section
+    const fetchData = async () => {
+      const db = getDatabase();
+      const dbRef = ref(db, "createprice/BodyPrice/" + saloonIdParam);
+      const snapshot = await get(dbRef);
+
+      if (snapshot.exists()) {
+        const targetObject = snapshot.val();
+        setInputType(targetObject.type);
+        setInputPrice(targetObject.price);
+      } else {
+        toast.error("No Data Available ");
+      }
+
+      // Fetch data for options in Select field
+      const optionsRef = ref(db, "createprice/BodyPrice"); // Change this to the appropriate ref
+      const optionsSnapshot = await get(optionsRef);
+      if (optionsSnapshot.exists()) {
+        const optionsData = optionsSnapshot.val();
+        const optionsArray = Object.values(optionsData).map(
+          (option) => option.type
+        );
+        setTypeOptions(optionsArray);
+      }
+      // Fetch data for options in Price field
+      const optionsReftwo = ref(db, "createPrice/BodyPrice");
+      const optiontwoSnapshot = await get(optionsReftwo);
+      if (optiontwoSnapshot.exists()) {
+        const optionsDatatwo = optiontwoSnapshot.val();
+        const optionArrayTwo = Object.values(optionsDatatwo).map(
+          (option) => option.price
+        );
+        setPriceOptions(optionArrayTwo);
+      }
+    };
+    fetchData();
+  }, [saloonIdParam]);
+    //overwrite data (update) use for hair section
+    const overWriteBody = async () => {
+      try {
+        const db = getDatabase(app);
+        const dbRef = ref(db, `UpdatePrice/BodyPrice/${saloonIdParam}`);
+  
+        const snapshot = await get(dbRef);
+        if (snapshot.exists()) {
+          await update(dbRef, {
+            type: inputType,
+            price: inputPrice,
+          });
+          toast.success("Price Updated Successfully");
+        } else {
+          toast.error("Record not found");
+        }
+      } catch (error) {
+        toast.error("Failed to update price");
+        console.error("Error updating price:", error);
+      }
+    };
+  
+    const deleteBody = async () => {
+      const db = getDatabase();
+      const dbRef = ref(db, "DeletePrice/BodyPrice/" + saloonIdParam);
+      await remove(dbRef);
+      window.location.reload();
+    };
+
+
+    //Bridal Price-----------
+  useEffect(() => {
+    //fetch data use for hair section
+    const fetchData = async () => {
+      const db = getDatabase();
+      const dbRef = ref(db, "createprice/BridalPrices/" + saloonIdParam);
+      const snapshot = await get(dbRef);
+
+      if (snapshot.exists()) {
+        const targetObject = snapshot.val();
+        setInputType(targetObject.type);
+        setInputPrice(targetObject.price);
+      } else {
+        toast.error("No Data Available ");
+      }
+
+      // Fetch data for options in Select field
+      const optionsRef = ref(db, "createprice/BridalPrices"); // Change this to the appropriate ref
+      const optionsSnapshot = await get(optionsRef);
+      if (optionsSnapshot.exists()) {
+        const optionsData = optionsSnapshot.val();
+        const optionsArray = Object.values(optionsData).map(
+          (option) => option.type
+        );
+        setTypeOptions(optionsArray);
+      }
+      // Fetch data for options in Price field
+      const optionsReftwo = ref(db, "createPrice/BridalPrices");
+      const optiontwoSnapshot = await get(optionsReftwo);
+      if (optiontwoSnapshot.exists()) {
+        const optionsDatatwo = optiontwoSnapshot.val();
+        const optionArrayTwo = Object.values(optionsDatatwo).map(
+          (option) => option.price
+        );
+        setPriceOptions(optionArrayTwo);
+      }
+    };
+    fetchData();
+  }, [saloonIdParam]);
+    //overwrite data (update) use for hair section
+    const overWriteBridal = async () => {
+      try {
+        const db = getDatabase(app);
+        const dbRef = ref(db, `UpdatePrice/BridalPrices/${saloonIdParam}`);
+  
+        const snapshot = await get(dbRef);
+        if (snapshot.exists()) {
+          await update(dbRef, {
+            type: inputType,
+            price: inputPrice,
+          });
+          toast.success("Price Updated Successfully");
+        } else {
+          toast.error("Record not found");
+        }
+      } catch (error) {
+        toast.error("Failed to update price");
+        console.error("Error updating price:", error);
+      }
+    };
+  
+    const deleteBridal = async () => {
+      const db = getDatabase();
+      const dbRef = ref(db, "DeletePrice/BridalPrices/" + saloonIdParam);
+      await remove(dbRef);
+      window.location.reload();
+    };
+
 
   const handleTypeChange = (e) => {
     setInputType(e.target.value);
@@ -375,7 +653,7 @@ const PriceUpdate = () => {
               spacing={8}
             >
               <Grid item xs={4}>
-                <Button variant="contained" color="error" onClick={deleteData}>
+                <Button variant="contained" color="error" onClick={deleteHair}>
                   Delete
                 </Button>
               </Grid>
@@ -392,7 +670,7 @@ const PriceUpdate = () => {
                 <Button
                   variant="contained"
                   color="success"
-                  onClick={overWriteData}
+                  onClick={overWriteHair}
                 >
                   Update
                 </Button>
@@ -466,7 +744,7 @@ const PriceUpdate = () => {
               spacing={8}
             >
               <Grid item xs={4}>
-                <Button variant="contained" color="error" onClick={deleteData}>
+                <Button variant="contained" color="error" onClick={deleteSkin}>
                   Delete
                 </Button>
               </Grid>
@@ -483,7 +761,7 @@ const PriceUpdate = () => {
                 <Button
                   variant="contained"
                   color="success"
-                  onClick={overWriteData}
+                  onClick={overWriteSkin}
                 >
                   Update
                 </Button>
@@ -493,6 +771,7 @@ const PriceUpdate = () => {
         </Fade>
       </Dialog>
 
+      {/*Nail Section*/}
       {/* Modal for updating Pedicure Pricess   Price */}
       <Dialog
         open={showPedicureModal}
@@ -557,7 +836,7 @@ const PriceUpdate = () => {
               spacing={8}
             >
               <Grid item xs={4}>
-                <Button variant="contained" color="error" onClick={deleteData}>
+                <Button variant="contained" color="error" onClick={deleteNail}>
                   Delete
                 </Button>
               </Grid>
@@ -575,7 +854,7 @@ const PriceUpdate = () => {
                 <Button
                   variant="contained"
                   color="success"
-                  onClick={overWriteData}
+                  onClick={overWriteNail}
                 >
                   Update
                 </Button>
@@ -585,6 +864,7 @@ const PriceUpdate = () => {
         </Fade>
       </Dialog>
 
+      {/* Body Section*/}
       {/* Modal for updating Body section Pricess   Price */}
       <Dialog
         open={showWaxingModal}
@@ -648,7 +928,7 @@ const PriceUpdate = () => {
               spacing={8}
             >
               <Grid item xs={4}>
-                <Button variant="contained" color="error" onClick={deleteData}>
+                <Button variant="contained" color="error" onClick={deleteBody}>
                   Delete
                 </Button>
               </Grid>
@@ -665,7 +945,7 @@ const PriceUpdate = () => {
                 <Button
                   variant="contained"
                   color="success"
-                  onClick={handleCloseModalBody}
+                  onClick={overWriteBody}
                 >
                   Update
                 </Button>
@@ -675,6 +955,7 @@ const PriceUpdate = () => {
         </Fade>
       </Dialog>
 
+      {/*Nail Section*/}
       {/* Modal for updating Bridal  section Pricess   Price */}
       <Dialog
         open={showDressingModal}
@@ -731,7 +1012,7 @@ const PriceUpdate = () => {
             </Stack>
             <Stack mt={10} ml={10} mb={5} direction="row" sx = {{mr: 10}}spacing={8}>
             <Grid item xs={4}>
-                <Button variant="contained" color="error" onClick={deleteData}>
+                <Button variant="contained" color="error" onClick={deleteBridal}>
                   Delete
                 </Button>
               </Grid>
@@ -749,7 +1030,7 @@ const PriceUpdate = () => {
                 <Button
                   variant="contained"
                   color="success"
-                  onClick={overWriteData}
+                  onClick={overWriteBridal}
                 >
                   Update
                 </Button>
