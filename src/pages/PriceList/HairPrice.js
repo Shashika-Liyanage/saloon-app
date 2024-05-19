@@ -103,7 +103,7 @@ export default function BasicTable() {
                 src={salonIcon}
                 alt="Salon Icon"
                 className="icon"
-                style={{ color: "#BC7FCD" }}
+                style={{ color: "#BC7FCD" }}  
               />
               <h2 className="headingH">HAIR CUT</h2>
             </div>
