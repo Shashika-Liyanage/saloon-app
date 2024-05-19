@@ -32,7 +32,7 @@ import PriceUpdate from './pages/admin/Update/PriceUpdate';
 import AlertDialogSlide from './pages/ChatBot/Pop';
 import ChatbotLauncher from './pages/ChatBot/Chatbot';
 import Chatbot from './pages/ChatBot/Chatbot';
-import UpdateHair from './pages/admin/Update/Update Hair Section/UpdateHair';
+
 
 
 function App() {
@@ -71,7 +71,6 @@ function App() {
             <Route path="ChatBot" element={<ChatbotLauncher />} />
             <Route path="ChatBotui" element={<Chatbot />} />
             <Route path="PriceUpdate" element={<PriceUpdate />} />
-            <Route path="UpdateHair" element={<UpdateHair />} />
             <Route path="*" element={<NoPage />} />
 
            

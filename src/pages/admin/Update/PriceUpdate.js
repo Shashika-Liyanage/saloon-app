@@ -13,10 +13,6 @@ import {
   Dialog,
   TextField,
 } from "@mui/material";
-import UpdateHair from "./Update Hair Section/UpdateHair";
-
-
-
 const PriceUpdate = () => {
   const [open, setOpen] = useState(false);
   //For the hair section
@@ -24,26 +20,18 @@ const PriceUpdate = () => {
   const [showHairColoringModal, setshowHairColoringModal] = useState(false);
   const [showHairSpaModal, setshowHairSpaModal] = useState(false);
   const [showHairTreatModal, setshowHairTreatModal] = useState(false);
-
-
   // For the Skin Section 
-
   const [showCleanUpModal,setshowCleanUpModal]=useState(false);
   const [showFacialModal,setFacialModal]=useState(false);
   const [showThreadingModal,setThreadingModal]=useState(false);
-
   //For the Nail Section 
-
   const[showManicureModal,setshowManicureModal]=useState(false);
   const[showPedicureModal,setshowPedicureModal]=useState(false);
   const[showMicroBladingModal,setshowMicroBladingModal]=useState(false);
   const[showNailNaModal,setshowNailNaModal]=useState(false);
-
-
   //For the Body Section 
   const[showWaxingModal,setShowWaxingModal]=useState(false);
   const[showDetainingModal,setshowDetainingModal]=useState(false);
-
   //For the Bridal Section 
   const[showDressingModal,setshowDressingModal]=useState(false);
 
@@ -51,35 +39,28 @@ const PriceUpdate = () => {
 const handlebridalButtonClick=()=>{
   setshowDressingModal(true)
 }
-
-   // Function to close the modal  in Boyd section 
+ // Function to close the modal  in Boyd section 
 const handleCloseModalBridal=()=>{
   setshowDressingModal(false)
 }
-
-  // Function to handle button click and open the modal in Body section 
+// Function to handle button click and open the modal in Body section 
 const handleBodyButtonClick=()=>{
   setShowWaxingModal(true)
   setshowDetainingModal(true)
 }
-
- // Function to close the modal  in Boyd section 
+// Function to close the modal  in Boyd section 
 const handleCloseModalBody=()=>{
   setShowWaxingModal(false)
   setshowDetainingModal(false)
 }
-
 // Function to handle button click and open the modal in Nail section 
 const handleNailButtonClick=()=>{
   setshowManicureModal(true)
   setshowPedicureModal(true)
   setshowMicroBladingModal(true)
   setshowNailNaModal(true)
-  
-}
-
-  // Function to close the modal  in Skin section 
-
+  }
+  // Function to close the modal  in Nail section 
   const handleCloseModalNail=()=>{
     setshowManicureModal(false)
     setshowPedicureModal(false)
@@ -92,23 +73,20 @@ const handleSkinButtonClick=()=>{
   setFacialModal(true)
   setThreadingModal(true)
 }
-
-  // Function to close the modal  in Skin section 
+ // Function to close the modal  in Skin section 
 const handleCloseModalSkin=()=>{
   setshowCleanUpModal(false)
   setFacialModal(false)
   setThreadingModal(false)
 }
-
-  // Function to handle button click and open the modal in Hair section 
+// Function to handle button click and open the modal in Hair section 
   const handleHairButtonClick = () => {
     setShowHaircutModal(true);
     setshowHairColoringModal(true)
     setshowHairSpaModal(true)
     setshowHairTreatModal(true)
   };
-
-  // Function to close the modal in Hair section 
+ // Function to close the modal in Hair section 
   const handleCloseModal = () => {
     setShowHaircutModal(false);
     setshowHairColoringModal(false)
@@ -118,11 +96,9 @@ const handleCloseModalSkin=()=>{
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
-
   // Custom Card component
   const CustomCard = ({ children }) => {
     return (
@@ -133,10 +109,8 @@ const handleCloseModalSkin=()=>{
       </Grid>
     );
   };
-
   return (
     <>
-
       <Box sx={{ flexGrow: 2 }}>
         <Grid container spacing={3}>
           <CustomCard>
@@ -145,18 +119,18 @@ const handleCloseModalSkin=()=>{
             </Typography>
             <Stack direction="row" spacing={2}>
               <Grid item xs={4}>
-                <Button onClick={handleHairButtonClick} variant="contained">
+                <Button onClick={setShowHaircutModal} variant="contained">
                   Update Hair Cut Price{" "}
                 </Button>
               </Grid>
               <Grid item xs={4}>
-                <Button variant="contained" onClick={handleHairButtonClick}>Update Hair Coloring Price </Button>
+                <Button variant="contained" onClick={setshowHairColoringModal}>Update Hair Coloring Price </Button>
               </Grid>{" "}
               <Grid item xs={4}>
-                <Button variant="contained" onClick={handleHairButtonClick}>Update Hair Spa Price </Button>
+                <Button variant="contained" onClick={setshowHairSpaModal}>Update Hair Spa Price </Button>
               </Grid>
               <Grid item xs={4}>
-                <Button variant="contained" onClick={handleHairButtonClick}>
+                <Button variant="contained" onClick={setshowHairTreatModal}>
                   Update Hair Treatments Price{" "}
                 </Button>
               </Grid>
@@ -169,13 +143,13 @@ const handleCloseModalSkin=()=>{
             </Typography>
             <Stack direction="row" spacing={2}>
               <Grid item xs={4}>
-                <Button onClick={handleSkinButtonClick} variant="contained">Update CleanUp Price </Button>
+                <Button onClick={setshowCleanUpModal} variant="contained">Update CleanUp Price </Button>
               </Grid>
               <Grid item xs={4}>
-                <Button onClick={handleSkinButtonClick} variant="contained">Update Facial Price </Button>
+                <Button onClick={setFacialModal} variant="contained">Update Facial Price </Button>
               </Grid>{" "}
               <Grid item xs={4}>
-                <Button onClick={handleSkinButtonClick} variant="contained">Update Threading Price </Button>
+                <Button onClick={setThreadingModal} variant="contained">Update Threading Price </Button>
               </Grid>
               <Grid item xs={4}>
                 <Button disabled variant="contained">
@@ -190,16 +164,16 @@ const handleCloseModalSkin=()=>{
             </Typography>
             <Stack direction="row" spacing={2}>
               <Grid item xs={4}>
-                <Button onClick={handleNailButtonClick}  variant="contained">Update Manicure Price </Button>
+                <Button onClick={setshowManicureModal}  variant="contained">Update Manicure Price </Button>
               </Grid>
               <Grid item xs={4}>
-                <Button onClick={handleNailButtonClick}  variant="contained">Update Pedicure Price </Button>
+                <Button onClick={setshowPedicureModal}  variant="contained">Update Pedicure Price </Button>
               </Grid>{" "}
               <Grid item xs={4}>
-                <Button onClick={handleNailButtonClick}  variant="contained">Update Microblading Price </Button>
+                <Button onClick={setshowMicroBladingModal}  variant="contained">Update Microblading Price </Button>
               </Grid>
               <Grid item xs={4}>
-                <Button onClick={handleNailButtonClick}  variant="contained">Update Nail Price </Button>
+                <Button onClick={setshowNailNaModal}  variant="contained">Update Nail Price </Button>
               </Grid>
             </Stack>
           </CustomCard>
@@ -531,7 +505,7 @@ const handleCloseModalSkin=()=>{
              {/* Modal for updating  Skin cleanup  Price */}
              <Dialog
         open={showCleanUpModal}
-        onClose={handleCloseModalNail}
+        onClose={handleCloseModalSkin}
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         closeAfterTransition
@@ -577,7 +551,7 @@ const handleCloseModalSkin=()=>{
                 <Button
                   variant="contained"
                   color="error"
-                  onClick={handleCloseModalNail}
+                  onClick={handleCloseModalSkin}
                 >
                   Close{" "}
                 </Button>
@@ -586,7 +560,7 @@ const handleCloseModalSkin=()=>{
                 <Button
                   variant="contained"
                   color="success"
-                  onClick={handleCloseModalNail}
+                  onClick={setshowCleanUpModal}
                 >
                   Update
                 </Button>
@@ -829,7 +803,7 @@ const handleCloseModalSkin=()=>{
               variant="h6"
               component="h2"
             >
-              Update Manicure Pricess
+             Update Pedicure Price
             </Typography>
             <Typography id="transition-modal-description" sx={{ mt: 3 }}>
               {/* Modal content */}
@@ -1099,7 +1073,7 @@ const handleCloseModalSkin=()=>{
               variant="h6"
               component="h2"
             >
-              Update Waxing Pricess
+              Update De-Tanning Pricess
             </Typography>
             <Typography id="transition-modal-description" sx={{ mt: 3 }}>
               {/* Modal content */}
