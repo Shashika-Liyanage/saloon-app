@@ -32,6 +32,7 @@ import PriceUpdate from './pages/admin/Update/PriceUpdate';
 import AlertDialogSlide from './pages/ChatBot/Pop';
 import ChatbotLauncher from './pages/ChatBot/Chatbot';
 import Chatbot from './pages/ChatBot/Chatbot';
+import CreateData from "./pages/admin/Add/CreateData";
 
 
 
@@ -71,6 +72,7 @@ function App() {
             <Route path="ChatBot" element={<ChatbotLauncher />} />
             <Route path="ChatBotui" element={<Chatbot />} />
             <Route path="PriceUpdate" element={<PriceUpdate />} />
+            <Route path="CreateData" element={<CreateData />} />
             <Route path="*" element={<NoPage />} />
 
            

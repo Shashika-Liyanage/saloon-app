@@ -265,7 +265,7 @@ const handleCloseModalSkin=()=>{
                 id="outlined-basic"
                 label="Type"
                 variant="outlined"
-                disabled
+             
                 fontWeight={"700"}
                 
               />
