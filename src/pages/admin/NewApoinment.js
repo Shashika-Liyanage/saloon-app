@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+//import AdminPanel from "./AdminPanel"; // Adjust the path as necessary
 
 import {
   Box,
@@ -103,6 +104,7 @@ const NewApoinment = () => {
   const goToCheckOutPage = () => {
     navigate("/Checkout");
   };
+  
   return (
     <Box
       sx={{

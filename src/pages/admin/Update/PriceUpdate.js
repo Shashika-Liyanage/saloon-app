@@ -502,7 +502,7 @@ const PriceUpdate = () => {
     <>
       <Box>
         <Typography fontWeight={"700"} align="center" variant="h6">
-          Add /Update/Delete Table Data
+          Add /Update/Delete Data
         </Typography>
         <Grid
           container
@@ -795,10 +795,10 @@ const PriceUpdate = () => {
             <Typography id="transition-modal-description" sx={{ mt: 5 }}>
               {/* Modal content */}
             </Typography>
-            <Stack direction="row" spacing={3}>
+            <Stack direction="row" spacing={2}>
               <Select
                 value={inputType}
-                //onChange={handleTypeChange}
+                onChange={handleTypeChange}
                 fullWidth
                 input={<OutlinedInput label="Type" />}
               >
@@ -813,12 +813,43 @@ const PriceUpdate = () => {
                 id="filled-basic"
                 label="Price"
                 variant="outlined"
-                //value={inputPrice}
-                //onChange={handlePriceChange}
+                value={inputPrice}
+                onChange={handlePriceChange}
                 required
                 fullWidth
               />
             </Stack>
+            <Divider sx={{ mt: 3 }}></Divider>
+            <FormControlLabel
+              control={<Checkbox defaultChecked />}
+              checked={!isCheckboxDisabled}
+              onChange={handleCheckBoxChange}
+              label="Add New Price "
+            />
+            <Stack direction="row" spacing={2}>
+              <TextField
+                id="filled-basic"
+                labelPlacement="start"
+                label="Add Type "
+                disabled={isCheckboxDisabled}
+                variant="outlined"
+                value={inputTypeForAdd}
+                onChange={handleTypeChangeForAdd}
+                required
+                fullWidth
+              />
+              <TextField
+                id="filled-basic"
+                label="Add  Price"
+                disabled={isCheckboxDisabled}
+                variant="outlined"
+                value={inputPriceForAdd}
+                onChange={handlePriceChangeForAdd}
+                required
+                fullWidth
+              />
+            </Stack>
+            <Divider sx={{ mt: 10 }}></Divider>
             <Stack
               mt={10}
               ml={10}
@@ -831,7 +862,9 @@ const PriceUpdate = () => {
                 <Button
                   variant="contained"
                   color="primary"
-                  //onClick={saveData}
+                  onClick={saveData}
+                  disabled={isCheckboxDisabled}
+
                 >
                   Add
                 </Button>
@@ -903,7 +936,7 @@ const PriceUpdate = () => {
               {/* Select for type */}
               <Select
                 value={inputType}
-                //onChange={handleTypeChange}
+                onChange={handleTypeChange}
                 fullWidth
                 input={<OutlinedInput label="Type" />}
               >
@@ -918,12 +951,43 @@ const PriceUpdate = () => {
                 id="filled-basic"
                 label="Price"
                 variant="outlined"
-                //value={inputPrice}
-                //onChange={handlePriceChange}
+                value={inputPrice}
+                onChange={handlePriceChange}
                 required
                 fullWidth
               />
             </Stack>
+            <Divider sx={{ mt: 3 }}></Divider>
+            <FormControlLabel
+              control={<Checkbox defaultChecked />}
+              checked={!isCheckboxDisabled}
+              onChange={handleCheckBoxChange}
+              label="Add New Price "
+            />
+            <Stack direction="row" spacing={2}>
+              <TextField
+                id="filled-basic"
+                labelPlacement="start"
+                label="Add Type "
+                disabled={isCheckboxDisabled}
+                variant="outlined"
+                value={inputTypeForAdd}
+                onChange={handleTypeChangeForAdd}
+                required
+                fullWidth
+              />
+              <TextField
+                id="filled-basic"
+                label="Add  Price"
+                disabled={isCheckboxDisabled}
+                variant="outlined"
+                value={inputPriceForAdd}
+                onChange={handlePriceChangeForAdd}
+                required
+                fullWidth
+              />
+            </Stack>
+            <Divider sx={{ mt: 10 }}></Divider>
             <Stack
               mt={10}
               ml={10}
@@ -936,7 +1000,9 @@ const PriceUpdate = () => {
                 <Button
                   variant="contained"
                   color="primary"
-                  //onClick={deleteHair}
+                  onClick={saveData}
+                  disabled={isCheckboxDisabled}
+
                 >
                   Add
                 </Button>
@@ -1028,6 +1094,37 @@ const PriceUpdate = () => {
                 fullWidth
               />
             </Stack>
+            <Divider sx={{ mt: 3 }}></Divider>
+            <FormControlLabel
+              control={<Checkbox defaultChecked />}
+              checked={!isCheckboxDisabled}
+              onChange={handleCheckBoxChange}
+              label="Add New Price "
+            />
+            <Stack direction="row" spacing={2}>
+              <TextField
+                id="filled-basic"
+                labelPlacement="start"
+                label="Add Type "
+                disabled={isCheckboxDisabled}
+                variant="outlined"
+                value={inputTypeForAdd}
+                onChange={handleTypeChangeForAdd}
+                required
+                fullWidth
+              />
+              <TextField
+                id="filled-basic"
+                label="Add  Price"
+                disabled={isCheckboxDisabled}
+                variant="outlined"
+                value={inputPriceForAdd}
+                onChange={handlePriceChangeForAdd}
+                required
+                fullWidth
+              />
+            </Stack>
+            <Divider sx={{ mt: 10 }}></Divider>
             <Stack
               mt={10}
               ml={10}
@@ -1069,7 +1166,7 @@ const PriceUpdate = () => {
         </Fade>
       </Dialog>
 
-      {/*Nail Section*/}
+      {/*Bridal Section*/}
       {/* Modal for updating Bridal  section Pricess   Price */}
       <Dialog
         open={showDressingModal}
@@ -1124,6 +1221,39 @@ const PriceUpdate = () => {
                 fullWidth
               />
             </Stack>
+            <Divider sx={{ mt: 3 }}></Divider>
+            <FormControlLabel
+              control={<Checkbox defaultChecked />}
+              checked={!isCheckboxDisabled}
+              onChange={handleCheckBoxChange}
+              label="Add New Price "
+            />
+            <Stack direction="row" spacing={2}>
+              <TextField
+                id="filled-basic"
+                labelPlacement="start"
+                label="Add Type "
+                disabled={isCheckboxDisabled}
+                variant="outlined"
+                value={inputTypeForAdd}
+                onChange={handleTypeChangeForAdd}
+                required
+                fullWidth
+              />
+              <TextField
+                id="filled-basic"
+                label="Add  Price"
+                disabled={isCheckboxDisabled}
+                variant="outlined"
+                value={inputPriceForAdd}
+                onChange={handlePriceChangeForAdd}
+                required
+                fullWidth
+              />
+            </Stack>
+
+            <Divider sx={{ mt: 10 }}></Divider>
+
             <Stack
               mt={10}
               ml={10}
@@ -1136,7 +1266,9 @@ const PriceUpdate = () => {
                 <Button
                   variant="contained"
                   color="primary"
-                  //onClick={deleteHair}
+                  onClick={saveData}
+                  disabled={isCheckboxDisabled}
+
                 >
                   Add
                 </Button>
