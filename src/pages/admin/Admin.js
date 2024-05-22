@@ -42,7 +42,7 @@ const Admin = (props) => {
   };
 
   const handleDrawerTransitionEnd = () => {
-    setIsClosing(false);
+    setIsClosing(true);
   };
 
   const goToAdminDashboard = () => {

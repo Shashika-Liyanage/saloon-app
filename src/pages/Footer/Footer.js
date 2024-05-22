@@ -39,7 +39,7 @@ const Footer = () => {
             </Typography> */}
             <div>
               <Link to="/dashboard">
-                <img className="img" width="70%" src={Logo} alt="ImN" />
+                <img className="img" width="60%" src={Logo} alt="ImN" />
               </Link>
             </div>
           </Grid>

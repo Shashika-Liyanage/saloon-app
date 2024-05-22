@@ -22,8 +22,7 @@ import {
   getDatabase,
   ref,
   get,
-  remove,
-  update,
+  
   push,
   set,
 } from "firebase/database";
@@ -40,7 +39,8 @@ const PriceUpdate = () => {
   const [isCheckboxDisabled, setIsCheckboxDisabled] = useState(true);
   const [inputTypeForAdd, setInputTypeForAdd] = useState("");
   const [inputPriceForAdd, setInputPriceForAdd] = useState("");
-  const [inputPriceArray, setInputPriceArray] = useState([]);
+  
+  //const [inputPriceArray, setInputPriceArray] = useState([]);
   const handleCheckBoxChange = (event) => {
     setIsCheckboxDisabled(!event.target.checked);
   };

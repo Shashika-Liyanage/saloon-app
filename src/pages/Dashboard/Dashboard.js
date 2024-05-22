@@ -71,10 +71,10 @@ const Dashboard = () => {
   const GoToBookingPage = () => {
     navigate("/booking");
   };
-  const img = {
-    width: "100%" /* Set width to 100% of viewport width */,
-    height: "auto" /* Maintain aspect ratio */,
-  };
+  // const img = {
+  //   width: "100%" /* Set width to 100% of viewport width */,
+  //   height: "auto" /* Maintain aspect ratio */,
+  // };
 
   return (
     <div style={{ overflowX: "hidden" }}>

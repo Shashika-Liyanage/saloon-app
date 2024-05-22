@@ -34,6 +34,7 @@ import ChatbotLauncher from './pages/ChatBot/Chatbot';
 import Chatbot from './pages/ChatBot/Chatbot';
 import CreateData from "./pages/admin/Add/CreateData";
 import AdminDash from "./pages/admin/AdminDashboard/AdminDash";
+import Sidebar from "./pages/admin/SideBar/Sidebar";
 
 
 
@@ -74,7 +75,7 @@ function App() {
             <Route path="ChatBot" element={<ChatbotLauncher />} />
             <Route path="ChatBotui" element={<Chatbot />} />
             <Route path="PriceUpdate" element={<PriceUpdate />} />
-           
+            <Route path="Sidebar" element={<Sidebar />} />
             <Route path="AdminDash" element={<AdminDash />} />
             <Route path="CreateData" element={<CreateData />} />
             <Route path="UpdateWrite/:firebaseId" element={<PriceUpdate />} />

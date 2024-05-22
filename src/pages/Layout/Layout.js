@@ -60,7 +60,7 @@ const Layout = () => {
   const salonNameStyle = {
     fontWeight: "bold",
     fontSize: "15px",
-    letterSpacing: "2px",
+    //letterSpacing: "2px",
     textTransform: "uppercase",
     fontFamily: "Arial, sans-serif",
     color: "#99154E",
@@ -71,7 +71,7 @@ const Layout = () => {
       <div style={headerStyle}>
         <div>
           <Link to="/dashboard">
-            <img className="img" width="30%" src={Logo} alt="ImN" />
+            <img className="img" width="22%" src={Logo} alt="ImN" />
           </Link>
         </div>
         <Typography

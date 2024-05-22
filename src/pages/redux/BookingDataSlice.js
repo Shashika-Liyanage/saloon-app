@@ -1,11 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   bookingData: null,
 };
 
 export const bookingDataSlice = createSlice({
-  name: "bookingDataManagement",
+  name: 'bookingDataManagement',
   initialState,
   reducers: {
     saveBookingData: (state, action) => {
@@ -15,7 +15,6 @@ export const bookingDataSlice = createSlice({
 });
 
 export const { saveBookingData } = bookingDataSlice.actions;
-export const selectBookingData = (state) =>
-  state.bookingDataManagement.bookingData;
+export const selectBookingData = (state) => state.bookingDataManagement.bookingData;
 
 export default bookingDataSlice.reducer;
