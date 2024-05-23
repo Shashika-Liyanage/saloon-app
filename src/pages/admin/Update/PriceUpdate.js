@@ -53,7 +53,7 @@ const PriceUpdate = () => {
   const handlePriceChangeForAdd = (e) => {
     setInputPriceForAdd(e.target.value);
   };
-//this is working
+  //this is working
   const saveData = async () => {
     const db = getDatabase(app);
     const newPostRef = push(ref(db, "createprice/haircut"));
@@ -73,47 +73,89 @@ const PriceUpdate = () => {
     const fetchDataForHair = async () => {
       try {
         const db = getDatabase();
-  
+
         // Fetch data for input fields
         const inputRef = ref(db, "createprice/haircut");
         const inputSnapshot = await get(inputRef);
-  
+
         if (inputSnapshot.exists()) {
           const inputData = inputSnapshot.val();
           const { type, price } = inputData;
-          
+
           setInputType(type);
           setInputPrice(price);
           handleTypeChange({ target: { value: type } });
         } else {
           console.error("No Data Available");
         }
-  
+
         // Fetch data for options in Select field and Price field
         const optionsRef = ref(db, "createprice/haircut");
         const optionsSnapshot = await get(optionsRef);
-  
+
         if (optionsSnapshot.exists()) {
           const optionsData = optionsSnapshot.val();
-          
-          const typeOptions = Object.values(optionsData).map(option => option.type);
+
+          const typeOptions = Object.values(optionsData).map(
+            (option) => option.type
+          );
           setTypeOptions(typeOptions);
-          
-          const priceOptions = Object.values(optionsData).map(option => option.price);
+
+          const priceOptions = Object.values(optionsData).map(
+            (option) => option.price
+          );
           setPriceOptions(priceOptions);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
-  
+
     fetchDataForHair();
   }, [firebaseId]);
-  
+
+  //Delete section for hari
+  //  const delHair = async (firebaseId) => {
+  //   const db = getDatabase();
+  //   const dbRef = ref(db, `createprice/haircut/${firebaseId}`);
+  //   await remove(dbRef);
+  //   //window.location.reload();
+  // };
+
+  const delHair = async (firebaseId) => {
+    try {
+      const db = getDatabase();
+      const dbRef = ref(db, "createprice/haircut/");
+      await remove(dbRef);
+      toast.success("Data Deleted Successfully");
+    } catch (error) {
+      console.error("Error deleting data:", error);
+      toast.error("Failed to delete data");
+    }
+  };
+
   //overwrite data (update) use for hair section
 
-  
+  const UpdateHair = async (firebaseId) => {
+    try {
+      const db = getDatabase(app);
+      const dbRef = ref(db, "createprice/haircut"+firebaseId);
 
+      const snapshot = await get(dbRef);
+      if (snapshot.exists()) {
+        await update(dbRef, {
+          type: inputType,
+          price: inputPrice,
+        });
+        toast.success("Price Updated Successfully");
+      } else {
+        toast.error("Record not found");
+      }
+    } catch (error) {
+      toast.error("Failed to update price");
+      console.error("Error updating price:", error);
+    }
+  };
   const handleTypeChange = (e) => {
     setInputType(e.target.value);
     const selectedIndex = typeOptions.indexOf(e.target.value);
@@ -191,13 +233,6 @@ const PriceUpdate = () => {
   //     toast.error("Failed to update price");
   //     console.error("Error updating price:", error);
   //   }
-  // };
-
-  // const deleteSkin = async () => {
-  //   const db = getDatabase();
-  //   const dbRef = ref(db, "DeletePrice/SkinPrice/" + saloonIdParam);
-  //   await remove(dbRef);
-  //   window.location.reload();
   // };
 
   // //Nail Price-------------------
@@ -716,13 +751,13 @@ const PriceUpdate = () => {
                 <Button
                   variant="contained"
                   color="error"
-                  //onClick={deleteHair}
+                  onClick={()=>delHair()}
                 >
                   Delete
                 </Button>
               </Grid>
               <Grid item xs={3}>
-                <Button variant="contained" color="success" onClick={update}>
+                <Button variant="contained" color="success" onClick={()=>UpdateHair()}>
                   Update
                 </Button>
               </Grid>
@@ -918,11 +953,7 @@ const PriceUpdate = () => {
                 </Button>
               </Grid>
               <Grid item xs={3}>
-                <Button
-                  variant="contained"
-                  color="error"
-                  //onClick={deleteHair}
-                >
+                <Button variant="contained" color="error">
                   Delete
                 </Button>
               </Grid>
