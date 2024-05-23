@@ -53,10 +53,10 @@ const PriceUpdate = () => {
   const handlePriceChangeForAdd = (e) => {
     setInputPriceForAdd(e.target.value);
   };
-
+//this is working
   const saveData = async () => {
     const db = getDatabase(app);
-    const newPostRef = push(ref(db, "createprice/haircut"+firebaseId));
+    const newPostRef = push(ref(db, "createprice/haircut"));
     set(newPostRef, {
       type: inputTypeForAdd,
       price: inputPriceForAdd,
@@ -73,68 +73,45 @@ const PriceUpdate = () => {
     const fetchDataForHair = async () => {
       try {
         const db = getDatabase();
-        const dbRef = ref(db, "createprice/haircut");
-        const snapshot = await get(dbRef);
-
-        if (snapshot.exists()) {
-          const targetObject = snapshot.val();
-          setInputType(targetObject.type);
-          setInputPrice(targetObject.price);
-          handleTypeChange({ target: { value: targetObject.type } });
+  
+        // Fetch data for input fields
+        const inputRef = ref(db, "createprice/haircut");
+        const inputSnapshot = await get(inputRef);
+  
+        if (inputSnapshot.exists()) {
+          const inputData = inputSnapshot.val();
+          const { type, price } = inputData;
+          
+          setInputType(type);
+          setInputPrice(price);
+          handleTypeChange({ target: { value: type } });
         } else {
-          console.error("No Data Available ");
+          console.error("No Data Available");
         }
-
-        // Fetch data for options in Select field
+  
+        // Fetch data for options in Select field and Price field
         const optionsRef = ref(db, "createprice/haircut");
         const optionsSnapshot = await get(optionsRef);
+  
         if (optionsSnapshot.exists()) {
           const optionsData = optionsSnapshot.val();
-          const optionsArray = Object.values(optionsData).map(
-            (option) => option.type
-          );
-          setTypeOptions(optionsArray);
-        }
-
-        // Fetch data for options in Price field
-        const optionsReftwo = ref(db, "createPrice/haircut");
-        const optiontwoSnapshot = await get(optionsReftwo);
-        if (optiontwoSnapshot.exists()) {
-          const optionsDatatwo = optiontwoSnapshot.val();
-          const optionArrayTwo = Object.values(optionsDatatwo).map(
-            (option) => option.price
-          );
-          setPriceOptions(optionArrayTwo);
+          
+          const typeOptions = Object.values(optionsData).map(option => option.type);
+          setTypeOptions(typeOptions);
+          
+          const priceOptions = Object.values(optionsData).map(option => option.price);
+          setPriceOptions(priceOptions);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
+  
     fetchDataForHair();
   }, [firebaseId]);
-  //overwrite data (update) use for hair section
-  const update = async () => {
-    try {
-      const db = getDatabase();
-      const dbRef = ref(db, "createprice/haircut/"+firebaseId);
   
-      const snapshot = await get(dbRef);
-      if (snapshot.exists()) {
-        console.log("Record found:", snapshot.val());
-        await update(dbRef, {
-          type: inputType,
-          price: inputPrice,
-        });
-        toast.success("Price Updated Successfully");
-      } else {
-        console.log("Record not found");
-        toast.error("Record not found");
-      }
-    } catch (error) {
-      toast.error("Failed to update price");
-      console.error("Error updating price:", error);
-    }
-  };
+  //overwrite data (update) use for hair section
+
   
 
   const handleTypeChange = (e) => {
@@ -148,7 +125,7 @@ const PriceUpdate = () => {
   const handlePriceChange = (e) => {
     setInputPrice(e.target.value);
   };
-  // const deleteHair = async () => {
+
   //   const db = getDatabase();
   //   const dbRef = ref(db, "DeletePrice/haircut/" + saloonIdParam);
   //   await remove(dbRef);
@@ -663,7 +640,7 @@ const PriceUpdate = () => {
             <Typography id="transition-modal-description" sx={{ mt: 5 }}>
               {/* Modal content */}
             </Typography>
-            <Stack direction="row" spacing={2}>
+            <Stack direction="row" spacing={4}>
               <Select
                 value={inputType}
                 onChange={handleTypeChange}
@@ -677,7 +654,6 @@ const PriceUpdate = () => {
                 ))}
               </Select>
               <TextField
-                id="filled-basic"
                 label="Update Price"
                 variant="outlined"
                 value={inputPrice}
