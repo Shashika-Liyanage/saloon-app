@@ -14,126 +14,169 @@ import {
   Select,
   OutlinedInput,
   MenuItem,
+  FormControlLabel,
+  Checkbox,
+  Divider,
 } from "@mui/material";
-import { getDatabase, ref, get, set ,remove, update} from "firebase/database";
+import {
+  getDatabase,
+  ref,
+  get,
+  remove,
+  update,
+  push,
+  add,
+  set,
+  child,
+} from "firebase/database";
 import { useParams } from "react-router-dom";
 import app from "../../../services/firebaseConfig";
 import toast, { Toaster } from "react-hot-toast";
+
 const PriceUpdate = () => {
   const [inputType, setInputType] = useState("");
   const [inputPrice, setInputPrice] = useState("");
-  const { saloonIdParam } = useParams();
+  const { firebaseId } = useParams();
+
   const [typeOptions, setTypeOptions] = useState([]);
   const [priceOptions, setPriceOptions] = useState([]);
-  
+  const [isCheckboxDisabled, setIsCheckboxDisabled] = useState(true);
+  const [inputTypeForAdd, setInputTypeForAdd] = useState("");
+  const [inputPriceForAdd, setInputPriceForAdd] = useState("");
+  const [inputPriceArray, setInputPriceArray] = useState([]);
+  const handleCheckBoxChange = (event) => {
+    setIsCheckboxDisabled(!event.target.checked);
+  };
+  //Hair Price----Add Data
+
+  const handleTypeChangeForAdd = (e) => {
+    setInputTypeForAdd(e.target.value);
+  };
+
+  const handlePriceChangeForAdd = (e) => {
+    setInputPriceForAdd(e.target.value);
+  };
+
   useEffect(() => {
-  //fetch data use for hair section
-    const fetchData = async () => {
-      const db = getDatabase();
-      const dbRef = ref(db, "createprice/haircut/"+saloonIdParam);
-      const snapshot = await get(dbRef);
-
-      if (snapshot.exists()) {
-        const targetObject = snapshot.val();
-        setInputType(targetObject.type);
-        setInputPrice(targetObject.price);
-      } else {
-        toast.error("No Data Available ");
-      }
-      
-
-      // Fetch data for options in Select field
-      const optionsRef = ref(db, "createprice/haircut"); // Change this to the appropriate ref
-      const optionsSnapshot = await get(optionsRef);
-      if (optionsSnapshot.exists()) {
-        const optionsData = optionsSnapshot.val();
-        const optionsArray = Object.values(optionsData).map(
-          (option) => option.type
-        );
-        setTypeOptions(optionsArray);
-      }
-// Fetch data for options in Price field
-      const optionsReftwo=ref(db,"createprice/haircut")
-      const optiontwoSnapshot=await get(optionsReftwo);
-      if(optiontwoSnapshot.exists()){
-       const optionsDatatwo =optiontwoSnapshot.val();
-       const optionArrayTwo=Object.values(optionsDatatwo).map(
-        (option)=>option.price
-       );
-       setPriceOptions(optionArrayTwo)
-      }
-    };
     fetchData();
-  }, [saloonIdParam]);
+  }, []);
 
-//overwrite data (update) use for hair section
-  const overWriteData = async () => {
+  // Fetch data from the database
+  const fetchData = async () => {
     try {
-      const db = getDatabase(app);
-      const dbRef = ref(db, `createprice/haircut/${saloonIdParam}`);
-  
-      const snapshot = await get(dbRef);
+      const db = getDatabase();
+      const snapshot = await get(ref(db, "createprice/haircut"));
+
       if (snapshot.exists()) {
-        await update(dbRef, {
-          type: inputType,
-          price: inputPrice,
-        });
-        toast.success("Price Updated Successfully");
+        const data = snapshot.val();
+        setTypeOptions(Object.keys(data).map((key) => data[key].type));
+        setPriceOptions(Object.keys(data).map((key) => data[key].price));
       } else {
-        toast.error("Record not found");
+        console.error("No data available");
       }
     } catch (error) {
-      toast.error("Failed to update price");
-      console.error("Error updating price:", error);
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  // Add new record to the database
+  const addRecord = async () => {
+    const db = getDatabase();
+    const recordsRef = ref(db, "createprice/haircut/");
+
+    try {
+      const newRecordRef = push(recordsRef); // Generate unique key
+      await set(newRecordRef, {
+        type: inputTypeForAdd,
+        price: inputPriceForAdd,
+      }); // Set type and price fields
+      toast.success("New record added successfully");
+    } catch (error) {
+      console.error("Error adding record:", error);
+      toast.error("Failed to add record");
+    }
+  };
+
+  const updateRecord = async (firebaseId) => {
+    try {
+      console.log("Firebase ID:", firebaseId);
+      console.log("Input Type:", inputType);
+      console.log("Input Price:", inputPrice);
+
+      const db = getDatabase();
+      const recordRef = ref(db, `createprice/haircut/${firebaseId}`);
+
+      // Check if firebaseId is null or undefined
+      if (!firebaseId) {
+        throw new Error("Invalid firebaseId");
+      }
+
+      // Check if inputType and inputPrice are not empty or null
+      if (!inputType || !inputPrice) {
+        throw new Error("Invalid inputType or inputPrice");
+      }
+
+      // Update the record in the database
+      await set(recordRef, { type: inputType, price: inputPrice });
+      toast.success("Record updated successfully");
+      fetchData(); // Refresh data
+    } catch (error) {
+      console.error("Error updating record:", error);
+      toast.error("Failed to update record");
+    }
+  };
+
+  // Remove record from the database
+
+  const deleteRecord = async (firebaseId) => {
+    try {
+      console.log("Attempting to delete record with Firebase ID:", firebaseId);
+  
+      const db = getDatabase();
+      const recordRef = ref(db, `createprice/haircut/${firebaseId}`);
+  
+      // Check if firebaseId is null or undefined
+      if (!firebaseId) {
+        throw new Error("Invalid firebaseId");
+      }
+  
+      // Delete the record from the database
+      await remove(recordRef);
+      console.log("Record deleted successfully");
+      toast.success("Record deleted successfully");
+      fetchData(); // Refresh data
+    } catch (error) {
+      console.error("Error deleting record:", error);
+      toast.error("Failed to delete record");
     }
   };
   
   
-  // const deleteData = async () => {
-  //   const db = getDatabase();
-  //   const dbRef = ref(db, "createprice/haircut/"+saloonIdParam);
-  //   await remove(dbRef);
-  //   window.location.reload();
-  // };
-
-//delete data for hair section
-const deleteData =async(saloonIdParam)=>{
-  const db=getDatabase(app)
-  const dbRef=ref(db,"createprice/haircut/"+saloonIdParam);
-  await remove(dbRef);
-  window.location.reload()
-}
-
   const handleTypeChange = (e) => {
     setInputType(e.target.value);
-    // Find the index of the selected type in typeOptions array
     const selectedIndex = typeOptions.indexOf(e.target.value);
-    // If the selected type exists in the array, set the corresponding price
     if (selectedIndex !== -1) {
       setInputPrice(priceOptions[selectedIndex]);
     }
   };
+
   const handlePriceChange = (e) => {
     setInputPrice(e.target.value);
   };
 
   //For the hair section
   const [showHaircutModal, setShowHaircutModal] = useState(false);
-  const [showHairColoringModal, setshowHairColoringModal] = useState(false);
-  const [showHairSpaModal, setshowHairSpaModal] = useState(false);
-  const [showHairTreatModal, setshowHairTreatModal] = useState(false);
+
   // For the Skin Section
   const [showCleanUpModal, setshowCleanUpModal] = useState(false);
-  const [showFacialModal, setFacialModal] = useState(false);
-  const [showThreadingModal, setThreadingModal] = useState(false);
+
   //For the Nail Section
-  const [showManicureModal, setshowManicureModal] = useState(false);
+
   const [showPedicureModal, setshowPedicureModal] = useState(false);
-  const [showMicroBladingModal, setshowMicroBladingModal] = useState(false);
-  const [showNailNaModal, setshowNailNaModal] = useState(false);
+
   //For the Body Section
   const [showWaxingModal, setShowWaxingModal] = useState(false);
-  const [showDetainingModal, setshowDetainingModal] = useState(false);
+
   //For the Bridal Section
   const [showDressingModal, setshowDressingModal] = useState(false);
 
@@ -148,62 +191,43 @@ const deleteData =async(saloonIdParam)=>{
   // Function to handle button click and open the modal in Body section
   const handleBodyButtonClick = () => {
     setShowWaxingModal(true);
-    setshowDetainingModal(true);
   };
   // Function to close the modal  in Body section
   const handleCloseModalBody = () => {
     setShowWaxingModal(false);
-    setshowDetainingModal(false);
   };
   // Function to handle button click and open the modal in Nail section
   // eslint-disable-next-line
   const handleNailButtonClick = () => {
-    setshowManicureModal(true);
     setshowPedicureModal(true);
-    setshowMicroBladingModal(true);
-    setshowNailNaModal(true);
   };
   // Function to close the modal  in Nail section
   const handleCloseModalNail = () => {
-    setshowManicureModal(false);
     setshowPedicureModal(false);
-    setshowMicroBladingModal(false);
-    setshowNailNaModal(false);
   };
   // Function to handle button click and open the modal in Skin section
- // eslint-disable-next-line
+  // eslint-disable-next-line
   const handleSkinButtonClick = () => {
     setshowCleanUpModal(true);
-    setFacialModal(true);
-    setThreadingModal(true);
   };
   // Function to close the modal  in Skin section
   const handleCloseModalSkin = () => {
     setshowCleanUpModal(false);
-    setFacialModal(false);
-    setThreadingModal(false);
   };
   // Function to handle button click and open the modal in Hair section
- // eslint-disable-next-line
+  // eslint-disable-next-line
   const handleHairButtonClick = () => {
     setShowHaircutModal(true);
-    setshowHairColoringModal(true);
-    setshowHairSpaModal(true);
-    setshowHairTreatModal(true);
   };
   // Function to close the modal in Hair section
   const handleCloseModal = () => {
     setShowHaircutModal(false);
-    setshowHairColoringModal(false);
-    setshowHairSpaModal(false);
-    setshowHairTreatModal(false);
   };
- 
-  
+
   // Custom Card component
   const CustomCard = ({ children }) => {
     return (
-      <Grid item xs={12}>
+      <Grid item xs={5}>
         <Card>
           <CardContent>{children}</CardContent>
         </Card>
@@ -212,72 +236,134 @@ const deleteData =async(saloonIdParam)=>{
   };
   return (
     <>
-      <Box sx={{ flexGrow: 2 }}>
-        <Grid container spacing={3}>
+      <Box>
+        <Typography fontWeight={"700"} align="center" variant="h6">
+          Add /Update/Delete Table Data
+        </Typography>
+        <Grid
+          container
+          spacing={2}
+          sx={{ justifyContent: "center", marginY: "auto" }}
+        >
           <CustomCard>
-            <Typography fontWeight={"700"} variant="h6">
+            <Typography fontWeight={"700"} align="center" variant="h6">
               Hair Section
             </Typography>
-            <Stack direction="row" spacing={2}>
+            <Stack
+              direction="row"
+              spacing={2}
+              sx={{ justifyContent: "center" }}
+            >
               <Grid item xs={4}>
-                <Button onClick={setShowHaircutModal} variant="contained">
-                  Update Hair Cut Price{" "}
+                <Button
+                  sx={{ textAlign: "center" }}
+                  onClick={setShowHaircutModal}
+                  variant="contained"
+                >
+                  Hair Cut Price
                 </Button>
               </Grid>
-              
             </Stack>
           </CustomCard>
 
           <CustomCard>
-            <Typography fontWeight={"700"} variant="h6">
+            <Typography fontWeight={"700"} align="center" variant="h6">
               Skin Section
             </Typography>
-            <Stack direction="row" spacing={2}>
+            <Stack
+              sx={{ justifyContent: "center" }}
+              direction="row"
+              spacing={2}
+            >
               <Grid item xs={4}>
-                <Button onClick={setshowCleanUpModal} variant="contained">
-                  Update CleanUp Price{" "}
+                <Button
+                  sx={{ textAlign: "center" }}
+                  onClick={setshowCleanUpModal}
+                  variant="contained"
+                >
+                  CleanUp Price{" "}
                 </Button>
               </Grid>
-             
             </Stack>
           </CustomCard>
           <CustomCard>
-            <Typography fontWeight={"700"} variant="h6">
+            <Typography align="center" fontWeight={"700"} variant="h6">
               Nail Section
             </Typography>
-            <Stack direction="row" spacing={2}>
+            <Stack
+              sx={{ justifyContent: "center" }}
+              direction="row"
+              spacing={2}
+            >
               <Grid item xs={4}>
-              <Button onClick={setshowPedicureModal} variant="contained">
-                  Update Pedicure Price{" "}
+                <Button
+                  sx={{ textAlign: "center" }}
+                  onClick={setshowPedicureModal}
+                  variant="contained"
+                >
+                  Pedicure Price{" "}
                 </Button>
               </Grid>
-              
             </Stack>
           </CustomCard>
           <CustomCard>
-            <Typography fontWeight={"700"} variant="h6">
+            <Typography align="center" fontWeight={"700"} variant="h6">
               Body Section
             </Typography>
-            <Stack direction="row" spacing={2}>
+            <Stack
+              sx={{ justifyContent: "center" }}
+              direction="row"
+              spacing={2}
+            >
               <Grid item xs={4}>
-                <Button onClick={handleBodyButtonClick} variant="contained">
-                  Update Waxing Price{" "}
+                <Button
+                  sx={{ textAlign: "center" }}
+                  onClick={handleBodyButtonClick}
+                  variant="contained"
+                >
+                  Waxing Price{" "}
                 </Button>
               </Grid>
-            
             </Stack>
           </CustomCard>
           <CustomCard>
-            <Typography fontWeight={"700"} variant="h6">
+            <Typography align="center" fontWeight={"700"} variant="h6">
               Bridal Section
             </Typography>
-            <Stack direction="row" spacing={2}>
+            <Stack
+              sx={{ justifyContent: "center" }}
+              direction="row"
+              spacing={2}
+            >
               <Grid item xs={4}>
-                <Button onClick={handlebridalButtonClick} variant="contained">
-                  Update DRESSING Price{" "}
+                <Button
+                  sx={{ textAlign: "center" }}
+                  onClick={handlebridalButtonClick}
+                  variant="contained"
+                >
+                  DRESSING Price{" "}
                 </Button>
               </Grid>
-             
+            </Stack>
+          </CustomCard>
+          <CustomCard>
+            <Typography align="center" fontWeight={"700"} variant="h6">
+              Testing Section
+            </Typography>
+            <Stack
+              sx={{ justifyContent: "center" }}
+              direction="row"
+              spacing={2}
+            >
+              <Grid item xs={4}>
+                <Button
+                  sx={{ textAlign: "center" }}
+                  onClick={handlebridalButtonClick}
+                  variant="contained"
+                >
+                  Testing Section{" "}
+                </Button>
+              </Grid>
             </Stack>
           </CustomCard>
         </Grid>
@@ -285,290 +371,133 @@ const deleteData =async(saloonIdParam)=>{
       {/* Modal for updating Hair Cut Price */}
 
       <Dialog
-      open={showHaircutModal}
-      onClose={handleCloseModal}
-      aria-labelledby="transition-modal-title"
-      aria-describedby="transition-modal-description"
-      closeAfterTransition
-      BackdropComponent={Backdrop}
-      BackdropProps={{
-        timeout: 500,
-      }}
-      sx={{
-        px:4,
-        margin: '0 auto', // Center the modal horizontally
-      }}
-    >
-      <Fade in={showHaircutModal}>
-        <div>
-          <Typography
-            align="center"
-            fontWeight={700}
-            id="transition-modal-title"
-            variant="h6"
-            component="h2"
-          >
-            Update Hair Cut Prices
-          </Typography>
-          <Typography id="transition-modal-description" sx={{ mt: 5 }}>
-            {/* Modal content */}
-          </Typography>
-          <Stack direction="row" spacing={1}>
-            {/* Select for type */}
-            <Select
-              value={inputType}
-              onChange={handleTypeChange}
-              fullWidth
-              input={<OutlinedInput label="Type" />}
+        open={showHaircutModal}
+        onClose={handleCloseModal}
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+        sx={{
+          px: 4,
+          margin: "0 auto", // Center the modal horizontally
+        }}
+      >
+        <Fade in={showHaircutModal}>
+          <div>
+            <Typography
+              align="center"
+              fontWeight={700}
+              id="transition-modal-title"
+              variant="h6"
+              component="h2"
             >
-              {typeOptions.map((option) => (
-                <MenuItem key={option} value={option}>
-                  {option}
-                </MenuItem>
-              ))}
-            </Select>
-            <TextField
-              id="filled-basic"
-              label="Price"
-              variant="outlined"
-              value={inputPrice}
-              onChange={handlePriceChange}
-              required
-              fullWidth
+              Hair Cut Prices
+            </Typography>
+            <Typography id="transition-modal-description" sx={{ mt: 5 }}>
+              {/* Modal content */}
+            </Typography>
+            <Stack direction="row" spacing={4}>
+              <Select
+                value={inputType}
+                onChange={handleTypeChange}
+                fullWidth
+                input={<OutlinedInput label="Type" />}
+              >
+                {typeOptions.map((option) => (
+                  <MenuItem key={option} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </Select>
+              <TextField
+                label="Update Price"
+                variant="outlined"
+                value={inputPrice}
+                onChange={handlePriceChange}
+                required
+                fullWidth
+              />
+            </Stack>
+
+            <Divider sx={{ mt: 3 }}></Divider>
+            <FormControlLabel
+              control={<Checkbox defaultChecked />}
+              checked={!isCheckboxDisabled}
+              onChange={handleCheckBoxChange}
+              label="Add New Price "
             />
-          </Stack>
-          <Stack mt={10} ml={10} mb={5} direction="row" sx={{mr:10}}  spacing={10}>
-            <Grid item xs={4}>
-              <Button variant="contained" color="error" onClick={deleteData}>
-                Delete
-              </Button>
-            </Grid>
-            <Grid item xs={4}>
-              <Button variant="contained" color="warning" onClick={handleCloseModal}>
-                Close
-              </Button>
-            </Grid>
-            <Grid item xs={4}>
-              <Button variant="contained" color="success" onClick={overWriteData}>
-                Update
-              </Button>
-            </Grid>
-          </Stack>
-        </div>
-      </Fade>
-    </Dialog>
-
-      {/* Modal for updating Hair Coloring Price */}
-
-      <Dialog
-        open={showHairColoringModal}
-        onClose={handleCloseModal}
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-        sx={{
-          marginLeft: "auto",
-          marginRight: "auto",
-          maxWidth: "550px",
-          maxHeight: "550px",
-        }}
-      >
-        <Fade in={showHairColoringModal}>
-          <div>
-            <Typography
-              align="center"
-              fontWeight={"700"}
-              id="transition-modal-title"
-              variant="h6"
-              component="h2"
-            >
-              Update Hair Coloring
-            </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 3 }}>
-              {/* Modal content */}
-            </Typography>
-            <Stack direction="row" spacing={3}>
-              <TextField
-                id="outlined-basic"
-                label="Type"
-                variant="outlined"
-                disabled
-                fontWeight={"700"}
-              />
-
+            <Stack direction="row" spacing={2}>
               <TextField
                 id="filled-basic"
-                label="Price"
+                labelPlacement="start"
+                label="Add Type "
+                disabled={isCheckboxDisabled}
                 variant="outlined"
+                value={inputTypeForAdd}
+                onChange={handleTypeChangeForAdd}
                 required
+                fullWidth
+              />
+              <TextField
+                id="filled-basic"
+                label="Add  Price"
+                disabled={isCheckboxDisabled}
+                variant="outlined"
+                value={inputPriceForAdd}
+                onChange={handlePriceChangeForAdd}
+                required
+                fullWidth
               />
             </Stack>
-            <Stack mt={5} ml={17} mb={5} direction="row" spacing={4}>
-              <Grid item xs={6}>
+            <Divider sx={{ mt: 10 }}></Divider>
+            <Stack
+              mt={10}
+              ml={10}
+              mb={5}
+              direction="row"
+              sx={{ mr: 10 }}
+              spacing={5}
+            >
+              <Grid item xs={3}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={addRecord}
+                  disabled={isCheckboxDisabled}
+                >
+                  Add
+                </Button>
+              </Grid>
+              <Grid item xs={3}>
                 <Button
                   variant="contained"
                   color="error"
-                  onClick={handleCloseModal}
+                  onClick={() => deleteRecord(firebaseId)}
                 >
-                  Close{" "}
+                  Delete
                 </Button>
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={3}>
                 <Button
                   variant="contained"
                   color="success"
-                  onClick={handleCloseModal}
+                  onClick={() => updateRecord(firebaseId)}
                 >
                   Update
-                </Button>
-              </Grid>{" "}
-            </Stack>
-          </div>
-        </Fade>
-      </Dialog>
-
-      {/* Modal for updating  Hair Spa Price */}
-      <Dialog
-        open={showHairSpaModal}
-        onClose={handleCloseModal}
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-        sx={{
-          marginLeft: "auto",
-          marginRight: "auto",
-          maxWidth: "550px",
-          maxHeight: "550px",
-        }}
-      >
-        <Fade in={showHairSpaModal}>
-          <div>
-            <Typography
-              align="center"
-              fontWeight={"700"}
-              id="transition-modal-title"
-              variant="h6"
-              component="h2"
-            >
-              Update Hair Spa Pricess
-            </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 3 }}>
-              {/* Modal content */}
-            </Typography>
-            <Stack direction="row" spacing={3}>
-              <TextField
-                id="outlined-basic"
-                label="Type"
-                variant="outlined"
-                disabled
-                fontWeight={"700"}
-              />
-
-              <TextField
-                id="filled-basic"
-                label="Price"
-                variant="outlined"
-                required
-              />
-            </Stack>
-            <Stack mt={5} ml={17} mb={5} direction="row" spacing={4}>
-              <Grid item xs={6}>
-                <Button
-                  variant="contained"
-                  color="error"
-                  onClick={handleCloseModal}
-                >
-                  Close{" "}
                 </Button>
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={3}>
                 <Button
                   variant="contained"
-                  color="success"
-                  onClick={handleCloseModal}
+                  color="warning"
+                  //onClick={handleCloseModal}
                 >
-                  Update
-                </Button>
-              </Grid>{" "}
-            </Stack>
-          </div>
-        </Fade>
-      </Dialog>
-      {/* Modal for updating  Hair Treatments Price */}
-      <Dialog
-        open={showHairTreatModal}
-        onClose={handleCloseModal}
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-        sx={{
-          marginLeft: "auto",
-          marginRight: "auto",
-          maxWidth: "550px",
-          maxHeight: "550px",
-        }}
-      >
-        <Fade in={showHairTreatModal}>
-          <div>
-            <Typography
-              align="center"
-              fontWeight={"700"}
-              id="transition-modal-title"
-              variant="h6"
-              component="h2"
-            >
-              Update Hair Treatments Pricess
-            </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 3 }}>
-              {/* Modal content */}
-            </Typography>
-            <Stack direction="row" spacing={3}>
-              <TextField
-                id="outlined-basic"
-                label="Type"
-                variant="outlined"
-                disabled
-                fontWeight={"700"}
-              />
-
-              <TextField
-                id="filled-basic"
-                label="Price"
-                variant="outlined"
-                required
-              />
-            </Stack>
-            <Stack mt={5} ml={17} mb={5} direction="row" spacing={4}>
-              <Grid item xs={6}>
-                <Button
-                  variant="contained"
-                  color="error"
-                  onClick={handleCloseModal}
-                >
-                  Close{" "}
+                  Close
                 </Button>
               </Grid>
-              <Grid item xs={6}>
-                <Button
-                  variant="contained"
-                  color="success"
-                  onClick={handleCloseModal}
-                >
-                  Update
-                </Button>
-              </Grid>{" "}
             </Stack>
           </div>
         </Fade>
@@ -587,10 +516,8 @@ const deleteData =async(saloonIdParam)=>{
           timeout: 500,
         }}
         sx={{
-          marginLeft: "auto",
-          marginRight: "auto",
-          maxWidth: "550px",
-          maxHeight: "550px",
+          px: 4,
+          margin: " 0 auto",
         }}
       >
         <Fade in={showCleanUpModal}>
@@ -602,267 +529,85 @@ const deleteData =async(saloonIdParam)=>{
               variant="h6"
               component="h2"
             >
-              Update Skin CleanUp Pricess
+              Skin CleanUp Prices
             </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 3 }}>
+            <Typography id="transition-modal-description" sx={{ mt: 5 }}>
               {/* Modal content */}
             </Typography>
             <Stack direction="row" spacing={3}>
-              <TextField
-                id="outlined-basic"
-                label="Type"
-                variant="outlined"
-                disabled
-                fontWeight={"700"}
-              />
+              <Select
+                value={inputType}
+                //onChange={handleTypeChange}
+                fullWidth
+                input={<OutlinedInput label="Type" />}
+              >
+                {typeOptions.map((option) => (
+                  <MenuItem key={option} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </Select>
 
               <TextField
                 id="filled-basic"
                 label="Price"
                 variant="outlined"
+                //value={inputPrice}
+                //onChange={handlePriceChange}
                 required
+                fullWidth
               />
             </Stack>
-            <Stack mt={5} ml={17} mb={5} direction="row" spacing={4}>
-              <Grid item xs={6}>
-                <Button
-                  variant="contained"
-                  color="error"
-                  onClick={handleCloseModalSkin}
-                >
-                  Close{" "}
-                </Button>
-              </Grid>
-              <Grid item xs={6}>
-                <Button
-                  variant="contained"
-                  color="success"
-                  onClick={setshowCleanUpModal}
-                >
-                  Update
-                </Button>
-              </Grid>{" "}
-            </Stack>
-          </div>
-        </Fade>
-      </Dialog>
-
-      {/* Modal for updating  Facial Pricess  Price */}
-      <Dialog
-        open={showFacialModal}
-        onClose={handleCloseModalSkin}
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-        sx={{
-          marginLeft: "auto",
-          marginRight: "auto",
-          maxWidth: "550px",
-          maxHeight: "550px",
-        }}
-      >
-        <Fade in={showFacialModal}>
-          <div>
-            <Typography
-              align="center"
-              fontWeight={"700"}
-              id="transition-modal-title"
-              variant="h6"
-              component="h2"
+            <Stack
+              mt={10}
+              ml={10}
+              mb={5}
+              direction="row"
+              sx={{ mr: 10 }}
+              spacing={5}
             >
-              Update Facial Pricess
-            </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 3 }}>
-              {/* Modal content */}
-            </Typography>
-            <Stack direction="row" spacing={3}>
-              <TextField
-                id="outlined-basic"
-                label="Type"
-                variant="outlined"
-                disabled
-                fontWeight={"700"}
-              />
-
-              <TextField
-                id="filled-basic"
-                label="Price"
-                variant="outlined"
-                required
-              />
-            </Stack>
-            <Stack mt={5} ml={17} mb={5} direction="row" spacing={4}>
-              <Grid item xs={6}>
+              <Grid item xs={3}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  //onClick={saveData}
+                >
+                  Add
+                </Button>
+              </Grid>
+              <Grid item xs={3}>
                 <Button
                   variant="contained"
                   color="error"
-                  onClick={handleCloseModalSkin}
+                  //onClick={deleteHair}
                 >
-                  Close{" "}
+                  Delete
                 </Button>
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={3}>
                 <Button
                   variant="contained"
                   color="success"
-                  onClick={handleCloseModalSkin}
+                  //onClick={overWriteHair}
                 >
                   Update
                 </Button>
-              </Grid>{" "}
+              </Grid>
+              <Grid item xs={3}>
+                <Button
+                  variant="contained"
+                  color="warning"
+                  //onClick={handleCloseModal}
+                >
+                  Close
+                </Button>
+              </Grid>
             </Stack>
           </div>
         </Fade>
       </Dialog>
 
-      {/* Modal for updating Threading Pricess   Price */}
-      <Dialog
-        open={showThreadingModal}
-        onClose={handleCloseModalSkin}
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-        sx={{
-          marginLeft: "auto",
-          marginRight: "auto",
-          maxWidth: "550px",
-          maxHeight: "550px",
-        }}
-      >
-        <Fade in={showThreadingModal}>
-          <div>
-            <Typography
-              align="center"
-              fontWeight={"700"}
-              id="transition-modal-title"
-              variant="h6"
-              component="h2"
-            >
-              Update Threading Pricess
-            </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 3 }}>
-              {/* Modal content */}
-            </Typography>
-            <Stack direction="row" spacing={3}>
-              <TextField
-                id="outlined-basic"
-                label="Type"
-                variant="outlined"
-                disabled
-                fontWeight={"700"}
-              />
-
-              <TextField
-                id="filled-basic"
-                label="Price"
-                variant="outlined"
-                required
-              />
-            </Stack>
-            <Stack mt={5} ml={17} mb={5} direction="row" spacing={4}>
-              <Grid item xs={6}>
-                <Button
-                  variant="contained"
-                  color="error"
-                  onClick={handleCloseModalSkin}
-                >
-                  Close{" "}
-                </Button>
-              </Grid>
-              <Grid item xs={6}>
-                <Button
-                  variant="contained"
-                  color="success"
-                  onClick={handleCloseModalSkin}
-                >
-                  Update
-                </Button>
-              </Grid>{" "}
-            </Stack>
-          </div>
-        </Fade>
-      </Dialog>
-
-      {/* Modal for updating Manicure Pricess   Price */}
-      <Dialog
-        open={showManicureModal}
-        onClose={handleCloseModalNail}
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-        sx={{
-          marginLeft: "auto",
-          marginRight: "auto",
-          maxWidth: "550px",
-          maxHeight: "550px",
-        }}
-      >
-        <Fade in={showManicureModal}>
-          <div>
-            <Typography
-              align="center"
-              fontWeight={"700"}
-              id="transition-modal-title"
-              variant="h6"
-              component="h2"
-            >
-              Update Manicure Pricess
-            </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 3 }}>
-              {/* Modal content */}
-            </Typography>
-            <Stack direction="row" spacing={3}>
-              <TextField
-                id="outlined-basic"
-                label="Type"
-                variant="outlined"
-                disabled
-                fontWeight={"700"}
-              />
-
-              <TextField
-                id="filled-basic"
-                label="Price"
-                variant="outlined"
-                required
-              />
-            </Stack>
-            <Stack mt={5} ml={17} mb={5} direction="row" spacing={4}>
-              <Grid item xs={6}>
-                <Button
-                  variant="contained"
-                  color="error"
-                  onClick={handleCloseModalNail}
-                >
-                  Close{" "}
-                </Button>
-              </Grid>
-              <Grid item xs={6}>
-                <Button
-                  variant="contained"
-                  color="success"
-                  onClick={handleCloseModalNail}
-                >
-                  Update
-                </Button>
-              </Grid>{" "}
-            </Stack>
-          </div>
-        </Fade>
-      </Dialog>
-
+      {/*Nail Section*/}
       {/* Modal for updating Pedicure Pricess   Price */}
       <Dialog
         open={showPedicureModal}
@@ -875,10 +620,8 @@ const deleteData =async(saloonIdParam)=>{
           timeout: 500,
         }}
         sx={{
-          marginLeft: "auto",
-          marginRight: "auto",
-          maxWidth: "550px",
-          maxHeight: "550px",
+          px: 4,
+          margin: " 0 auto",
         }}
       >
         <Fade in={showPedicureModal}>
@@ -890,194 +633,82 @@ const deleteData =async(saloonIdParam)=>{
               variant="h6"
               component="h2"
             >
-              Update Pedicure Price
+              Pedicure Prices
             </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 3 }}>
+            <Typography id="transition-modal-description" sx={{ mt: 5 }}>
               {/* Modal content */}
             </Typography>
-            <Stack direction="row" spacing={3}>
-              <TextField
-                id="outlined-basic"
-                label="Type"
-                variant="outlined"
-                disabled
-                fontWeight={"700"}
-              />
+            <Stack direction="row" spacing={1}>
+              {/* Select for type */}
+              <Select
+                value={inputType}
+                //onChange={handleTypeChange}
+                fullWidth
+                input={<OutlinedInput label="Type" />}
+              >
+                {typeOptions.map((option) => (
+                  <MenuItem key={option} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </Select>
 
               <TextField
                 id="filled-basic"
                 label="Price"
                 variant="outlined"
+                //value={inputPrice}
+                //onChange={handlePriceChange}
                 required
+                fullWidth
               />
             </Stack>
-            <Stack mt={5} ml={17} mb={5} direction="row" spacing={4}>
-              <Grid item xs={6}>
-                <Button
-                  variant="contained"
-                  color="error"
-                  onClick={handleCloseModalNail}
-                >
-                  Close{" "}
-                </Button>
-              </Grid>
-              <Grid item xs={6}>
-                <Button
-                  variant="contained"
-                  color="success"
-                  onClick={handleCloseModalNail}
-                >
-                  Update
-                </Button>
-              </Grid>{" "}
-            </Stack>
-          </div>
-        </Fade>
-      </Dialog>
-
-      {/* Modal for updating Microblading Pricess   Price */}
-      <Dialog
-        open={showMicroBladingModal}
-        onClose={handleCloseModalNail}
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-        sx={{
-          marginLeft: "auto",
-          marginRight: "auto",
-          maxWidth: "550px",
-          maxHeight: "550px",
-        }}
-      >
-        <Fade in={showMicroBladingModal}>
-          <div>
-            <Typography
-              align="center"
-              fontWeight={"700"}
-              id="transition-modal-title"
-              variant="h6"
-              component="h2"
+            <Stack
+              mt={10}
+              ml={10}
+              mb={5}
+              direction="row"
+              sx={{ mr: 10 }}
+              spacing={5}
             >
-              Update Microblading Pricess
-            </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 3 }}>
-              {/* Modal content */}
-            </Typography>
-            <Stack direction="row" spacing={3}>
-              <TextField
-                id="outlined-basic"
-                label="Type"
-                variant="outlined"
-                disabled
-                fontWeight={"700"}
-              />
-
-              <TextField
-                id="filled-basic"
-                label="Price"
-                variant="outlined"
-                required
-              />
-            </Stack>
-            <Stack mt={5} ml={17} mb={5} direction="row" spacing={4}>
-              <Grid item xs={6}>
+              <Grid item xs={3}>
                 <Button
                   variant="contained"
-                  color="error"
-                  onClick={handleCloseModalNail}
+                  color="primary"
+                  //onClick={deleteHair}
                 >
-                  Close{" "}
+                  Add
                 </Button>
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={3}>
+                <Button variant="contained" color="error">
+                  Delete
+                </Button>
+              </Grid>
+              <Grid item xs={3}>
                 <Button
                   variant="contained"
                   color="success"
-                  onClick={handleCloseModalNail}
+                  //onClick={overWriteHair}
                 >
                   Update
                 </Button>
-              </Grid>{" "}
+              </Grid>
+              <Grid item xs={3}>
+                <Button
+                  variant="contained"
+                  color="warning"
+                  //onClick={handleCloseModal}
+                >
+                  Close
+                </Button>
+              </Grid>
             </Stack>
           </div>
         </Fade>
       </Dialog>
 
-      {/* Modal for updating Nail Pricess   Price */}
-      <Dialog
-        open={showNailNaModal}
-        onClose={handleCloseModalNail}
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-        sx={{
-          marginLeft: "auto",
-          marginRight: "auto",
-          maxWidth: "550px",
-          maxHeight: "550px",
-        }}
-      >
-        <Fade in={showNailNaModal}>
-          <div>
-            <Typography
-              align="center"
-              fontWeight={"700"}
-              id="transition-modal-title"
-              variant="h6"
-              component="h2"
-            >
-              Update Nail Pricess
-            </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 3 }}>
-              {/* Modal content */}
-            </Typography>
-            <Stack direction="row" spacing={3}>
-              <TextField
-                id="outlined-basic"
-                label="Type"
-                variant="outlined"
-                disabled
-                fontWeight={"700"}
-              />
-
-              <TextField
-                id="filled-basic"
-                label="Price"
-                variant="outlined"
-                required
-              />
-            </Stack>
-            <Stack mt={5} ml={17} mb={5} direction="row" spacing={4}>
-              <Grid item xs={6}>
-                <Button
-                  variant="contained"
-                  color="error"
-                  onClick={handleCloseModalNail}
-                >
-                  Close{" "}
-                </Button>
-              </Grid>
-              <Grid item xs={6}>
-                <Button
-                  variant="contained"
-                  color="success"
-                  onClick={handleCloseModalNail}
-                >
-                  Update
-                </Button>
-              </Grid>{" "}
-            </Stack>
-          </div>
-        </Fade>
-      </Dialog>
+      {/* Body Section*/}
       {/* Modal for updating Body section Pricess   Price */}
       <Dialog
         open={showWaxingModal}
@@ -1090,10 +721,8 @@ const deleteData =async(saloonIdParam)=>{
           timeout: 500,
         }}
         sx={{
-          marginLeft: "auto",
-          marginRight: "auto",
-          maxWidth: "550px",
-          maxHeight: "550px",
+          px: 4,
+          margin: " 0 auto",
         }}
       >
         <Fade in={showWaxingModal}>
@@ -1107,120 +736,75 @@ const deleteData =async(saloonIdParam)=>{
             >
               Update Waxing Pricess
             </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 3 }}>
+            <Typography id="transition-modal-description" sx={{ mt: 5 }}>
               {/* Modal content */}
             </Typography>
-            <Stack direction="row" spacing={3}>
-              <TextField
-                id="outlined-basic"
-                label="Type"
-                variant="outlined"
-                disabled
-                fontWeight={"700"}
-              />
+            <Stack direction="row" spacing={1}>
+              <Select
+                value={inputType}
+                //onChange={handleTypeChange}
+                fullWidth
+                input={<OutlinedInput label="Type" />}
+              >
+                {typeOptions.map((option) => (
+                  <MenuItem key={option} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </Select>
 
               <TextField
                 id="filled-basic"
                 label="Price"
                 variant="outlined"
+                value={inputPrice}
+                //onChange={handlePriceChange}
                 required
+                fullWidth
               />
             </Stack>
-            <Stack mt={5} ml={17} mb={5} direction="row" spacing={4}>
-              <Grid item xs={6}>
-                <Button
-                  variant="contained"
-                  color="error"
-                  onClick={handleCloseModalBody}
-                >
-                  Close{" "}
-                </Button>
-              </Grid>
-              <Grid item xs={6}>
-                <Button
-                  variant="contained"
-                  color="success"
-                  onClick={handleCloseModalBody}
-                >
-                  Update
-                </Button>
-              </Grid>{" "}
-            </Stack>
-          </div>
-        </Fade>
-      </Dialog>
-      {/* Modal for updating Body section Pricess   Price */}
-      <Dialog
-        open={showDetainingModal}
-        onClose={handleCloseModalBody}
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-        sx={{
-          marginLeft: "auto",
-          marginRight: "auto",
-          maxWidth: "550px",
-          maxHeight: "550px",
-        }}
-      >
-        <Fade in={showDetainingModal}>
-          <div>
-            <Typography
-              align="center"
-              fontWeight={"700"}
-              id="transition-modal-title"
-              variant="h6"
-              component="h2"
+            <Stack
+              mt={10}
+              ml={10}
+              mb={5}
+              direction="row"
+              sx={{ mr: 10 }}
+              spacing={5}
             >
-              Update De-Tanning Pricess
-            </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 3 }}>
-              {/* Modal content */}
-            </Typography>
-            <Stack direction="row" spacing={3}>
-              <TextField
-                id="outlined-basic"
-                label="Type"
-                variant="outlined"
-                disabled
-                fontWeight={"700"}
-              />
-
-              <TextField
-                id="filled-basic"
-                label="Price"
-                variant="outlined"
-                required
-              />
-            </Stack>
-            <Stack mt={5} ml={17} mb={5} direction="row" spacing={4}>
-              <Grid item xs={6}>
-                <Button
-                  variant="contained"
-                  color="error"
-                  onClick={handleCloseModalBody}
-                >
-                  Close{" "}
+              <Grid item xs={3}>
+                <Button variant="contained" color="primary">
+                  Add
                 </Button>
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={3}>
+                <Button variant="contained" color="error">
+                  Delete
+                </Button>
+              </Grid>
+              <Grid item xs={3}>
                 <Button
                   variant="contained"
                   color="success"
-                  onClick={handleCloseModalBody}
+                  //onClick={"overWriteHair"}
                 >
                   Update
                 </Button>
-              </Grid>{" "}
+              </Grid>
+              <Grid item xs={3}>
+                <Button
+                  variant="contained"
+                  color="warning"
+                  onClick={handleCloseModal}
+                >
+                  Close
+                </Button>
+              </Grid>
             </Stack>
           </div>
         </Fade>
       </Dialog>
 
+      {/*Nail Section*/}
       {/* Modal for updating Bridal  section Pricess   Price */}
       <Dialog
         open={showDressingModal}
@@ -1233,10 +817,8 @@ const deleteData =async(saloonIdParam)=>{
           timeout: 500,
         }}
         sx={{
-          marginLeft: "auto",
-          marginRight: "auto",
-          maxWidth: "550px",
-          maxHeight: "550px",
+          px: 4,
+          margin: " 0 auto",
         }}
       >
         <Fade in={showDressingModal}>
@@ -1254,56 +836,93 @@ const deleteData =async(saloonIdParam)=>{
               {/* Modal content */}
             </Typography>
             <Stack direction="row" spacing={3}>
-              <TextField
-                id="outlined-basic"
-                label="Type"
-                variant="outlined"
-                disabled
-                fontWeight={"700"}
-              />
+              <Select
+                value={inputType}
+                //onChange={handleTypeChange}
+                fullWidth
+                input={<OutlinedInput label="Type" />}
+              >
+                {typeOptions.map((option) => (
+                  <MenuItem key={option} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </Select>
 
               <TextField
                 id="filled-basic"
                 label="Price"
                 variant="outlined"
+                value={inputPrice}
+                onChange={handlePriceChange}
                 required
+                fullWidth
               />
             </Stack>
-            <Stack mt={5} ml={17} mb={5} direction="row" spacing={4}>
-              <Grid item xs={6}>
+            <Stack
+              mt={10}
+              ml={10}
+              mb={5}
+              direction="row"
+              sx={{ mr: 10 }}
+              spacing={5}
+            >
+              <Grid item xs={3}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  //onClick={deleteHair}
+                >
+                  Add
+                </Button>
+              </Grid>
+              <Grid item xs={3}>
                 <Button
                   variant="contained"
                   color="error"
-                  onClick={handleCloseModalBridal}
+                  //onClick={deleteHair}
                 >
-                  Close{" "}
+                  Delete
                 </Button>
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={3}>
                 <Button
                   variant="contained"
                   color="success"
-                  onClick={handleCloseModalBridal}
+                  //onClick={overWriteHair}
                 >
                   Update
                 </Button>
-              </Grid>{" "}
+              </Grid>
+              <Grid item xs={3}>
+                <Button
+                  variant="contained"
+                  color="warning"
+                  onClick={handleCloseModal}
+                >
+                  Close
+                </Button>
+              </Grid>
             </Stack>
           </div>
         </Fade>
       </Dialog>
       <Toaster
-              toastOptions={{
-                duration: 5000,
-                className: "",
-                style: {
-                  color: "#713200",
-                },
-              }}
-              position="top-right"
-            />
+        toastOptions={{
+          duration: 5000,
+          className: "",
+          style: {
+            color: "#713200",
+          },
+        }}
+        position="top-right"
+      />
     </>
   );
 };
 
 export default PriceUpdate;
+
+
+
+
