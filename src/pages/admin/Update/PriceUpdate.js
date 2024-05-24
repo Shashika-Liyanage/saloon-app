@@ -25,7 +25,9 @@ import {
   remove,
   update,
   push,
+  add,
   set,
+  child,
 } from "firebase/database";
 import { useParams } from "react-router-dom";
 import app from "../../../services/firebaseConfig";
@@ -35,6 +37,7 @@ const PriceUpdate = () => {
   const [inputType, setInputType] = useState("");
   const [inputPrice, setInputPrice] = useState("");
   const { firebaseId } = useParams();
+
   const [typeOptions, setTypeOptions] = useState([]);
   const [priceOptions, setPriceOptions] = useState([]);
   const [isCheckboxDisabled, setIsCheckboxDisabled] = useState(true);
@@ -53,109 +56,102 @@ const PriceUpdate = () => {
   const handlePriceChangeForAdd = (e) => {
     setInputPriceForAdd(e.target.value);
   };
-  //this is working
-  const saveData = async () => {
-    const db = getDatabase(app);
-    const newPostRef = push(ref(db, "createprice/haircut"));
-    set(newPostRef, {
-      type: inputTypeForAdd,
-      price: inputPriceForAdd,
-    })
-      .then(() => {
-        toast.success("New Price List Added Succesfully");
-      })
-      .catch((error) => {
-        toast.error("Data has not created ");
-      });
-  };
 
   useEffect(() => {
-    const fetchDataForHair = async () => {
-      try {
-        const db = getDatabase();
+    fetchData();
+  }, []);
 
-        // Fetch data for input fields
-        const inputRef = ref(db, "createprice/haircut");
-        const inputSnapshot = await get(inputRef);
-
-        if (inputSnapshot.exists()) {
-          const inputData = inputSnapshot.val();
-          const { type, price } = inputData;
-
-          setInputType(type);
-          setInputPrice(price);
-          handleTypeChange({ target: { value: type } });
-        } else {
-          console.error("No Data Available");
-        }
-
-        // Fetch data for options in Select field and Price field
-        const optionsRef = ref(db, "createprice/haircut");
-        const optionsSnapshot = await get(optionsRef);
-
-        if (optionsSnapshot.exists()) {
-          const optionsData = optionsSnapshot.val();
-
-          const typeOptions = Object.values(optionsData).map(
-            (option) => option.type
-          );
-          setTypeOptions(typeOptions);
-
-          const priceOptions = Object.values(optionsData).map(
-            (option) => option.price
-          );
-          setPriceOptions(priceOptions);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchDataForHair();
-  }, [firebaseId]);
-
-  //Delete section for hari
-  //  const delHair = async (firebaseId) => {
-  //   const db = getDatabase();
-  //   const dbRef = ref(db, `createprice/haircut/${firebaseId}`);
-  //   await remove(dbRef);
-  //   //window.location.reload();
-  // };
-
-  const delHair = async (firebaseId) => {
+  // Fetch data from the database
+  const fetchData = async () => {
     try {
       const db = getDatabase();
-      const dbRef = ref(db, "createprice/haircut/");
-      await remove(dbRef);
-      toast.success("Data Deleted Successfully");
-    } catch (error) {
-      console.error("Error deleting data:", error);
-      toast.error("Failed to delete data");
-    }
-  };
+      const snapshot = await get(ref(db, "createprice/haircut"));
 
-  //overwrite data (update) use for hair section
-
-  const UpdateHair = async (firebaseId) => {
-    try {
-      const db = getDatabase(app);
-      const dbRef = ref(db, "createprice/haircut"+firebaseId);
-
-      const snapshot = await get(dbRef);
       if (snapshot.exists()) {
-        await update(dbRef, {
-          type: inputType,
-          price: inputPrice,
-        });
-        toast.success("Price Updated Successfully");
+        const data = snapshot.val();
+        setTypeOptions(Object.keys(data).map((key) => data[key].type));
+        setPriceOptions(Object.keys(data).map((key) => data[key].price));
       } else {
-        toast.error("Record not found");
+        console.error("No data available");
       }
     } catch (error) {
-      toast.error("Failed to update price");
-      console.error("Error updating price:", error);
+      console.error("Error fetching data:", error);
     }
   };
+
+  // Add new record to the database
+  const addRecord = async () => {
+    const db = getDatabase();
+    const recordsRef = ref(db, "createprice/haircut/");
+
+    try {
+      const newRecordRef = push(recordsRef); // Generate unique key
+      await set(newRecordRef, {
+        type: inputTypeForAdd,
+        price: inputPriceForAdd,
+      }); // Set type and price fields
+      toast.success("New record added successfully");
+    } catch (error) {
+      console.error("Error adding record:", error);
+      toast.error("Failed to add record");
+    }
+  };
+
+  const updateRecord = async (firebaseId) => {
+    try {
+      console.log("Firebase ID:", firebaseId);
+      console.log("Input Type:", inputType);
+      console.log("Input Price:", inputPrice);
+
+      const db = getDatabase();
+      const recordRef = ref(db, `createprice/haircut/${firebaseId}`);
+
+      // Check if firebaseId is null or undefined
+      if (!firebaseId) {
+        throw new Error("Invalid firebaseId");
+      }
+
+      // Check if inputType and inputPrice are not empty or null
+      if (!inputType || !inputPrice) {
+        throw new Error("Invalid inputType or inputPrice");
+      }
+
+      // Update the record in the database
+      await set(recordRef, { type: inputType, price: inputPrice });
+      toast.success("Record updated successfully");
+      fetchData(); // Refresh data
+    } catch (error) {
+      console.error("Error updating record:", error);
+      toast.error("Failed to update record");
+    }
+  };
+
+  // Remove record from the database
+
+  const deleteRecord = async (firebaseId) => {
+    try {
+      console.log("Attempting to delete record with Firebase ID:", firebaseId);
+  
+      const db = getDatabase();
+      const recordRef = ref(db, `createprice/haircut/${firebaseId}`);
+  
+      // Check if firebaseId is null or undefined
+      if (!firebaseId) {
+        throw new Error("Invalid firebaseId");
+      }
+  
+      // Delete the record from the database
+      await remove(recordRef);
+      console.log("Record deleted successfully");
+      toast.success("Record deleted successfully");
+      fetchData(); // Refresh data
+    } catch (error) {
+      console.error("Error deleting record:", error);
+      toast.error("Failed to delete record");
+    }
+  };
+  
+  
   const handleTypeChange = (e) => {
     setInputType(e.target.value);
     const selectedIndex = typeOptions.indexOf(e.target.value);
@@ -167,278 +163,6 @@ const PriceUpdate = () => {
   const handlePriceChange = (e) => {
     setInputPrice(e.target.value);
   };
-
-  //   const db = getDatabase();
-  //   const dbRef = ref(db, "DeletePrice/haircut/" + saloonIdParam);
-  //   await remove(dbRef);
-  //   window.location.reload();
-  // };
-
-  // //skin Price-----------
-  // useEffect(() => {
-  //   //fetch data use for hair section
-  //   const fetchData = async () => {
-  //     const db = getDatabase();
-  //     const dbRef = ref(db, "createprice/SkinPrice/" + saloonIdParam);
-  //     const snapshot = await get(dbRef);
-
-  //     if (snapshot.exists()) {
-  //       const targetObject = snapshot.val();
-  //       setInputType(targetObject.type);
-  //       setInputPrice(targetObject.price);
-  //     } else {
-  //       console.error("No Data Available ");
-  //     }
-
-  //     // Fetch data for options in Select field
-  //     const optionsRef = ref(db, "createprice/SkinPrice"); // Change this to the appropriate ref
-  //     const optionsSnapshot = await get(optionsRef);
-  //     if (optionsSnapshot.exists()) {
-  //       const optionsData = optionsSnapshot.val();
-  //       const optionsArray = Object.values(optionsData).map(
-  //         (option) => option.type
-  //       );
-  //       setTypeOptions(optionsArray);
-  //     }
-  //     // Fetch data for options in Price field
-  //     const optionsReftwo = ref(db, "createPrice/SkinPrice");
-  //     const optiontwoSnapshot = await get(optionsReftwo);
-  //     if (optiontwoSnapshot.exists()) {
-  //       const optionsDatatwo = optiontwoSnapshot.val();
-  //       const optionArrayTwo = Object.values(optionsDatatwo).map(
-  //         (option) => option.price
-  //       );
-  //       setPriceOptions(optionArrayTwo);
-  //     }
-  //   };
-  //   fetchData();
-  // }, [saloonIdParam]);
-  // //overwrite data (update) use for hair section
-  // const overWriteSkin = async () => {
-  //   try {
-  //     const db = getDatabase(app);
-  //     const dbRef = ref(db, `UpdatePrice/SkinPrice/${saloonIdParam}`);
-
-  //     const snapshot = await get(dbRef);
-  //     if (snapshot.exists()) {
-  //       await update(dbRef, {
-  //         type: inputType,
-  //         price: inputPrice,
-  //       });
-  //       toast.success("Price Updated Successfully");
-  //     } else {
-  //       toast.error("Record not found");
-  //     }
-  //   } catch (error) {
-  //     toast.error("Failed to update price");
-  //     console.error("Error updating price:", error);
-  //   }
-  // };
-
-  // //Nail Price-------------------
-  // useEffect(() => {
-  //   //fetch data use for hair section
-  //   const fetchData = async () => {
-  //     const db = getDatabase();
-  //     const dbRef = ref(db, "createprice/nailPrice/" + saloonIdParam);
-  //     const snapshot = await get(dbRef);
-
-  //     if (snapshot.exists()) {
-  //       const targetObject = snapshot.val();
-  //       setInputType(targetObject.type);
-  //       setInputPrice(targetObject.price);
-  //     } else {
-  //       console.error("No Data Available ");
-  //     }
-
-  //     // Fetch data for options in Select field
-  //     const optionsRef = ref(db, "createprice/nailPrice"); // Change this to the appropriate ref
-  //     const optionsSnapshot = await get(optionsRef);
-  //     if (optionsSnapshot.exists()) {
-  //       const optionsData = optionsSnapshot.val();
-  //       const optionsArray = Object.values(optionsData).map(
-  //         (option) => option.type
-  //       );
-  //       setTypeOptions(optionsArray);
-  //     }
-  //     // Fetch data for options in Price field
-  //     const optionsReftwo = ref(db, "createPrice/nailPrice");
-  //     const optiontwoSnapshot = await get(optionsReftwo);
-  //     if (optiontwoSnapshot.exists()) {
-  //       const optionsDatatwo = optiontwoSnapshot.val();
-  //       const optionArrayTwo = Object.values(optionsDatatwo).map(
-  //         (option) => option.price
-  //       );
-  //       setPriceOptions(optionArrayTwo);
-  //     }
-  //   };
-  //   fetchData();
-  // }, [saloonIdParam]);
-
-  // //overwrite data (update) use for hair section
-  // const overWriteNail = async () => {
-  //   try {
-  //     const db = getDatabase(app);
-  //     const dbRef = ref(db, `UpdatePrice/nailPrice/${saloonIdParam}`);
-
-  //     const snapshot = await get(dbRef);
-  //     if (snapshot.exists()) {
-  //       await update(dbRef, {
-  //         type: inputType,
-  //         price: inputPrice,
-  //       });
-  //       toast.success("Price Updated Successfully");
-  //     } else {
-  //       toast.error("Record not found");
-  //     }
-  //   } catch (error) {
-  //     toast.error("Failed to update price");
-  //     console.error("Error updating price:", error);
-  //   }
-  // };
-
-  // const deleteNail = async () => {
-  //   const db = getDatabase();
-  //   const dbRef = ref(db, "DeletePrice/nailPrice/" + saloonIdParam);
-  //   await remove(dbRef);
-  //   window.location.reload();
-  // };
-
-  // //Body Price-----------
-  // useEffect(() => {
-  //   //fetch data use for hair section
-  //   const fetchData = async () => {
-  //     const db = getDatabase();
-  //     const dbRef = ref(db, "createprice/BodyPrice/" + saloonIdParam);
-  //     const snapshot = await get(dbRef);
-
-  //     if (snapshot.exists()) {
-  //       const targetObject = snapshot.val();
-  //       setInputType(targetObject.type);
-  //       setInputPrice(targetObject.price);
-  //     } else {
-  //       console.error("No Data Available ");
-  //     }
-
-  //     // Fetch data for options in Select field
-  //     const optionsRef = ref(db, "createprice/BodyPrice"); // Change this to the appropriate ref
-  //     const optionsSnapshot = await get(optionsRef);
-  //     if (optionsSnapshot.exists()) {
-  //       const optionsData = optionsSnapshot.val();
-  //       const optionsArray = Object.values(optionsData).map(
-  //         (option) => option.type
-  //       );
-  //       setTypeOptions(optionsArray);
-  //     }
-  //     // Fetch data for options in Price field
-  //     const optionsReftwo = ref(db, "createPrice/BodyPrice");
-  //     const optiontwoSnapshot = await get(optionsReftwo);
-  //     if (optiontwoSnapshot.exists()) {
-  //       const optionsDatatwo = optiontwoSnapshot.val();
-  //       const optionArrayTwo = Object.values(optionsDatatwo).map(
-  //         (option) => option.price
-  //       );
-  //       setPriceOptions(optionArrayTwo);
-  //     }
-  //   };
-  //   fetchData();
-  // }, [saloonIdParam]);
-  // //overwrite data (update) use for hair section
-  // const overWriteBody = async () => {
-  //   try {
-  //     const db = getDatabase(app);
-  //     const dbRef = ref(db, `UpdatePrice/BodyPrice/${saloonIdParam}`);
-
-  //     const snapshot = await get(dbRef);
-  //     if (snapshot.exists()) {
-  //       await update(dbRef, {
-  //         type: inputType,
-  //         price: inputPrice,
-  //       });
-  //       toast.success("Price Updated Successfully");
-  //     } else {
-  //       toast.error("Record not found");
-  //     }
-  //   } catch (error) {
-  //     toast.error("Failed to update price");
-  //     console.error("Error updating price:", error);
-  //   }
-  // };
-
-  // const deleteBody = async () => {
-  //   const db = getDatabase();
-  //   const dbRef = ref(db, "DeletePrice/BodyPrice/" + saloonIdParam);
-  //   await remove(dbRef);
-  //   window.location.reload();
-  // };
-
-  // //Bridal Price-----------
-  // useEffect(() => {
-  //   //fetch data use for hair section
-  //   const fetchData = async () => {
-  //     const db = getDatabase();
-  //     const dbRef = ref(db, "createprice/BridalPrices/" + saloonIdParam);
-  //     const snapshot = await get(dbRef);
-
-  //     if (snapshot.exists()) {
-  //       const targetObject = snapshot.val();
-  //       setInputType(targetObject.type);
-  //       setInputPrice(targetObject.price);
-  //     } else {
-  //       console.error("No Data Available ");
-  //     }
-
-  //     // Fetch data for options in Select field
-  //     const optionsRef = ref(db, "createprice/BridalPrices"); // Change this to the appropriate ref
-  //     const optionsSnapshot = await get(optionsRef);
-  //     if (optionsSnapshot.exists()) {
-  //       const optionsData = optionsSnapshot.val();
-  //       const optionsArray = Object.values(optionsData).map(
-  //         (option) => option.type
-  //       );
-  //       setTypeOptions(optionsArray);
-  //     }
-  //     // Fetch data for options in Price field
-  //     const optionsReftwo = ref(db, "createPrice/BridalPrices");
-  //     const optiontwoSnapshot = await get(optionsReftwo);
-  //     if (optiontwoSnapshot.exists()) {
-  //       const optionsDatatwo = optiontwoSnapshot.val();
-  //       const optionArrayTwo = Object.values(optionsDatatwo).map(
-  //         (option) => option.price
-  //       );
-  //       setPriceOptions(optionArrayTwo);
-  //     }
-  //   };
-  //   fetchData();
-  // }, [saloonIdParam]);
-  // //overwrite data (update) use for hair section
-  // const overWriteBridal = async () => {
-  //   try {
-  //     const db = getDatabase(app);
-  //     const dbRef = ref(db, `UpdatePrice/BridalPrices/${saloonIdParam}`);
-
-  //     const snapshot = await get(dbRef);
-  //     if (snapshot.exists()) {
-  //       await update(dbRef, {
-  //         type: inputType,
-  //         price: inputPrice,
-  //       });
-  //       toast.success("Price Updated Successfully");
-  //     } else {
-  //       toast.error("Record not found");
-  //     }
-  //   } catch (error) {
-  //     toast.error("Failed to update price");
-  //     console.error("Error updating price:", error);
-  //   }
-  // };
-
-  // const deleteBridal = async () => {
-  //   const db = getDatabase();
-  //   const dbRef = ref(db, "DeletePrice/BridalPrices/" + saloonIdParam);
-  //   await remove(dbRef);
-  //   window.location.reload();
-  // };
 
   //For the hair section
   const [showHaircutModal, setShowHaircutModal] = useState(false);
@@ -741,7 +465,7 @@ const PriceUpdate = () => {
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={saveData}
+                  onClick={addRecord}
                   disabled={isCheckboxDisabled}
                 >
                   Add
@@ -751,13 +475,17 @@ const PriceUpdate = () => {
                 <Button
                   variant="contained"
                   color="error"
-                  onClick={()=>delHair()}
+                  onClick={() => deleteRecord(firebaseId)}
                 >
                   Delete
                 </Button>
               </Grid>
               <Grid item xs={3}>
-                <Button variant="contained" color="success" onClick={()=>UpdateHair()}>
+                <Button
+                  variant="contained"
+                  color="success"
+                  onClick={() => updateRecord(firebaseId)}
+                >
                   Update
                 </Button>
               </Grid>
@@ -1194,3 +922,7 @@ const PriceUpdate = () => {
 };
 
 export default PriceUpdate;
+
+
+
+
