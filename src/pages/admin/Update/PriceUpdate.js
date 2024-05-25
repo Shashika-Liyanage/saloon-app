@@ -131,15 +131,15 @@ const PriceUpdate = () => {
   const deleteRecord = async (firebaseId) => {
     try {
       console.log("Attempting to delete record with Firebase ID:", firebaseId);
-  
+
       const db = getDatabase();
       const recordRef = ref(db, `createprice/haircut/${firebaseId}`);
-  
+
       // Check if firebaseId is null or undefined
       if (!firebaseId) {
         throw new Error("Invalid firebaseId");
       }
-  
+
       // Delete the record from the database
       await remove(recordRef);
       console.log("Record deleted successfully");
@@ -150,8 +150,7 @@ const PriceUpdate = () => {
       toast.error("Failed to delete record");
     }
   };
-  
-  
+
   const handleTypeChange = (e) => {
     setInputType(e.target.value);
     const selectedIndex = typeOptions.indexOf(e.target.value);
@@ -220,7 +219,7 @@ const PriceUpdate = () => {
     setShowHaircutModal(true);
   };
   // Function to close the modal in Hair section
-  const handleCloseModal = () => {
+  const handleCloseModalHair = () => {
     setShowHaircutModal(false);
   };
 
@@ -238,7 +237,7 @@ const PriceUpdate = () => {
     <>
       <Box>
         <Typography fontWeight={"700"} align="center" variant="h6">
-          Add /Update/Delete Table Data
+          Add /Update/Delete Data
         </Typography>
         <Grid
           container
@@ -354,12 +353,14 @@ const PriceUpdate = () => {
               sx={{ justifyContent: "center" }}
               direction="row"
               spacing={2}
+             
             >
               <Grid item xs={4}>
                 <Button
                   sx={{ textAlign: "center" }}
                   onClick={handlebridalButtonClick}
                   variant="contained"
+                  disabled
                 >
                   Testing Section{" "}
                 </Button>
@@ -372,7 +373,7 @@ const PriceUpdate = () => {
 
       <Dialog
         open={showHaircutModal}
-        onClose={handleCloseModal}
+        onClose={handleCloseModalHair}
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         closeAfterTransition
@@ -493,7 +494,7 @@ const PriceUpdate = () => {
                 <Button
                   variant="contained"
                   color="warning"
-                  //onClick={handleCloseModal}
+                  onClick={handleCloseModalHair}
                 >
                   Close
                 </Button>
@@ -534,10 +535,10 @@ const PriceUpdate = () => {
             <Typography id="transition-modal-description" sx={{ mt: 5 }}>
               {/* Modal content */}
             </Typography>
-            <Stack direction="row" spacing={3}>
+            <Stack direction="row" spacing={4}>
               <Select
                 value={inputType}
-                //onChange={handleTypeChange}
+                onChange={handleTypeChange}
                 fullWidth
                 input={<OutlinedInput label="Type" />}
               >
@@ -552,12 +553,44 @@ const PriceUpdate = () => {
                 id="filled-basic"
                 label="Price"
                 variant="outlined"
-                //value={inputPrice}
-                //onChange={handlePriceChange}
+                value={inputPrice}
+                onChange={handlePriceChange}
                 required
                 fullWidth
               />
             </Stack>
+            <Divider sx={{ mt: 3 }}></Divider>
+            <FormControlLabel
+              control={<Checkbox defaultChecked />}
+              checked={!isCheckboxDisabled}
+              onChange={handleCheckBoxChange}
+              label="Add New Price "
+            />
+            <Stack direction="row" spacing={2}>
+              <TextField
+                id="filled-basic"
+                labelPlacement="start"
+                label="Add Type "
+                disabled={isCheckboxDisabled}
+                variant="outlined"
+                value={inputTypeForAdd}
+                onChange={handleTypeChangeForAdd}
+                required
+                fullWidth
+              />
+              <TextField
+                id="filled-basic"
+                label="Add  Price"
+                disabled={isCheckboxDisabled}
+                variant="outlined"
+                value={inputPriceForAdd}
+                onChange={handlePriceChangeForAdd}
+                required
+                fullWidth
+              />
+            </Stack>
+            <Divider sx={{ mt: 10 }}></Divider>
+
             <Stack
               mt={10}
               ml={10}
@@ -570,7 +603,8 @@ const PriceUpdate = () => {
                 <Button
                   variant="contained"
                   color="primary"
-                  //onClick={saveData}
+                  onClick={addRecord}
+                  disabled={isCheckboxDisabled}
                 >
                   Add
                 </Button>
@@ -597,7 +631,7 @@ const PriceUpdate = () => {
                 <Button
                   variant="contained"
                   color="warning"
-                  //onClick={handleCloseModal}
+                  onClick={handleCloseModalSkin}
                 >
                   Close
                 </Button>
@@ -638,11 +672,11 @@ const PriceUpdate = () => {
             <Typography id="transition-modal-description" sx={{ mt: 5 }}>
               {/* Modal content */}
             </Typography>
-            <Stack direction="row" spacing={1}>
+            <Stack direction="row" spacing={4}>
               {/* Select for type */}
               <Select
                 value={inputType}
-                //onChange={handleTypeChange}
+                onChange={handleTypeChange}
                 fullWidth
                 input={<OutlinedInput label="Type" />}
               >
@@ -657,12 +691,44 @@ const PriceUpdate = () => {
                 id="filled-basic"
                 label="Price"
                 variant="outlined"
-                //value={inputPrice}
-                //onChange={handlePriceChange}
+                value={inputPrice}
+                onChange={handlePriceChange}
                 required
                 fullWidth
               />
             </Stack>
+            <Divider sx={{ mt: 3 }}></Divider>
+            <FormControlLabel
+              control={<Checkbox defaultChecked />}
+              checked={!isCheckboxDisabled}
+              onChange={handleCheckBoxChange}
+              label="Add New Price "
+            />
+            <Stack direction="row" spacing={2}>
+              <TextField
+                id="filled-basic"
+                labelPlacement="start"
+                label="Add Type "
+                disabled={isCheckboxDisabled}
+                variant="outlined"
+                value={inputTypeForAdd}
+                onChange={handleTypeChangeForAdd}
+                required
+                fullWidth
+              />
+              <TextField
+                id="filled-basic"
+                label="Add  Price"
+                disabled={isCheckboxDisabled}
+                variant="outlined"
+                value={inputPriceForAdd}
+                onChange={handlePriceChangeForAdd}
+                required
+                fullWidth
+              />
+            </Stack>
+            <Divider sx={{ mt: 10 }}></Divider>
+
             <Stack
               mt={10}
               ml={10}
@@ -675,7 +741,8 @@ const PriceUpdate = () => {
                 <Button
                   variant="contained"
                   color="primary"
-                  //onClick={deleteHair}
+                  onClick={addRecord}
+                  disabled={isCheckboxDisabled}
                 >
                   Add
                 </Button>
@@ -698,7 +765,7 @@ const PriceUpdate = () => {
                 <Button
                   variant="contained"
                   color="warning"
-                  //onClick={handleCloseModal}
+                  onClick={handleCloseModalNail}
                 >
                   Close
                 </Button>
@@ -734,7 +801,7 @@ const PriceUpdate = () => {
               variant="h6"
               component="h2"
             >
-              Update Waxing Pricess
+              Waxing Pricess
             </Typography>
             <Typography id="transition-modal-description" sx={{ mt: 5 }}>
               {/* Modal content */}
@@ -742,7 +809,7 @@ const PriceUpdate = () => {
             <Stack direction="row" spacing={1}>
               <Select
                 value={inputType}
-                //onChange={handleTypeChange}
+                nChange={handleTypeChange}
                 fullWidth
                 input={<OutlinedInput label="Type" />}
               >
@@ -758,11 +825,43 @@ const PriceUpdate = () => {
                 label="Price"
                 variant="outlined"
                 value={inputPrice}
-                //onChange={handlePriceChange}
+                onChange={handlePriceChange}
                 required
                 fullWidth
               />
             </Stack>
+            <Divider sx={{ mt: 3 }}></Divider>
+            <FormControlLabel
+              control={<Checkbox defaultChecked />}
+              checked={!isCheckboxDisabled}
+              onChange={handleCheckBoxChange}
+              label="Add New Price "
+            />
+            <Stack direction="row" spacing={2}>
+              <TextField
+                id="filled-basic"
+                labelPlacement="start"
+                label="Add Type "
+                disabled={isCheckboxDisabled}
+                variant="outlined"
+                value={inputTypeForAdd}
+                onChange={handleTypeChangeForAdd}
+                required
+                fullWidth
+              />
+              <TextField
+                id="filled-basic"
+                label="Add  Price"
+                disabled={isCheckboxDisabled}
+                variant="outlined"
+                value={inputPriceForAdd}
+                onChange={handlePriceChangeForAdd}
+                required
+                fullWidth
+              />
+            </Stack>
+            <Divider sx={{ mt: 10 }}></Divider>
+
             <Stack
               mt={10}
               ml={10}
@@ -772,7 +871,7 @@ const PriceUpdate = () => {
               spacing={5}
             >
               <Grid item xs={3}>
-                <Button variant="contained" color="primary">
+                <Button variant="contained" color="primary" onClick={addRecord} disabled={isCheckboxDisabled}>
                   Add
                 </Button>
               </Grid>
@@ -794,7 +893,7 @@ const PriceUpdate = () => {
                 <Button
                   variant="contained"
                   color="warning"
-                  onClick={handleCloseModal}
+                  onClick={handleCloseModalBody}
                 >
                   Close
                 </Button>
@@ -804,7 +903,7 @@ const PriceUpdate = () => {
         </Fade>
       </Dialog>
 
-      {/*Nail Section*/}
+      {/*Bridal Section*/}
       {/* Modal for updating Bridal  section Pricess   Price */}
       <Dialog
         open={showDressingModal}
@@ -830,7 +929,7 @@ const PriceUpdate = () => {
               variant="h6"
               component="h2"
             >
-              Update Dressing Pricess
+              Dressing Pricess
             </Typography>
             <Typography id="transition-modal-description" sx={{ mt: 3 }}>
               {/* Modal content */}
@@ -859,6 +958,38 @@ const PriceUpdate = () => {
                 fullWidth
               />
             </Stack>
+            <Divider sx={{ mt: 3 }}></Divider>
+            <FormControlLabel
+              control={<Checkbox defaultChecked />}
+              checked={!isCheckboxDisabled}
+              onChange={handleCheckBoxChange}
+              label="Add New Price "
+            />
+            <Stack direction="row" spacing={2}>
+              <TextField
+                id="filled-basic"
+                labelPlacement="start"
+                label="Add Type "
+                disabled={isCheckboxDisabled}
+                variant="outlined"
+                value={inputTypeForAdd}
+                onChange={handleTypeChangeForAdd}
+                required
+                fullWidth
+              />
+              <TextField
+                id="filled-basic"
+                label="Add  Price"
+                disabled={isCheckboxDisabled}
+                variant="outlined"
+                value={inputPriceForAdd}
+                onChange={handlePriceChangeForAdd}
+                required
+                fullWidth
+              />
+            </Stack>
+            <Divider sx={{ mt: 10 }}></Divider>
+
             <Stack
               mt={10}
               ml={10}
@@ -871,7 +1002,9 @@ const PriceUpdate = () => {
                 <Button
                   variant="contained"
                   color="primary"
-                  //onClick={deleteHair}
+                  onClick={addRecord}
+                  disabled={isCheckboxDisabled}
+
                 >
                   Add
                 </Button>
@@ -898,7 +1031,7 @@ const PriceUpdate = () => {
                 <Button
                   variant="contained"
                   color="warning"
-                  onClick={handleCloseModal}
+                  onClick={handleCloseModalBridal}
                 >
                   Close
                 </Button>
@@ -922,7 +1055,3 @@ const PriceUpdate = () => {
 };
 
 export default PriceUpdate;
-
-
-
-
