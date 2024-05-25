@@ -45,6 +45,7 @@ function App() {
         <BrowserRouter>
           <Layout />
           <Routes>
+            <Route path="/" element={<Layout/>}></Route>
             <Route exact path="/" element={<Dashboard />} />
             <Route path="Login" element={<Login />} />
             <Route path="Dashboard" element={<Dashboard />} />
@@ -53,7 +54,6 @@ function App() {
             <Route path="SignUp" element={<SignUp />} />
             <Route path="HairPrices" element={<HairPrice />} />
             <Route path="SkinPrices" element={<SkinPrice />} />
-            <Route path="Admin" element={<Admin />} />
             <Route path="NailPrices" element={<NailPrice />} />
             <Route path="BodyPrices" element={<Bodyprice />} />
             <Route path="BridalPrices" element={<BridalPrice />} />
@@ -64,6 +64,10 @@ function App() {
             <Route path="OrderSummury" element={<ReviewBooking />} />
             <Route path="NewApoinment" element={<NewApoinment />} />
             <Route path="Apoinments" element={<Appoinment />} />
+          
+            
+
+            <Route path="Admin" element={<Admin />} />
             <Route path="AddAdmin" element={<AddAdmin />} />
             <Route path="Inbox" element={<Inbox />} />
             <Route path="SentMail" element={<SentMail />} />
@@ -74,13 +78,9 @@ function App() {
             <Route path="Alert" element={<AlertDialogSlide />} />
             <Route path="ChatBot" element={<ChatbotLauncher />} />
             <Route path="ChatBotui" element={<Chatbot />} />
-<<<<<<< HEAD
             <Route path="PriceUpdate" element={<PriceUpdate />} />
             <Route path="Sidebar" element={<Sidebar />} />
             <Route path="AdminDash" element={<AdminDash />} />
-=======
-            {/* <Route path="PriceUpdate" element={<PriceUpdate />} /> */}
->>>>>>> f6d77bd5706df25ebac8b871d1424f6ac344cb9d
             <Route path="CreateData" element={<CreateData />} />
             <Route path="UpdateWrite/:firebaseId" element={<PriceUpdate />} />
             <Route path="*" element={<NoPage />} />
