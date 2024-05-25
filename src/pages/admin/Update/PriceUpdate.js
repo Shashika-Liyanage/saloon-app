@@ -451,7 +451,7 @@ const PriceUpdate = () => {
                 id="filled-basic"
                 labelPlacement="start"
                 label="Add Type "
-                disabled={!isCheckboxChecked}
+                //disabled={!isCheckboxChecked}
                 variant="outlined"
                 value={inputTypeForAdd}
                 onChange={handleTypeChangeForAdd}
@@ -461,7 +461,7 @@ const PriceUpdate = () => {
               <TextField
                 id="filled-basic"
                 label="Add  Price"
-                disabled={!isCheckboxChecked}
+                //disabled={!isCheckboxChecked}
                 variant="outlined"
                 value={inputPriceForAdd}
                 onChange={handlePriceChangeForAdd}
@@ -483,7 +483,7 @@ const PriceUpdate = () => {
                   variant="contained"
                   color="primary"
                   onClick={addRecord}
-                  disabled={!isCheckboxChecked}
+                  //disabled={!isCheckboxChecked}
                 >
                   Add
                 </Button>
@@ -578,7 +578,7 @@ const PriceUpdate = () => {
             <Divider sx={{ mt: 3 }}></Divider>
             <FormControlLabel
               control={<Checkbox defaultChecked />}
-              checked={!isCheckboxDisabled}
+              //checked={!isCheckboxDisabled}
               onChange={handleCheckBoxChange}
               label="Add New Price "
             />
@@ -587,7 +587,7 @@ const PriceUpdate = () => {
                 id="filled-basic"
                 labelPlacement="start"
                 label="Add Type "
-                disabled={isCheckboxDisabled}
+                //disabled={isCheckboxDisabled}
                 variant="outlined"
                 value={inputTypeForAdd}
                 onChange={handleTypeChangeForAdd}
@@ -597,7 +597,7 @@ const PriceUpdate = () => {
               <TextField
                 id="filled-basic"
                 label="Add  Price"
-                disabled={isCheckboxDisabled}
+                //disabled={isCheckboxDisabled}
                 variant="outlined"
                 value={inputPriceForAdd}
                 onChange={handlePriceChangeForAdd}
@@ -620,7 +620,7 @@ const PriceUpdate = () => {
                   variant="contained"
                   color="primary"
                   onClick={addRecord}
-                  disabled={isCheckboxDisabled}
+                  //disabled={isCheckboxDisabled}
                 >
                   Add
                 </Button>
@@ -716,7 +716,7 @@ const PriceUpdate = () => {
             <Divider sx={{ mt: 3 }}></Divider>
             <FormControlLabel
               control={<Checkbox defaultChecked />}
-              checked={!isCheckboxDisabled}
+              // checked={!isCheckboxDisabled}
               onChange={handleCheckBoxChange}
               label="Add New Price "
             />
@@ -725,7 +725,7 @@ const PriceUpdate = () => {
                 id="filled-basic"
                 labelPlacement="start"
                 label="Add Type "
-                disabled={isCheckboxDisabled}
+                //disabled={isCheckboxDisabled}
                 variant="outlined"
                 value={inputTypeForAdd}
                 onChange={handleTypeChangeForAdd}
@@ -735,7 +735,7 @@ const PriceUpdate = () => {
               <TextField
                 id="filled-basic"
                 label="Add  Price"
-                disabled={isCheckboxDisabled}
+                //disabled={isCheckboxDisabled}
                 variant="outlined"
                 value={inputPriceForAdd}
                 onChange={handlePriceChangeForAdd}
@@ -758,7 +758,7 @@ const PriceUpdate = () => {
                   variant="contained"
                   color="primary"
                   onClick={addRecord}
-                  disabled={isCheckboxDisabled}
+                  //disabled={isCheckboxDisabled}
                 >
                   Add
                 </Button>
@@ -849,7 +849,7 @@ const PriceUpdate = () => {
             <Divider sx={{ mt: 3 }}></Divider>
             <FormControlLabel
               control={<Checkbox defaultChecked />}
-              checked={!isCheckboxDisabled}
+              // checked={!isCheckboxDisabled}
               onChange={handleCheckBoxChange}
               label="Add New Price "
             />
@@ -858,7 +858,7 @@ const PriceUpdate = () => {
                 id="filled-basic"
                 labelPlacement="start"
                 label="Add Type "
-                disabled={isCheckboxDisabled}
+                //disabled={isCheckboxDisabled}
                 variant="outlined"
                 value={inputTypeForAdd}
                 onChange={handleTypeChangeForAdd}
@@ -868,7 +868,7 @@ const PriceUpdate = () => {
               <TextField
                 id="filled-basic"
                 label="Add  Price"
-                disabled={isCheckboxDisabled}
+                //disabled={isCheckboxDisabled}
                 variant="outlined"
                 value={inputPriceForAdd}
                 onChange={handlePriceChangeForAdd}
@@ -887,7 +887,9 @@ const PriceUpdate = () => {
               spacing={5}
             >
               <Grid item xs={3}>
-                <Button variant="contained" color="primary" onClick={addRecord} disabled={isCheckboxDisabled}>
+                <Button variant="contained" color="primary" onClick={addRecord} 
+                //disabled={isCheckboxDisabled}
+                >
                   Add
                 </Button>
               </Grid>
@@ -977,7 +979,7 @@ const PriceUpdate = () => {
             <Divider sx={{ mt: 3 }}></Divider>
             <FormControlLabel
               control={<Checkbox defaultChecked />}
-              checked={!isCheckboxDisabled}
+              //checked={!isCheckboxDisabled}
               onChange={handleCheckBoxChange}
               label="Add New Price "
             />
@@ -986,7 +988,7 @@ const PriceUpdate = () => {
                 id="filled-basic"
                 labelPlacement="start"
                 label="Add Type "
-                disabled={isCheckboxDisabled}
+                //disabled={isCheckboxDisabled}
                 variant="outlined"
                 value={inputTypeForAdd}
                 onChange={handleTypeChangeForAdd}
@@ -996,7 +998,7 @@ const PriceUpdate = () => {
               <TextField
                 id="filled-basic"
                 label="Add  Price"
-                disabled={isCheckboxDisabled}
+                //disabled={isCheckboxDisabled}
                 variant="outlined"
                 value={inputPriceForAdd}
                 onChange={handlePriceChangeForAdd}
@@ -1019,7 +1021,7 @@ const PriceUpdate = () => {
                   variant="contained"
                   color="primary"
                   onClick={addRecord}
-                  disabled={isCheckboxDisabled}
+                  //disabled={isCheckboxDisabled}
 
                 >
                   Add
