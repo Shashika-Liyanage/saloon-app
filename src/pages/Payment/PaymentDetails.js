@@ -8,12 +8,20 @@ import {
   Typography,
   Box,
   MenuItem,
+  Checkbox,
+  FormGroup,
+  FormControlLabel,
 } from "@mui/material";
 import Image2 from "../../../src/Assets/debitCard.jpg";
 import Image3 from "../../../src/Assets/debitCardBack.jpg";
 import CardLogo from "../../../src/Assets/cardLogos.png";
+import { CheckBox } from "@mui/icons-material";
+import axios from "axios";
 
 const PaymentDetails = ({ bookingData, onFormValid }) => {
+  const [emailSent, setEmailSent] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+
   const [formData, setFormData] = useState({
     name: bookingData?.Name || "",
     phone: bookingData?.Phone || "",
@@ -28,35 +36,32 @@ const PaymentDetails = ({ bookingData, onFormValid }) => {
     cvc: "",
   });
 
-const handleInputChange = (e) => {
-  const { name, value } = e.target;
-  let trimmedValue = value;
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    let trimmedValue = value;
 
-  if (name === "cardNumber") {
-    // For the "Card Number" field, update the value with dashes
-    const formattedValue = value
-      .replace(/\D/g, "") // Remove non-numeric characters
-      .slice(0, 16) // Limit to 16 characters
-      .replace(/(.{4})/g, "$1-") // Add dash after every 4 characters
-      .slice(0, 19); // Limit to 19 characters including dashes
-    trimmedValue = formattedValue;
-  } else {
-    // For other fields, apply the trim() method if the value is a string
-    trimmedValue = typeof value === "string" ? value.trim() : value.toString();
-  }
+    if (name === "cardNumber") {
+      const formattedValue = value
+        .replace(/\D/g, "")
+        .slice(0, 16)
+        .replace(/(.{4})/g, "$1-")
+        .slice(0, 19);
+      trimmedValue = formattedValue;
+    } else {
+      trimmedValue =
+        typeof value === "string" ? value.trim() : value.toString();
+    }
 
-  setFormData((prevData) => ({
-    ...prevData,
-    [name]: trimmedValue,
-  }));
-};
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: trimmedValue,
+    }));
+  };
 
-  
-  
-  
-  
-  
-  
+
+  const handleCloseSnackbar = () => {
+    setSnackbarOpen(false);
+  };
   useEffect(() => {
     const isFormValid = Object.values(formData).every(
       (value) => value.trim() !== ""
@@ -318,8 +323,16 @@ const handleInputChange = (e) => {
                   }}
                 />
               </Box>
+              <FormGroup>
+                <FormControlLabel
+                disabled
+                  control={<Checkbox sx={{fontWeight:"700"}}  defaultChecked />}
+                  label="Receipt will be sent to your provided email address."
+                />
+              </FormGroup>
             </CardContent>
           </Card>
+      
         </Grid>
       </Grid>
     </div>
