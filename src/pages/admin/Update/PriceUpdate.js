@@ -36,16 +36,16 @@ import toast, { Toaster } from "react-hot-toast";
 const PriceUpdate = () => {
   const [inputType, setInputType] = useState("");
   const [inputPrice, setInputPrice] = useState("");
-  const { firebaseId } = useParams();
 
   const [typeOptions, setTypeOptions] = useState([]);
   const [priceOptions, setPriceOptions] = useState([]);
-  const [isCheckboxDisabled, setIsCheckboxDisabled] = useState(true);
+  const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
   const [inputTypeForAdd, setInputTypeForAdd] = useState("");
   const [inputPriceForAdd, setInputPriceForAdd] = useState("");
   const [inputPriceArray, setInputPriceArray] = useState([]);
+
   const handleCheckBoxChange = (event) => {
-    setIsCheckboxDisabled(!event.target.checked);
+    setIsCheckboxChecked(event.target.checked);
   };
   //Hair Price----Add Data
 
@@ -69,8 +69,9 @@ const PriceUpdate = () => {
 
       if (snapshot.exists()) {
         const data = snapshot.val();
-        setTypeOptions(Object.keys(data).map((key) => data[key].type));
-        setPriceOptions(Object.keys(data).map((key) => data[key].price));
+        console.log("Eshan",data);
+        setTypeOptions(Object.keys(data).map((key) => ({key, price: data[key].price, type: data[key].type})));
+        //setPriceOptions(Object.keys(data).map((key) => data[key].price));
       } else {
         console.error("No data available");
       }
@@ -90,6 +91,7 @@ const PriceUpdate = () => {
         type: inputTypeForAdd,
         price: inputPriceForAdd,
       }); // Set type and price fields
+      clearFields();
       toast.success("New record added successfully");
     } catch (error) {
       console.error("Error adding record:", error);
@@ -97,10 +99,14 @@ const PriceUpdate = () => {
     }
   };
 
-  const updateRecord = async (firebaseId) => {
+  const updateRecord = async () => {
     try {
+
+      const firebaseId = inputType
+      const type = typeOptions.find((d) => d?.key === inputType)?.type;
+
       console.log("Firebase ID:", firebaseId);
-      console.log("Input Type:", inputType);
+      console.log("Input Type:", type);
       console.log("Input Price:", inputPrice);
 
       const db = getDatabase();
@@ -117,7 +123,8 @@ const PriceUpdate = () => {
       }
 
       // Update the record in the database
-      await set(recordRef, { type: inputType, price: inputPrice });
+      await set(recordRef, { type: type, price: inputPrice });
+      clearFields();
       toast.success("Record updated successfully");
       fetchData(); // Refresh data
     } catch (error) {
@@ -128,8 +135,11 @@ const PriceUpdate = () => {
 
   // Remove record from the database
 
-  const deleteRecord = async (firebaseId) => {
+  const deleteRecord = async () => {
     try {
+
+      const firebaseId = inputType
+
       console.log("Attempting to delete record with Firebase ID:", firebaseId);
 
       const db = getDatabase();
@@ -152,16 +162,22 @@ const PriceUpdate = () => {
   };
 
   const handleTypeChange = (e) => {
-    setInputType(e.target.value);
-    const selectedIndex = typeOptions.indexOf(e.target.value);
-    if (selectedIndex !== -1) {
-      setInputPrice(priceOptions[selectedIndex]);
-    }
+    const { value } = e.target;
+    setInputType(value);
+    setInputPrice(typeOptions.find((d) => d?.key === value)?.price);
   };
 
   const handlePriceChange = (e) => {
     setInputPrice(e.target.value);
   };
+
+  const clearFields = () => {
+    setInputTypeForAdd('');
+    setInputPriceForAdd('');
+    setInputType('');
+    setInputPrice('');
+    setIsCheckboxChecked(false);
+  }
 
   //For the hair section
   const [showHaircutModal, setShowHaircutModal] = useState(false);
@@ -407,9 +423,9 @@ const PriceUpdate = () => {
                 fullWidth
                 input={<OutlinedInput label="Type" />}
               >
-                {typeOptions.map((option) => (
-                  <MenuItem key={option} value={option}>
-                    {option}
+                {typeOptions.map((option, i) => (
+                  <MenuItem key={i} value={option.key}>
+                    {option.type}
                   </MenuItem>
                 ))}
               </Select>
@@ -425,8 +441,8 @@ const PriceUpdate = () => {
 
             <Divider sx={{ mt: 3 }}></Divider>
             <FormControlLabel
-              control={<Checkbox defaultChecked />}
-              checked={!isCheckboxDisabled}
+              control={<Checkbox />}
+              checked={isCheckboxChecked}
               onChange={handleCheckBoxChange}
               label="Add New Price "
             />
@@ -435,7 +451,7 @@ const PriceUpdate = () => {
                 id="filled-basic"
                 labelPlacement="start"
                 label="Add Type "
-                disabled={isCheckboxDisabled}
+                disabled={!isCheckboxChecked}
                 variant="outlined"
                 value={inputTypeForAdd}
                 onChange={handleTypeChangeForAdd}
@@ -445,7 +461,7 @@ const PriceUpdate = () => {
               <TextField
                 id="filled-basic"
                 label="Add  Price"
-                disabled={isCheckboxDisabled}
+                disabled={!isCheckboxChecked}
                 variant="outlined"
                 value={inputPriceForAdd}
                 onChange={handlePriceChangeForAdd}
@@ -467,7 +483,7 @@ const PriceUpdate = () => {
                   variant="contained"
                   color="primary"
                   onClick={addRecord}
-                  disabled={isCheckboxDisabled}
+                  disabled={!isCheckboxChecked}
                 >
                   Add
                 </Button>
@@ -476,7 +492,7 @@ const PriceUpdate = () => {
                 <Button
                   variant="contained"
                   color="error"
-                  onClick={() => deleteRecord(firebaseId)}
+                  onClick={() => deleteRecord()}
                 >
                   Delete
                 </Button>
@@ -485,7 +501,7 @@ const PriceUpdate = () => {
                 <Button
                   variant="contained"
                   color="success"
-                  onClick={() => updateRecord(firebaseId)}
+                  onClick={() => updateRecord()}
                 >
                   Update
                 </Button>
