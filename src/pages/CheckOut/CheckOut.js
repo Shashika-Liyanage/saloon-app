@@ -6,26 +6,141 @@ import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import PaymentDetails from "../Payment/PaymentDetails";
-import ReviewBooking from "../ReviewBooking/ReviewBooking";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useSelector } from "react-redux";
 import { selectBookingData } from "../redux/BookingDataSlice";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import emailjs from "emailjs-com";
+import { jsPDF } from "jspdf";
 
-const steps = ["Payment Details", "Finalize the booking"];
+const steps = ["Finalize the booking"];
 
 const CheckOut = () => {
   const navigate = useNavigate();
   const bookingData = useSelector(selectBookingData);
+
+  const [emailSent, setEmailSent] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+
+  const [formData, setFormData] = useState({
+    name: bookingData?.Name || "",
+    phone: bookingData?.Phone || "",
+    email: bookingData?.Email || "",
+    service: bookingData?.Service || "",
+    time: bookingData?.Time || "",
+    notes: bookingData?.Notes || "",
+    cardName: "",
+    cardNumber: "",
+    month: "",
+    year: "",
+    cvc: "",
+  });
+
   const [activeStep, setActiveStep] = useState(0);
   const [isFormValid, setIsFormValid] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  const handleNext = () => {
+  const handleSendEmail = () => {
+    const templateParams = {
+      to_name: formData.name,
+      from_name: "Team Lilly", // Change this to the sender's name
+      message: `\nThank you for your booking!\n\nService: ${formData.service}
+      "Paid"\nTime: ${formData.time}\nNotes: ${formData.notes}`,
+    };
+
+    emailjs
+      .send(
+        "service_4znnwsv",
+        "template_hnyvwlg",
+        templateParams,
+        "p1o5gsUrkYNjJOGwp"
+      )
+      .then((response) => {
+        console.log("Email sent successfully:", response);
+        //setEmailSent(true);
+        setSnackbarOpen(true);
+      })
+      .catch((error) => {
+        console.error("Error sending email:", error);
+        // Handle error
+      });
+  };
+
+  const generatePDF = () => {
+    const doc = new jsPDF();
+  
+    // Set document properties
+    doc.setProperties({
+      title: "Booking Confirmation",
+      subject: "Booking Details",
+      author: "Team Lilly",
+      keywords: "booking, confirmation",
+    });
+  
+    // Add header
+    doc.setFontSize(18);
+    doc.text("Booking Confirmation", 105, 20, null, null, "center");
+  
+    // Add horizontal line
+    doc.setLineWidth(0.5);
+    doc.line(10, 25, 200, 25);
+  
+    // Set font size for content
+    doc.setFontSize(12);
+  
+    // Add booking details with some styling
+    const startX = 20;
+    let startY = 35;
+    const lineHeight = 10;
+  
+    const addText = (label, text) => {
+      doc.setFont(undefined, 'bold');
+      doc.text(`${label}:`, startX, startY);
+      doc.setFont(undefined, 'normal');
+      doc.text(text, startX + 40, startY);
+      startY += lineHeight;
+    };
+  
+    addText("Name", formData.name);
+    addText("Phone", formData.phone);
+    addText("Email", formData.email);
+    addText("Service", formData.service);
+    addText("Time", formData.time);
+    addText("Notes", formData.notes);
+  
+    // Add footer
+    doc.setLineWidth(0.5);
+    doc.line(10, 280, 200, 280);
+    doc.setFontSize(10);
+    doc.text("Thank you for booking with us!", 105, 285, null, null, "center");
+    doc.text("Contact us at support@teamlilly.com", 105, 290, null, null, "center");
+  
+    // Add "Paid" seal
+    const sealX = 150;
+    const sealY = 70;
+    const sealRadius = 20;
+  
+    // Draw circle
+    doc.setDrawColor(0, 0, 255); // Blue color
+    doc.setFillColor(0, 0, 255); // Blue color
+    doc.circle(sealX, sealY, sealRadius, 'F');
+  
+    // Add "Paid" text inside the circle
+    doc.setFontSize(16);
+    doc.setTextColor(255, 255, 255); // White color
+    doc.text("Paid", sealX, sealY + 5, null, null, "center");
+  
+    // Save the PDF
+    doc.save("booking-confirmation.pdf");
+  };
+  
+  const handleNext = async () => {
     if (activeStep === steps.length - 1) {
-      saveData();
+      //handleSendEmail(); // Call the function to send email
+      saveData(); // Call the function to save data
+      generatePDF(); // Generate and download the PDF
     } else {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
@@ -60,14 +175,14 @@ const CheckOut = () => {
       );
 
       if (res.ok) {
-         toast.success("Booking confirmed");
-        setMessage("Payment has been initiated with booking details...! Redirecting to the Dashboard...Now");
+        toast.success("Booking confirmed");
+        setMessage(
+          "Payment has been initiated with booking details...! Redirecting to the Dashboard...Now"
+        );
       } else {
-        // toast.error("Something went wrong");
         setMessage("Something went wrong. Please try again.");
       }
     } catch (error) {
-      // toast.error("Network error. Please try again later.");
       setMessage("Network error. Please try again later.");
     }
 
@@ -89,9 +204,13 @@ const CheckOut = () => {
   const getStepContent = (step) => {
     switch (step) {
       case 0:
-        return <PaymentDetails bookingData={bookingData} onFormValid={handleFormValid} />;
-      case 1:
-        return <ReviewBooking />;
+        return (
+          <PaymentDetails
+            bookingData={bookingData}
+            onFormValid={handleFormValid}
+          />
+        );
+
       default:
         return "Unknown step";
     }
@@ -120,29 +239,27 @@ const CheckOut = () => {
         ) : (
           <React.Fragment>
             {loading ? (
-              <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", mt: 2 }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  mt: 2,
+                }}
+              >
                 <CircularProgress />
                 <Typography sx={{ mt: 2 }}>{message}</Typography>
               </Box>
             ) : (
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  disabled={activeStep === 0}
-                  onClick={handleBack}
-                  sx={{ mr: 1 }}
-                >
-                  Back
-                </Button>
                 <Box sx={{ flex: "1 1 auto" }} />
                 <Button
-                  onClick={saveData}
+                  onClick={handleNext}
                   variant="contained"
                   color="success"
-                  disabled={!isFormValid && activeStep === 0}
+                  disabled={!isFormValid}
                 >
-                  {activeStep === steps.length - 1 ? "Place The Booking" : "Pay"}
+                  Pay
                 </Button>
               </Box>
             )}
