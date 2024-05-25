@@ -74,9 +74,13 @@ function App() {
             <Route path="Alert" element={<AlertDialogSlide />} />
             <Route path="ChatBot" element={<ChatbotLauncher />} />
             <Route path="ChatBotui" element={<Chatbot />} />
+<<<<<<< HEAD
             <Route path="PriceUpdate" element={<PriceUpdate />} />
             <Route path="Sidebar" element={<Sidebar />} />
             <Route path="AdminDash" element={<AdminDash />} />
+=======
+            {/* <Route path="PriceUpdate" element={<PriceUpdate />} /> */}
+>>>>>>> f6d77bd5706df25ebac8b871d1424f6ac344cb9d
             <Route path="CreateData" element={<CreateData />} />
             <Route path="UpdateWrite/:firebaseId" element={<PriceUpdate />} />
             <Route path="*" element={<NoPage />} />
