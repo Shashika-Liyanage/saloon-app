@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-//import AdminPanel from "./AdminPanel"; // Adjust the path as necessary
+
+
 
 import {
   Box,
@@ -106,11 +107,13 @@ const NewApoinment = () => {
   };
   
   return (
+   
     <Box
       sx={{
         display: "flex",
-        justifyContent: "space-between",
-        mb: "70px",
+        justifyContent: "center", // Center the form horizontally
+        alignItems: "center", // Center the form vertically
+        minHeight: "100vh", // Make the container full height of the viewport
       }}
     >
       <form onSubmit={handleSubmit}>
@@ -131,6 +134,7 @@ const NewApoinment = () => {
               mt: "10px",
               color: "#99154E",
               fontFamily: "Georgia",
+              
             }}
           >
             New Appoinments
@@ -301,54 +305,9 @@ const NewApoinment = () => {
                 sx={{ bgcolor: "white" }}
               />
             </Grid>
-            <Grid item xs={5}>
-              <TextField
-                id="notes"
-                label="Notes"
-                variant="outlined"
-                name="Notes"
-                value={user.Notes}
-                onChange={data}
-                fullWidth
-                sx={{ bgcolor: "white" }}
-              />
-            </Grid>
-            <Grid item xs={5}>
-              <TextField
-                id="notes"
-                label="Notes"
-                variant="outlined"
-                name="Notes"
-                value={user.Notes}
-                onChange={data}
-                fullWidth
-                sx={{ bgcolor: "white" }}
-              />
-            </Grid>
-            <Grid item xs={5}>
-              <TextField
-                id="notes"
-                label="Notes"
-                variant="outlined"
-                name="Notes"
-                value={user.Notes}
-                onChange={data}
-                fullWidth
-                sx={{ bgcolor: "white" }}
-              />
-            </Grid>{" "}
-            <Grid item xs={5}>
-              <TextField
-                id="notes"
-                label="Notes"
-                variant="outlined"
-                name="Notes"
-                value={user.Notes}
-                onChange={data}
-                fullWidth
-                sx={{ bgcolor: "white" }}
-              />
-            </Grid>
+           
+           
+           
           </Grid>{" "}
           <br></br>
           <Grid item>

@@ -29,6 +29,9 @@ import {
 import { useParams } from "react-router-dom";
 import app from "../../../services/firebaseConfig";
 import toast, { Toaster } from "react-hot-toast";
+//import Sidebar from './SideBar/Sidebar';
+
+
 
 const PriceUpdate = () => {
   const [inputType, setInputType] = useState("");
@@ -40,6 +43,7 @@ const PriceUpdate = () => {
   const [inputTypeForAdd, setInputTypeForAdd] = useState("");
   const [inputPriceForAdd, setInputPriceForAdd] = useState("");
   
+
   //const [inputPriceArray, setInputPriceArray] = useState([]);
   const handleCheckBoxChange = (event) => {
     setIsCheckboxDisabled(!event.target.checked);
@@ -500,6 +504,7 @@ const PriceUpdate = () => {
   };
   return (
     <>
+   
       <Box>
         <Typography fontWeight={"700"} align="center" variant="h6">
           Add /Update/Delete Data
