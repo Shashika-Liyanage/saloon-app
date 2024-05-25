@@ -922,7 +922,3 @@ const PriceUpdate = () => {
 };
 
 export default PriceUpdate;
-
-
-
-

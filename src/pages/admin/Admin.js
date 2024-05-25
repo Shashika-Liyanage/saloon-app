@@ -10,6 +10,8 @@ import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import ForwardToInboxIcon from "@mui/icons-material/ForwardToInbox";
+import SpaceDashboardRoundedIcon from '@mui/icons-material/SpaceDashboardRounded';
+import AssignmentRoundedIcon from '@mui/icons-material/AssignmentRounded';
 import {
   Badge,
   Button,
@@ -31,7 +33,6 @@ import { auth } from "../../services/firebaseConfig";
 const drawerWidth = 280;
 
 const Admin = (props) => {
-  //const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [setIsClosing] = React.useState(false);
   const navigate = useNavigate();
@@ -41,62 +42,52 @@ const Admin = (props) => {
   };
 
   const handleDrawerTransitionEnd = () => {
-    setIsClosing(false);
+    setIsClosing(true);
   };
 
-  // const handleDrawerToggle = () => {
-  //   if (!isClosing) {
-  //     setMobileOpen(!mobileOpen);
-  //   }
-  // };
-
-  // const goToBookingPage = () => {
-  //   navigate("/booking");
-  // };
-  // const goToAppointments = () => {
-  //   navigate("/Apoinments");
-  // };
-  // const goToAddAdmin = () => {
-  //   navigate("/AddAdmin");
-  // };
-  // const goToInbox = () => {
-  //   navigate("/Inbox");
-  // };
+  const goToAdminDashboard = () => {
+    navigate("/AdminDash");
+  };
+  const goToUpdateTables = () => {
+    navigate("/PriceUpdate");
+  };
+  const goToNewAppointment = () => {
+    navigate("/NewApoinment");
+  };
   const goToSentMail = () => {
     navigate("/SentMail");
   };
   const goToSettings = () => {
     navigate("/Setting");
   };
-  const goToUpdateTables = () => {
-    navigate("/PriceUpdate");
-  };
+  
   const handleLogOut = () => {
     signOut(auth)
       .then(() => {
         navigate("/AdminLogin");
-        // Show toast notification
-        toast.success("You have been logged out successfully..");
+        toast.success("You have been logged out successfully.");
       })
       .catch((error) => {
-        // An error happened.
-
         toast.error("Error logging out. Please try again.");
       });
   };
 
   const drawer = (
     <div>
-      <Stack direction="column" spacing={5} sx={{ mt: "20px" }}>
-        {/* <Button
-          onClick={goToAppointments}
+      <Stack direction="column" spacing={5} sx={{ mt: "10px", alignItems: "flex-start", ml: "10px" }}>
+        <Button
+          onClick={goToAdminDashboard}
           variant="contained"
           fullWidth
-          sx={{  fontWeight: "600", color: "white" }}
+          sx={{
+            fontWeight: "600",
+            color: "whitesmoke",
+            justifyContent: "flex-start",
+          }}
         >
-          <CalendarMonthIcon />
-          Appointments
-        </Button> */}
+          <SpaceDashboardRoundedIcon />
+          Dashboard
+        </Button>
         <Button
           onClick={goToUpdateTables}
           variant="contained"
@@ -104,41 +95,34 @@ const Admin = (props) => {
           sx={{
             fontWeight: "600",
             color: "white",
-            ml: "20px",
+            justifyContent: "flex-start",
           }}
         >
           <AdminPanelSettingsIcon />
-          Update Tables
+          Manage Services
         </Button>
-
         <Button
-          onClick={goToUpdateTables}
+          onClick={goToNewAppointment}
           variant="contained"
           fullWidth
           sx={{
             fontWeight: "600",
             color: "white",
-            ml: "20px",
+            justifyContent: "flex-start",
           }}
         >
-          <AdminPanelSettingsIcon />
-          Update Tables
+          <AssignmentRoundedIcon />
+          Manage Appointment
         </Button>
-        {/* <Button
-          onClick={goToInbox}
-          variant="contained"
-          fullWidth
-          sx={{ fontWeight: "600", color: "white" }}
-        >
-          {" "}
-          <EmailIcon />
-          Inbox
-        </Button> */}
         <Button
           onClick={goToSentMail}
           variant="contained"
           fullWidth
-          sx={{ fontWeight: "600", color: "white" }}
+          sx={{
+            fontWeight: "600",
+            color: "white",
+            justifyContent: "flex-start",
+          }}
         >
           <ForwardToInboxIcon />
           Sent Mail
@@ -147,7 +131,11 @@ const Admin = (props) => {
           onClick={goToSettings}
           variant="contained"
           fullWidth
-          sx={{ fontWeight: "600", color: "white" }}
+          sx={{
+            fontWeight: "600",
+            color: "white",
+            justifyContent: "flex-start",
+          }}
         >
           <SettingsIcon />
           Settings
@@ -156,14 +144,19 @@ const Admin = (props) => {
           onClick={handleLogOut}
           variant="contained"
           fullWidth
-          sx={{ fontWeight: "600", color: "white" }}
+          sx={{
+            fontWeight: "600",
+            color: "white",
+            justifyContent: "flex-start",
+          }}
         >
           <PowerSettingsNewIcon />
-          LogOut
+          Log Out
         </Button>
       </Stack>
     </div>
   );
+
   function createData(Customer, PhoneNumber, Service, Date, Time, Notes) {
     return { Customer, PhoneNumber, Service, Date, Time, Notes };
   }
@@ -195,9 +188,11 @@ const Admin = (props) => {
       "Test"
     ),
   ];
-  const openApoinment = (e) => {
+
+  const openAppointment = (e) => {
     navigate("/NewApoinment");
   };
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -221,17 +216,13 @@ const Admin = (props) => {
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
       >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-
         <Drawer
-          //   container={container}
-
           variant="temporary"
           open={mobileOpen}
           onTransitionEnd={handleDrawerTransitionEnd}
           onClose={handleDrawerClose}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true,
           }}
           sx={{
             display: { xs: "block", sm: "none" },
@@ -271,16 +262,16 @@ const Admin = (props) => {
             variant="contained"
             sx={{ textTransform: "capitalize", marginRight: "auto" }}
             color="success"
-            onClick={openApoinment}
+            onClick={openAppointment}
           >
             {" "}
             <AddIcon />
-            New Apoinment
+            New Appointment
           </Button>
           <Typography
             sx={{ fontWeight: "700", marginRight: "100px", color: "#874CCC" }}
           >
-            On Going Appoinments
+            On Going Appointments
           </Typography>
           <Badge
             sx={{ marginRight: "90px" }}

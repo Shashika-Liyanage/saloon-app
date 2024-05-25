@@ -1,0 +1,20 @@
+.button {
+    display: flex;
+    justify-content: flex-start;
+    color: white;
+    width: 100%;
+    text-align: left; /* Align buttons to the left */
+  }
+  
+  .button:hover {
+    background-color: #303f9f;
+  }
+  
+  
+  
+  .drawerPaper {
+    box-sizing:content-box;
+    width: 280px;
+    border: none;
+  }
+  

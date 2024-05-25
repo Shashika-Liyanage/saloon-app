@@ -1,10 +1,11 @@
-import { configureStore } from "@reduxjs/toolkit";
-import thunk from "redux-thunk";
-import BookingDataSlice from "./BookingDataSlice";
+import { configureStore } from '@reduxjs/toolkit';
+import bookingDataSlice from './BookingDataSlice'; // Ensure the path is correct
 
-export default configureStore({
+const store = configureStore({
   reducer: {
-    bookingDataManagement: BookingDataSlice,
+    bookingDataManagement: bookingDataSlice,
   },
-  middleware: [thunk],
 });
+
+export default store;
+

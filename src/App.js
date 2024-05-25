@@ -33,6 +33,9 @@ import AlertDialogSlide from './pages/ChatBot/Pop';
 import ChatbotLauncher from './pages/ChatBot/Chatbot';
 import Chatbot from './pages/ChatBot/Chatbot';
 import CreateData from "./pages/admin/Add/CreateData";
+import AdminDash from "./pages/admin/AdminDashboard/AdminDash";
+import Sidebar from "./pages/admin/SideBar/Sidebar";
+
 
 
 
@@ -42,6 +45,7 @@ function App() {
         <BrowserRouter>
           <Layout />
           <Routes>
+            <Route path="/" element={<Layout/>}></Route>
             <Route exact path="/" element={<Dashboard />} />
             <Route path="Login" element={<Login />} />
             <Route path="Dashboard" element={<Dashboard />} />
@@ -50,7 +54,6 @@ function App() {
             <Route path="SignUp" element={<SignUp />} />
             <Route path="HairPrices" element={<HairPrice />} />
             <Route path="SkinPrices" element={<SkinPrice />} />
-            <Route path="Admin" element={<Admin />} />
             <Route path="NailPrices" element={<NailPrice />} />
             <Route path="BodyPrices" element={<Bodyprice />} />
             <Route path="BridalPrices" element={<BridalPrice />} />
@@ -61,6 +64,10 @@ function App() {
             <Route path="OrderSummury" element={<ReviewBooking />} />
             <Route path="NewApoinment" element={<NewApoinment />} />
             <Route path="Apoinments" element={<Appoinment />} />
+          
+            
+
+            <Route path="Admin" element={<Admin />} />
             <Route path="AddAdmin" element={<AddAdmin />} />
             <Route path="Inbox" element={<Inbox />} />
             <Route path="SentMail" element={<SentMail />} />
@@ -71,7 +78,9 @@ function App() {
             <Route path="Alert" element={<AlertDialogSlide />} />
             <Route path="ChatBot" element={<ChatbotLauncher />} />
             <Route path="ChatBotui" element={<Chatbot />} />
-            {/* <Route path="PriceUpdate" element={<PriceUpdate />} /> */}
+            <Route path="PriceUpdate" element={<PriceUpdate />} />
+            <Route path="Sidebar" element={<Sidebar />} />
+            <Route path="AdminDash" element={<AdminDash />} />
             <Route path="CreateData" element={<CreateData />} />
             <Route path="UpdateWrite/:firebaseId" element={<PriceUpdate />} />
             <Route path="*" element={<NoPage />} />
