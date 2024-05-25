@@ -28,42 +28,14 @@ const BookingPage = () => {
   const dispatch = useDispatch();
 
   //let name, value;
-  console.log(user, "janith");
+ 
   const data = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
 
-  // const getdata = async (e) => {
-  //   const { Name, Phone, Email, Service, Date, Time, Notes } = user;
-  //   e.preventDefault();
-  //   const options = {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({ Name, Phone, Email, Service, Date, Time, Notes }),
-  //   };
 
-  //   const res = await fetch(
-  //     "https://he-and-she-356f5-default-rtdb.firebaseio.com/UserData.json",
-  //     options
-  //   );
-  //   console.log(res);
 
-  //   if (res.ok) {
-  //     toast.success("Booking confirmed");
-  //     setTimeout(() => {
-  //       toast.success("You're being redirected to the Dashboard!!!!!! ");
-  //       setTimeout(() => {
-  //         navigate("/dashboard");
-  //       }, 3000);
-  //     }, 1000);
-  //   } else {
-  //     toast.error("Something went wrong");
-  //   }
-  // };
-  console.log("User State:", user);
   const date = new Date();
   const formattedDate = date
     .toLocaleDateString("en-GB", {
@@ -228,11 +200,11 @@ const BookingPage = () => {
               <Autocomplete
                 id="service"
                 options={[
-                  { label: "Service A" },
-                  { label: "Service B" },
-                  { label: "Service C" },
-                  { label: "Service D" },
-                  { label: "Service E" },
+                  { label: "Hair Cut RS:1500" },
+                  { label: "Facial RS:2000" },
+                  { label: "Full Body Waxing Rs:1450 " },
+                  { label: "Spa Pedicure RS:4900" },
+                  { label: "Full Dressing (Early Morning) RS 2200" },
                 ]}
                 getOptionLabel={(option) => option.label}
                 value={{ label: user.Service }}
@@ -322,8 +294,10 @@ const BookingPage = () => {
                 sx={{ bgcolor: "white" }}
               />
             </Grid>
-          </Grid>{" "}
-          <br></br>
+          </Grid>
+          <h5>Marked with * are mandatory fields</h5>
+       
+     
           <Grid item>
             <Button
               type="submit"
@@ -342,8 +316,7 @@ const BookingPage = () => {
               size="large"
               variant="contained"
               fullWidth
-              // onClick={getdata}
-              // onClick={goToCheckOutPage}
+      
             >
               Go to Check Out Page
             </Button>

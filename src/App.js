@@ -16,7 +16,7 @@ import NailPrice from "./pages/PriceList/NailPrice";
 import Bodyprice from "./pages/PriceList/BodyPrice";
 import BridalPrice from "./pages/PriceList/BridalPrice";
 import CheckOut from "./pages/CheckOut/CheckOut";
-import BookingDetails from "./pages/Booking/BookingDetails";
+
 import PaymentDetails from "./pages/Payment/PaymentDetails";
 import ReviewBooking from "./pages/ReviewBooking/ReviewBooking";
 import NewApoinment from "./pages/admin/NewApoinment";
@@ -56,7 +56,7 @@ function App() {
             <Route path="BridalPrices" element={<BridalPrice />} />
             <Route path="About" element={<About />} />
             <Route path="Checkout" element={<CheckOut />} />
-            <Route path="BookingDetails" element={<BookingDetails />} />
+            {/* <Route path="BookingDetails" element={<BookingDetails />} /> */}
             <Route path="PaymentDetails" element={<PaymentDetails />} />
             <Route path="OrderSummury" element={<ReviewBooking />} />
             <Route path="NewApoinment" element={<NewApoinment />} />
@@ -71,7 +71,7 @@ function App() {
             <Route path="Alert" element={<AlertDialogSlide />} />
             <Route path="ChatBot" element={<ChatbotLauncher />} />
             <Route path="ChatBotui" element={<Chatbot />} />
-            {/* <Route path="PriceUpdate" element={<PriceUpdate />} /> */}
+             {/* <Route path="PriceUpdate" element={<PriceUpdate />} />  */}
             <Route path="CreateData" element={<CreateData />} />
             <Route path="UpdateWrite/:firebaseId" element={<PriceUpdate />} />
             <Route path="*" element={<NoPage />} />
