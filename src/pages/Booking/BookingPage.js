@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import './Booking.css';
 
 import {
   Box,
@@ -140,11 +141,26 @@ const BookingPage = () => {
                 required
                 name="Name"
                 label="Name"
-                variant="outlined"
+                //variant="outlined"
                 fullWidth
                 value={user.Name}
                 onChange={data}
-                sx={{ bgcolor: "white" }}
+                //className="textFieldCustom"
+                // classNameN= ".textFieldCustom .MuiOutlinedInput-root"
+                // sx={{
+                //   '& .MuiOutlinedInput-root': {
+                //     '& fieldset': {
+                //       borderColor: 'transparent',
+                //     },
+                //     '&:hover fieldset': {
+                //       borderColor: 'transparent',
+                //     },
+                //     '&.Mui-focused fieldset': {
+                //       borderColor: 'transparent',
+                //     },
+                //   },
+                 
+                // }}
               />
             </Grid>
             <Grid item xs={6}>
@@ -152,12 +168,13 @@ const BookingPage = () => {
                 id="phone_number"
                 label="Phone Number"
                 name="Phone"
-                variant="outlined"
+                //variant="outlined"
                 value={user.Phone}
                 fullWidth
                 // inputProps={{ inputMode: "numeric" }}
                 onChange={data}
                 sx={{ bgcolor: "white" }}
+                className="textFieldCustom"
               />
             </Grid>
           </Grid>
