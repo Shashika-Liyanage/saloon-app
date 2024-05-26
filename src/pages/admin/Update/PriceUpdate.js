@@ -535,7 +535,7 @@ const PriceUpdate = () => {
     }
   };
 
-  // Remove record from the database
+  // Remove record from the database ffffffffffffffffffff
 
   const deleteRecordForBody = async () => {
     try {
