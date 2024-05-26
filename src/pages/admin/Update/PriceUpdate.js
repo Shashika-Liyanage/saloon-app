@@ -30,415 +30,162 @@ import {
   child,
 } from "firebase/database";
 import { useParams } from "react-router-dom";
-//import app from "../../../services/firebaseConfig";
+import app from "../../../services/firebaseConfig";
 import toast, { Toaster } from "react-hot-toast";
-import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
-import UpdateRoundedIcon from "@mui/icons-material/UpdateRounded";
-import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import Admin from "../Admin";
-
-
-
 
 const PriceUpdate = () => {
+  // For the Skin Section
+  const [showCleanUpModal, setshowCleanUpModal] = useState(false);
+  //For the Body Section
+  const [showWaxingModal, setShowWaxingModal] = useState(false);
+  //For the Bridal Section
+  const [showDressingModal, setshowDressingModal] = useState(false);
+  const [showPedicureModal, setshowPedicureModal] = useState(false);
 
-//-----------------------------------------------------------------Hair Section----------------------------------------------------------------------//
+  //---------------Hair Section-------------------------------
+  const [inputType, setInputType] = useState("");
+  const [inputPrice, setInputPrice] = useState("");
+  const [typeOptions, setTypeOptions] = useState([]);
+  const [inputTypeForAdd, setInputTypeForAdd] = useState("");
+  const [inputPriceForAdd, setInputPriceForAdd] = useState("");
+  const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
+  const [showHaircutModal, setShowHaircutModal] = useState(false);
 
-const [showHaircutModal, setShowHaircutModal] = useState(false);
-const [inputType, setInputType] = useState("");
-const [inputPrice, setInputPrice] = useState("");
+  //-----Nail Section------------------------------------------
+  const [inputTypeNail, setInputTypeNail] = useState("");
+  const [inputPriceNail, setInputPriceNail] = useState("");
+  const [typeOptionsNail, setTypeOptionsNail] = useState([]);
+  const [inputTypeForAddNail, setInputTypeForAddNail] = useState("");
+  const [inputPriceForAddNail, setInputPriceForAddNail] = useState("");
+  const [isCheckboxCheckedNail, setIsCheckboxCheckedNail] = useState(false);
 
-const [typeOptions, setTypeOptions] = useState([]);
-const [priceOptions, setPriceOptions] = useState([]);
+  //-----Body Section------------------------------------------
+  const [inputTypeBody, setInputTypeBody] = useState("");
+  const [inputPriceBody, setInputPriceBody] = useState("");
+  const [typeOptionsBody, setTypeOptionsBody] = useState([]);
+  const [inputTypeForAddBody, setInputTypeForAddBody] = useState("");
+  const [inputPriceForAddBody, setInputPriceForAddBody] = useState("");
+  const [isCheckboxCheckedBody, setIsCheckboxCheckedBody] = useState(false);
 
-const [inputTypeForAdd, setInputTypeForAdd] = useState("");
-const [inputPriceForAdd, setInputPriceForAdd] = useState("");
-
-
-//------------------Hair Handle data---------------------//
-
-const handleTypeChange = (e) => {
-  const { value } = e.target;
-  setInputType(value);
-  setInputPrice(typeOptions.find((d) => d?.key === value)?.price);
-};
-
-const handlePriceChange = (e) => {
-  setInputPrice(e.target.value);
-};
-
+  
+  //-----Bridal  Section------------------------------------------
+  const [inputTypeBridal, setInputTypeBridal] = useState("");
+  const [inputPriceBridal, setInputPriceBridal] = useState("");
+  const [typeOptionsBridal, setTypeOptionsBridal] = useState([]);
+  const [inputTypeForAddBridal, setInputTypeForAddBridal] = useState("");
+  const [inputPriceForAddBridal, setInputPriceForAddBridal] = useState("");
+  const [isCheckboxCheckedBridal, setIsCheckboxCheckedBridal] = useState(false);
+  //---------------------------------------Hair Section handeling------------------------------------
 
   const handleTypeChangeForAdd = (e) => {
     setInputTypeForAdd(e.target.value);
   };
-
   const handlePriceChangeForAdd = (e) => {
     setInputPriceForAdd(e.target.value);
   };
-
-
-//-----------------------------------------------------------------Skin Section----------------------------------------------------------------------//
-  const [showCleanUpModal, setshowCleanUpModal] = useState(false);
-
-  const [inputSkinType, setInputSkinType] = useState("");
-  const [inputSkinPrice, setInputSkinPrice] = useState("");
-
-
-  const [skinTypeOptions, setSkinTypeOptions] = useState([]);
-  const [skinPriceOptions, setSkinPriceOptions] = useState([]);
-
-
-  const [inputTypeForAddSkin, setInputTypeForAddSkin] = useState('');
-  const [inputPriceForAddSkin, setInputPriceForAddSkin] = useState();
-
-
-//------------------Skin Handle data---------------------//
-
-const handleSkinTypeChange = (e) => {
-  const { value } = e.target;
-  setInputSkinType(value);
-  setInputSkinPrice(skinTypeOptions.find((d) => d?.key === value)?.price);
-};
-
-const handleSkinPriceChange = (e) => {
-  setInputSkinPrice(e.target.value);
-};
-
-
-const handleTypeChangeForAddSkin = (e) => {
-  setInputTypeForAddSkin(e.target.value);
-};
-
-const handlePriceChangeForAddSkin = (e) => {
-  setInputPriceForAddSkin(e.target.value);
-};
-
-
-
-//-----------------------------------------------------------------Body Section----------------------------------------------------------------------//
-
-  const [inputBodyType, setInputBodyType] = useState("");
-  const [inputBodyPrice, setInputBodyPrice] = useState("");
-
-
-  const [bodyTypeOptions, setBodyTypeOptions] = useState([]);
-  const [bodyPriceOptions, setBodyPriceOptions] = useState([]);
-
-  const [inputTypeForAddBody, setInputTypeForAddBody] = useState("");
-  const [inputPriceForAddBody, setInputPriceForAddBody] = useState("");
-
-//------------------Body Handle data---------------------//
-
-const handleTypeChangeForAddBody = (e) => {
-  setInputTypeForAddBody(e.target.value);
-};
-
-const handlePriceChangeForAddBody = (e) => {
-  setInputPriceForAddBody(e.target.value);
-};
-
-
-//-----------------------------------------------------------------Bridal Section----------------------------------------------------------------------//
-
-  const [inputBridalType, setInputBridalType] = useState("");
-  const [inputBridalPrice, setInputBridalPrice] = useState("");
-
-
-const [bridalTypeOptions, setBridalTypeOptions] = useState([]);
-const [bridalPriceOptions, setBridalPriceOptions] = useState([]);
-
-
-const [inputTypeForAddBridal, setInputTypeForAddBridal] = useState("");
-const [inputPriceForAddBridal, setInputPriceForAddBridal] = useState("");
-
-//------------------Bridal Handle data---------------------//
-
-const handleTypeChangeForAddBridal = (e) => {
-  setInputTypeForAddBridal(e.target.value);
-};
-
-const handlePriceChangeForAddBridal = (e) => {
-  setInputPriceForAddBridal(e.target.value);
-};
-
-
-//--------------------------------------------------------------CheckBox---------------------------------------------------------------//
-
-const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
+  const handleTypeChange = (e) => {
+    const { value } = e.target;
+    setInputType(value);
+    setInputPrice(typeOptions.find((d) => d?.key === value)?.price);
+  };
+  const handlePriceChange = (e) => {
+    setInputPrice(e.target.value);
+  };
 
   const handleCheckBoxChange = (event) => {
     setIsCheckboxChecked(event.target.checked);
   };
+  //---------------------------------------Nail Section handeling Start------------------------------------
 
-  const [isCheckboxCheckedSkin, setIsCheckboxCheckedSkin] = useState(false);
-  const handleCheckBoxChangeSkin = (event) => {
-    setIsCheckboxCheckedSkin(event.target.checked);
+  const handleTypeChangeForAddNail = (e) => {
+    setInputTypeForAddNail(e.target.value);
+  };
+  const handlePriceChangeForAddNail = (e) => {
+    setInputPriceForAddNail(e.target.value);
+  };
+  const handleTypeChangeNail = (e) => {
+    const { value } = e.target;
+    setInputTypeNail(value);
+    setInputPriceNail(typeOptionsNail.find((d) => d?.key === value)?.price);
+  };
+  const handlePriceChangeNail = (e) => {
+    setInputPriceNail(e.target.value);
   };
 
-  const [isCheckboxCheckedBody, setIsCheckboxCheckedBody] = useState(false);
+  const handleCheckBoxChangeNail = (event) => {
+    setIsCheckboxCheckedNail(event.target.checked);
+  };
+  //---------------------------------------Nail Section handeling End------------------------------------
+
+  //---------------------------------------Body Section handeling Start------------------------------------
+  const handleTypeChangeForAddBody = (e) => {
+    setInputTypeForAddBody(e.target.value);
+  };
+  const handlePriceChangeForAddBody = (e) => {
+    setInputPriceForAddBody(e.target.value);
+  };
+  const handleTypeChangeBody = (e) => {
+    const { value } = e.target;
+    setInputTypeBody(value);
+    setInputPriceBody(typeOptionsBody.find((d) => d?.key === value)?.price);
+  };
+  const handlePriceChangeBody = (e) => {
+    setInputPriceBody(e.target.value);
+  };
+
   const handleCheckBoxChangeBody = (event) => {
-    setIsCheckboxCheckedBody(event.target.checked);
+    setIsCheckboxCheckedNail(event.target.checked);
   };
 
-  const [isCheckboxCheckedBridal, setIsCheckboxCheckedBridal] = useState(false);
-  const handleCheckBoxChangeBridal = (event) => {
-    setIsCheckboxCheckedBridal(event.target.checked);
+  //---------------------------------------Body Section handeling End------------------------------------
+
+    //---------------------------------------Bridal  Section handeling Start------------------------------------
+
+    const handleTypeChangeForAddBridal = (e) => {
+      setInputTypeForAddBridal(e.target.value);
+    };
+    const handlePriceChangeForAddBridal = (e) => {
+      setInputPriceForAddBridal(e.target.value);
+    };
+    const handleTypeChangeBridal = (e) => {
+      const { value } = e.target;
+      setInputTypeBridal(value);
+      setInputPriceBridal(typeOptionsBridal.find((d) => d?.key === value)?.price);
+    };
+    const handlePriceChangeBridal = (e) => {
+      setInputPriceBridal(e.target.value);
+    };
+  
+    const handleCheckBoxChangeBridal = (event) => {
+      setIsCheckboxCheckedNail(event.target.checked);
+    };
+
+ //---------------------------------------Bridal  Section handeling End------------------------------------
+  const clearFields = () => {
+    setInputTypeForAdd("");
+    setInputPriceForAdd("");
+
+    setInputPriceForAddNail("");
+    setInputTypeForAddNail("");
+
+    setInputPriceForAddBody("");
+    setInputTypeForAddBody("");
+
+    
+    setInputPriceForAddBridal("");
+    setInputTypeForAddBridal("");
+
+    setInputType("");
+    setInputPrice("");
+
+    setIsCheckboxChecked(false);
+
+    setIsCheckboxCheckedNail(false);
+
+    setIsCheckboxCheckedBody(false);
+
+    setIsCheckboxCheckedBridal(false);
   };
-
-
-
-//-------------------------------------------------------------------Clear Field----------------------------------------------------------------------------//
-
-const clearFields = () => {
-  setInputTypeForAdd("");
-  setInputPriceForAdd("");
-  setInputType("");
-  setInputPrice("");
-  setIsCheckboxChecked(false);
-};
-
-const clearFieldsSkin = () => {
-  setInputTypeForAddSkin("");
-  setInputPriceForAddSkin("");
-  setInputSkinType("");
-  setInputSkinPrice("");
-  setIsCheckboxCheckedSkin(false);
-};
-
-
-
-//------------------------------------------------------------Hair Price Section Fetch------------------------------------------------------------------------------//
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    try {
-      const db = getDatabase();
-      const snapshot = await get(ref(db, "createprice/haircut"));
-
-      if (snapshot.exists()) {
-        const data = snapshot.val();
-        console.log("Eshan", data);
-        setTypeOptions(
-          Object.keys(data).map((key) => ({
-            key,
-            price: data[key].price,
-            type: data[key].type,
-          }))
-        );
-        //setPriceOptions(Object.keys(data).map((key) => data[key].price));
-      } else {
-        console.error("No data available");
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
-  // Add new hair record to the database
-  const addRecord = async () => {
-    const db = getDatabase();
-    const recordsRef = ref(db, "createprice/haircut/");
-
-    try {
-      const newRecordRef = push(recordsRef); // Generate unique key
-      await set(newRecordRef, {
-        type: inputTypeForAdd,
-        price: inputPriceForAdd,
-      }); // Set type and price fields
-      clearFields();
-      toast.success("New record added successfully");
-    } catch (error) {
-      console.error("Error adding record:", error);
-      toast.error("Failed to add record");
-    }
-  };
-
-  const updateRecord = async () => {
-    try {
-      const firebaseId = inputType;
-      const type = typeOptions.find((d) => d?.key === inputType)?.type;
-
-      console.log("Firebase ID:", firebaseId);
-      console.log("Input Type:", type);
-      console.log("Input Price:", inputPrice);
-
-      const db = getDatabase();
-      const recordRef = ref(db, `createprice/haircut/${firebaseId}`);
-
-      // Check if firebaseId is null or undefined
-      if (!firebaseId) {
-        throw new Error("Invalid firebaseId");
-      }
-
-      // Check if inputType and inputPrice are not empty or null
-      if (!inputType || !inputPrice) {
-        throw new Error("Invalid inputType or inputPrice");
-      }
-
-      // Update the Hair record in the database
-      await set(recordRef, { type: type, price: inputPrice });
-      clearFields();
-      toast.success("Record updated successfully");
-      fetchData(); // Refresh data
-    } catch (error) {
-      console.error("Error updating record:", error);
-      toast.error("Failed to update record");
-    }
-  };
-
-  // Remove Hair record from the database
-
-  const deleteRecord = async () => {
-    try {
-      const firebaseId = inputType;
-
-      console.log("Attempting to delete record with Firebase ID:", firebaseId);
-
-      const db = getDatabase();
-      const recordRef = ref(db, `createprice/haircut/${firebaseId}`);
-
-      // Check if firebaseId is null or undefined
-      if (!firebaseId) {
-        throw new Error("Invalid firebaseId");
-      }
-
-      // Delete the Hair record from the database
-      await remove(recordRef);
-      console.log("Record deleted successfully");
-      toast.success("Record deleted successfully");
-      fetchData(); // Refresh data
-    } catch (error) {
-      console.error("Error deleting record:", error);
-      toast.error("Failed to delete record");
-    }
-  };
-
-  //-------------------------------------------------------------------Skin Price Fetch Data------------------------------------------------------------------------//
-
-  useEffect(() => {
-    fetchDataSkin();
-  }, []);
-
-  // Fetch Skin data from the database
-  const fetchDataSkin = async () => {
-    try {
-      const db = getDatabase();
-      const snapshot = await get(ref(db, "createprice/SkinPrice"));
-
-      if (snapshot.exists()) {
-        const data = snapshot.val();
-        console.log("shashi", data);
-        setSkinTypeOptions(
-          Object.keys(data).map((key) => ({
-            key,
-            price: data[key].price,
-            type: data[key].type,
-          }))
-        );
-        //setPriceOptions(Object.keys(data).map((key) => data[key].price));
-      } else {
-        console.error("No data available");
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
-  // Add new record to the database
-  const addRecordSkin = async () => {
-    const db = getDatabase();
-    const recordsRefForSkin = ref(db, "createprice/SkinPrice/");
-
-    try {
-      const newRecordRefSkin = push(recordsRefForSkin); // Generate unique key
-      await set(newRecordRefSkin, {
-        type: inputTypeForAddSkin,
-        price: inputPriceForAddSkin,
-      }); // Set type and price fields
-      clearFieldsSkin();
-      toast.success("New record added successfully");
-    } catch (error) {
-      console.error("Error adding record:", error);
-      toast.error("Failed to add record");
-    }
-  };
-
-  const updateRecordSkin = async () => {
-    try {
-      const firebaseId = inputSkinType;
-      const type = skinTypeOptions.find((d) => d?.key === inputSkinType)?.type;
-
-      console.log("Firebase ID:", firebaseId);
-      console.log("Input Type:", type);
-      console.log("Input Price:", inputSkinPrice);
-
-      const db = getDatabase();
-      const recordsRefForSkin = ref(db, `createprice/SkinPrice/${firebaseId}`);
-
-      // Check if firebaseId is null or undefined
-      if (!firebaseId) {
-        throw new Error("Invalid firebaseId");
-      }
-
-      // Check if inputType and inputPrice are not empty or null
-      if (!inputSkinType || !inputSkinPrice) {
-        throw new Error("Invalid inputType or inputPrice");
-      }
-
-      // Update the record in the database
-      await set(recordsRefForSkin, { type: type, price: inputSkinPrice });
-      clearFieldsSkin();
-      toast.success("Record updated successfully");
-      fetchDataSkin(); // Refresh data
-    } catch (error) {
-      console.error("Error updating record:", error);
-      toast.error("Failed to update record");
-    }
-  };
-
-  // Remove record from the database
-
-  const deleteRecordSkin = async () => {
-    try {
-      const firebaseId = inputSkinType;
-
-      console.log("Attempting to delete record with Firebase ID:", firebaseId);
-
-      const db = getDatabase();
-      const recordsRefForSkin = ref(db, `createprice/SkinPrice/${firebaseId}`);
-
-      // Check if firebaseId is null or undefined
-      if (!firebaseId) {
-        throw new Error("Invalid firebaseId");
-      }
-
-      // Delete the record from the database
-      await remove(recordsRefForSkin);
-      console.log("Record deleted successfully");
-      toast.success("Record deleted successfully");
-      fetchDataSkin(); // Refresh data
-    } catch (error) {
-      console.error("Error deleting record:", error);
-      toast.error("Failed to delete record");
-    }
-  };
-
-//-------------------------------------------------------------------Body Price Fetch Data------------------------------------------------------------------------//
-
-
-
-  //For the Nail Section
-
-  const [showPedicureModal, setshowPedicureModal] = useState(false);
-
-  //For the Body Section
-  const [showWaxingModal, setShowWaxingModal] = useState(false);
-
-  //For the Bridal Section
-  const [showDressingModal, setshowDressingModal] = useState(false);
 
   // Function to handle button click and open the modal in Bridal section
   const handlebridalButtonClick = () => {
@@ -483,10 +230,449 @@ const clearFieldsSkin = () => {
   const handleCloseModalHair = () => {
     setShowHaircutModal(false);
   };
+  //------------------------------------------Hair Section---CRUD Opeartions Start-------------------------------------------------------------
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  // Fetch data from the database
+  const fetchData = async () => {
+    try {
+      const db = getDatabase();
+      const snapshot = await get(ref(db, "createprice/haircut"));
+
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        console.log("Eshan", data);
+        setTypeOptions(
+          Object.keys(data).map((key) => ({
+            key,
+            price: data[key].price,
+            type: data[key].type,
+          }))
+        );
+        //setPriceOptions(Object.keys(data).map((key) => data[key].price));
+      } else {
+        console.error("No data available");
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  // Add new record to the database
+  const addRecord = async () => {
+    const db = getDatabase();
+    const recordsRef = ref(db, "createprice/haircut/");
+
+    try {
+      const newRecordRef = push(recordsRef); // Generate unique key
+      await set(newRecordRef, {
+        type: inputTypeForAdd,
+        price: inputPriceForAdd,
+      }); // Set type and price fields
+      clearFields();
+      toast.success("New record added successfully");
+    } catch (error) {
+      console.error("Error adding record:", error);
+      toast.error("Failed to add record");
+    }
+  };
+
+  const updateRecord = async () => {
+    try {
+      const firebaseId = inputType;
+      const type = typeOptions.find((d) => d?.key === inputType)?.type;
+
+      console.log("Firebase ID:", firebaseId);
+      console.log("Input Type:", type);
+      console.log("Input Price:", inputPrice);
+
+      const db = getDatabase();
+      const recordRef = ref(db, `createprice/haircut/${firebaseId}`);
+
+      // Check if firebaseId is null or undefined
+      if (!firebaseId) {
+        throw new Error("Invalid firebaseId");
+      }
+
+      // Check if inputType and inputPrice are not empty or null
+      if (!inputType || !inputPrice) {
+        throw new Error("Invalid inputType or inputPrice");
+      }
+
+      // Update the record in the database
+      await set(recordRef, { type: type, price: inputPrice });
+      clearFields();
+      toast.success("Record updated successfully");
+      fetchData(); // Refresh data
+    } catch (error) {
+      console.error("Error updating record:", error);
+      toast.error("Failed to update record");
+    }
+  };
+
+  // Remove record from the database
+
+  const deleteRecord = async () => {
+    try {
+      const firebaseId = inputType;
+
+      console.log("Attempting to delete record with Firebase ID:", firebaseId);
+
+      const db = getDatabase();
+      const recordRef = ref(db, `createprice/haircut/${firebaseId}`);
+
+      // Check if firebaseId is null or undefined
+      if (!firebaseId) {
+        throw new Error("Invalid firebaseId");
+      }
+
+      // Delete the record from the database
+      await remove(recordRef);
+      console.log("Record deleted successfully");
+      toast.success("Record deleted successfully");
+      fetchData(); // Refresh data
+    } catch (error) {
+      console.error("Error deleting record:", error);
+      toast.error("Failed to delete record");
+    }
+  };
+
+  //------------------------------------------Hair Section---CRUD Opeartions End-------------------------------------------------------------//
+
+  //------------------------------------------Nail Section---CRUD Opeartions Start-------------------------------------------------------------//
+  useEffect(() => {
+    fetchDataForNail();
+  }, []);
+
+  // Fetch data from the database
+  const fetchDataForNail = async () => {
+    try {
+      const db = getDatabase();
+      const snapshot = await get(ref(db, "createprice/nail"));
+
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+
+        setTypeOptionsNail(
+          Object.keys(data).map((key) => ({
+            key,
+            price: data[key].price,
+            type: data[key].type,
+          }))
+        );
+        //setPriceOptions(Object.keys(data).map((key) => data[key].price));
+      } else {
+        console.error("No data available");
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  //------------------------------------------Nail Section---CRUD  Fetch Data Opeartions End-------------------------------------------------------------//
+  // Add new record to the database
+  const addRecordForNail = async () => {
+    const db = getDatabase();
+    const recordsRef = ref(db, "createprice/nail/");
+
+    try {
+      const newRecordRef = push(recordsRef); // Generate unique key
+      await set(newRecordRef, {
+        type: inputTypeForAddNail,
+        price: inputPriceForAddNail,
+      }); // Set type and price fields
+      clearFields();
+      toast.success("New record added successfully");
+    } catch (error) {
+      console.error("Error adding record:", error);
+      toast.error("Failed to add record");
+    }
+  };
+
+  const updateRecordForNail = async () => {
+    try {
+      const firebaseId = inputTypeNail;
+      const type = typeOptionsNail.find((d) => d?.key === inputTypeNail)?.type;
+
+      console.log("Firebase ID:", firebaseId);
+      console.log("Input Type:", type);
+      console.log("Input Price:", inputPriceNail);
+
+      const db = getDatabase();
+      const recordRef = ref(db, `createprice/nail/${firebaseId}`);
+
+      // Check if firebaseId is null or undefined
+      if (!firebaseId) {
+        throw new Error("Invalid firebaseId");
+      }
+
+      // Check if inputTypeNail and inputPriceNail are not empty or null
+      if (!inputTypeNail || !inputPriceNail) {
+        throw new Error("Invalid inputTypeNail or inputPriceNail");
+      }
+
+      // Update the record in the database
+      await set(recordRef, { type: type, price: inputPriceNail });
+      clearFields();
+      toast.success("Record updated successfully");
+      fetchData(); // Refresh data
+    } catch (error) {
+      console.error("Error updating record:", error);
+      toast.error("Failed to update record");
+    }
+  };
+
+  // Remove record from the database
+
+  const deleteRecordForNail = async () => {
+    try {
+      const firebaseId = inputTypeNail;
+
+      console.log("Attempting to delete record with Firebase ID:", firebaseId);
+
+      const db = getDatabase();
+      const recordRef = ref(db, `createprice/nail/${firebaseId}`);
+
+      // Check if firebaseId is null or undefined
+      if (!firebaseId) {
+        throw new Error("Invalid firebaseId");
+      }
+
+      // Delete the record from the database
+      await remove(recordRef);
+      console.log("Record deleted successfully");
+      toast.success("Record deleted successfully");
+      fetchData(); // Refresh data
+    } catch (error) {
+      console.error("Error deleting record:", error);
+      toast.error("Failed to delete record");
+    }
+  };
+
+  //------------------------------------------Nail Section---CRUD Opeartions End-------------------------------------------------------------//
+
+  //------------------------------------------Body Section---CRUD Opeartions Start-------------------------------------------------------------//
+
+  useEffect(() => {
+    fetchDataForBody();
+  }, []);
+
+  // Fetch data from the database
+  const fetchDataForBody = async () => {
+    try {
+      const db = getDatabase();
+      const snapshot = await get(ref(db, "createprice/body"));
+
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+
+        setTypeOptionsBody(
+          Object.keys(data).map((key) => ({
+            key,
+            price: data[key].price,
+            type: data[key].type,
+          }))
+        );
+        //setPriceOptions(Object.keys(data).map((key) => data[key].price));
+      } else {
+        console.error("No data available");
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  //------------------------------------------Body Section---CRUD  Fetch Data Opeartions End-------------------------------------------------------------//
+  // Add new record to the database
+  const addRecordForbody = async () => {
+    const db = getDatabase();
+    const recordsRef = ref(db, "createprice/body/");
+
+    try {
+      const newRecordRef = push(recordsRef); // Generate unique key
+      await set(newRecordRef, {
+        type: inputTypeForAddBody,
+        price: inputPriceForAddBody,
+      }); // Set type and price fields
+      clearFields();
+      toast.success("New record added successfully");
+    } catch (error) {
+      console.error("Error adding record:", error);
+      toast.error("Failed to add record");
+    }
+  };
+
+  const updateRecordForBody = async () => {
+    try {
+      const firebaseId = inputTypeBody;
+      const type = typeOptionsBody.find((d) => d?.key === inputTypeBody)?.type;
+
+      console.log("Firebase ID:", firebaseId);
+      console.log("Input Type:", type);
+      console.log("Input Price:", inputTypeBody);
+
+      const db = getDatabase();
+      const recordRef = ref(db, `createprice/body/${firebaseId}`);
+
+      // Check if firebaseId is null or undefined
+      if (!firebaseId) {
+        throw new Error("Invalid firebaseId");
+      }
+
+      // Check if inputTypeNail and inputPriceNail are not empty or null
+      if (!inputTypeBody || !inputPriceBody) {
+        throw new Error("Invalid inputTypeNail or inputPriceNail");
+      }
+
+      // Update the record in the database
+      await set(recordRef, { type: type, price: inputPriceBody });
+      clearFields();
+      toast.success("Record updated successfully");
+      fetchData(); // Refresh data
+    } catch (error) {
+      console.error("Error updating record:", error);
+      toast.error("Failed to update record");
+    }
+  };
+
+  // Remove record from the database ffffffffffffffffffff
+
+  const deleteRecordForBody = async () => {
+    try {
+      const firebaseId = inputTypeBody;
+
+      console.log("Attempting to delete record with Firebase ID:", firebaseId);
+
+      const db = getDatabase();
+      const recordRef = ref(db, `createprice/body/${firebaseId}`);
+
+      // Check if firebaseId is null or undefined
+      if (!firebaseId) {
+        throw new Error("Invalid firebaseId");
+      }
+
+      // Delete the record from the database
+      await remove(recordRef);
+      console.log("Record deleted successfully");
+      toast.success("Record deleted successfully");
+      fetchData(); // Refresh data
+    } catch (error) {
+      console.error("Error deleting record:", error);
+      toast.error("Failed to delete record");
+    }
+  };
+  //------------------------------------------Body Section---CRUD Opeartions End-------------------------------------------------------------//
+//------------------------------------------Bridal Section---CRUD Opeartions End-------------------------------------------------------------//
+  useEffect(() => {
+    fetchDataForBridal();
+  }, []);
+
+  // Fetch data from the database
+  const fetchDataForBridal = async () => {
+    try {
+      const db = getDatabase();
+      const snapshot = await get(ref(db, "createprice/bridal"));
+
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+
+        setTypeOptionsBridal(
+          Object.keys(data).map((key) => ({
+            key,
+            price: data[key].price,
+            type: data[key].type,
+          }))
+        );
+        //setPriceOptions(Object.keys(data).map((key) => data[key].price));
+      } else {
+        console.error("No data available");
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  //------------------------------------------Body Section---CRUD  Fetch Data Opeartions End-------------------------------------------------------------//
+  // Add new record to the database
+  const addRecordForBridal = async () => {
+    const db = getDatabase();
+    const recordsRef = ref(db, "createprice/bridal/");
+
+    try {
+      const newRecordRef = push(recordsRef); // Generate unique key
+      await set(newRecordRef, {
+        type: inputTypeForAddBridal,
+        price: inputPriceForAddBridal,
+      }); // Set type and price fields
+      clearFields();
+      toast.success("New record added successfully");
+    } catch (error) {
+      console.error("Error adding record:", error);
+      toast.error("Failed to add record");
+    }
+  };
+
+  const updateRecordForBridal = async () => {
+    try {
+      const firebaseId = inputTypeBridal;
+      const type = typeOptionsBridal.find((d) => d?.key === inputTypeBridal)?.type;
+
+      console.log("Firebase ID:", firebaseId);
+      console.log("Input Type:", type);
+      console.log("Input Price:", inputTypeBridal);
+
+      const db = getDatabase();
+      const recordRef = ref(db, `createprice/bridal/${firebaseId}`);
+
+      // Check if firebaseId is null or undefined
+      if (!firebaseId) {
+        throw new Error("Invalid firebaseId");
+      }
+
+      // Check if inputTypeNail and inputPriceNail are not empty or null
+      if (!inputTypeBridal || !inputPriceBridal) {
+        throw new Error("Invalid inputTypeNail or inputPriceNail");
+      }
+
+      // Update the record in the database
+      await set(recordRef, { type: type, price: inputPriceBridal });
+      clearFields();
+      toast.success("Record updated successfully");
+      fetchData(); // Refresh data
+    } catch (error) {
+      console.error("Error updating record:", error);
+      toast.error("Failed to update record");
+    }
+  };
+
+  // Remove record from the database
+
+  const deleteRecordForBridal = async () => {
+    try {
+      const firebaseId = inputTypeBridal;
+
+      console.log("Attempting to delete record with Firebase ID:", firebaseId);
+
+      const db = getDatabase();
+      const recordRef = ref(db, `createprice/bridal/${firebaseId}`);
+
+      // Check if firebaseId is null or undefined
+      if (!firebaseId) {
+        throw new Error("Invalid firebaseId");
+      }
+
+      // Delete the record from the database
+      await remove(recordRef);
+      console.log("Record deleted successfully");
+      toast.success("Record deleted successfully");
+      fetchData(); // Refresh data
+    } catch (error) {
+      console.error("Error deleting record:", error);
+      toast.error("Failed to delete record");
+    }
+  };
 
   // Custom Card component
   const CustomCard = ({ children }) => {
-   
     return (
       <Grid item xs={5}>
         <Card>
@@ -496,57 +682,30 @@ const clearFieldsSkin = () => {
     );
   };
   return (
-    
     <>
-     <Admin/>
       <Box>
-        <Typography fontWeight={"800"} align="center" marginLeft={29} variant="h6" fontFamily={"system-ui"} fontSize={"24px"}>
-         Service Management
+        <Typography fontWeight={"700"} align="center" variant="h6">
+          Add /Update/Delete Data
         </Typography>
         <Grid
-        container
-        spacing={3}
-        sx={{ 
-          justifyContent: 'center',
-          marginTop:'15px',
-          marginLeft: '200px',
-          width: '85%', 
-          height: 'auto',
-          
-        }}
+          container
+          spacing={2}
+          sx={{ justifyContent: "center", marginY: "auto" }}
         >
           <CustomCard>
-            <Typography fontWeight={"700"} textAlign={"center"} variant="h6" fontFamily={"system-ui"}>
+            <Typography fontWeight={"700"} align="center" variant="h6">
               Hair Section
             </Typography>
             <Stack
-           
               direction="row"
               spacing={2}
-              sx={{ 
-                justifyContent: "center", 
-                background: 'linear-gradient(135deg, #FFC5C5, #FFBED8)',
-                padding: '10px',
-                borderRadius: '10px',
-
-              }}
+              sx={{ justifyContent: "center" }}
             >
               <Grid item xs={4}>
                 <Button
-                   sx={{
-                    mb: "2px",
-                    borderRadius: "10px",
-                    padding: "8px",
-                    fontSize: "14px",
-                    backgroundColor: "#F27BBD",
-                    fontFamily: "Georgia",
-                    "&:hover": {
-                      backgroundColor: "#E659A1",
-                    },
-                  }}
+                  sx={{ textAlign: "center" }}
                   onClick={setShowHaircutModal}
                   variant="contained"
-
                 >
                   Hair Cut Price
                 </Button>
@@ -555,75 +714,38 @@ const clearFieldsSkin = () => {
           </CustomCard>
 
           <CustomCard>
-            <Typography fontWeight={"700"} align="center" variant="h6" fontFamily={"system-ui"}>
+            <Typography fontWeight={"700"} align="center" variant="h6">
               Skin Section
             </Typography>
             <Stack
+              sx={{ justifyContent: "center" }}
               direction="row"
               spacing={2}
-              sx={{ 
-                justifyContent: "center", 
-                background: 'linear-gradient(135deg, #FFC5C5, #FFBED8)',
-                padding: '10px',
-                borderRadius: '10px',
-
-              }}
-
             >
               <Grid item xs={4}>
                 <Button
-                    sx={{
-                      mb: "2px",
-                      borderRadius: "10px",
-                      padding: "8px",
-                      fontSize: "14px",
-                      backgroundColor: "#F27BBD",
-                      fontFamily: "Georgia",
-                      "&:hover": {
-                        backgroundColor: "#E659A1",
-                      },
-                    }}
-  
+                  sx={{ textAlign: "center" }}
                   onClick={setshowCleanUpModal}
                   variant="contained"
                 >
-                  CleanUp Price
+                  CleanUp Price{" "}
                 </Button>
               </Grid>
             </Stack>
           </CustomCard>
           <CustomCard>
-            <Typography align="center" fontWeight={"700"} variant="h6" fontFamily={"system-ui"}>
+            <Typography align="center" fontWeight={"700"} variant="h6">
               Nail Section
             </Typography>
             <Stack
-               direction="row"
-               spacing={2}
-               sx={{ 
-                 justifyContent: "center", 
-                 background: 'linear-gradient(135deg, #FFC5C5, #FFBED8)',
-                 padding: '10px',
-                 borderRadius: '10px',
- 
-               }}
- 
+              sx={{ justifyContent: "center" }}
+              direction="row"
+              spacing={2}
             >
               <Grid item xs={4}>
                 <Button
-                     sx={{
-                      mb: "2px",
-                      borderRadius: "10px",
-                      padding: "8px",
-                      fontSize: "14px",
-                      backgroundColor: "#F27BBD",
-                      fontFamily: "Georgia",
-                      "&:hover": {
-                        backgroundColor: "#E659A1",
-                      },
-                    }}
-  
-      
-                  onClick={setshowPedicureModal}
+                  sx={{ textAlign: "center" }}
+                  onClick={handleNailButtonClick}
                   variant="contained"
                 >
                   Pedicure Price{" "}
@@ -632,73 +754,37 @@ const clearFieldsSkin = () => {
             </Stack>
           </CustomCard>
           <CustomCard>
-            <Typography align="center" fontWeight={"700"} variant="h6" fontFamily={"system-ui"}>
+            <Typography align="center" fontWeight={"700"} variant="h6">
               Body Section
             </Typography>
             <Stack
-               direction="row"
-               spacing={2}
-               sx={{ 
-                 justifyContent: "center", 
-                 background: 'linear-gradient(135deg, #FFC5C5, #FFBED8)',
-                 padding: '10px',
-                 borderRadius: '10px',
- 
-               }}
- 
+              sx={{ justifyContent: "center" }}
+              direction="row"
+              spacing={2}
             >
               <Grid item xs={4}>
                 <Button
-                   sx={{
-                    mb: "2px",
-                    borderRadius: "10px",
-                    padding: "8px",
-                    fontSize: "14px",
-                    backgroundColor: "#F27BBD",
-                    fontFamily: "Georgia",
-                    "&:hover": {
-                      backgroundColor: "#E659A1",
-                    },
-                  }}
-
+                  sx={{ textAlign: "center" }}
                   onClick={handleBodyButtonClick}
                   variant="contained"
                 >
-                  Waxing Price
+                  Waxing Price{" "}
                 </Button>
               </Grid>
             </Stack>
           </CustomCard>
           <CustomCard>
-            <Typography align="center" fontWeight={"700"} variant="h6" fontFamily={"system-ui"}>
+            <Typography align="center" fontWeight={"700"} variant="h6">
               Bridal Section
             </Typography>
             <Stack
-                  direction="row"
-                  spacing={2}
-                  sx={{ 
-                    justifyContent: "center", 
-                    background: 'linear-gradient(135deg, #FFC5C5, #FFBED8)',
-                    padding: '10px',
-                    borderRadius: '10px',
-    
-                  }}
-    
+              sx={{ justifyContent: "center" }}
+              direction="row"
+              spacing={2}
             >
               <Grid item xs={4}>
                 <Button
-                    sx={{
-                      mb: "2px",
-                      borderRadius: "10px",
-                      padding: "8px",
-                      fontSize: "14px",
-                      backgroundColor: "#F27BBD",
-                      fontFamily: "Georgia",
-                      "&:hover": {
-                        backgroundColor: "#E659A1",
-                      },
-                    }}
-  
+                  sx={{ textAlign: "center" }}
                   onClick={handlebridalButtonClick}
                   variant="contained"
                 >
@@ -707,7 +793,7 @@ const clearFieldsSkin = () => {
               </Grid>
             </Stack>
           </CustomCard>
-          {/* <CustomCard>
+          <CustomCard>
             <Typography align="center" fontWeight={"700"} variant="h6">
               Testing Section
             </Typography>
@@ -727,11 +813,10 @@ const clearFieldsSkin = () => {
                 </Button>
               </Grid>
             </Stack>
-          </CustomCard> */}
+          </CustomCard>
         </Grid>
       </Box>
-     
-      {/*-----------------------------------------------------------------------Hair Section-------------------------------------------------------------------- */}
+      {/* Modal for updating Hair Cut Price */}
 
       <Dialog
         open={showHaircutModal}
@@ -797,7 +882,7 @@ const clearFieldsSkin = () => {
                 id="filled-basic"
                 labelPlacement="start"
                 label="Add Type "
-                disabled={!isCheckboxChecked}
+                //disabled={!isCheckboxChecked}
                 variant="outlined"
                 value={inputTypeForAdd}
                 onChange={handleTypeChangeForAdd}
@@ -807,7 +892,7 @@ const clearFieldsSkin = () => {
               <TextField
                 id="filled-basic"
                 label="Add  Price"
-                disabled={!isCheckboxChecked}
+                //disabled={!isCheckboxChecked}
                 variant="outlined"
                 value={inputPriceForAdd}
                 onChange={handlePriceChangeForAdd}
@@ -817,20 +902,19 @@ const clearFieldsSkin = () => {
             </Stack>
             <Divider sx={{ mt: 10 }}></Divider>
             <Stack
-              mt={8}
-              ml={8}
+              mt={10}
+              ml={10}
               mb={5}
               direction="row"
-              sx={{ mr: 8 }}
-              spacing={2}
+              sx={{ mr: 10 }}
+              spacing={5}
             >
               <Grid item xs={3}>
                 <Button
                   variant="contained"
                   color="primary"
                   onClick={addRecord}
-                  disabled={!isCheckboxChecked}
-                  startIcon={<AddCircleRoundedIcon sx={{ mr: 0.5 }} />}
+                  //disabled={!isCheckboxChecked}
                 >
                   Add
                 </Button>
@@ -840,7 +924,6 @@ const clearFieldsSkin = () => {
                   variant="contained"
                   color="error"
                   onClick={() => deleteRecord()}
-                  startIcon={<DeleteRoundedIcon sx={{ mr: 0.5 }} />}
                 >
                   Delete
                 </Button>
@@ -850,7 +933,6 @@ const clearFieldsSkin = () => {
                   variant="contained"
                   color="success"
                   onClick={() => updateRecord()}
-                  startIcon={<UpdateRoundedIcon sx={{ mr: 0.5 }} />}
                 >
                   Update
                 </Button>
@@ -860,7 +942,6 @@ const clearFieldsSkin = () => {
                   variant="contained"
                   color="warning"
                   onClick={handleCloseModalHair}
-                  startIcon={<CloseRoundedIcon sx={{ mr: 0.5 }} />}
                 >
                   Close
                 </Button>
@@ -870,8 +951,8 @@ const clearFieldsSkin = () => {
         </Fade>
       </Dialog>
 
-{/* --------------------------------------------------------------------------Skin Section---------------------------------------------------------------*/}
-    
+      {/* Skin Section*/}
+      {/* Modal for updating  Skin cleanup  Price */}
       <Dialog
         open={showCleanUpModal}
         onClose={handleCloseModalSkin}
@@ -902,150 +983,6 @@ const clearFieldsSkin = () => {
               {/* Modal content */}
             </Typography>
             <Stack direction="row" spacing={4}>
-              <Select
-                value={inputSkinType}
-                onChange={handleSkinTypeChange}
-                fullWidth
-                input={<OutlinedInput label="Type" />}
-              >
-                 {skinTypeOptions.map((option, i) => (
-                  <MenuItem key={i} value={option.key}>
-                    {option.type}
-                  </MenuItem>
-                ))}
-
-              </Select>
-
-              <TextField
-                 label="Update Price"
-                 variant="outlined"
-                 value={inputSkinPrice}
-                 onChange={handleSkinPriceChange}
-                 required
-                 fullWidth
- 
-              />
-            </Stack>
-            <Divider sx={{ mt: 3 }}></Divider>
-            <FormControlLabel
-              control={<Checkbox />}
-              checked={isCheckboxCheckedSkin}
-              onChange={handleCheckBoxChangeSkin}
-              label="Add New Price "
-            />
-            <Stack direction="row" spacing={2}>
-              <TextField
-                id="filled-basic"
-                labelPlacement="start"
-                label="Add Type "
-                disabled={!isCheckboxCheckedSkin}
-                variant="outlined"
-                value={inputTypeForAddSkin}
-                onChange={handleTypeChangeForAddSkin}
-                required
-                fullWidth
-              />
-              <TextField
-                id="filled-basic"
-                label="Add  Price"
-                disabled={!isCheckboxCheckedSkin}
-                variant="outlined"
-                value={inputPriceForAddSkin}
-                onChange={handlePriceChangeForAddSkin}
-                required
-                fullWidth
-              />
-            </Stack>
-            <Divider sx={{ mt: 10 }}></Divider>
-
-            <Stack
-              mt={8}
-              ml={8}
-              mb={5}
-              direction="row"
-              sx={{ mr: 8 }}
-              spacing={2}
-            >
-              <Grid item xs={3}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={addRecordSkin}
-                  disabled={!isCheckboxCheckedSkin}
-                  startIcon={<AddCircleRoundedIcon sx={{ mr: 0.5 }} />}
-                >
-                  Add
-                </Button>
-              </Grid>
-              <Grid item xs={3}>
-                <Button
-                  variant="contained"
-                  color="error"
-                  onClick={() => deleteRecordSkin()}
-                  startIcon={<DeleteRoundedIcon sx={{ mr: 0.5 }} />}
-                >
-                  Delete
-                </Button>
-              </Grid>
-              <Grid item xs={3}>
-                <Button
-                  variant="contained"
-                  color="success"
-                  onClick={() => updateRecordSkin()}
-                  startIcon={<UpdateRoundedIcon sx={{ mr: 0.5 }} />}
-                >
-                  Update
-                </Button>
-              </Grid>
-              <Grid item xs={3}>
-                <Button
-                  variant="contained"
-                  color="warning"
-                  onClick={handleCloseModalSkin}
-                  startIcon={<CloseRoundedIcon sx={{ mr: 0.5 }} />}
-                >
-                  Close
-                </Button>
-              </Grid>
-            </Stack>
-          </div>
-        </Fade>
-      </Dialog>
-
-{/* --------------------------------------------------------------------------Nail Section---------------------------------------------------------------*/}
-
-      {/* Modal for updating Pedicure Pricess   Price */}
-      <Dialog
-        open={showPedicureModal}
-        onClose={handleCloseModalNail}
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-        sx={{
-          px: 4,
-          margin: " 0 auto",
-        }}
-      >
-        <Fade in={showPedicureModal}>
-          <div>
-            <Typography
-              align="center"
-              fontWeight={"700"}
-              id="transition-modal-title"
-              variant="h6"
-              component="h2"
-            >
-              Pedicure Prices
-            </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 5 }}>
-              {/* Modal content */}
-            </Typography>
-            <Stack direction="row" spacing={4}>
-              {/* Select for type */}
               <Select
                 value={inputType}
                 onChange={handleTypeChange}
@@ -1102,12 +1039,12 @@ const clearFieldsSkin = () => {
             <Divider sx={{ mt: 10 }}></Divider>
 
             <Stack
-              mt={8}
-              ml={8}
+              mt={10}
+              ml={10}
               mb={5}
               direction="row"
-              sx={{ mr: 8 }}
-              spacing={2}
+              sx={{ mr: 10 }}
+              spacing={5}
             >
               <Grid item xs={3}>
                 <Button
@@ -1115,7 +1052,6 @@ const clearFieldsSkin = () => {
                   color="primary"
                   onClick={addRecord}
                   //disabled={isCheckboxDisabled}
-                  startIcon={<AddCircleRoundedIcon sx={{ mr: 0.5 }} />}
                 >
                   Add
                 </Button>
@@ -1124,7 +1060,7 @@ const clearFieldsSkin = () => {
                 <Button
                   variant="contained"
                   color="error"
-                  startIcon={<DeleteRoundedIcon sx={{ mr: 0.5 }} />}
+                  //onClick={deleteHair}
                 >
                   Delete
                 </Button>
@@ -1134,7 +1070,145 @@ const clearFieldsSkin = () => {
                   variant="contained"
                   color="success"
                   //onClick={overWriteHair}
-                  startIcon={<UpdateRoundedIcon sx={{ mr: 0.5 }} />}
+                >
+                  Update
+                </Button>
+              </Grid>
+              <Grid item xs={3}>
+                <Button
+                  variant="contained"
+                  color="warning"
+                  onClick={handleCloseModalSkin}
+                >
+                  Close
+                </Button>
+              </Grid>
+            </Stack>
+          </div>
+        </Fade>
+      </Dialog>
+
+      {/*Nail Section*/}
+      {/* Modal for updating Pedicure Pricess   Price */}
+      <Dialog
+        open={showPedicureModal}
+        onClose={handleCloseModalNail}
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+        sx={{
+          px: 4,
+          margin: " 0 auto",
+        }}
+      >
+        <Fade in={showPedicureModal}>
+          <div>
+            <Typography
+              align="center"
+              fontWeight={"700"}
+              id="transition-modal-title"
+              variant="h6"
+              component="h2"
+            >
+              Pedicure Prices
+            </Typography>
+            <Typography id="transition-modal-description" sx={{ mt: 5 }}>
+              {/* Modal content */}
+            </Typography>
+            <Stack direction="row" spacing={4}>
+              {/* Select for type */}
+              <Select
+                value={inputTypeNail}
+                onChange={handleTypeChangeNail}
+                fullWidth
+                input={<OutlinedInput label="Type" />}
+              >
+                {typeOptionsNail.map((option, i) => (
+                  <MenuItem key={i} value={option.key}>
+                    {option.type}
+                  </MenuItem>
+                ))}
+              </Select>
+
+              <TextField
+                id="filled-basic"
+                label="Update Price"
+                variant="outlined"
+                value={inputPriceNail}
+                onChange={handlePriceChangeNail}
+                required
+                fullWidth
+              />
+            </Stack>
+            <Divider sx={{ mt: 3 }}></Divider>
+            <FormControlLabel
+              control={<Checkbox defaultChecked />}
+              checked={isCheckboxCheckedNail}
+              onChange={handleCheckBoxChangeNail}
+              label="Add New Price "
+            />
+            <Stack direction="row" spacing={2}>
+              <TextField
+                id="filled-basic"
+                labelPlacement="start"
+                label="Add Type "
+                //disabled={isCheckboxDisabled}
+                variant="outlined"
+                value={inputTypeForAddNail}
+                onChange={handleTypeChangeForAddNail}
+                required
+                fullWidth
+              />
+              <TextField
+                id="filled-basic"
+                label="Add  Price"
+                //disabled={isCheckboxDisabled}
+                variant="outlined"
+                value={inputPriceForAddNail}
+                onChange={handlePriceChangeForAddNail}
+                required
+                fullWidth
+              />
+            </Stack>
+            <Divider sx={{ mt: 10 }}></Divider>
+
+            <Stack
+              mt={10}
+              ml={10}
+              mb={5}
+              direction="row"
+              sx={{ mr: 10 }}
+              spacing={5}
+            >
+              <Grid item xs={3}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={addRecordForNail}
+                  //disabled={isCheckboxDisabled}
+                >
+                  Add
+                </Button>
+              </Grid>
+              <Grid item xs={3}>
+                <Button
+                  onClick={() => deleteRecordForNail()}
+                  variant="contained"
+                  color="error"
+                >
+                  Delete
+                </Button>
+              </Grid>
+              <Grid item xs={3}>
+                <Button
+                  onClick={() => updateRecordForNail()}
+                  variant="contained"
+                  color="success"
+                  //onClick={overWriteHair}
                 >
                   Update
                 </Button>
@@ -1144,7 +1218,6 @@ const clearFieldsSkin = () => {
                   variant="contained"
                   color="warning"
                   onClick={handleCloseModalNail}
-                  startIcon={<CloseRoundedIcon sx={{ mr: 0.5 }} />}
                 >
                   Close
                 </Button>
@@ -1187,24 +1260,24 @@ const clearFieldsSkin = () => {
             </Typography>
             <Stack direction="row" spacing={1}>
               <Select
-                value={inputType}
-                nChange={handleTypeChange}
+                value={inputTypeBody}
+                onChange={handleTypeChangeBody}
                 fullWidth
                 input={<OutlinedInput label="Type" />}
               >
-                {typeOptions.map((option) => (
-                  <MenuItem key={option} value={option}>
-                    {option}
+                {typeOptionsBody.map((option, i) => (
+                  <MenuItem key={i} value={option.key}>
+                    {option.type}
                   </MenuItem>
                 ))}
               </Select>
 
               <TextField
                 id="filled-basic"
-                label="Price"
+                label="Update Price"
                 variant="outlined"
-                value={inputPrice}
-                onChange={handlePriceChange}
+                value={inputPriceBody}
+                onChange={handlePriceChangeBody}
                 required
                 fullWidth
               />
@@ -1212,8 +1285,8 @@ const clearFieldsSkin = () => {
             <Divider sx={{ mt: 3 }}></Divider>
             <FormControlLabel
               control={<Checkbox defaultChecked />}
-              //checked={!isCheckboxDisabled}
-              onChange={handleCheckBoxChange}
+              // checked={!isCheckboxDisabled}
+              onChange={handleCheckBoxChangeBody}
               label="Add New Price "
             />
             <Stack direction="row" spacing={2}>
@@ -1223,8 +1296,8 @@ const clearFieldsSkin = () => {
                 label="Add Type "
                 //disabled={isCheckboxDisabled}
                 variant="outlined"
-                value={inputTypeForAdd}
-                onChange={handleTypeChangeForAdd}
+                value={inputTypeForAddBody}
+                onChange={handleTypeChangeForAddBody}
                 required
                 fullWidth
               />
@@ -1233,8 +1306,8 @@ const clearFieldsSkin = () => {
                 label="Add  Price"
                 //disabled={isCheckboxDisabled}
                 variant="outlined"
-                value={inputPriceForAdd}
-                onChange={handlePriceChangeForAdd}
+                value={inputPriceForAddBody}
+                onChange={handlePriceChangeForAddBody}
                 required
                 fullWidth
               />
@@ -1242,39 +1315,38 @@ const clearFieldsSkin = () => {
             <Divider sx={{ mt: 10 }}></Divider>
 
             <Stack
-              mt={8}
-              ml={8}
+              mt={10}
+              ml={10}
               mb={5}
               direction="row"
-              sx={{ mr: 8 }}
-              spacing={2}
+              sx={{ mr: 10 }}
+              spacing={5}
             >
               <Grid item xs={3}>
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={addRecord}
+                  onClick={addRecordForbody}
                   //disabled={isCheckboxDisabled}
-                  startIcon={<AddCircleRoundedIcon sx={{ mr: 0.5 }} />}
                 >
                   Add
                 </Button>
               </Grid>
               <Grid item xs={3}>
                 <Button
+                  onClick={() => deleteRecordForBody()}
                   variant="contained"
                   color="error"
-                  startIcon={<DeleteRoundedIcon sx={{ mr: 0.5 }} />}
                 >
                   Delete
                 </Button>
               </Grid>
               <Grid item xs={3}>
                 <Button
+                  onClick={() => updateRecordForBody()}
                   variant="contained"
                   color="success"
                   //onClick={"overWriteHair"}
-                  startIcon={<UpdateRoundedIcon sx={{ mr: 0.5 }} />}
                 >
                   Update
                 </Button>
@@ -1284,7 +1356,6 @@ const clearFieldsSkin = () => {
                   variant="contained"
                   color="warning"
                   onClick={handleCloseModalBody}
-                  startIcon={<CloseRoundedIcon sx={{ mr: 0.5 }} />}
                 >
                   Close
                 </Button>
@@ -1327,14 +1398,14 @@ const clearFieldsSkin = () => {
             </Typography>
             <Stack direction="row" spacing={3}>
               <Select
-                value={inputType}
-                //onChange={handleTypeChange}
+                value={inputTypeBridal}
+                onChange={handleTypeChangeBridal}
                 fullWidth
                 input={<OutlinedInput label="Type" />}
               >
-                {typeOptions.map((option) => (
-                  <MenuItem key={option} value={option}>
-                    {option}
+                {typeOptionsBridal.map((option, i) => (
+                  <MenuItem key={i} value={option.key}>
+                    {option.type}
                   </MenuItem>
                 ))}
               </Select>
@@ -1343,8 +1414,8 @@ const clearFieldsSkin = () => {
                 id="filled-basic"
                 label="Price"
                 variant="outlined"
-                value={inputPrice}
-                onChange={handlePriceChange}
+                value={inputPriceBridal}
+                onChange={handlePriceChangeBridal}
                 required
                 fullWidth
               />
@@ -1363,8 +1434,8 @@ const clearFieldsSkin = () => {
                 label="Add Type "
                 //disabled={isCheckboxDisabled}
                 variant="outlined"
-                value={inputTypeForAdd}
-                onChange={handleTypeChangeForAdd}
+                value={inputTypeForAddBridal}
+                onChange={handleTypeChangeForAddBridal}
                 required
                 fullWidth
               />
@@ -1373,8 +1444,8 @@ const clearFieldsSkin = () => {
                 label="Add  Price"
                 //disabled={isCheckboxDisabled}
                 variant="outlined"
-                value={inputPriceForAdd}
-                onChange={handlePriceChangeForAdd}
+                value={inputPriceForAddBridal}
+                onChange={handlePriceChangeForAddBridal}
                 required
                 fullWidth
               />
@@ -1382,30 +1453,29 @@ const clearFieldsSkin = () => {
             <Divider sx={{ mt: 10 }}></Divider>
 
             <Stack
-              mt={8}
-              ml={8}
+              mt={10}
+              ml={10}
               mb={5}
               direction="row"
-              sx={{ mr: 8 }}
-              spacing={2}
+              sx={{ mr: 10 }}
+              spacing={5}
             >
               <Grid item xs={3}>
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={addRecord}
+                  onClick={addRecordForBridal}
                   //disabled={isCheckboxDisabled}
-                  startIcon={<AddCircleRoundedIcon sx={{ mr: 0.5 }} />}
                 >
                   Add
                 </Button>
               </Grid>
               <Grid item xs={3}>
                 <Button
+                   onClick={() => deleteRecordForBridal()}
                   variant="contained"
                   color="error"
                   //onClick={deleteHair}
-                  startIcon={<DeleteRoundedIcon sx={{ mr: 0.5 }} />}
                 >
                   Delete
                 </Button>
@@ -1414,8 +1484,8 @@ const clearFieldsSkin = () => {
                 <Button
                   variant="contained"
                   color="success"
+                  onClick={() => updateRecordForBridal()}
                   //onClick={overWriteHair}
-                  startIcon={<UpdateRoundedIcon sx={{ mr: 0.5 }} />}
                 >
                   Update
                 </Button>
@@ -1425,7 +1495,6 @@ const clearFieldsSkin = () => {
                   variant="contained"
                   color="warning"
                   onClick={handleCloseModalBridal}
-                  startIcon={<CloseRoundedIcon sx={{ mr: 0.5 }} />}
                 >
                   Close
                 </Button>
