@@ -6,6 +6,7 @@ import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import PaymentDetails from "../Payment/PaymentDetails";
+import Logo from "../../../src/Assets/Lillylogo.png";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useSelector } from "react-redux";
 import { selectBookingData } from "../redux/BookingDataSlice";
@@ -70,7 +71,7 @@ const CheckOut = () => {
 
   const generatePDF = () => {
     const doc = new jsPDF();
-  
+
     // Set document properties
     doc.setProperties({
       title: "Booking Confirmation",
@@ -78,64 +79,75 @@ const CheckOut = () => {
       author: "Team Lilly",
       keywords: "booking, confirmation",
     });
-  
+    // Add the logo
+    const logoWidth = 50; // Adjust the width of the logo
+    const logoHeight = 20; // Adjust the height of the logo
+    doc.addImage(Logo, "PNG", 80, 10, logoWidth, logoHeight); // Position and size the logo
+    
     // Add header
     doc.setFontSize(18);
     doc.text("Booking Confirmation", 105, 20, null, null, "center");
-  
+
     // Add horizontal line
     doc.setLineWidth(0.5);
     doc.line(10, 25, 200, 25);
-  
+
     // Set font size for content
     doc.setFontSize(12);
-  
+
     // Add booking details with some styling
     const startX = 20;
     let startY = 35;
     const lineHeight = 10;
-  
+
     const addText = (label, text) => {
-      doc.setFont(undefined, 'bold');
+      doc.setFont(undefined, "bold");
       doc.text(`${label}:`, startX, startY);
-      doc.setFont(undefined, 'normal');
+      doc.setFont(undefined, "normal");
       doc.text(text, startX + 40, startY);
       startY += lineHeight;
     };
-  
+
     addText("Name", formData.name);
     addText("Phone", formData.phone);
     addText("Email", formData.email);
     addText("Service", formData.service);
     addText("Time", formData.time);
     addText("Notes", formData.notes);
-  
+
     // Add footer
     doc.setLineWidth(0.5);
     doc.line(10, 280, 200, 280);
     doc.setFontSize(10);
     doc.text("Thank you for booking with us!", 105, 285, null, null, "center");
-    doc.text("Contact us at support@teamlilly.com", 105, 290, null, null, "center");
-  
+    doc.text(
+      "Contact us at support@teamlilly.com",
+      105,
+      290,
+      null,
+      null,
+      "center"
+    );
+
     // Add "Paid" seal
     const sealX = 150;
     const sealY = 70;
     const sealRadius = 20;
-  
+
     // Draw circle
     doc.setDrawColor(0, 0, 255); // Blue color
     doc.setFillColor(0, 0, 255); // Blue color
-    doc.circle(sealX, sealY, sealRadius, 'F');
-  
+    doc.circle(sealX, sealY, sealRadius, "F");
+
     // Add "Paid" text inside the circle
     doc.setFontSize(16);
     doc.setTextColor(255, 255, 255); // White color
     doc.text("Paid", sealX, sealY + 5, null, null, "center");
-  
+
     // Save the PDF
     doc.save("booking-confirmation.pdf");
   };
-  
+
   const handleNext = async () => {
     if (activeStep === steps.length - 1) {
       //handleSendEmail(); // Call the function to send email

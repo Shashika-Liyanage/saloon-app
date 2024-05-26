@@ -2,7 +2,7 @@ import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
-import Divider from "@mui/material/Divider";
+
 import Drawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -44,24 +44,7 @@ const Admin = (props) => {
     setIsClosing(false);
   };
 
-  // const handleDrawerToggle = () => {
-  //   if (!isClosing) {
-  //     setMobileOpen(!mobileOpen);
-  //   }
-  // };
-
-  // const goToBookingPage = () => {
-  //   navigate("/booking");
-  // };
-  // const goToAppointments = () => {
-  //   navigate("/Apoinments");
-  // };
-  // const goToAddAdmin = () => {
-  //   navigate("/AddAdmin");
-  // };
-  // const goToInbox = () => {
-  //   navigate("/Inbox");
-  // };
+  
   const goToSentMail = () => {
     navigate("/SentMail");
   };
@@ -168,33 +151,7 @@ const Admin = (props) => {
     return { Customer, PhoneNumber, Service, Date, Time, Notes };
   }
 
-  const rows = [
-    createData(
-      "ABC@gmail",
-      756534407,
-      "Hair Cut",
-      "2024/02/12",
-      "8:00AM",
-      "Test"
-    ),
-    createData("d@gmail", 7565344556, "Facial", "2024/02/12", "9:00AM", "Test"),
-    createData(
-      "BC@gmail",
-      756534457,
-      "Clean Up",
-      "2024/02/12",
-      "10:00AM",
-      "Test"
-    ),
-    createData(
-      "AC@gmail",
-      756534455,
-      "Skin Tag Remove",
-      "2024/02/12",
-      "11:00AM",
-      "Test"
-    ),
-  ];
+  
   const openApoinment = (e) => {
     navigate("/NewApoinment");
   };
@@ -258,144 +215,7 @@ const Admin = (props) => {
           {drawer}
         </Drawer>
       </Box>
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          p: 3,
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <Button
-            variant="contained"
-            sx={{ textTransform: "capitalize", marginRight: "auto" }}
-            color="success"
-            onClick={openApoinment}
-          >
-            {" "}
-            <AddIcon />
-            New Apoinment
-          </Button>
-          <Typography
-            sx={{ fontWeight: "700", marginRight: "100px", color: "#874CCC" }}
-          >
-            On Going Appoinments
-          </Typography>
-          <Badge
-            sx={{ marginRight: "90px" }}
-            color="success"
-            overlap="circular"
-            badgeContent="4 "
-          ></Badge>
-          <Badge
-            sx={{ marginRight: "90px" }}
-            color="error"
-            overlap="circular"
-            badgeContent="0 "
-          ></Badge>
-        </div>
-        <Divider sx={{ mt: "10px" }}></Divider>
-        <div style={{ height: 400, width: "100%" }}>
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650, mt: "20px" }} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell
-                    sx={{
-                      fontWeight: "700",
-                      fontStyle: "oblique",
-                      fontSize: "18px",
-                      color: "#874CCC",
-                    }}
-                  >
-                    Customer
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      fontWeight: "700",
-                      fontStyle: "oblique",
-                      fontSize: "18px",
-                      color: "#874CCC",
-                    }}
-                  >
-                    Phone Number
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      fontWeight: "700",
-                      fontStyle: "oblique",
-                      fontSize: "18px",
-                      color: "#874CCC",
-                    }}
-                  >
-                    Service
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      fontWeight: "700",
-                      fontStyle: "oblique",
-                      fontSize: "18px",
-                      color: "#874CCC",
-                    }}
-                  >
-                    Date
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      fontWeight: "700",
-                      fontStyle: "oblique",
-                      fontSize: "18px",
-                      color: "#874CCC",
-                    }}
-                  >
-                    Time
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      fontWeight: "700",
-                      fontStyle: "oblique",
-                      fontSize: "18px",
-                      color: "#874CCC",
-                    }}
-                  >
-                    Note
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-
-              <TableBody>
-                {rows.map((row) => (
-                  <TableRow
-                    key={row.name}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell
-                      sx={{ fontWeight: "600" }}
-                      component="th"
-                      scope="row"
-                    >
-                      {row.Customer}
-                    </TableCell>
-                    <TableCell sx={{ fontWeight: "600" }}>
-                      {row.PhoneNumber}
-                    </TableCell>
-                    <TableCell sx={{ fontWeight: "600" }}>
-                      {row.Service}
-                    </TableCell>
-                    <TableCell sx={{ fontWeight: "600" }}>{row.Date}</TableCell>
-                    <TableCell sx={{ fontWeight: "600" }}>{row.Time}</TableCell>
-                    <TableCell sx={{ fontWeight: "600" }}>
-                      {row.Notes}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </div>
-        <Toolbar />
-      </Box>
+     
     </Box>
   );
 };

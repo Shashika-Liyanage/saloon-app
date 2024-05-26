@@ -184,10 +184,17 @@ const PaymentDetails = ({ bookingData, onFormValid }) => {
           </Stack>
         </Grid>
         <Grid item xs={6}>
-          <Card variant="outlined" sx={{ borderRadius: 2, bgcolor: "#AD88C6" }}>
+          <Card variant="outlined" sx={{ borderRadius: 5, bgcolor: "#FDCEDF" }}>
             <CardContent>
               <Box sx={{ textAlign: "center", mb: 2 }}>
-                <Typography variant="h6" sx={{ color: "primary.contrastText" }}>
+                <Typography variant="h6" 
+                sx={{ 
+                  color: "#352F44", 
+                  fontFamily: "sans-serif",
+                  fontSize: "18px",
+                 
+                } 
+                }>
                   Booking Details
                 </Typography>
               </Box>
