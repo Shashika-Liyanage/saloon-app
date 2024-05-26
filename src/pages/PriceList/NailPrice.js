@@ -11,6 +11,9 @@ import "./priceList.css";
 import salonIcon from "../../../src/Assets/salonicon.jpg";
 import NailImage from "../../../src/Assets/NailImg.png";
 
+
+
+
 function createData(name: string, StandardPrice: number) {
   return { name, StandardPrice };
 }

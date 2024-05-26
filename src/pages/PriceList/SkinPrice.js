@@ -8,28 +8,59 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Footer from "../Footer/Footer";
 import "./priceList.css";
-import salonIcon from "../../../src/Assets/salonicon.jpg";
+//import salonIcon from "../../../src/Assets/salonicon.jpg";
 import SkinImage from "../../../src/Assets/SkinImg.png";
+import { getDatabase, ref, get } from "firebase/database";
 
-function createData(name: string, StandardPrice: number) {
-  return { name, StandardPrice };
+function ReadData() {
+  let [SkinPriceArray, setNailPriceArray] = React.useState([]);
+
+  React.useEffect(() => {
+    const fetchDataSkin = async () => {
+      const db = getDatabase();
+      const dbRef = ref(db, "createprice/SkinPrice");
+      const snapshot = await get(dbRef);
+
+      if (snapshot.exists()) {
+        
+        setNailPriceArray(Object.values(snapshot.val()));
+      } else {
+        console.error("No data available");
+      }
+    };
+
+    fetchDataSkin();
+  }, []);
+  return (
+    <div>
+       <h2>Salon Lilly Skin Prices</h2>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 500 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>
+                <b>Type</b>
+              </TableCell>
+              <TableCell >
+                <b>Price</b>
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {SkinPriceArray.map((row, index) => (
+              <TableRow key={index}>
+                <TableCell component="th" scope="row">
+                  {row.type}
+                </TableCell>
+                <TableCell >{row.price}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </div>
+  );
 }
-
-const rows = [
-  createData("Face Shaving", 3800.0),
-  createData("Add on - Galvanize Treatment", 1200.0),
-  createData("Classic Clean Up", 3300.0),
-  createData("Brightening Clean Up", 5900.0),
-  createData("Basic Clean Up", 8500.0),
-  createData("Natural Glow Facial", 5000.0),
-  createData("Re-Energising Radiance Facial", 9000.0),
-  createData("Sothys Hydra Moist Facial", 11600.0),
-  createData("Under Eye Treatment", 6100.0),
-  createData("Natural Face Massage", 1400.0),
-  createData("Express Acne Ritual", 2500.0),
-  createData("Eye Brows", 200.0),
-  createData("Full Face", 1600.0),
-];
 
 export default function BasicTable() {
   return (
@@ -46,42 +77,9 @@ export default function BasicTable() {
           </div>
         </div>
       </div>
-      <div className="table">
-        <div className="table-wrapper">
-          <TableContainer component={Paper}>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <img src={salonIcon} alt="Salon Icon" className="icon" />
-              <h2 className="headingS">CLEAN UP | FACIAL | THREADING</h2>
-            </div>
-            <Table sx={{ minWidth: 500 }} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>
-                    <b>Type</b>
-                  </TableCell>
-                  <TableCell align="right">
-                    <b>Standard Price(Rs)</b>
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows.map((row) => (
-                  <TableRow
-                    key={row.name}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row">
-                      {row.name}
-                    </TableCell>
-                    <TableCell align="right">{row.StandardPrice}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </div>
+      
+      <ReadData/>
+      <Footer/>
       </div>
-      <Footer />
-    </div>
   );
 }
