@@ -116,8 +116,8 @@ const BookingPage = () => {
           <Typography
             sx={{
               fontWeight: 700,
-              fontSize: 40,
-              mt: "10px",
+              fontSize: 35,
+              mt: "8px",
               color: "#99154E",
               fontFamily: "Georgia",
             }}

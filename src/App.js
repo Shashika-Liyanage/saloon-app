@@ -35,6 +35,7 @@ import Chatbot from './pages/ChatBot/Chatbot';
 import CreateData from "./pages/admin/Add/CreateData";
 import UserManage from "./pages/admin/UserManage";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdDashboard from "./pages/admin/AdDashboard";
 
 
 
@@ -77,6 +78,7 @@ function App() {
             <Route path="CreateData" element={<CreateData />} />
             <Route path="UserManage" element={<UserManage />} />
             <Route path="AdminDashboard" element={<AdminDashboard />} />
+            <Route path="AdDashboard" element={<AdDashboard />} />
 
            
             <Route path="*" element={<NoPage />} />
