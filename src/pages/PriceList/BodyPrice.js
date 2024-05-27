@@ -10,33 +10,57 @@ import Footer from "../Footer/Footer";
 import "./priceList.css";
 import salonIcon from "../../../src/Assets/salonicon.jpg";
 import BodyImage from "../../../src/Assets/BodyImg.png";
+import { getDatabase, ref, get } from "firebase/database";
 
-function createData(name: string, StandardPrice: number) {
-  return { name, StandardPrice };
+function ReadData() {
+  let [BodyPriceArray, setBodyPriceArray] = React.useState([]);
+
+  React.useEffect(() => {
+    const fetchDataBody = async () => {
+      const db = getDatabase();
+      const dbRef = ref(db, "createprice/body");
+      const snapshot = await get(dbRef);
+
+      if (snapshot.exists()) {
+        
+        setBodyPriceArray(Object.values(snapshot.val()));
+      } else {
+        console.error("No data available");
+      }
+    };
+
+    fetchDataBody();
+  }, []);
+  return (
+    <div>
+       <h2>Salon Lilly Skin Prices</h2>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 500 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>
+                <b>Type</b>
+              </TableCell>
+              <TableCell >
+                <b>Price</b>
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {BodyPriceArray.map((row, index) => (
+              <TableRow key={index}>
+                <TableCell component="th" scope="row">
+                  {row.type}
+                </TableCell>
+                <TableCell >{row.price}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </div>
+  );
 }
-
-const rows1 = [
-  createData("Classic Full Arms", 3300.0),
-  createData("Classic Full Legs", 3600.0),
-  createData("Half Arms", 2500.0),
-  createData("Half Leg", 3000.0),
-  createData("Full Body", 11900.0),
-  createData("Forehead", 900.0),
-  createData("Eye Brows", 700.0),
-  createData("Full Face", 3900.0),
-];
-
-const rows2 = [
-  createData("Under Arms", 1100.0),
-  createData("Feet", 1500.0),
-  createData("Face & Neck", 3200.0),
-  createData("Half Legs", 3900.0),
-  createData("Full Legs", 5300.0),
-  createData("Full Body Massage (60 Min)", 9400.0),
-  createData("Shoulder Massage (30 Min)", 3200.0),
-  createData("Classic - Body Scrub", 6600.0),
-];
-
 export default function BasicTable() {
   return (
     <div>
@@ -54,87 +78,7 @@ export default function BasicTable() {
         </div>
       </div>
 
-      <div className="table">
-        <div className="table-wrapper">
-          <TableContainer component={Paper}>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <img
-                src={salonIcon}
-                alt="Salon Icon"
-                className="icon"
-                style={{ color: "#BC7FCD" }}
-              />
-              <h2 className="headingB">WAXING</h2>
-            </div>
-
-            <Table sx={{ minWidth: 500 }} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>
-                    <b>Type</b>
-                  </TableCell>
-                  <TableCell align="right">
-                    <b>Standard Price(Rs)</b>
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows1.map((row) => (
-                  <TableRow
-                    key={row.name}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row">
-                      {row.name}
-                    </TableCell>
-                    <TableCell align="right">{row.StandardPrice}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </div>
-
-        <div style={{ width: "48%" }}>
-          <TableContainer component={Paper}>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <img
-                src={salonIcon}
-                alt="Salon Icon"
-                className="icon"
-                style={{ color: "#BC7FCD" }}
-              />
-              <h2 className="headingB"> DE-TANNING PREMIUM</h2>
-            </div>
-
-            <Table sx={{ minWidth: 500 }} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>
-                    <b>Type</b>
-                  </TableCell>
-                  <TableCell align="right">
-                    <b>Standard Price(Rs)</b>
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows2.map((row) => (
-                  <TableRow
-                    key={row.name}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row">
-                      {row.name}
-                    </TableCell>
-                    <TableCell align="right">{row.StandardPrice}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </div>
-      </div>
+      <ReadData/>
       <Footer />
     </div>
   );

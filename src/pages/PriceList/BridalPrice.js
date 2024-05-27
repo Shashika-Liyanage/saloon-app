@@ -10,21 +10,58 @@ import Footer from "../Footer/Footer";
 import "./priceList.css";
 import salonIcon from "../../../src/Assets/salonicon.jpg";
 import BridalImage from "../../../src/Assets/BridalImg.png";
+import { getDatabase, ref, get } from "firebase/database";
 
-function createData(name: string, StandardPrice: number) {
-  return { name, StandardPrice };
+function ReadData() {
+  let [BridalPriceArray, setBridalPriceArray] = React.useState([]);
+
+  React.useEffect(() => {
+    const fetchDataBody = async () => {
+      const db = getDatabase();
+      const dbRef = ref(db, "createprice/bridal");
+      const snapshot = await get(dbRef);
+
+      if (snapshot.exists()) {
+        
+        setBridalPriceArray(Object.values(snapshot.val()));
+      } else {
+        console.error("No data available");
+      }
+    };
+
+    fetchDataBody();
+  }, []);
+
+  return (
+    <div>
+       <h2>Salon Lilly Dresing Prices</h2>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 500 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>
+                <b>Type</b>
+              </TableCell>
+              <TableCell >
+                <b>Price</b>
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {BridalPriceArray.map((row, index) => (
+              <TableRow key={index}>
+                <TableCell component="th" scope="row">
+                  {row.type}
+                </TableCell>
+                <TableCell >{row.price}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </div>
+  );
 }
-
-const rows1 = [
-  createData("Full Dressing (Early Morning) Add on Before 8.30am", 2200.0),
-  createData("Full Dressing Derma", 5500.0),
-  createData("Full Dressing Mac", 9000.0),
-  createData("Saree Draping", 1700.0),
-  createData("Make-Up (Mac)", 7000.0),
-  createData("Make-Up (Derma)", 3600.0),
-  createData("Hair Style", 2700.0),
-  createData("Add-on Eye Lashes", 1600.0),
-];
 
 export default function BasicTable() {
   return (
@@ -43,60 +80,7 @@ export default function BasicTable() {
         </div>
       </div>
 
-      <div className="table">
-        <div className="table-wrapper">
-          <TableContainer component={Paper}>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <img
-                src={salonIcon}
-                alt="Salon Icon"
-                className="icon"
-                style={{ color: "#BC7FCD" }}
-              />
-              <h2 className="headingBr">DRESSING</h2>
-            </div>
-
-            <Table sx={{ minWidth: 500 }} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell className="highlighted">
-                    <b>Type</b>
-                  </TableCell>
-                  <TableCell align="right" className="highlighted">
-                    <b>Standard Price(Rs)</b>
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows1.map((row) => (
-                  <TableRow
-                    key={row.name}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row">
-                      {row.name}
-                    </TableCell>
-                    <TableCell align="right">{row.StandardPrice}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                marginTop: "10px",
-              }}
-            >
-              <img src={salonIcon} alt="Salon Icon" className="icon" />
-              <h3 style={{ color: "#D63484", marginLeft: "10px" }}>
-                BRIDAL - Please Contact +94 778512478 More Details
-              </h3>
-            </div>
-          </TableContainer>
-        </div>
-      </div>
+      <ReadData/>
       <Footer />
     </div>
   );

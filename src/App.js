@@ -33,6 +33,8 @@ import AlertDialogSlide from './pages/ChatBot/Pop';
 import ChatbotLauncher from './pages/ChatBot/Chatbot';
 import Chatbot from './pages/ChatBot/Chatbot';
 import CreateData from "./pages/admin/Add/CreateData";
+import UserManage from "./pages/admin/UserManage";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 
 
 
@@ -71,9 +73,12 @@ function App() {
             <Route path="Alert" element={<AlertDialogSlide />} />
             <Route path="ChatBot" element={<ChatbotLauncher />} />
             <Route path="ChatBotui" element={<Chatbot />} />
-             <Route path="PriceUpdate" element={<PriceUpdate />} /> 
+            <Route path="PriceUpdate" element={<PriceUpdate />} /> 
             <Route path="CreateData" element={<CreateData />} />
-            {/* <Route path="UpdateWrite/:firebaseId" element={<PriceUpdate />} /> */}
+            <Route path="UserManage" element={<UserManage />} />
+            <Route path="AdminDashboard" element={<AdminDashboard />} />
+
+           
             <Route path="*" element={<NoPage />} />
 
            
