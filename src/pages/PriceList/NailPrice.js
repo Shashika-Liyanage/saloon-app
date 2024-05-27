@@ -9,76 +9,65 @@ import Paper from "@mui/material/Paper";
 import Footer from "../Footer/Footer";
 import "./priceList.css";
 import salonIcon from "../../../src/Assets/salonicon.jpg";
-import BodyImage from "../../../src/Assets/BodyImg.png";
+import NailImage from "../../../src/Assets/NailImg.png";
 import { getDatabase, ref, get } from "firebase/database";
 
 function ReadData() {
-  const [nailPriceArray, setNailPriceArray] = React.useState([]);
+  let [NailPriceArray, setNailPriceArray] = React.useState([]);
 
   React.useEffect(() => {
-    const fetchDataForNail = async () => {
+    const fetchDataNail = async () => {
       const db = getDatabase();
       const dbRef = ref(db, "createprice/nail");
       const snapshot = await get(dbRef);
 
       if (snapshot.exists()) {
+        
         setNailPriceArray(Object.values(snapshot.val()));
       } else {
         console.error("No data available");
       }
     };
 
-    fetchDataForNail();
+    fetchDataNail();
   }, []);
-
   return (
-    <div className="table">
-      <div className="table-wrapper">
-        <TableContainer component={Paper}>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <img
-              src={salonIcon}
-              alt="Salon Icon"
-              className="icon"
-              style={{ color: "#BC7FCD" }}
-            />
-            <h2 className="headingB">MANICURE | PEDICURE</h2>
-          </div>
-          <Table sx={{ minWidth: 500 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                  <b>Type</b>
+    <div>
+       <h2>Salon Lilly Skin Prices</h2>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 500 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>
+                <b>Type</b>
+              </TableCell>
+              <TableCell >
+                <b>Price</b>
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {NailPriceArray.map((row, index) => (
+              <TableRow key={index}>
+                <TableCell component="th" scope="row">
+                  {row.type}
                 </TableCell>
-                <TableCell align="right">
-                  <b>Standard Price(Rs)</b>
-                </TableCell>
+                <TableCell >{row.price}</TableCell>
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {nailPriceArray.map((row, index) => (
-                <TableRow key={index}>
-                  <TableCell component="th" scope="row">
-                    {row.type}
-                  </TableCell>
-                  <TableCell align="right">{row.price}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </div>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </div>
   );
 }
-
 export default function BasicTable() {
   return (
     <div>
       <div className="container">
         <div className="image-boxB">
           <img
-            src={BodyImage}
+            // src={BodyImage}
             alt="Salon Lilly Body Prices"
             className="imageB"
           />
@@ -88,9 +77,11 @@ export default function BasicTable() {
         </div>
       </div>
 
-      <ReadData />
-
+      
+      <ReadData/>
+     
       <Footer />
-    </div>
+      </div>
+    
   );
 }

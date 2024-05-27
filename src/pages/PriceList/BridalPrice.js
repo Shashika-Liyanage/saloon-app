@@ -13,80 +13,57 @@ import BridalImage from "../../../src/Assets/BridalImg.png";
 import { getDatabase, ref, get } from "firebase/database";
 
 function ReadData() {
-  const [bridalPriceArray, setBridalPriceArray] = React.useState([]);
+  let [BridalPriceArray, setBridalPriceArray] = React.useState([]);
 
   React.useEffect(() => {
-    const fetchDataForBridal = async () => {
+    const fetchDataBody = async () => {
       const db = getDatabase();
       const dbRef = ref(db, "createprice/bridal");
       const snapshot = await get(dbRef);
 
       if (snapshot.exists()) {
+        
         setBridalPriceArray(Object.values(snapshot.val()));
       } else {
         console.error("No data available");
       }
     };
 
-    fetchDataForBridal();
+    fetchDataBody();
   }, []);
 
   return (
-    <div className="table">
-      <div className="table-wrapper">
-        <TableContainer component={Paper}>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <img
-              src={salonIcon}
-              alt="Salon Icon"
-              className="icon"
-              style={{ color: "#BC7FCD" }}
-            />
-            <h2 className="headingBr">DRESSING</h2>
-          </div>
-
-          <Table sx={{ minWidth: 500 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell className="highlighted">
-                  <b>Type</b>
+    <div>
+       <h2>Salon Lilly Dresing Prices</h2>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 500 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>
+                <b>Type</b>
+              </TableCell>
+              <TableCell >
+                <b>Price</b>
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {BridalPriceArray.map((row, index) => (
+              <TableRow key={index}>
+                <TableCell component="th" scope="row">
+                  {row.type}
                 </TableCell>
-                <TableCell align="right" className="highlighted">
-                  <b>Standard Price(Rs)</b>
-                </TableCell>
+                <TableCell >{row.price}</TableCell>
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {bridalPriceArray.map((row, index) => (
-                <TableRow key={index}>
-                  <TableCell component="th" scope="row">
-                    {row.type}
-                  </TableCell>
-                  <TableCell align="right">{row.price}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginTop: "10px",
-            }}
-          >
-            <img src={salonIcon} alt="Salon Icon" className="icon" />
-            <h3 style={{ color: "#D63484", marginLeft: "10px" }}>
-              BRIDAL - Please Contact +94 778512478 for More Details
-            </h3>
-          </div>
-        </TableContainer>
-      </div>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </div>
   );
 }
 
-export default function BridalTable() {
+export default function BasicTable() {
   return (
     <div>
       <div className="container">
@@ -102,8 +79,7 @@ export default function BridalTable() {
         </div>
       </div>
 
-      <ReadData />
-
+      <ReadData/>
       <Footer />
     </div>
   );

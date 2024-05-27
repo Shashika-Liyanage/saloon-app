@@ -13,65 +13,64 @@ import BodyImage from "../../../src/Assets/BodyImg.png";
 import { getDatabase, ref, get } from "firebase/database";
 
 function ReadData() {
-  const [bodyPriceArray, setBodyPriceArray] = React.useState([]);
+  let [BodyPriceArray, setBodyPriceArray] = React.useState([]);
 
   React.useEffect(() => {
-    const fetchDataForBody = async () => {
+    const fetchDataBody = async () => {
       const db = getDatabase();
       const dbRef = ref(db, "createprice/body");
       const snapshot = await get(dbRef);
 
       if (snapshot.exists()) {
+        
         setBodyPriceArray(Object.values(snapshot.val()));
       } else {
         console.error("No data available");
       }
     };
 
-    fetchDataForBody();
+    fetchDataBody();
   }, []);
-
   return (
     <div className="table">
-      <div className="table-wrapper">
-        <TableContainer component={Paper}>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <img
-              src={salonIcon}
-              alt="Salon Icon"
-              className="icon"
-              style={{ color: "#BC7FCD" }}
-            />
-            <h2 className="headingB">WAXING</h2>
-          </div>
-          <Table sx={{ minWidth: 500 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                  <b>Type</b>
+    <div className="table-wrapper">
+      <TableContainer component={Paper}>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <img
+            src={salonIcon}
+            alt="Salon Icon"
+            className="icon"
+            style={{ color: "#BC7FCD" }}
+          />
+          <h2 className="headingB">WAXING</h2>
+        </div>
+        <Table sx={{ minWidth: 500 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>
+                <b>Type</b>
+              </TableCell>
+              <TableCell align="right">
+                <b>Standard Price(Rs)</b>
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {BodyPriceArray.map((row, index) => (
+              <TableRow key={index}>
+                <TableCell component="th" scope="row">
+                  {row.type}
                 </TableCell>
-                <TableCell align="right">
-                  <b>Standard Price(Rs)</b>
-                </TableCell>
+                <TableCell align="right">{row.price}</TableCell>
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {bodyPriceArray.map((row, index) => (
-                <TableRow key={index}>
-                  <TableCell component="th" scope="row">
-                    {row.type}
-                  </TableCell>
-                  <TableCell align="right">{row.price}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </div>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </div>
+  </div>
   );
 }
-
 export default function BasicTable() {
   return (
     <div>
@@ -88,8 +87,7 @@ export default function BasicTable() {
         </div>
       </div>
 
-      <ReadData />
-
+      <ReadData/>
       <Footer />
     </div>
   );

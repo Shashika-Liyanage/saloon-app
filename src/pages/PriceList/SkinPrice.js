@@ -13,15 +13,16 @@ import BridalImage from "../../../src/Assets/BridalImg.png";
 import { getDatabase, ref, get } from "firebase/database";
 
 function ReadData() {
-  const [skinPriceArray, setSkinPriceArray] = React.useState([]);
+  let [SkinPriceArray, setSkinPriceArray] = React.useState([]);
 
   React.useEffect(() => {
     const fetchDataForBridal = async () => {
       const db = getDatabase();
-      const dbRef = ref(db, "createprice/skin");
+      const dbRef = ref(db, "createprice/Skin");
       const snapshot = await get(dbRef);
 
       if (snapshot.exists()) {
+        
         setSkinPriceArray(Object.values(snapshot.val()));
       } else {
         console.error("No data available");
@@ -57,7 +58,7 @@ function ReadData() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {skinPriceArray.map((row, index) => (
+              {SkinPriceArray.map((row, index) => (
                 <TableRow key={index}>
                   <TableCell component="th" scope="row">
                     {row.type}

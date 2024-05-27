@@ -25,13 +25,17 @@ import toast from "react-hot-toast";
 import { auth } from "../../services/firebaseConfig";
 import { get, getDatabase, ref } from "firebase/database";
 import Table from "@mui/material/Table";
+import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
+import ManageAccountsRoundedIcon from '@mui/icons-material/ManageAccountsRounded';
+
+
 
 const drawerWidth = 280;
 
 const Admin = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [setIsClosing] = React.useState(false);
-  const [bookingDataArray, setBookingDataArray] = React.useState([]);
+
   const navigate = useNavigate();
 
   const handleDrawerClose = () => {
@@ -43,15 +47,26 @@ const Admin = () => {
     setIsClosing(false);
   };
 
+  const goToDashboard = () => {
+    navigate("/AdminDashboard");
+  };
+  const goToUserManage = () => {
+    navigate("/UserManage");
+  };
+  const goToManageService = () => {
+    navigate("/PriceUpdate");
+  };
+  const goToAppointment = () => {
+    navigate("/NewApoinment");
+  };
+
   const goToSentMail = () => {
     navigate("/SentMail");
   };
   const goToSettings = () => {
     navigate("/Setting");
   };
-  const goToUpdateTables = () => {
-    navigate("/PriceUpdate");
-  };
+ 
   const handleLogOut = () => {
     signOut(auth)
       .then(() => {
@@ -63,43 +78,105 @@ const Admin = () => {
       });
   };
 
-  React.useEffect(() => {
-    const fetchDataForBooking = async () => {
-      const db = getDatabase();
-      const dbRef = ref(db, "UserData");
-      const snapshot = await get(dbRef);
 
-      if (snapshot.exists()) {
-        setBookingDataArray(Object.values(snapshot.val()));
-      } else {
-        console.error("No data available");
-      }
-    };
-
-    fetchDataForBooking();
-  }, []);
 
   const drawer = (
     <div>
-      <Stack direction="column" spacing={5} sx={{ mt: "20px" }}>
-        <Button
-          onClick={goToUpdateTables}
+      <Stack direction="column"  spacing={4} sx={{ mt: "80px", alignItems: 'center' }}>
+       
+      <Button
+          onClick={goToDashboard}
           variant="contained"
           fullWidth
           sx={{
-            fontWeight: "600",
-            color: "white",
+            fontWeight: "500",
+            color: "#662549",
             ml: "20px",
+            
+            backgroundColor: "#FFE5E5",
+            fontFamily:"serif" ,
+            "&:hover": {
+              backgroundColor: "#FFD1DA", 
+             } 
+          }}
+          
+        >
+          <DashboardRoundedIcon/>
+         DashBoard
+        </Button>
+        <Button
+          onClick={goToManageService}
+          variant="contained"
+          fullWidth
+          sx={{
+            fontWeight: "500",
+            color: "#662549",
+            ml: "20px",
+            backgroundColor: "#FFE5E5",
+            fontFamily:"serif" ,
+            "&:hover": {
+              backgroundColor: "#FFD1DA", 
+             } 
+          }}
+        
+        >
+        <AdminPanelSettingsIcon/>
+         Manage Service
+        </Button>
+        <Button
+          onClick={goToUserManage}
+          variant="contained"
+          fullWidth
+          sx={{
+            fontWeight: "500",
+            color: "#662549",
+            ml: "20px",
+            backgroundColor: "#FFE5E5",
+            fontFamily:"serif" ,
+           
+            "&:hover": {
+              backgroundColor: "#FFD1DA", 
+             } 
+          }}
+        >
+         <ManageAccountsRoundedIcon/>
+         Manage User
+        </Button>
+        <Button
+          onClick={goToAppointment}
+          variant="contained"
+          fullWidth
+          sx={{
+            fontWeight: "500",
+            color: "#662549",
+            ml: "20px",
+            backgroundColor: "#FFE5E5",
+            fontFamily:"serif" ,
+            "&:hover": {
+              backgroundColor: "#FFD1DA", 
+             } 
           }}
         >
           <AdminPanelSettingsIcon />
-          Update Tables
+         Manage Appointment
         </Button>
+
+       
+       
         <Button
           onClick={goToSentMail}
           variant="contained"
           fullWidth
-          sx={{ fontWeight: "600", color: "white" }}
+          sx={{
+            fontWeight: "500",
+            color: "#662549",
+            ml: "20px",
+            backgroundColor: "#FFE5E5",
+            fontFamily:"serif" ,
+            "&:hover": {
+              backgroundColor: "#FFD1DA", 
+             } 
+          }}
         >
           <ForwardToInboxIcon />
           Sent Mail
@@ -108,7 +185,16 @@ const Admin = () => {
           onClick={goToSettings}
           variant="contained"
           fullWidth
-          sx={{ fontWeight: "600", color: "white" }}
+          sx={{ fontWeight: "450", color: "white" }}sx={{
+            fontWeight: "500",
+            color: "#662549",
+            ml: "20px",
+            backgroundColor: "#FFE5E5",
+            fontFamily:"serif" ,
+            "&:hover": {
+              backgroundColor: "#FFD1DA", 
+             } 
+          }}
         >
           <SettingsIcon />
           Settings
@@ -117,7 +203,16 @@ const Admin = () => {
           onClick={handleLogOut}
           variant="contained"
           fullWidth
-          sx={{ fontWeight: "600", color: "white" }}
+          sx={{
+            fontWeight: "500",
+            color: "#662549",
+            ml: "20px",
+            backgroundColor: "#FFE5E5",
+            fontFamily:"serif" ,
+            "&:hover": {
+              backgroundColor: "#FFD1DA", 
+             } 
+          }}
         >
           <PowerSettingsNewIcon />
           LogOut
@@ -125,7 +220,9 @@ const Admin = () => {
       </Stack>
     </div>
   );
-
+  
+  
+ 
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -179,54 +276,7 @@ const Admin = () => {
           {drawer}
         </Drawer>
       </Box>
-  <Box>
-            <Typography sx={{textAlign:"center",fontWeight:"700",fontSize:"30px",color:"#5AB2FF"}}>On Going Appointments</Typography>
-       
-
-    
-            <Table sx={{ minWidth: 900 ,ml:2}} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell sx={{ width: "15%", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                    <b>Date</b>
-                  </TableCell>
-                  <TableCell sx={{ width: "25%", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                    <b>Email</b>
-                  </TableCell>
-                  <TableCell sx={{ width: "20%", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                    <b>Name</b>
-                  </TableCell>
-                  <TableCell sx={{ width: "20%", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                    <b>Phone Number</b>
-                  </TableCell>
-                  <TableCell sx={{ width: "20%", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                    <b>Service</b>
-                  </TableCell>
-                  <TableCell sx={{ width: "10%", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                    <b>Time</b>
-                  </TableCell>
-                  <TableCell sx={{ width: "10%", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                    <b color="red">Closed</b>
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {bookingDataArray.map((row, index) => (
-                  <TableRow key={index}>
-                    <TableCell component="th" scope="row" sx={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                      {row.Date}
-                    </TableCell>
-                    <TableCell sx={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{row.Email}</TableCell>
-                    <TableCell sx={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{row.Name}</TableCell>
-                    <TableCell sx={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{row.Phone}</TableCell>
-                    <TableCell sx={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{row.Service}</TableCell>
-                    <TableCell sx={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{row.Time}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-         
-            </Box>
+ 
     </Box>
   );
 };
