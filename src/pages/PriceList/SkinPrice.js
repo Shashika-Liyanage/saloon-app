@@ -13,17 +13,17 @@ import SkinImage from "../../../src/Assets/SkinImg.png";
 import { getDatabase, ref, get } from "firebase/database";
 
 function ReadData() {
-  let [SkinPriceArray, setNailPriceArray] = React.useState([]);
+  let [SkinPriceArray, setSkinPriceArray] = React.useState([]);
 
   React.useEffect(() => {
     const fetchDataSkin = async () => {
       const db = getDatabase();
-      const dbRef = ref(db, "createprice/SkinPrice");
+      const dbRef = ref(db, "createprice/Skin");
       const snapshot = await get(dbRef);
 
       if (snapshot.exists()) {
         
-        setNailPriceArray(Object.values(snapshot.val()));
+        setSkinPriceArray(Object.values(snapshot.val()));
       } else {
         console.error("No data available");
       }

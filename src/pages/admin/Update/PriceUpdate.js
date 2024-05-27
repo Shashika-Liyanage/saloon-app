@@ -32,15 +32,24 @@ import {
 import { useParams } from "react-router-dom";
 import app from "../../../services/firebaseConfig";
 import toast, { Toaster } from "react-hot-toast";
+import AddCircleOutlineSharpIcon from "@mui/icons-material/AddCircleOutlineSharp";
+import UpdateSharpIcon from "@mui/icons-material/UpdateSharp";
+import DeleteSharpIcon from "@mui/icons-material/DeleteSharp";
+import HighlightOffRoundedIcon from "@mui/icons-material/HighlightOffRounded";
+import Admin from "../Admin";
+
 
 const PriceUpdate = () => {
+  // For the Hair Section
+  const [showHaircutModal, setShowHaircutModal] = useState(false);
   // For the Skin Section
   const [showCleanUpModal, setshowCleanUpModal] = useState(false);
+  //For the Nail Section
+  const [showPedicureModal, setshowPedicureModal] = useState(false);
   //For the Body Section
   const [showWaxingModal, setShowWaxingModal] = useState(false);
   //For the Bridal Section
   const [showDressingModal, setshowDressingModal] = useState(false);
-  const [showPedicureModal, setshowPedicureModal] = useState(false);
 
   //---------------Hair Section-------------------------------
   const [inputType, setInputType] = useState("");
@@ -49,7 +58,14 @@ const PriceUpdate = () => {
   const [inputTypeForAdd, setInputTypeForAdd] = useState("");
   const [inputPriceForAdd, setInputPriceForAdd] = useState("");
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
-  const [showHaircutModal, setShowHaircutModal] = useState(false);
+
+  //-----Skin Section------------------------------------------
+  const [inputTypeSkin, setInputTypeSkin] = useState("");
+  const [inputPriceSkin, setInputPriceSkin] = useState("");
+  const [typeOptionsSkin, setTypeOptionsSkin] = useState([]);
+  const [inputTypeForAddSkin, setInputTypeForAddSkin] = useState("");
+  const [inputPriceForAddSkin, setInputPriceForAddSkin] = useState("");
+  const [isCheckboxCheckedSkin, setIsCheckboxCheckedSkin] = useState(false);
 
   //-----Nail Section------------------------------------------
   const [inputTypeNail, setInputTypeNail] = useState("");
@@ -67,7 +83,6 @@ const PriceUpdate = () => {
   const [inputPriceForAddBody, setInputPriceForAddBody] = useState("");
   const [isCheckboxCheckedBody, setIsCheckboxCheckedBody] = useState(false);
 
-  
   //-----Bridal  Section------------------------------------------
   const [inputTypeBridal, setInputTypeBridal] = useState("");
   const [inputPriceBridal, setInputPriceBridal] = useState("");
@@ -75,7 +90,8 @@ const PriceUpdate = () => {
   const [inputTypeForAddBridal, setInputTypeForAddBridal] = useState("");
   const [inputPriceForAddBridal, setInputPriceForAddBridal] = useState("");
   const [isCheckboxCheckedBridal, setIsCheckboxCheckedBridal] = useState(false);
-  //---------------------------------------Hair Section handeling------------------------------------
+
+  //---------------------------------------Hair Section handeling start-----------------------------------
 
   const handleTypeChangeForAdd = (e) => {
     setInputTypeForAdd(e.target.value);
@@ -95,6 +111,30 @@ const PriceUpdate = () => {
   const handleCheckBoxChange = (event) => {
     setIsCheckboxChecked(event.target.checked);
   };
+  //---------------------------------------Hair Section handeling End------------------------------------
+
+  //---------------------------------------Skin Section handeling Start------------------------------------
+
+  const handleTypeChangeForAddSkin = (e) => {
+    setInputTypeForAddSkin(e.target.value);
+  };
+  const handlePriceChangeForAddSkin = (e) => {
+    setInputPriceForAddSkin(e.target.value);
+  };
+  const handleTypeChangeSkin = (e) => {
+    const { value } = e.target;
+    setInputTypeSkin(value);
+    setInputPriceSkin(typeOptionsNail.find((d) => d?.key === value)?.price);
+  };
+  const handlePriceChangeSkin = (e) => {
+    setInputPriceSkin(e.target.value);
+  };
+
+  const handleCheckBoxChangeSkin = (event) => {
+    setIsCheckboxCheckedSkin(event.target.checked);
+  };
+  //---------------------------------------Skin Section handeling End------------------------------------
+
   //---------------------------------------Nail Section handeling Start------------------------------------
 
   const handleTypeChangeForAddNail = (e) => {
@@ -134,36 +174,40 @@ const PriceUpdate = () => {
   };
 
   const handleCheckBoxChangeBody = (event) => {
-    setIsCheckboxCheckedNail(event.target.checked);
+    setIsCheckboxCheckedBody(event.target.checked);
   };
 
   //---------------------------------------Body Section handeling End------------------------------------
 
-    //---------------------------------------Bridal  Section handeling Start------------------------------------
+  //---------------------------------------Bridal Section handeling Start------------------------------------
 
-    const handleTypeChangeForAddBridal = (e) => {
-      setInputTypeForAddBridal(e.target.value);
-    };
-    const handlePriceChangeForAddBridal = (e) => {
-      setInputPriceForAddBridal(e.target.value);
-    };
-    const handleTypeChangeBridal = (e) => {
-      const { value } = e.target;
-      setInputTypeBridal(value);
-      setInputPriceBridal(typeOptionsBridal.find((d) => d?.key === value)?.price);
-    };
-    const handlePriceChangeBridal = (e) => {
-      setInputPriceBridal(e.target.value);
-    };
-  
-    const handleCheckBoxChangeBridal = (event) => {
-      setIsCheckboxCheckedNail(event.target.checked);
-    };
+  const handleTypeChangeForAddBridal = (e) => {
+    setInputTypeForAddBridal(e.target.value);
+  };
+  const handlePriceChangeForAddBridal = (e) => {
+    setInputPriceForAddBridal(e.target.value);
+  };
+  const handleTypeChangeBridal = (e) => {
+    const { value } = e.target;
+    setInputTypeBridal(value);
+    setInputPriceBridal(typeOptionsBridal.find((d) => d?.key === value)?.price);
+  };
+  const handlePriceChangeBridal = (e) => {
+    setInputPriceBridal(e.target.value);
+  };
 
- //---------------------------------------Bridal  Section handeling End------------------------------------
+  const handleCheckBoxChangeBridal = (event) => {
+    setIsCheckboxCheckedBridal(event.target.checked);
+  };
+
+  //---------------------------------------Bridal  Section handeling End------------------------------------
+
   const clearFields = () => {
     setInputTypeForAdd("");
     setInputPriceForAdd("");
+
+    setInputTypeForAddSkin("");
+    setInputPriceForAddSkin("");
 
     setInputPriceForAddNail("");
     setInputTypeForAddNail("");
@@ -171,14 +215,15 @@ const PriceUpdate = () => {
     setInputPriceForAddBody("");
     setInputTypeForAddBody("");
 
-    
     setInputPriceForAddBridal("");
     setInputTypeForAddBridal("");
 
-    setInputType("");
-    setInputPrice("");
+    // setInputType("");
+    // setInputPrice("");
 
     setIsCheckboxChecked(false);
+
+    setIsCheckboxCheckedSkin(false);
 
     setIsCheckboxCheckedNail(false);
 
@@ -341,6 +386,117 @@ const PriceUpdate = () => {
 
   //------------------------------------------Hair Section---CRUD Opeartions End-------------------------------------------------------------//
 
+  //------------------------------------------Skin Section---CRUD Opeartions Start-------------------------------------------------------------//
+  useEffect(() => {
+    fetchDataForSkin();
+  }, []);
+
+  // Fetch data from the database
+  const fetchDataForSkin = async () => {
+    try {
+      const db = getDatabase();
+      const snapshot = await get(ref(db, "createprice/Skin"));
+
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+
+        setTypeOptionsSkin(
+          Object.keys(data).map((key) => ({
+            key,
+            price: data[key].price,
+            type: data[key].type,
+          }))
+        );
+        //setPriceOptions(Object.keys(data).map((key) => data[key].price));
+      } else {
+        console.error("No data available");
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  // Add new record to the database
+  const addRecordForSkin = async () => {
+    const db = getDatabase();
+    const recordsRef = ref(db, "createprice/Skin/");
+
+    try {
+      const newRecordRef = push(recordsRef); // Generate unique key
+      await set(newRecordRef, {
+        type: inputTypeForAddSkin,
+        price: inputPriceForAddSkin,
+      }); // Set type and price fields
+      clearFields();
+      toast.success("New record added successfully");
+    } catch (error) {
+      console.error("Error adding record:", error);
+      toast.error("Failed to add record");
+    }
+  };
+
+  const updateRecordForSkin = async () => {
+    try {
+      const firebaseId = inputTypeSkin;
+      const type = typeOptionsSkin.find((d) => d?.key === inputTypeSkin)?.type;
+
+      console.log("Firebase ID:", firebaseId);
+      console.log("Input Type:", type);
+      console.log("Input Price:", inputPriceSkin);
+
+      const db = getDatabase();
+      const recordRef = ref(db, `createprice/Skin/${firebaseId}`);
+
+      // Check if firebaseId is null or undefined
+      if (!firebaseId) {
+        throw new Error("Invalid firebaseId");
+      }
+
+      // Check if inputTypeNail and inputPriceNail are not empty or null
+      if (!inputTypeSkin || !inputPriceSkin) {
+        throw new Error("Invalid inputTypSkin or inputPriceSkin");
+      }
+
+      // Update the record in the database
+      await set(recordRef, { type: type, price: inputPriceSkin });
+      clearFields();
+      toast.success("Record updated successfully");
+      fetchDataForSkin(); // Refresh data
+    } catch (error) {
+      console.error("Error updating record:", error);
+      toast.error("Failed to update record");
+    }
+  };
+
+  // Remove record from the database
+
+  const deleteRecordForSkin = async () => {
+    try {
+      const firebaseId = inputTypeSkin;
+
+      console.log("Attempting to delete record with Firebase ID:", firebaseId);
+
+      const db = getDatabase();
+      const recordRef = ref(db, `createprice/Skin/${firebaseId}`);
+
+      // Check if firebaseId is null or undefined
+      if (!firebaseId) {
+        throw new Error("Invalid firebaseId");
+      }
+
+      // Delete the record from the database
+      await remove(recordRef);
+      console.log("Record deleted successfully");
+      toast.success("Record deleted successfully");
+      fetchDataForSkin(); // Refresh data
+    } catch (error) {
+      console.error("Error deleting record:", error);
+      toast.error("Failed to delete record");
+    }
+  };
+
+  //------------------------------------------Skin Section---CRUD Opeartions End-------------------------------------------------------------//
+
   //------------------------------------------Nail Section---CRUD Opeartions Start-------------------------------------------------------------//
   useEffect(() => {
     fetchDataForNail();
@@ -370,7 +526,7 @@ const PriceUpdate = () => {
       console.error("Error fetching data:", error);
     }
   };
-  //------------------------------------------Nail Section---CRUD  Fetch Data Opeartions End-------------------------------------------------------------//
+
   // Add new record to the database
   const addRecordForNail = async () => {
     const db = getDatabase();
@@ -482,7 +638,6 @@ const PriceUpdate = () => {
       console.error("Error fetching data:", error);
     }
   };
-  //------------------------------------------Body Section---CRUD  Fetch Data Opeartions End-------------------------------------------------------------//
   // Add new record to the database
   const addRecordForbody = async () => {
     const db = getDatabase();
@@ -561,8 +716,10 @@ const PriceUpdate = () => {
       toast.error("Failed to delete record");
     }
   };
+
   //------------------------------------------Body Section---CRUD Opeartions End-------------------------------------------------------------//
-//------------------------------------------Bridal Section---CRUD Opeartions End-------------------------------------------------------------//
+
+  //------------------------------------------Bridal Section---CRUD Opeartions Start-------------------------------------------------------------//
   useEffect(() => {
     fetchDataForBridal();
   }, []);
@@ -591,7 +748,6 @@ const PriceUpdate = () => {
       console.error("Error fetching data:", error);
     }
   };
-  //------------------------------------------Body Section---CRUD  Fetch Data Opeartions End-------------------------------------------------------------//
   // Add new record to the database
   const addRecordForBridal = async () => {
     const db = getDatabase();
@@ -614,7 +770,9 @@ const PriceUpdate = () => {
   const updateRecordForBridal = async () => {
     try {
       const firebaseId = inputTypeBridal;
-      const type = typeOptionsBridal.find((d) => d?.key === inputTypeBridal)?.type;
+      const type = typeOptionsBridal.find(
+        (d) => d?.key === inputTypeBridal
+      )?.type;
 
       console.log("Firebase ID:", firebaseId);
       console.log("Input Type:", type);
@@ -670,10 +828,12 @@ const PriceUpdate = () => {
       toast.error("Failed to delete record");
     }
   };
+  //------------------------------------------Bridal Section---CRUD Opeartions End-------------------------------------------------------------//
 
   // Custom Card component
   const CustomCard = ({ children }) => {
     return (
+      
       <Grid item xs={5}>
         <Card>
           <CardContent>{children}</CardContent>
@@ -683,9 +843,19 @@ const PriceUpdate = () => {
   };
   return (
     <>
-      <Box>
+    <Admin/>
+      <Box
+      sx={{
+     
+        width: '60%', // Adjust width as needed
+        height: '80vh', // Adjust height as needed
+        marginLeft: '420px', // Adjust left margin as needed
+        padding: '10px', // Optional padding for inner content spacing
+       
+      }}
+      >
         <Typography fontWeight={"700"} align="center" variant="h6">
-          Add /Update/Delete Data
+          Service Management
         </Typography>
         <Grid
           container
@@ -693,17 +863,37 @@ const PriceUpdate = () => {
           sx={{ justifyContent: "center", marginY: "auto" }}
         >
           <CustomCard>
-            <Typography fontWeight={"700"} align="center" variant="h6">
+            <Typography
+              fontWeight={"700"}
+              textAlign={"center"}
+              variant="h6"
+              fontFamily={"system-ui"}
+            >
               Hair Section
             </Typography>
             <Stack
               direction="row"
               spacing={2}
-              sx={{ justifyContent: "center" }}
+              sx={{
+                justifyContent: "center",
+                background: "linear-gradient(135deg, #FFC5C5, #FFBED8)",
+                padding: "10px",
+                borderRadius: "10px",
+              }}
             >
               <Grid item xs={4}>
                 <Button
-                  sx={{ textAlign: "center" }}
+                  sx={{
+                    mb: "2px",
+                    borderRadius: "10px",
+                    padding: "2px",
+                    fontSize: "14px",
+                    backgroundColor: "#F27BBD",
+                    fontFamily: "Georgia",
+                    "&:hover": {
+                      backgroundColor: "#E659A1",
+                    },
+                  }}
                   onClick={setShowHaircutModal}
                   variant="contained"
                 >
@@ -712,19 +902,38 @@ const PriceUpdate = () => {
               </Grid>
             </Stack>
           </CustomCard>
-
           <CustomCard>
-            <Typography fontWeight={"700"} align="center" variant="h6">
+            <Typography
+              fontWeight={"700"}
+              textAlign={"center"}
+              variant="h6"
+              fontFamily={"system-ui"}
+            >
               Skin Section
             </Typography>
             <Stack
-              sx={{ justifyContent: "center" }}
               direction="row"
               spacing={2}
+              sx={{
+                justifyContent: "center",
+                background: "linear-gradient(135deg, #FFC5C5, #FFBED8)",
+                padding: "10px",
+                borderRadius: "10px",
+              }}
             >
               <Grid item xs={4}>
                 <Button
-                  sx={{ textAlign: "center" }}
+                  sx={{
+                    mb: "2px",
+                    borderRadius: "10px",
+                    padding: "2px",
+                    fontSize: "14px",
+                    backgroundColor: "#F27BBD",
+                    fontFamily: "Georgia",
+                    "&:hover": {
+                      backgroundColor: "#E659A1",
+                    },
+                  }}
                   onClick={setshowCleanUpModal}
                   variant="contained"
                 >
@@ -734,38 +943,78 @@ const PriceUpdate = () => {
             </Stack>
           </CustomCard>
           <CustomCard>
-            <Typography align="center" fontWeight={"700"} variant="h6">
+            <Typography
+              fontWeight={"700"}
+              textAlign={"center"}
+              variant="h6"
+              fontFamily={"system-ui"}
+            >
               Nail Section
             </Typography>
             <Stack
-              sx={{ justifyContent: "center" }}
               direction="row"
               spacing={2}
+              sx={{
+                justifyContent: "center",
+                background: "linear-gradient(135deg, #FFC5C5, #FFBED8)",
+                padding: "10px",
+                borderRadius: "10px",
+              }}
             >
               <Grid item xs={4}>
                 <Button
-                  sx={{ textAlign: "center" }}
-                  onClick={handleNailButtonClick}
+                  sx={{
+                    mb: "2px",
+                    borderRadius: "10px",
+                    padding: "2px",
+                    fontSize: "14px",
+                    backgroundColor: "#F27BBD",
+                    fontFamily: "Georgia",
+                    "&:hover": {
+                      backgroundColor: "#E659A1",
+                    },
+                  }}
+                  onClick={setshowPedicureModal}
                   variant="contained"
                 >
-                  Pedicure Price{" "}
+                  Pedicure &  Price{" "}
                 </Button>
               </Grid>
             </Stack>
           </CustomCard>
           <CustomCard>
-            <Typography align="center" fontWeight={"700"} variant="h6">
+            <Typography
+              fontWeight={"700"}
+              textAlign={"center"}
+              variant="h6"
+              fontFamily={"system-ui"}
+            >
               Body Section
             </Typography>
             <Stack
-              sx={{ justifyContent: "center" }}
               direction="row"
               spacing={2}
+              sx={{
+                justifyContent: "center",
+                background: "linear-gradient(135deg, #FFC5C5, #FFBED8)",
+                padding: "10px",
+                borderRadius: "10px",
+              }}
             >
               <Grid item xs={4}>
                 <Button
-                  sx={{ textAlign: "center" }}
-                  onClick={handleBodyButtonClick}
+                  sx={{
+                    mb: "2px",
+                    borderRadius: "10px",
+                    padding: "2px",
+                    fontSize: "14px",
+                    backgroundColor: "#F27BBD",
+                    fontFamily: "Georgia",
+                    "&:hover": {
+                      backgroundColor: "#E659A1",
+                    },
+                  }}
+                  onClick={setShowWaxingModal}
                   variant="contained"
                 >
                   Waxing Price{" "}
@@ -774,18 +1023,38 @@ const PriceUpdate = () => {
             </Stack>
           </CustomCard>
           <CustomCard>
-            <Typography align="center" fontWeight={"700"} variant="h6">
+            <Typography
+              fontWeight="700"
+              textAlign="center"
+              variant="h6"
+              fontFamily="system-ui"
+            >
               Bridal Section
             </Typography>
             <Stack
-              sx={{ justifyContent: "center" }}
               direction="row"
               spacing={2}
+              sx={{
+                justifyContent: "center",
+                background: "linear-gradient(135deg, #FFC5C5, #FFBED8)",
+                padding: "10px",
+                borderRadius: "10px",
+              }}
             >
               <Grid item xs={4}>
                 <Button
-                  sx={{ textAlign: "center" }}
-                  onClick={handlebridalButtonClick}
+                  sx={{
+                    mb: "2px",
+                    borderRadius: "10px",
+                    padding: "2px",
+                    fontSize: "14px",
+                    backgroundColor: "#F27BBD",
+                    fontFamily: "Georgia",
+                    "&:hover": {
+                      backgroundColor: "#E659A1",
+                    },
+                  }}
+                  onClick={setshowDressingModal}
                   variant="contained"
                 >
                   DRESSING Price{" "}
@@ -793,30 +1062,9 @@ const PriceUpdate = () => {
               </Grid>
             </Stack>
           </CustomCard>
-          <CustomCard>
-            <Typography align="center" fontWeight={"700"} variant="h6">
-              Testing Section
-            </Typography>
-            <Stack
-              sx={{ justifyContent: "center" }}
-              direction="row"
-              spacing={2}
-            >
-              <Grid item xs={4}>
-                <Button
-                  sx={{ textAlign: "center" }}
-                  onClick={handlebridalButtonClick}
-                  variant="contained"
-                  disabled
-                >
-                  Testing Section{" "}
-                </Button>
-              </Grid>
-            </Stack>
-          </CustomCard>
         </Grid>
       </Box>
-      {/* Modal for updating Hair Cut Price */}
+      {/* -----------------------------------------------------Modal for Hair Cut Price Start---------------------------------------------------- */}
 
       <Dialog
         open={showHaircutModal}
@@ -861,7 +1109,7 @@ const PriceUpdate = () => {
                 ))}
               </Select>
               <TextField
-                label="Update Price"
+                label="Price"
                 variant="outlined"
                 value={inputPrice}
                 onChange={handlePriceChange}
@@ -882,7 +1130,7 @@ const PriceUpdate = () => {
                 id="filled-basic"
                 labelPlacement="start"
                 label="Add Type "
-                //disabled={!isCheckboxChecked}
+                disabled={!isCheckboxChecked}
                 variant="outlined"
                 value={inputTypeForAdd}
                 onChange={handleTypeChangeForAdd}
@@ -891,8 +1139,8 @@ const PriceUpdate = () => {
               />
               <TextField
                 id="filled-basic"
-                label="Add  Price"
-                //disabled={!isCheckboxChecked}
+                label="Add Price"
+                disabled={!isCheckboxChecked}
                 variant="outlined"
                 value={inputPriceForAdd}
                 onChange={handlePriceChangeForAdd}
@@ -902,19 +1150,20 @@ const PriceUpdate = () => {
             </Stack>
             <Divider sx={{ mt: 10 }}></Divider>
             <Stack
-              mt={10}
-              ml={10}
+              mt={8}
+              ml={8}
               mb={5}
               direction="row"
               sx={{ mr: 10 }}
-              spacing={5}
+              spacing={3}
             >
               <Grid item xs={3}>
                 <Button
                   variant="contained"
                   color="primary"
                   onClick={addRecord}
-                  //disabled={!isCheckboxChecked}
+                  disabled={!isCheckboxChecked}
+                  startIcon={<AddCircleOutlineSharpIcon sx={{ mr: 0.5 }} />}
                 >
                   Add
                 </Button>
@@ -924,6 +1173,7 @@ const PriceUpdate = () => {
                   variant="contained"
                   color="error"
                   onClick={() => deleteRecord()}
+                  startIcon={<DeleteSharpIcon sx={{ mr: 0.5 }} />}
                 >
                   Delete
                 </Button>
@@ -933,6 +1183,7 @@ const PriceUpdate = () => {
                   variant="contained"
                   color="success"
                   onClick={() => updateRecord()}
+                  startIcon={<UpdateSharpIcon sx={{ mr: 0.5 }} />}
                 >
                   Update
                 </Button>
@@ -942,6 +1193,7 @@ const PriceUpdate = () => {
                   variant="contained"
                   color="warning"
                   onClick={handleCloseModalHair}
+                  startIcon={<HighlightOffRoundedIcon sx={{ mr: 0.5 }} />}
                 >
                   Close
                 </Button>
@@ -950,9 +1202,10 @@ const PriceUpdate = () => {
           </div>
         </Fade>
       </Dialog>
+      {/* -----------------------------------------------------Modal for Hair Cut Price End---------------------------------------------------- */}
 
-      {/* Skin Section*/}
-      {/* Modal for updating  Skin cleanup  Price */}
+      {/* -----------------------------------------------------Modal for Skin Cut Price Start---------------------------------------------------- */}
+
       <Dialog
         open={showCleanUpModal}
         onClose={handleCloseModalSkin}
@@ -984,14 +1237,14 @@ const PriceUpdate = () => {
             </Typography>
             <Stack direction="row" spacing={4}>
               <Select
-                value={inputType}
-                onChange={handleTypeChange}
+                value={inputTypeSkin}
+                onChange={handleTypeChangeSkin}
                 fullWidth
                 input={<OutlinedInput label="Type" />}
               >
-                {typeOptions.map((option) => (
-                  <MenuItem key={option} value={option}>
-                    {option}
+                {typeOptionsSkin.map((option, i) => (
+                  <MenuItem key={i} value={option.key}>
+                    {option.type}
                   </MenuItem>
                 ))}
               </Select>
@@ -1000,17 +1253,17 @@ const PriceUpdate = () => {
                 id="filled-basic"
                 label="Price"
                 variant="outlined"
-                value={inputPrice}
-                onChange={handlePriceChange}
+                value={inputPriceSkin}
+                onChange={handlePriceChangeSkin}
                 required
                 fullWidth
               />
             </Stack>
             <Divider sx={{ mt: 3 }}></Divider>
             <FormControlLabel
-              control={<Checkbox defaultChecked />}
-              //checked={!isCheckboxDisabled}
-              onChange={handleCheckBoxChange}
+              control={<Checkbox />}
+              checked={isCheckboxCheckedSkin}
+              onChange={handleCheckBoxChangeSkin}
               label="Add New Price "
             />
             <Stack direction="row" spacing={2}>
@@ -1018,20 +1271,20 @@ const PriceUpdate = () => {
                 id="filled-basic"
                 labelPlacement="start"
                 label="Add Type "
-                //disabled={isCheckboxDisabled}
+                disabled={!isCheckboxCheckedSkin}
                 variant="outlined"
-                value={inputTypeForAdd}
-                onChange={handleTypeChangeForAdd}
+                value={inputTypeForAddSkin}
+                onChange={handleTypeChangeForAddSkin}
                 required
                 fullWidth
               />
               <TextField
                 id="filled-basic"
-                label="Add  Price"
-                //disabled={isCheckboxDisabled}
+                label="Add Price"
+                disabled={!isCheckboxCheckedSkin}
                 variant="outlined"
-                value={inputPriceForAdd}
-                onChange={handlePriceChangeForAdd}
+                value={inputPriceForAddSkin}
+                onChange={handlePriceChangeForAddSkin}
                 required
                 fullWidth
               />
@@ -1039,19 +1292,20 @@ const PriceUpdate = () => {
             <Divider sx={{ mt: 10 }}></Divider>
 
             <Stack
-              mt={10}
-              ml={10}
+              mt={8}
+              ml={8}
               mb={5}
               direction="row"
               sx={{ mr: 10 }}
-              spacing={5}
+              spacing={3}
             >
               <Grid item xs={3}>
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={addRecord}
-                  //disabled={isCheckboxDisabled}
+                  onClick={addRecordForSkin}
+                  disabled={!isCheckboxCheckedSkin}
+                  startIcon={<AddCircleOutlineSharpIcon sx={{ mr: 0.5 }} />}
                 >
                   Add
                 </Button>
@@ -1060,7 +1314,8 @@ const PriceUpdate = () => {
                 <Button
                   variant="contained"
                   color="error"
-                  //onClick={deleteHair}
+                  onClick={() => deleteRecordForSkin()}
+                  startIcon={<DeleteSharpIcon sx={{ mr: 0.5 }} />}
                 >
                   Delete
                 </Button>
@@ -1069,7 +1324,8 @@ const PriceUpdate = () => {
                 <Button
                   variant="contained"
                   color="success"
-                  //onClick={overWriteHair}
+                  onClick={() => updateRecordForSkin()}
+                  startIcon={<UpdateSharpIcon sx={{ mr: 0.5 }} />}
                 >
                   Update
                 </Button>
@@ -1079,6 +1335,7 @@ const PriceUpdate = () => {
                   variant="contained"
                   color="warning"
                   onClick={handleCloseModalSkin}
+                  startIcon={<HighlightOffRoundedIcon sx={{ mr: 0.5 }} />}
                 >
                   Close
                 </Button>
@@ -1088,8 +1345,10 @@ const PriceUpdate = () => {
         </Fade>
       </Dialog>
 
-      {/*Nail Section*/}
-      {/* Modal for updating Pedicure Pricess   Price */}
+      {/* -----------------------------------------------------Modal for Skin Cut Price End---------------------------------------------------- */}
+
+      {/* -----------------------------------------------------Modal for Nail Cut Price Start---------------------------------------------------- */}
+
       <Dialog
         open={showPedicureModal}
         onClose={handleCloseModalNail}
@@ -1136,7 +1395,7 @@ const PriceUpdate = () => {
 
               <TextField
                 id="filled-basic"
-                label="Update Price"
+                label="Price"
                 variant="outlined"
                 value={inputPriceNail}
                 onChange={handlePriceChangeNail}
@@ -1146,7 +1405,7 @@ const PriceUpdate = () => {
             </Stack>
             <Divider sx={{ mt: 3 }}></Divider>
             <FormControlLabel
-              control={<Checkbox defaultChecked />}
+              control={<Checkbox />}
               checked={isCheckboxCheckedNail}
               onChange={handleCheckBoxChangeNail}
               label="Add New Price "
@@ -1156,7 +1415,7 @@ const PriceUpdate = () => {
                 id="filled-basic"
                 labelPlacement="start"
                 label="Add Type "
-                //disabled={isCheckboxDisabled}
+                disabled={!isCheckboxCheckedNail}
                 variant="outlined"
                 value={inputTypeForAddNail}
                 onChange={handleTypeChangeForAddNail}
@@ -1165,8 +1424,8 @@ const PriceUpdate = () => {
               />
               <TextField
                 id="filled-basic"
-                label="Add  Price"
-                //disabled={isCheckboxDisabled}
+                label="Add Price"
+                disabled={!isCheckboxCheckedNail}
                 variant="outlined"
                 value={inputPriceForAddNail}
                 onChange={handlePriceChangeForAddNail}
@@ -1177,19 +1436,20 @@ const PriceUpdate = () => {
             <Divider sx={{ mt: 10 }}></Divider>
 
             <Stack
-              mt={10}
-              ml={10}
+              mt={8}
+              ml={8}
               mb={5}
               direction="row"
               sx={{ mr: 10 }}
-              spacing={5}
+              spacing={3}
             >
               <Grid item xs={3}>
                 <Button
                   variant="contained"
                   color="primary"
                   onClick={addRecordForNail}
-                  //disabled={isCheckboxDisabled}
+                  disabled={!isCheckboxCheckedNail}
+                  startIcon={<AddCircleOutlineSharpIcon sx={{ mr: 0.5 }} />}
                 >
                   Add
                 </Button>
@@ -1199,6 +1459,7 @@ const PriceUpdate = () => {
                   onClick={() => deleteRecordForNail()}
                   variant="contained"
                   color="error"
+                  startIcon={<DeleteSharpIcon sx={{ mr: 0.5 }} />}
                 >
                   Delete
                 </Button>
@@ -1208,7 +1469,7 @@ const PriceUpdate = () => {
                   onClick={() => updateRecordForNail()}
                   variant="contained"
                   color="success"
-                  //onClick={overWriteHair}
+                  startIcon={<UpdateSharpIcon sx={{ mr: 0.5 }} />}
                 >
                   Update
                 </Button>
@@ -1218,6 +1479,7 @@ const PriceUpdate = () => {
                   variant="contained"
                   color="warning"
                   onClick={handleCloseModalNail}
+                  startIcon={<HighlightOffRoundedIcon sx={{ mr: 0.5 }} />}
                 >
                   Close
                 </Button>
@@ -1227,8 +1489,10 @@ const PriceUpdate = () => {
         </Fade>
       </Dialog>
 
-      {/* Body Section*/}
-      {/* Modal for updating Body section Pricess   Price */}
+      {/* -----------------------------------------------------Modal for Nail Cut Price End---------------------------------------------------- */}
+
+      {/* -----------------------------------------------------Modal for Body Cut Price Start---------------------------------------------------- */}
+
       <Dialog
         open={showWaxingModal}
         onClose={handleCloseModalBody}
@@ -1274,7 +1538,7 @@ const PriceUpdate = () => {
 
               <TextField
                 id="filled-basic"
-                label="Update Price"
+                label="Price"
                 variant="outlined"
                 value={inputPriceBody}
                 onChange={handlePriceChangeBody}
@@ -1284,8 +1548,8 @@ const PriceUpdate = () => {
             </Stack>
             <Divider sx={{ mt: 3 }}></Divider>
             <FormControlLabel
-              control={<Checkbox defaultChecked />}
-              // checked={!isCheckboxDisabled}
+              control={<Checkbox />}
+              checked={isCheckboxCheckedBody}
               onChange={handleCheckBoxChangeBody}
               label="Add New Price "
             />
@@ -1294,7 +1558,7 @@ const PriceUpdate = () => {
                 id="filled-basic"
                 labelPlacement="start"
                 label="Add Type "
-                //disabled={isCheckboxDisabled}
+                disabled={!isCheckboxCheckedBody}
                 variant="outlined"
                 value={inputTypeForAddBody}
                 onChange={handleTypeChangeForAddBody}
@@ -1303,8 +1567,8 @@ const PriceUpdate = () => {
               />
               <TextField
                 id="filled-basic"
-                label="Add  Price"
-                //disabled={isCheckboxDisabled}
+                label="Add Price"
+                disabled={!isCheckboxCheckedBody}
                 variant="outlined"
                 value={inputPriceForAddBody}
                 onChange={handlePriceChangeForAddBody}
@@ -1315,19 +1579,20 @@ const PriceUpdate = () => {
             <Divider sx={{ mt: 10 }}></Divider>
 
             <Stack
-              mt={10}
-              ml={10}
+              mt={8}
+              ml={8}
               mb={5}
               direction="row"
               sx={{ mr: 10 }}
-              spacing={5}
+              spacing={3}
             >
               <Grid item xs={3}>
                 <Button
                   variant="contained"
                   color="primary"
                   onClick={addRecordForbody}
-                  //disabled={isCheckboxDisabled}
+                  disabled={!isCheckboxCheckedBody}
+                  startIcon={<AddCircleOutlineSharpIcon sx={{ mr: 0.5 }} />}
                 >
                   Add
                 </Button>
@@ -1337,6 +1602,7 @@ const PriceUpdate = () => {
                   onClick={() => deleteRecordForBody()}
                   variant="contained"
                   color="error"
+                  startIcon={<DeleteSharpIcon sx={{ mr: 0.5 }} />}
                 >
                   Delete
                 </Button>
@@ -1346,7 +1612,7 @@ const PriceUpdate = () => {
                   onClick={() => updateRecordForBody()}
                   variant="contained"
                   color="success"
-                  //onClick={"overWriteHair"}
+                  startIcon={<UpdateSharpIcon sx={{ mr: 0.5 }} />}
                 >
                   Update
                 </Button>
@@ -1356,6 +1622,7 @@ const PriceUpdate = () => {
                   variant="contained"
                   color="warning"
                   onClick={handleCloseModalBody}
+                  startIcon={<HighlightOffRoundedIcon sx={{ mr: 0.5 }} />}
                 >
                   Close
                 </Button>
@@ -1365,8 +1632,10 @@ const PriceUpdate = () => {
         </Fade>
       </Dialog>
 
-      {/*Bridal Section*/}
-      {/* Modal for updating Bridal  section Pricess   Price */}
+      {/* -----------------------------------------------------Modal for Body Cut Price End---------------------------------------------------- */}
+
+      {/* -----------------------------------------------------Modal for Bridal Cut Price Start---------------------------------------------------- */}
+
       <Dialog
         open={showDressingModal}
         onClose={handleCloseModalBridal}
@@ -1422,9 +1691,9 @@ const PriceUpdate = () => {
             </Stack>
             <Divider sx={{ mt: 3 }}></Divider>
             <FormControlLabel
-              control={<Checkbox defaultChecked />}
-              //checked={!isCheckboxDisabled}
-              onChange={handleCheckBoxChange}
+              control={<Checkbox />}
+              checked={isCheckboxCheckedBridal}
+              onChange={handleCheckBoxChangeBridal}
               label="Add New Price "
             />
             <Stack direction="row" spacing={2}>
@@ -1432,7 +1701,7 @@ const PriceUpdate = () => {
                 id="filled-basic"
                 labelPlacement="start"
                 label="Add Type "
-                //disabled={isCheckboxDisabled}
+                disabled={!isCheckboxCheckedBridal}
                 variant="outlined"
                 value={inputTypeForAddBridal}
                 onChange={handleTypeChangeForAddBridal}
@@ -1441,8 +1710,8 @@ const PriceUpdate = () => {
               />
               <TextField
                 id="filled-basic"
-                label="Add  Price"
-                //disabled={isCheckboxDisabled}
+                label="Add Price"
+                disabled={!isCheckboxCheckedBridal}
                 variant="outlined"
                 value={inputPriceForAddBridal}
                 onChange={handlePriceChangeForAddBridal}
@@ -1453,29 +1722,30 @@ const PriceUpdate = () => {
             <Divider sx={{ mt: 10 }}></Divider>
 
             <Stack
-              mt={10}
-              ml={10}
+              mt={8}
+              ml={8}
               mb={5}
               direction="row"
               sx={{ mr: 10 }}
-              spacing={5}
+              spacing={3}
             >
               <Grid item xs={3}>
                 <Button
                   variant="contained"
                   color="primary"
                   onClick={addRecordForBridal}
-                  //disabled={isCheckboxDisabled}
+                  disabled={!isCheckboxCheckedBridal}
+                  startIcon={<AddCircleOutlineSharpIcon sx={{ mr: 0.5 }} />}
                 >
                   Add
                 </Button>
               </Grid>
               <Grid item xs={3}>
                 <Button
-                   onClick={() => deleteRecordForBridal()}
+                  onClick={() => deleteRecordForBridal()}
                   variant="contained"
                   color="error"
-                  //onClick={deleteHair}
+                  startIcon={<DeleteSharpIcon sx={{ mr: 0.5 }} />}
                 >
                   Delete
                 </Button>
@@ -1485,7 +1755,7 @@ const PriceUpdate = () => {
                   variant="contained"
                   color="success"
                   onClick={() => updateRecordForBridal()}
-                  //onClick={overWriteHair}
+                  startIcon={<UpdateSharpIcon sx={{ mr: 0.5 }} />}
                 >
                   Update
                 </Button>
@@ -1495,6 +1765,7 @@ const PriceUpdate = () => {
                   variant="contained"
                   color="warning"
                   onClick={handleCloseModalBridal}
+                  startIcon={<HighlightOffRoundedIcon sx={{ mr: 0.5 }} />}
                 >
                   Close
                 </Button>

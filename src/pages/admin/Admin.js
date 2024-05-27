@@ -21,12 +21,15 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
-import Paper from "@mui/material/Paper";
+
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import toast from "react-hot-toast";
 import { auth } from "../../services/firebaseConfig";
+import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
+import ManageAccountsRoundedIcon from '@mui/icons-material/ManageAccountsRounded';
+
+
 
 const drawerWidth = 280;
 
@@ -44,16 +47,26 @@ const Admin = (props) => {
     setIsClosing(false);
   };
 
-  
+  const goToDashboard = () => {
+    navigate("/AdminDashboard");
+  };
+  const goToUserManage = () => {
+    navigate("/UserManage");
+  };
+  const goToManageService = () => {
+    navigate("/PriceUpdate");
+  };
+  const goToAppointment = () => {
+    navigate("/NewApoinment");
+  };
+
   const goToSentMail = () => {
     navigate("/SentMail");
   };
   const goToSettings = () => {
     navigate("/Setting");
   };
-  const goToUpdateTables = () => {
-    navigate("/PriceUpdate");
-  };
+ 
   const handleLogOut = () => {
     signOut(auth)
       .then(() => {
@@ -70,58 +83,101 @@ const Admin = (props) => {
 
   const drawer = (
     <div>
-      <Stack direction="column" spacing={5} sx={{ mt: "20px" }}>
-        {/* <Button
-          onClick={goToAppointments}
-          variant="contained"
-          fullWidth
-          sx={{  fontWeight: "600", color: "white" }}
-        >
-          <CalendarMonthIcon />
-          Appointments
-        </Button> */}
-        <Button
-          onClick={goToUpdateTables}
+      <Stack direction="column"  spacing={4} sx={{ mt: "80px", alignItems: 'center' }}>
+       
+      <Button
+          onClick={goToDashboard}
           variant="contained"
           fullWidth
           sx={{
-            fontWeight: "600",
-            color: "white",
+            fontWeight: "500",
+            color: "#662549",
             ml: "20px",
+            
+            backgroundColor: "#FFE5E5",
+            fontFamily:"serif" ,
+            "&:hover": {
+              backgroundColor: "#FFD1DA", 
+             } 
+          }}
+          
+        >
+          <DashboardRoundedIcon/>
+         DashBoard
+        </Button>
+        <Button
+          onClick={goToManageService}
+          variant="contained"
+          fullWidth
+          sx={{
+            fontWeight: "500",
+            color: "#662549",
+            ml: "20px",
+            backgroundColor: "#FFE5E5",
+            fontFamily:"serif" ,
+            "&:hover": {
+              backgroundColor: "#FFD1DA", 
+             } 
+          }}
+        
+        >
+        <AdminPanelSettingsIcon/>
+         Manage Service
+        </Button>
+        <Button
+          onClick={goToUserManage}
+          variant="contained"
+          fullWidth
+          sx={{
+            fontWeight: "500",
+            color: "#662549",
+            ml: "20px",
+            backgroundColor: "#FFE5E5",
+            fontFamily:"serif" ,
+           
+            "&:hover": {
+              backgroundColor: "#FFD1DA", 
+             } 
+          }}
+        >
+         <ManageAccountsRoundedIcon/>
+         Manage User
+        </Button>
+        <Button
+          onClick={goToAppointment}
+          variant="contained"
+          fullWidth
+          sx={{
+            fontWeight: "500",
+            color: "#662549",
+            ml: "20px",
+            backgroundColor: "#FFE5E5",
+            fontFamily:"serif" ,
+            "&:hover": {
+              backgroundColor: "#FFD1DA", 
+             } 
           }}
         >
           <AdminPanelSettingsIcon />
-          Update Tables
+         Manage Appointment
         </Button>
 
-        <Button
-          onClick={goToUpdateTables}
-          variant="contained"
-          fullWidth
-          sx={{
-            fontWeight: "600",
-            color: "white",
-            ml: "20px",
-          }}
-        >
-          <AdminPanelSettingsIcon />
-          Update Tables
-        </Button>
-        {/* <Button
-          onClick={goToInbox}
-          variant="contained"
-          fullWidth
-          sx={{ fontWeight: "600", color: "white" }}
-        >
-          {" "}
-          <EmailIcon />
-          Inbox
-        </Button> */}
+       
+       
         <Button
           onClick={goToSentMail}
           variant="contained"
           fullWidth
-          sx={{ fontWeight: "600", color: "white" }}
+          sx={{
+            fontWeight: "500",
+            color: "#662549",
+            ml: "20px",
+            backgroundColor: "#FFE5E5",
+            fontFamily:"serif" ,
+            "&:hover": {
+              backgroundColor: "#FFD1DA", 
+             } 
+          }}
         >
           <ForwardToInboxIcon />
           Sent Mail
@@ -130,7 +186,16 @@ const Admin = (props) => {
           onClick={goToSettings}
           variant="contained"
           fullWidth
-          sx={{ fontWeight: "600", color: "white" }}
+          sx={{ fontWeight: "450", color: "white" }}sx={{
+            fontWeight: "500",
+            color: "#662549",
+            ml: "20px",
+            backgroundColor: "#FFE5E5",
+            fontFamily:"serif" ,
+            "&:hover": {
+              backgroundColor: "#FFD1DA", 
+             } 
+          }}
         >
           <SettingsIcon />
           Settings
@@ -139,7 +204,16 @@ const Admin = (props) => {
           onClick={handleLogOut}
           variant="contained"
           fullWidth
-          sx={{ fontWeight: "600", color: "white" }}
+          sx={{
+            fontWeight: "500",
+            color: "#662549",
+            ml: "20px",
+            backgroundColor: "#FFE5E5",
+            fontFamily:"serif" ,
+            "&:hover": {
+              backgroundColor: "#FFD1DA", 
+             } 
+          }}
         >
           <PowerSettingsNewIcon />
           LogOut
@@ -147,14 +221,9 @@ const Admin = (props) => {
       </Stack>
     </div>
   );
-  function createData(Customer, PhoneNumber, Service, Date, Time, Notes) {
-    return { Customer, PhoneNumber, Service, Date, Time, Notes };
-  }
-
   
-  const openApoinment = (e) => {
-    navigate("/NewApoinment");
-  };
+  
+ 
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
