@@ -205,6 +205,9 @@ const Admin = () => {
                   <TableCell sx={{ width: "10%", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                     <b>Time</b>
                   </TableCell>
+                  <TableCell sx={{ width: "10%", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                    <b color="red">Closed</b>
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
