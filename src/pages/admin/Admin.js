@@ -2,7 +2,6 @@ import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
-
 import Drawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -11,30 +10,30 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import ForwardToInboxIcon from "@mui/icons-material/ForwardToInbox";
 import {
-  Badge,
   Button,
   Stack,
-  Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
 } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
 import Paper from "@mui/material/Paper";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import toast from "react-hot-toast";
 import { auth } from "../../services/firebaseConfig";
+import { get, getDatabase, ref } from "firebase/database";
+import Table from "@mui/material/Table";
 
 const drawerWidth = 280;
 
-const Admin = (props) => {
-  //const { window } = props;
+const Admin = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [setIsClosing] = React.useState(false);
+  const [bookingDataArray, setBookingDataArray] = React.useState([]);
   const navigate = useNavigate();
+
   const handleDrawerClose = () => {
     setIsClosing(true);
     setMobileOpen(false);
@@ -44,7 +43,6 @@ const Admin = (props) => {
     setIsClosing(false);
   };
 
-  
   const goToSentMail = () => {
     navigate("/SentMail");
   };
@@ -58,28 +56,32 @@ const Admin = (props) => {
     signOut(auth)
       .then(() => {
         navigate("/AdminLogin");
-        // Show toast notification
         toast.success("You have been logged out successfully..");
       })
       .catch((error) => {
-        // An error happened.
-
         toast.error("Error logging out. Please try again.");
       });
   };
 
+  React.useEffect(() => {
+    const fetchDataForBooking = async () => {
+      const db = getDatabase();
+      const dbRef = ref(db, "UserData");
+      const snapshot = await get(dbRef);
+
+      if (snapshot.exists()) {
+        setBookingDataArray(Object.values(snapshot.val()));
+      } else {
+        console.error("No data available");
+      }
+    };
+
+    fetchDataForBooking();
+  }, []);
+
   const drawer = (
     <div>
       <Stack direction="column" spacing={5} sx={{ mt: "20px" }}>
-        {/* <Button
-          onClick={goToAppointments}
-          variant="contained"
-          fullWidth
-          sx={{  fontWeight: "600", color: "white" }}
-        >
-          <CalendarMonthIcon />
-          Appointments
-        </Button> */}
         <Button
           onClick={goToUpdateTables}
           variant="contained"
@@ -93,30 +95,6 @@ const Admin = (props) => {
           <AdminPanelSettingsIcon />
           Update Tables
         </Button>
-
-        <Button
-          onClick={goToUpdateTables}
-          variant="contained"
-          fullWidth
-          sx={{
-            fontWeight: "600",
-            color: "white",
-            ml: "20px",
-          }}
-        >
-          <AdminPanelSettingsIcon />
-          Update Tables
-        </Button>
-        {/* <Button
-          onClick={goToInbox}
-          variant="contained"
-          fullWidth
-          sx={{ fontWeight: "600", color: "white" }}
-        >
-          {" "}
-          <EmailIcon />
-          Inbox
-        </Button> */}
         <Button
           onClick={goToSentMail}
           variant="contained"
@@ -147,18 +125,10 @@ const Admin = (props) => {
       </Stack>
     </div>
   );
-  function createData(Customer, PhoneNumber, Service, Date, Time, Notes) {
-    return { Customer, PhoneNumber, Service, Date, Time, Notes };
-  }
 
-  
-  const openApoinment = (e) => {
-    navigate("/NewApoinment");
-  };
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-
       <AppBar
         position="absolute"
         sx={{
@@ -172,17 +142,12 @@ const Admin = (props) => {
           </Typography>
         </Toolbar>
       </AppBar>
-
       <Box
         component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
       >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-
         <Drawer
-          //   container={container}
-
           variant="temporary"
           open={mobileOpen}
           onTransitionEnd={handleDrawerTransitionEnd}
@@ -200,7 +165,6 @@ const Admin = (props) => {
         >
           {drawer}
         </Drawer>
-
         <Drawer
           variant="permanent"
           sx={{
@@ -215,7 +179,51 @@ const Admin = (props) => {
           {drawer}
         </Drawer>
       </Box>
-     
+  <Box>
+            <Typography sx={{textAlign:"center",fontWeight:"700",fontSize:"30px",color:"#5AB2FF"}}>On Going Appointments</Typography>
+       
+
+    
+            <Table sx={{ minWidth: 900 ,ml:2}} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell sx={{ width: "15%", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                    <b>Date</b>
+                  </TableCell>
+                  <TableCell sx={{ width: "25%", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                    <b>Email</b>
+                  </TableCell>
+                  <TableCell sx={{ width: "20%", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                    <b>Name</b>
+                  </TableCell>
+                  <TableCell sx={{ width: "20%", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                    <b>Phone Number</b>
+                  </TableCell>
+                  <TableCell sx={{ width: "20%", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                    <b>Service</b>
+                  </TableCell>
+                  <TableCell sx={{ width: "10%", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                    <b>Time</b>
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {bookingDataArray.map((row, index) => (
+                  <TableRow key={index}>
+                    <TableCell component="th" scope="row" sx={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                      {row.Date}
+                    </TableCell>
+                    <TableCell sx={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{row.Email}</TableCell>
+                    <TableCell sx={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{row.Name}</TableCell>
+                    <TableCell sx={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{row.Phone}</TableCell>
+                    <TableCell sx={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{row.Service}</TableCell>
+                    <TableCell sx={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{row.Time}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+         
+            </Box>
     </Box>
   );
 };

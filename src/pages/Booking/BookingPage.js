@@ -22,7 +22,7 @@ const BookingPage = () => {
     Email: "",
     Service: "",
     Date: new Date().toISOString().split("T")[0],
-    Time: "",
+    Time: "08:00 AM",
     Notes: "",
   });
   const navigate = useNavigate();
@@ -71,14 +71,7 @@ const BookingPage = () => {
     }
   };
 
-  // const handleChange = (event) => {
-  //   // if (event.target.value.match(/[^0-9]/)) {
-  //   //   event.preventDefault();
-  //   // }
-  //   // otherwise, continue with the rest of your logic
-  //   // ...
-  // };
-  //
+
   const goToCheckOutPage = () => {
     navigate("/Checkout");
   };
@@ -256,7 +249,7 @@ const BookingPage = () => {
                   { label: "Facial RS:2000" },
                   { label: "Full Body Waxing Rs:1450 " },
                   { label: "Spa Pedicure RS:4900" },
-                  { label: "Full Dressing (Early Morning) RS 2200" },
+                  { label: "Full Dressing RS 2200" },
                 ]}
                 getOptionLabel={(option) => option.label}
                 value={{ label: user.Service }}
