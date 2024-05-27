@@ -65,13 +65,13 @@ export default function BasicTable() {
   return (
     <div>
       <div className="container">
-        <div className="image-boxN">
+        <div className="image-boxB">
           <img
-            src={NailImage}
-            alt="Salon Lilly Nail Prices"
-            className="imageN"
+            // src={BodyImage}
+            alt="Salon Lilly Body Prices"
+            className="imageB"
           />
-          <div className="BtextN">
+          <div className="BtextB">
             <h2>Salon Lilly Nail Prices</h2>
           </div>
         </div>

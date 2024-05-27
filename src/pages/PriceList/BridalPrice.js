@@ -73,7 +73,6 @@ export default function BasicTable() {
             alt="Salon Lilly Bridal Prices"
             className="imageBr"
           />
-
           <div className="BtextBr">
             <h2>Salon Lilly Bridal Prices</h2>
           </div>

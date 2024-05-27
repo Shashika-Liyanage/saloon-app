@@ -32,17 +32,26 @@ function ReadData() {
     fetchDataBody();
   }, []);
   return (
-    <div>
-       <h2>Salon Lilly Skin Prices</h2>
+    <div className="table">
+    <div className="table-wrapper">
       <TableContainer component={Paper}>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <img
+            src={salonIcon}
+            alt="Salon Icon"
+            className="icon"
+            style={{ color: "#BC7FCD" }}
+          />
+          <h2 className="headingB">WAXING</h2>
+        </div>
         <Table sx={{ minWidth: 500 }} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell>
                 <b>Type</b>
               </TableCell>
-              <TableCell >
-                <b>Price</b>
+              <TableCell align="right">
+                <b>Standard Price(Rs)</b>
               </TableCell>
             </TableRow>
           </TableHead>
@@ -52,13 +61,14 @@ function ReadData() {
                 <TableCell component="th" scope="row">
                   {row.type}
                 </TableCell>
-                <TableCell >{row.price}</TableCell>
+                <TableCell align="right">{row.price}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
     </div>
+  </div>
   );
 }
 export default function BasicTable() {
@@ -71,7 +81,6 @@ export default function BasicTable() {
             alt="Salon Lilly Body Prices"
             className="imageB"
           />
-
           <div className="BtextB">
             <h2>Salon Lilly Body Prices</h2>
           </div>

@@ -2,7 +2,6 @@ import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
-
 import Drawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -11,21 +10,21 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import ForwardToInboxIcon from "@mui/icons-material/ForwardToInbox";
 import {
-  Badge,
   Button,
   Stack,
-  Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
 } from "@mui/material";
-
+import Paper from "@mui/material/Paper";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import toast from "react-hot-toast";
 import { auth } from "../../services/firebaseConfig";
+import { get, getDatabase, ref } from "firebase/database";
+import Table from "@mui/material/Table";
 import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
 import ManageAccountsRoundedIcon from '@mui/icons-material/ManageAccountsRounded';
 
@@ -33,11 +32,12 @@ import ManageAccountsRoundedIcon from '@mui/icons-material/ManageAccountsRounded
 
 const drawerWidth = 280;
 
-const Admin = (props) => {
-  //const { window } = props;
+const Admin = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [setIsClosing] = React.useState(false);
+
   const navigate = useNavigate();
+
   const handleDrawerClose = () => {
     setIsClosing(true);
     setMobileOpen(false);
@@ -71,15 +71,14 @@ const Admin = (props) => {
     signOut(auth)
       .then(() => {
         navigate("/AdminLogin");
-        // Show toast notification
         toast.success("You have been logged out successfully..");
       })
       .catch((error) => {
-        // An error happened.
-
         toast.error("Error logging out. Please try again.");
       });
   };
+
+
 
   const drawer = (
     <div>
@@ -227,7 +226,6 @@ const Admin = (props) => {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-
       <AppBar
         position="absolute"
         sx={{
@@ -241,17 +239,12 @@ const Admin = (props) => {
           </Typography>
         </Toolbar>
       </AppBar>
-
       <Box
         component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
       >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-
         <Drawer
-          //   container={container}
-
           variant="temporary"
           open={mobileOpen}
           onTransitionEnd={handleDrawerTransitionEnd}
@@ -269,7 +262,6 @@ const Admin = (props) => {
         >
           {drawer}
         </Drawer>
-
         <Drawer
           variant="permanent"
           sx={{
@@ -284,7 +276,7 @@ const Admin = (props) => {
           {drawer}
         </Drawer>
       </Box>
-     
+ 
     </Box>
   );
 };
