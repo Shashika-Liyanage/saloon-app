@@ -9,7 +9,7 @@ import Paper from "@mui/material/Paper";
 import Footer from "../Footer/Footer";
 import "./priceList.css";
 import salonIcon from "../../../src/Assets/salonicon.jpg";
-import BridalImage from "../../../src/Assets/BridalImg.png";
+import HairImage from "../../../src/Assets/HairImage.png";
 import { getDatabase, ref, get } from "firebase/database";
 
 function ReadData() {
@@ -42,7 +42,7 @@ function ReadData() {
               className="icon"
               style={{ color: "#BC7FCD" }}
             />
-            <h2 className="headingBr">Hair</h2>
+            <h2 className="headingH">Hair</h2>
           </div>
 
           <Table sx={{ minWidth: 500 }} aria-label="simple table">
@@ -77,13 +77,13 @@ export default function BridalTable() {
   return (
     <div>
       <div className="container">
-        <div className="image-boxBr">
+        <div className="image-boxH">
           <img
-            src={BridalImage}
+            src={HairImage}
             alt="Salon Lilly Bridal Prices"
-            className="imageBr"
+            className="imageH"
           />
-          <div className="BtextBr">
+          <div className="BtextH">
             <h2>Salon Lilly Hair Prices</h2>
           </div>
         </div>

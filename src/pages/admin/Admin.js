@@ -25,10 +25,8 @@ import toast from "react-hot-toast";
 import { auth } from "../../services/firebaseConfig";
 import { get, getDatabase, ref } from "firebase/database";
 import Table from "@mui/material/Table";
-import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
-import ManageAccountsRoundedIcon from '@mui/icons-material/ManageAccountsRounded';
-
-
+import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
+import ManageAccountsRoundedIcon from "@mui/icons-material/ManageAccountsRounded";
 
 const drawerWidth = 280;
 
@@ -48,7 +46,7 @@ const Admin = () => {
   };
 
   const goToDashboard = () => {
-    navigate("/AdminDashboard");
+    navigate("/AdDashboard");
   };
   const goToUserManage = () => {
     navigate("/UserManage");
@@ -57,7 +55,7 @@ const Admin = () => {
     navigate("/PriceUpdate");
   };
   const goToAppointment = () => {
-    navigate("/NewApoinment");
+    navigate("/AdminDashboard");
   };
 
   const goToSentMail = () => {
@@ -66,7 +64,7 @@ const Admin = () => {
   const goToSettings = () => {
     navigate("/Setting");
   };
- 
+
   const handleLogOut = () => {
     signOut(auth)
       .then(() => {
@@ -78,13 +76,14 @@ const Admin = () => {
       });
   };
 
-
-
   const drawer = (
     <div>
-      <Stack direction="column"  spacing={4} sx={{ mt: "80px", alignItems: 'center' }}>
-       
-      <Button
+      <Stack
+        direction="column"
+        spacing={4}
+        sx={{ mt: "80px", alignItems: "center" }}
+      >
+        <Button
           onClick={goToDashboard}
           variant="contained"
           fullWidth
@@ -92,17 +91,16 @@ const Admin = () => {
             fontWeight: "500",
             color: "#662549",
             ml: "20px",
-            
+
             backgroundColor: "#FFE5E5",
-            fontFamily:"serif" ,
+            fontFamily: "serif",
             "&:hover": {
-              backgroundColor: "#FFD1DA", 
-             } 
+              backgroundColor: "#FFD1DA",
+            },
           }}
-          
         >
-          <DashboardRoundedIcon/>
-         DashBoard
+          <DashboardRoundedIcon />
+          DashBoard
         </Button>
         <Button
           onClick={goToManageService}
@@ -113,15 +111,14 @@ const Admin = () => {
             color: "#662549",
             ml: "20px",
             backgroundColor: "#FFE5E5",
-            fontFamily:"serif" ,
+            fontFamily: "serif",
             "&:hover": {
-              backgroundColor: "#FFD1DA", 
-             } 
+              backgroundColor: "#FFD1DA",
+            },
           }}
-        
         >
-        <AdminPanelSettingsIcon/>
-         Manage Service
+          <AdminPanelSettingsIcon />
+          Manage Service
         </Button>
         <Button
           onClick={goToUserManage}
@@ -132,15 +129,15 @@ const Admin = () => {
             color: "#662549",
             ml: "20px",
             backgroundColor: "#FFE5E5",
-            fontFamily:"serif" ,
-           
+            fontFamily: "serif",
+
             "&:hover": {
-              backgroundColor: "#FFD1DA", 
-             } 
+              backgroundColor: "#FFD1DA",
+            },
           }}
         >
-         <ManageAccountsRoundedIcon/>
-         Manage User
+          <ManageAccountsRoundedIcon />
+          Manage User
         </Button>
         <Button
           onClick={goToAppointment}
@@ -151,18 +148,16 @@ const Admin = () => {
             color: "#662549",
             ml: "20px",
             backgroundColor: "#FFE5E5",
-            fontFamily:"serif" ,
+            fontFamily: "serif",
             "&:hover": {
-              backgroundColor: "#FFD1DA", 
-             } 
+              backgroundColor: "#FFD1DA",
+            },
           }}
         >
           <AdminPanelSettingsIcon />
-         Manage Appointment
+          Manage Appointment
         </Button>
 
-       
-       
         <Button
           onClick={goToSentMail}
           variant="contained"
@@ -172,10 +167,10 @@ const Admin = () => {
             color: "#662549",
             ml: "20px",
             backgroundColor: "#FFE5E5",
-            fontFamily:"serif" ,
+            fontFamily: "serif",
             "&:hover": {
-              backgroundColor: "#FFD1DA", 
-             } 
+              backgroundColor: "#FFD1DA",
+            },
           }}
         >
           <ForwardToInboxIcon />
@@ -185,15 +180,17 @@ const Admin = () => {
           onClick={goToSettings}
           variant="contained"
           fullWidth
-          sx={{ fontWeight: "450", color: "white" }}sx={{
+          sx={{
+            fontWeight: "450",
+            color: "white",
             fontWeight: "500",
             color: "#662549",
             ml: "20px",
             backgroundColor: "#FFE5E5",
-            fontFamily:"serif" ,
+            fontFamily: "serif",
             "&:hover": {
-              backgroundColor: "#FFD1DA", 
-             } 
+              backgroundColor: "#FFD1DA",
+            },
           }}
         >
           <SettingsIcon />
@@ -208,10 +205,10 @@ const Admin = () => {
             color: "#662549",
             ml: "20px",
             backgroundColor: "#FFE5E5",
-            fontFamily:"serif" ,
+            fontFamily: "serif",
             "&:hover": {
-              backgroundColor: "#FFD1DA", 
-             } 
+              backgroundColor: "#FFD1DA",
+            },
           }}
         >
           <PowerSettingsNewIcon />
@@ -220,9 +217,7 @@ const Admin = () => {
       </Stack>
     </div>
   );
-  
-  
- 
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -231,10 +226,21 @@ const Admin = () => {
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
+          backgroundColor: "#FEC7B4",
         }}
       >
-        <Toolbar sx={{ backgroundColor: "#99154E", mb: "20px" }}>
-          <Typography variant="h6" noWrap component="div">
+        <Toolbar sx={{ backgroundColor: "#F7418F", mb: "22px" }}>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{
+              fontWeight: "550",
+              fontSize: "24px",
+              fontFamily: "Georgia, serif",
+              color: "black",
+            }}
+          >
             Lilly's Admin Panel
           </Typography>
         </Toolbar>
@@ -276,7 +282,6 @@ const Admin = () => {
           {drawer}
         </Drawer>
       </Box>
- 
     </Box>
   );
 };

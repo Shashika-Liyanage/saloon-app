@@ -60,10 +60,10 @@ const Layout = () => {
   const salonNameStyle = {
     fontWeight: "bold",
     fontSize: "15px",
-    letterSpacing: "2px",
+    letterSpacing: "1px",
     textTransform: "uppercase",
     fontFamily: "Arial, sans-serif",
-    color: "#99154E",
+    
   };
 
   return (
