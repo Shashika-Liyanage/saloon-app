@@ -11,6 +11,10 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import Admin from "./Admin";
+import { useDispatch } from "react-redux";
+import { saveBookingData } from "../redux/BookingDataSlice";
+
 
 const NewApoinment = () => {
   const [user, setUser] = useState({
@@ -19,47 +23,21 @@ const NewApoinment = () => {
     Email: "",
     Service: "",
     Date: new Date().toISOString().split("T")[0],
-    Time: "",
+    Time: "08:00 AM",
     Notes: "",
   });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  console.log(user, "janith");
+  //let name, value;
+ 
   const data = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
 
-  // const getdata = async (e) => {
-  //   const { Name, Phone, Email, Service, Date, Time, Notes } = user;
-  //   e.preventDefault();
-  //   const options = {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({ Name, Phone, Email, Service, Date, Time, Notes }),
-  //   };
 
-  //   const res = await fetch(
-  //     "https://he-and-she-356f5-default-rtdb.firebaseio.com/UserData.json",
-  //     options
-  //   );
-  //   console.log(res);
 
-  //   if (res.ok) {
-  //     toast.success("Booking confirmed");
-  //     setTimeout(() => {
-  //       toast.success("You're being redirected to the Dashboard!!!!!! ");
-  //       setTimeout(() => {
-  //         navigate("/dashboard");
-  //       }, 3000);
-  //     }, 1000);
-  //   } else {
-  //     toast.error("Something went wrong");
-  //   }
-  // };
-  // console.log("User State:", user);
   const date = new Date();
   const formattedDate = date
     .toLocaleDateString("en-GB", {
@@ -87,19 +65,14 @@ const NewApoinment = () => {
     // Add form submission logic here
     if (isFormFilled()) {
       // Your submission logic here
+      dispatch(saveBookingData(user));
+      goToCheckOutPage();
     } else {
       toast.error("Please fill in all fields");
     }
   };
 
-  // const handleChange = (event) => {
-  //   if (event.target.value.match(/[^0-9]/)) {
-  //     event.preventDefault();
-  //   }
-  //   // otherwise, continue with the rest of your logic
-  //   // ...
-  // };
-  //
+
   const goToCheckOutPage = () => {
     navigate("/Checkout");
   };
@@ -108,30 +81,36 @@ const NewApoinment = () => {
       sx={{
         display: "flex",
         justifyContent: "space-between",
-        mb: "70px",
+        mb: "50px",
+        width: "100%", // Set width to 100%
+        height: "200px", // Set height to 200px
+      
       }}
     >
+      <Admin/>
+      
       <form onSubmit={handleSubmit}>
         <CardContent
           sx={{
             alignContent: "center",
             textAlign: "center",
-            backgroundColor: "#EED3D9",
+            background: "linear-gradient(135deg, #FFC5C5, #FFD1E3)",
             boxShadow: "0 20px 0px rgba(#EED3D9)",
-            borderRadius: 10,
-            padding: 4,
+            borderRadius: 6,
+            padding: 3,
+            marginRight:45,
           }}
         >
           <Typography
             sx={{
               fontWeight: 700,
-              fontSize: 40,
-              mt: "10px",
+              fontSize: 32,
+              mt: "8px",
               color: "#99154E",
               fontFamily: "Georgia",
             }}
           >
-            New Appoinments
+            Add Appointment
           </Typography>
           <Grid
             container
@@ -139,7 +118,7 @@ const NewApoinment = () => {
             justifyContent={"center"}
             sx={{ mt: "5px" }}
           >
-            <Grid item xs={5}>
+            <Grid item xs={6}>
               <TextField
                 id="name"
                 required
@@ -149,10 +128,22 @@ const NewApoinment = () => {
                 fullWidth
                 value={user.Name}
                 onChange={data}
-                sx={{ bgcolor: "white" }}
+                className="textFieldCustom"
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': {
+                      borderColor: '#99154E',
+                    },
+                    
+                    '&.Mui-focused fieldset': {
+                      borderColor: '#99154E',
+                    },
+                  },
+                 
+                }}
               />
             </Grid>
-            <Grid item xs={5}>
+            <Grid item xs={6}>
               <TextField
                 id="phone_number"
                 label="Phone Number"
@@ -162,7 +153,19 @@ const NewApoinment = () => {
                 fullWidth
                 // inputProps={{ inputMode: "numeric" }}
                 onChange={data}
-                sx={{ bgcolor: "white" }}
+                className="textFieldCustom"
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': {
+                      borderColor: '#99154E',
+                    },
+                    
+                    '&.Mui-focused fieldset': {
+                      borderColor: '#99154E',
+                    },
+                  },
+                 
+                }}
               />
             </Grid>
           </Grid>
@@ -172,7 +175,7 @@ const NewApoinment = () => {
             justifyContent={"center"}
             sx={{ mt: "5px" }}
           >
-            <Grid item xs={5}>
+            <Grid item xs={6}>
               <TextField
                 id="email"
                 name="Email"
@@ -182,16 +185,41 @@ const NewApoinment = () => {
                 fullWidth
                 value={user.Email}
                 onChange={data}
-                sx={{ bgcolor: "white" }}
+                className="textFieldCustom"
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': {
+                      borderColor: '#99154E',
+                    },
+                    
+                    '&.Mui-focused fieldset': {
+                      borderColor: '#99154E',
+                    },
+                  },
+                 
+                }}
+               
               />
             </Grid>
-            <Grid item xs={5}>
+            <Grid item xs={6}>
               <TextField
                 label="Branch"
-                sx={{ bgcolor: "white" }}
-                disabled
                 value={"Negambo"}
                 fullWidth
+                className="textFieldCustom"
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': {
+                      borderColor: '#99154E',
+                    },
+                    
+                    '&.Mui-focused fieldset': {
+                      borderColor: '#99154E',
+                    },
+                  },
+                 
+                }}
+                disabled
               />
             </Grid>
           </Grid>
@@ -201,15 +229,15 @@ const NewApoinment = () => {
             justifyContent={"center"}
             sx={{ mt: "5px" }}
           >
-            <Grid item xs={5}>
+            <Grid item xs={6}>
               <Autocomplete
                 id="service"
                 options={[
-                  { label: "Service A" },
-                  { label: "Service B" },
-                  { label: "Service C" },
-                  { label: "Service D" },
-                  { label: "Service E" },
+                  { label: "Hair Cut RS:1500" },
+                  { label: "Facial RS:2000" },
+                  { label: "Full Body Waxing Rs:1450 " },
+                  { label: "Spa Pedicure RS:4900" },
+                  { label: "Full Dressing RS 2200" },
                 ]}
                 getOptionLabel={(option) => option.label}
                 value={{ label: user.Service }}
@@ -223,12 +251,24 @@ const NewApoinment = () => {
                     variant="outlined"
                     required
                     value={user.Service}
-                    sx={{ bgcolor: "white" }}
+                    className="textFieldCustom"
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        '& fieldset': {
+                          borderColor: '#99154E',
+                        },
+                        
+                        '&.Mui-focused fieldset': {
+                          borderColor: '#99154E',
+                        },
+                      },
+                     
+                    }}
                   />
                 )}
               />
             </Grid>
-            <Grid item xs={5}>
+            <Grid item xs={6}>
               <TextField
                 id="date"
                 required
@@ -243,7 +283,19 @@ const NewApoinment = () => {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                sx={{ bgcolor: "white", width: "100%", height: "48px" }}
+                className="textFieldCustom"
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': {
+                      borderColor: '#99154E',
+                    },
+                    
+                    '&.Mui-focused fieldset': {
+                      borderColor: '#99154E',
+                    },
+                  },
+                 
+                }}
               />
             </Grid>
           </Grid>
@@ -253,7 +305,7 @@ const NewApoinment = () => {
             justifyContent={"center"}
             sx={{ mt: "5px" }}
           >
-            <Grid item xs={5}>
+            <Grid item xs={6}>
               <TextField
                 id="time"
                 required
@@ -271,7 +323,19 @@ const NewApoinment = () => {
                   native: true, // Keep native select enabled
                   // Add padding to the native select
                 }}
-                sx={{ bgcolor: "white", fontWeight: "800" }}
+                className="textFieldCustom"
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': {
+                      borderColor: '#99154E',
+                    },
+                    
+                    '&.Mui-focused fieldset': {
+                      borderColor: '#99154E',
+                    },
+                  },
+                 
+                }}
               >
                 <option value="08:00 AM">08:00 AM</option>
                 <option value="09:00 AM">09:00 AM</option>
@@ -283,93 +347,60 @@ const NewApoinment = () => {
                 <option value="03:00 PM">03:00 PM</option>
                 <option value="04:00 PM">04:00 PM</option>
                 <option value="05:00 PM">05:00 PM</option>
-                <option value="06:00 PM">06:00 PM</option>
-                <option value="07:00 PM">07:00 PM</option>
+               
+                
               </TextField>
             </Grid>
-            <Grid item xs={5}>
+            <Grid item xs={6}>
               <TextField
                 id="notes"
-                label="Notes"
+                label="Special Note"
                 variant="outlined"
                 name="Notes"
                 value={user.Notes}
                 onChange={data}
                 fullWidth
-                sx={{ bgcolor: "white" }}
+                className="textFieldCustom"
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': {
+                      borderColor: '#99154E',
+                    },
+                    
+                    '&.Mui-focused fieldset': {
+                      borderColor: '#99154E',
+                    },
+                  },
+                 
+                }}
               />
             </Grid>
-            <Grid item xs={5}>
-              <TextField
-                id="notes"
-                label="Notes"
-                variant="outlined"
-                name="Notes"
-                value={user.Notes}
-                onChange={data}
-                fullWidth
-                sx={{ bgcolor: "white" }}
-              />
-            </Grid>
-            <Grid item xs={5}>
-              <TextField
-                id="notes"
-                label="Notes"
-                variant="outlined"
-                name="Notes"
-                value={user.Notes}
-                onChange={data}
-                fullWidth
-                sx={{ bgcolor: "white" }}
-              />
-            </Grid>
-            <Grid item xs={5}>
-              <TextField
-                id="notes"
-                label="Notes"
-                variant="outlined"
-                name="Notes"
-                value={user.Notes}
-                onChange={data}
-                fullWidth
-                sx={{ bgcolor: "white" }}
-              />
-            </Grid>{" "}
-            <Grid item xs={5}>
-              <TextField
-                id="notes"
-                label="Notes"
-                variant="outlined"
-                name="Notes"
-                value={user.Notes}
-                onChange={data}
-                fullWidth
-                sx={{ bgcolor: "white" }}
-              />
-            </Grid>
-          </Grid>{" "}
-          <br></br>
+          </Grid>
+          <h5 className="headN">Marked with * are mandatory fields</h5>
+          <h5 className="headN">If more services are required, add in special note</h5>
+     
           <Grid item>
             <Button
               type="submit"
               disabled={!isFormFilled()}
               sx={{
                 mb: "10px",
-                borderRadius: "20px",
+                borderRadius: "15px",
                 padding: "15px 30px",
                 fontSize: "16px",
                 backgroundColor: "#F27BBD",
                 fontFamily: "Georgia",
+                border: "2px solid #99154E",
                 "&:hover": {
                   backgroundColor: "#E659A1",
                 },
               }}
               size="large"
               variant="contained"
-              // onClick={getdata}
-              onClick={goToCheckOutPage}
+              fullWidth
+      
             >
-              Place The Appoinment
+              Go to Check Out Page
             </Button>
 
             <Toaster

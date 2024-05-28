@@ -32,17 +32,27 @@ function ReadData() {
     fetchDataNail();
   }, []);
   return (
-    <div>
-       <h2>Salon Lilly Skin Prices</h2>
+    <div className="table">
+    <div className="table-wrapper">
       <TableContainer component={Paper}>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <img
+            src={salonIcon}
+            alt="Salon Icon"
+            className="icon"
+            style={{ color: "#BC7FCD" }}
+          />
+          <h2 className="headingN">MANICURE | PEDICURE</h2>
+        </div>
+
         <Table sx={{ minWidth: 500 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>
+              <TableCell className="highlighted">
                 <b>Type</b>
               </TableCell>
-              <TableCell >
-                <b>Price</b>
+              <TableCell align="right" className="highlighted">
+                <b>Standard Price(Rs)</b>
               </TableCell>
             </TableRow>
           </TableHead>
@@ -52,26 +62,27 @@ function ReadData() {
                 <TableCell component="th" scope="row">
                   {row.type}
                 </TableCell>
-                <TableCell >{row.price}</TableCell>
+                <TableCell align="right">{row.price}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
     </div>
+  </div>
   );
 }
 export default function BasicTable() {
   return (
     <div>
       <div className="container">
-        <div className="image-boxB">
+        <div className="image-boxN">
           <img
-            // src={BodyImage}
+            src={NailImage}
             alt="Salon Lilly Body Prices"
             className="imageB"
           />
-          <div className="BtextB">
+          <div className="BtextN">
             <h2>Salon Lilly Nail Prices</h2>
           </div>
         </div>

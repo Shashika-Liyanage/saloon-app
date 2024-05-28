@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import PaymentDetails from "../Payment/PaymentDetails";
 import Logo from "../../../src/Assets/Lillylogo.png";
+import Paid from "../../../src/Assets/paid.jpg";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useSelector } from "react-redux";
 import { selectBookingData } from "../redux/BookingDataSlice";
@@ -14,6 +15,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import emailjs from "emailjs-com";
 import { jsPDF } from "jspdf";
+import PaymentIcon from '@mui/icons-material/Payment';
 
 const steps = ["Finalize the booking"];
 
@@ -80,12 +82,15 @@ const CheckOut = () => {
       keywords: "booking, confirmation",
     });
     // Add the logo
-    const logoWidth = 50; // Adjust the width of the logo
-    const logoHeight = 20; // Adjust the height of the logo
-    doc.addImage(Logo, "PNG", 80, 10, logoWidth, logoHeight); // Position and size the logo
-    
+    const logoWidth = 42; // Adjust the width of the logo
+    const logoHeight = 17; // Adjust the height of the logo
+    const marginLeft = 10; // Define the left margin
+    const marginTop = 3; // Define the top margin
+    doc.addImage(Logo, "PNG", marginLeft, marginTop, logoWidth, logoHeight);
+
     // Add header
     doc.setFontSize(18);
+    doc.setFont("Georgia");
     doc.text("Booking Confirmation", 105, 20, null, null, "center");
 
     // Add horizontal line
@@ -128,21 +133,22 @@ const CheckOut = () => {
       null,
       "center"
     );
+   
 
-    // Add "Paid" seal
-    const sealX = 150;
-    const sealY = 70;
-    const sealRadius = 20;
-
-    // Draw circle
-    doc.setDrawColor(0, 0, 255); // Blue color
-    doc.setFillColor(0, 0, 255); // Blue color
-    doc.circle(sealX, sealY, sealRadius, "F");
-
-    // Add "Paid" text inside the circle
-    doc.setFontSize(16);
-    doc.setTextColor(255, 255, 255); // White color
-    doc.text("Paid", sealX, sealY + 5, null, null, "center");
+    
+     // Add the PaidLogo
+     const PaidWidth = 42; // Adjust the width of the logo
+     const PaidHeight = 17; // Adjust the height of the logo
+     const PaidmarginLeft = 157; // Define the left margin
+     const PaidmarginTop = 88; // Define the top margin
+     doc.addImage(
+       Paid,
+       "PNG",
+       PaidmarginLeft,
+       PaidmarginTop,
+       PaidWidth,
+       PaidHeight
+     );
 
     // Save the PDF
     doc.save("booking-confirmation.pdf");
@@ -263,15 +269,18 @@ const CheckOut = () => {
                 <Typography sx={{ mt: 2 }}>{message}</Typography>
               </Box>
             ) : (
-              <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+              <Box sx={{ display: "flex", flexDirection: "row", pt: 1 }}>
                 <Box sx={{ flex: "1 1 auto" }} />
                 <Button
+               
                   onClick={handleNext}
                   variant="contained"
                   color="success"
                   disabled={!isFormValid}
+                  sx={{ width: '200px' }} 
                 >
-                  Pay
+                  <PaymentIcon/>
+                   Create Payment
                 </Button>
               </Box>
             )}

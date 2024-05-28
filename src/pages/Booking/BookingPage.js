@@ -25,6 +25,7 @@ const BookingPage = () => {
     Time: "08:00 AM",
     Notes: "",
   });
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -106,7 +107,7 @@ const BookingPage = () => {
           sx={{
             alignContent: "center",
             textAlign: "center",
-            background: "linear-gradient(135deg, #FFC5C5, #FFBED8)",
+            background: "linear-gradient(135deg, #FFC5C5, #FFD1E3)",
             boxShadow: "0 20px 0px rgba(#EED3D9)",
             borderRadius: 8,
             padding: 2.5,
@@ -116,8 +117,8 @@ const BookingPage = () => {
           <Typography
             sx={{
               fontWeight: 700,
-              fontSize: 40,
-              mt: "10px",
+              fontSize: 35,
+              mt: "8px",
               color: "#99154E",
               fontFamily: "Georgia",
             }}
