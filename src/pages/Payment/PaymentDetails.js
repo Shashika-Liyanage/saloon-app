@@ -21,6 +21,8 @@ import axios from "axios";
 const PaymentDetails = ({ bookingData, onFormValid }) => {
   const [emailSent, setEmailSent] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [cardNumberError, setCardNumberError] = useState('');
+  const [cvcError, setCvcError] = useState('');
 
   const [formData, setFormData] = useState({
     name: bookingData?.Name || "",
@@ -47,17 +49,33 @@ const PaymentDetails = ({ bookingData, onFormValid }) => {
         .replace(/(.{4})/g, "$1-")
         .slice(0, 19);
       trimmedValue = formattedValue;
+
+      // Validate card number
+      if (formattedValue.replace(/-/g, "").length !== 16) {
+        setCardNumberError('Card number must be 16 digits');
+      } else {
+        setCardNumberError('');
+      }
     } else {
       trimmedValue =
         typeof value === "string" ? value.trim() : value.toString();
     }
+    
+    if (name === "cvc") {
+      // Validate CVC
+      if (!/^\d{3}$/.test(trimmedValue)) {
+        setCvcError('CVC must be a 3-digit number');
+      } else {
+        setCvcError('');
+      }
+    }
+
 
     setFormData((prevData) => ({
       ...prevData,
       [name]: trimmedValue,
     }));
   };
-
 
   const handleCloseSnackbar = () => {
     setSnackbarOpen(false);
@@ -69,6 +87,7 @@ const PaymentDetails = ({ bookingData, onFormValid }) => {
     onFormValid(isFormValid);
   }, [formData, onFormValid]);
 
+   
   return (
     <div
       style={{ width: "100%", justifyContent: "center", alignItems: "center" }}
@@ -76,19 +95,19 @@ const PaymentDetails = ({ bookingData, onFormValid }) => {
       <Grid container spacing={2} mt={1}>
         <Grid item xs={6}>
           <Stack spacing={2}>
-            <Stack direction={"row"} justifyContent={"center"} spacing={3}>
+            <Stack direction={"row"} justifyContent={"center"} spacing={2}>
               <img
                 className="img"
-                width="40%"
-                height="auto"
+                width="35%"
+                height="50%"
                 src={Image2}
                 alt="imN"
                 loading="lazy"
               />
               <img
                 className="img"
-                width="40%"
-                height="auto"
+                width="35%"
+                height="50%"
                 src={Image3}
                 alt="ImN"
                 loading="lazy"
@@ -100,7 +119,6 @@ const PaymentDetails = ({ bookingData, onFormValid }) => {
               required
               label="Name on Card"
               variant="outlined"
-              fullWidth
               sx={{ bgcolor: "white" }}
               value={formData.cardName}
               onChange={handleInputChange}
@@ -115,9 +133,11 @@ const PaymentDetails = ({ bookingData, onFormValid }) => {
               sx={{ bgcolor: "white" }}
               value={formData.cardNumber}
               onChange={handleInputChange}
+              error={!!cardNumberError}
+              helperText={cardNumberError}
             />
 
-            <Stack direction={"row"} spacing={3}>
+            <Stack direction={"row"} spacing={2}>
               <TextField
                 select
                 id="Month"
@@ -170,6 +190,8 @@ const PaymentDetails = ({ bookingData, onFormValid }) => {
                 sx={{ bgcolor: "white" }}
                 value={formData.cvc}
                 onChange={handleInputChange}
+                error={!!cvcError}
+                helperText={cvcError}
               />
             </Stack>
             <div
@@ -179,22 +201,38 @@ const PaymentDetails = ({ bookingData, onFormValid }) => {
                 justifyContent: "flex-end",
               }}
             >
-              <img className="img" width="20%" src={CardLogo} alt="ImN" />
+              <img
+                className="img"
+                width="30%"
+                height={45}
+                src={CardLogo}
+                alt="ImN"
+              />
             </div>
           </Stack>
         </Grid>
-        <Grid item xs={6}>
-          <Card variant="outlined" sx={{ borderRadius: 5, bgcolor: "#FDCEDF" }}>
+        <Grid item xs={4}>
+          <Card
+            sx={{
+              borderRadius: 10,
+              bgcolor: "#FDCEDF",
+              marginRight: -10,
+              marginLeft: 15,
+              marginTop: -2,
+            }}
+          >
             <CardContent>
-              <Box sx={{ textAlign: "center", mb: 2 }}>
-                <Typography variant="h6" 
-                sx={{ 
-                  color: "#352F44", 
-                  fontFamily: "sans-serif",
-                  fontSize: "18px",
-                 
-                } 
-                }>
+              <Box sx={{ textAlign: "center", mb: 4 }}>
+                <Typography
+                  sx={{
+                    textAlign: "center",
+                    fontWeight: "700",
+                    fontSize: "28px",
+                    color: "#AF0171",
+                    fontFamily: "Georgia, serif",
+                    
+                  }}
+                >
                   Booking Details
                 </Typography>
               </Box>
@@ -202,20 +240,21 @@ const PaymentDetails = ({ bookingData, onFormValid }) => {
                 <TextField
                   label="Name"
                   disabled
-                  variant="outlined"
                   fullWidth
                   name="name"
                   value={formData.name}
+                  
                   sx={{
-                    bgcolor: "white",
+                    bgcolor: "#FEE3EC",
                     "& .Mui-disabled": {
                       color: "black",
-                      fontWeight: "600",
-                      fontSize: "1.1rem",
+                      fontWeight: "520",
+                      fontSize: "1rem",
+                      fontFamily: "Georgia, serif",
                       WebkitTextFillColor: "black",
                     },
                     "& .MuiInputLabel-root": {
-                      paddingTop: "12px",
+                      paddingTop: "4px",
                     },
                   }}
                 />
@@ -224,20 +263,20 @@ const PaymentDetails = ({ bookingData, onFormValid }) => {
                 <TextField
                   label="Phone"
                   disabled
-                  variant="outlined"
                   fullWidth
                   name="phone"
                   value={formData.phone}
                   sx={{
-                    bgcolor: "white",
+                    bgcolor: "#FEE3EC",
                     "& .Mui-disabled": {
                       color: "black",
-                      fontWeight: "600",
-                      fontSize: "1.1rem",
+                      fontWeight: "520",
+                      fontSize: "1rem",
+                      fontFamily: "Georgia, serif",
                       WebkitTextFillColor: "black",
                     },
                     "& .MuiInputLabel-root": {
-                      paddingTop: "12px",
+                      paddingTop: "4px",
                     },
                   }}
                 />
@@ -246,20 +285,20 @@ const PaymentDetails = ({ bookingData, onFormValid }) => {
                 <TextField
                   label="Email"
                   disabled
-                  variant="outlined"
                   fullWidth
                   name="email"
                   value={formData.email}
                   sx={{
-                    bgcolor: "white",
+                    bgcolor: "#FEE3EC",
                     "& .Mui-disabled": {
                       color: "black",
-                      fontWeight: "600",
-                      fontSize: "1.1rem",
+                      fontWeight: "520",
+                      fontSize: "1rem",
+                      fontFamily: "Georgia, serif",
                       WebkitTextFillColor: "black",
                     },
                     "& .MuiInputLabel-root": {
-                      paddingTop: "12px",
+                      paddingTop: "4px",
                     },
                   }}
                 />
@@ -268,20 +307,20 @@ const PaymentDetails = ({ bookingData, onFormValid }) => {
                 <TextField
                   label="Service"
                   disabled
-                  variant="outlined"
                   fullWidth
                   name="service"
                   value={formData.service}
                   sx={{
-                    bgcolor: "white",
+                    bgcolor: "#FEE3EC",
                     "& .Mui-disabled": {
                       color: "black",
-                      fontWeight: "600",
-                      fontSize: "1.1rem",
+                      fontWeight: "520",
+                      fontSize: "1rem",
+                      fontFamily: "Georgia, serif",
                       WebkitTextFillColor: "black",
                     },
                     "& .MuiInputLabel-root": {
-                      paddingTop: "12px",
+                      paddingTop: "4px",
                     },
                   }}
                 />
@@ -290,20 +329,20 @@ const PaymentDetails = ({ bookingData, onFormValid }) => {
                 <TextField
                   label="Time"
                   disabled
-                  variant="outlined"
                   fullWidth
                   name="time"
                   value={formData.time}
                   sx={{
-                    bgcolor: "white",
+                    bgcolor: "#FEE3EC",
                     "& .Mui-disabled": {
                       color: "black",
-                      fontWeight: "600",
-                      fontSize: "1.1rem",
+                      fontWeight: "520",
+                      fontSize: "1rem",
+                      fontFamily: "Georgia, serif",
                       WebkitTextFillColor: "black",
                     },
                     "& .MuiInputLabel-root": {
-                      paddingTop: "12px",
+                      paddingTop: "4px",
                     },
                   }}
                 />
@@ -312,34 +351,35 @@ const PaymentDetails = ({ bookingData, onFormValid }) => {
                 <TextField
                   label="Notes"
                   disabled
-                  variant="outlined"
                   fullWidth
                   name="notes"
                   value={formData.notes}
                   sx={{
-                    bgcolor: "white",
+                    bgcolor: "#FEE3EC",
                     "& .Mui-disabled": {
                       color: "black",
-                      fontWeight: "600",
-                      fontSize: "1.1rem",
+                      fontWeight: "520",
+                      fontSize: "1rem",
+                      fontFamily: "Georgia, serif",
                       WebkitTextFillColor: "black",
                     },
                     "& .MuiInputLabel-root": {
-                      paddingTop: "12px",
+                      paddingTop: "4px",
                     },
                   }}
                 />
               </Box>
               <FormGroup>
                 <FormControlLabel
-                disabled
-                  control={<Checkbox sx={{fontWeight:"700"}}  defaultChecked />}
+                  disabled
+                  control={
+                    <Checkbox sx={{ fontWeight: "600", fontFamily: "Georgia, serif", }} defaultChecked />
+                  }
                   label="Receipt will be sent to your provided email address."
                 />
               </FormGroup>
             </CardContent>
           </Card>
-      
         </Grid>
       </Grid>
     </div>
