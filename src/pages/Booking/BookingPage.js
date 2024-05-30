@@ -26,45 +26,45 @@ const BookingPage = () => {
     Notes: "",
   });
   
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  //let name, value;
- 
   const data = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
 
+  const validateEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
 
+  const validatePhoneNumber = (phone) => {
+    const regex = /^[0-9]{10}$/;
+    return regex.test(phone);
+  };
 
-  const date = new Date();
-  const formattedDate = date
-    .toLocaleDateString("en-GB", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    })
-    .split("/")
-    .reverse()
-    .join("-");
-
-  // Function to check if all form fields are filled
   const isFormFilled = () => {
     return Object.values(user).every((value) => value.trim() !== "");
   };
 
-  // Event handler for service selection in Autocomplete
   const handleServiceChange = (event, value) => {
     setUser({ ...user, Service: value ? value.label : "" });
   };
 
-  // Event handler for form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add form submission logic here
+    const emailValid = validateEmail(user.Email);
+    const phoneValid = validatePhoneNumber(user.Phone);
+    if (!emailValid || !phoneValid) {
+      setErrors({
+        ...(!emailValid && { Email: "Invalid email format" }),
+        ...(!phoneValid && { Phone: "Invalid phone number format" }),
+      });
+      return;
+    }
     if (isFormFilled()) {
-      // Your submission logic here
       dispatch(saveBookingData(user));
       goToCheckOutPage();
     } else {
@@ -72,17 +72,16 @@ const BookingPage = () => {
     }
   };
 
-
   const goToCheckOutPage = () => {
     navigate("/Checkout");
   };
+
   return (
     <Box
       sx={{
         display: "flex",
         justifyContent: "space-between",
         mb: "70px",
-      
       }}
     >
       <Typography
@@ -111,7 +110,7 @@ const BookingPage = () => {
             boxShadow: "0 20px 0px rgba(#EED3D9)",
             borderRadius: 8,
             padding: 2.5,
-            marginRight:2,
+            marginRight: 2,
           }}
         >
           <Typography
@@ -147,12 +146,10 @@ const BookingPage = () => {
                     '& fieldset': {
                       borderColor: '#99154E',
                     },
-                    
                     '&.Mui-focused fieldset': {
                       borderColor: '#99154E',
                     },
                   },
-                 
                 }}
               />
             </Grid>
@@ -164,7 +161,6 @@ const BookingPage = () => {
                 variant="outlined"
                 value={user.Phone}
                 fullWidth
-                // inputProps={{ inputMode: "numeric" }}
                 onChange={data}
                 className="textFieldCustom"
                 sx={{
@@ -172,13 +168,13 @@ const BookingPage = () => {
                     '& fieldset': {
                       borderColor: '#99154E',
                     },
-                    
                     '&.Mui-focused fieldset': {
                       borderColor: '#99154E',
                     },
                   },
-                 
                 }}
+                error={!!errors.Phone}
+                helperText={errors.Phone}
               />
             </Grid>
           </Grid>
@@ -193,7 +189,6 @@ const BookingPage = () => {
                 id="email"
                 name="Email"
                 label="Email"
-                type="email"
                 variant="outlined"
                 fullWidth
                 value={user.Email}
@@ -204,14 +199,13 @@ const BookingPage = () => {
                     '& fieldset': {
                       borderColor: '#99154E',
                     },
-                    
                     '&.Mui-focused fieldset': {
                       borderColor: '#99154E',
                     },
                   },
-                 
                 }}
-               
+                error={!!errors.Email}
+                helperText={errors.Email}
               />
             </Grid>
             <Grid item xs={6}>
@@ -225,12 +219,10 @@ const BookingPage = () => {
                     '& fieldset': {
                       borderColor: '#99154E',
                     },
-                    
                     '&.Mui-focused fieldset': {
                       borderColor: '#99154E',
                     },
                   },
-                 
                 }}
                 disabled
               />
@@ -270,12 +262,10 @@ const BookingPage = () => {
                         '& fieldset': {
                           borderColor: '#99154E',
                         },
-                        
                         '&.Mui-focused fieldset': {
                           borderColor: '#99154E',
                         },
                       },
-                     
                     }}
                   />
                 )}
@@ -291,7 +281,6 @@ const BookingPage = () => {
                 name="Date"
                 onChange={data}
                 value={user.Date}
-                formattedDate={formattedDate}
                 fullWidth
                 InputLabelProps={{
                   shrink: true,
@@ -302,12 +291,10 @@ const BookingPage = () => {
                     '& fieldset': {
                       borderColor: '#99154E',
                     },
-                    
                     '&.Mui-focused fieldset': {
                       borderColor: '#99154E',
                     },
                   },
-                 
                 }}
               />
             </Grid>
@@ -333,8 +320,7 @@ const BookingPage = () => {
                   shrink: true,
                 }}
                 SelectProps={{
-                  native: true, // Keep native select enabled
-                  // Add padding to the native select
+                  native: true,
                 }}
                 className="textFieldCustom"
                 sx={{
@@ -342,12 +328,10 @@ const BookingPage = () => {
                     '& fieldset': {
                       borderColor: '#99154E',
                     },
-                    
                     '&.Mui-focused fieldset': {
                       borderColor: '#99154E',
                     },
                   },
-                 
                 }}
               >
                 <option value="08:00 AM">08:00 AM</option>
@@ -360,7 +344,6 @@ const BookingPage = () => {
                 <option value="03:00 PM">03:00 PM</option>
                 <option value="04:00 PM">04:00 PM</option>
                 <option value="05:00 PM">05:00 PM</option>
-               
               </TextField>
             </Grid>
             <Grid item xs={6}>
@@ -378,19 +361,16 @@ const BookingPage = () => {
                     '& fieldset': {
                       borderColor: '#99154E',
                     },
-                    
                     '&.Mui-focused fieldset': {
                       borderColor: '#99154E',
                     },
                   },
-                 
                 }}
               />
             </Grid>
           </Grid>
           <h5 className="headN">Marked with * are mandatory fields</h5>
           <h5 className="headN">If more services are required, add in special note</h5>
-     
           <Grid item>
             <Button
               type="submit"
@@ -410,11 +390,9 @@ const BookingPage = () => {
               size="large"
               variant="contained"
               fullWidth
-      
             >
               Go to Check Out Page
             </Button>
-
             <Toaster
               toastOptions={{
                 duration: 5000,
@@ -425,6 +403,16 @@ const BookingPage = () => {
               }}
               position="top-right"
             />
+            {errors.Email && (
+              <Typography color="error" variant="body2">
+                {errors.Email}
+              </Typography>
+            )}
+            {errors.Phone && (
+              <Typography color="error" variant="body2">
+                {errors.Phone}
+              </Typography>
+            )}
           </Grid>
         </CardContent>
       </form>
