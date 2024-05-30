@@ -12,33 +12,46 @@ import { auth } from "../../services/firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import toast, { Toaster } from "react-hot-toast";
+
 const SignUp = () => {
   const navigate = useNavigate();
-  //const [error, setError] = useState();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setconfirmPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [validationMessages, setValidationMessages] = useState([]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    const messages = [];
+
+    // Basic validation checks
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+      messages.push("Please enter a valid email address.");
+    }
+    if (!/^\d{10}$/.test(phoneNumber)) {
+      messages.push("Please enter a valid 10-digit phone number.");
+    }
+    if (password.length < 6) {
+      messages.push("Password must be at least 6 characters long.");
+    }
+    if (password !== confirmPassword) {
+      messages.push("Passwords do not match.");
+    }
+
+    if (messages.length > 0) {
+      setValidationMessages(messages);
+      return;
+    }
 
     try {
-      // Check if passwords match
-      if (password !== confirmPassword) {
-        throw new Error("Passwords do not match");
-      }
       toast.success("Now you are Registered!!!");
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      // Signed in
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       console.log("Janith", user);
       navigate("/dashboard");
     } catch (error) {
-      toast.error("Passwords do not match !!!");
+      toast.error("An error occurred during registration.");
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log(errorCode, errorMessage);
@@ -88,12 +101,7 @@ const SignUp = () => {
             Sign Up
           </Typography>
 
-          <Grid
-            container
-            spacing={3}
-            justifyContent="center"
-            sx={{ mt: "5px" }}
-          >
+          <Grid container spacing={3} justifyContent="center" sx={{ mt: "5px" }}>
             <Grid item xs={6}>
               <TextField
                 required
@@ -113,18 +121,14 @@ const SignUp = () => {
               />
             </Grid>
           </Grid>
-          <Grid
-            container
-            spacing={3}
-            justifyContent="center"
-            sx={{ mt: "5px" }}
-          >
+          <Grid container spacing={3} justifyContent="center" sx={{ mt: "5px" }}>
             <Grid item xs={6}>
               <TextField
                 required
                 label="Phone Number"
                 variant="outlined"
                 fullWidth
+                onChange={(e) => setPhoneNumber(e.target.value)}
                 sx={{ bgcolor: "white" }}
               />
             </Grid>
@@ -139,12 +143,7 @@ const SignUp = () => {
               />
             </Grid>
           </Grid>
-          <Grid
-            container
-            spacing={3}
-            justifyContent="center"
-            sx={{ mt: "5px" }}
-          >
+          <Grid container spacing={3} justifyContent="center" sx={{ mt: "5px" }}>
             <Grid item xs={6}>
               <TextField
                 required
@@ -159,17 +158,25 @@ const SignUp = () => {
             <Grid item xs={6}>
               <TextField
                 required
-                label="Conifrm Password"
+                label="Confirm Password"
                 variant="outlined"
                 type="password"
-                onChange={(e) => setconfirmPassword(e.target.value)}
+                onChange={(e) => setConfirmPassword(e.target.value)}
                 fullWidth
                 sx={{ bgcolor: "white" }}
               />
             </Grid>
           </Grid>
-          <br></br>
-
+          <br />
+          {validationMessages.length > 0 && (
+            <Box sx={{ mb: 2 }}>
+              {validationMessages.map((message, index) => (
+                <Typography key={index} color="error" variant="body2">
+                  {message}
+                </Typography>
+              ))}
+            </Box>
+          )}
           <Grid item>
             <Button
               sx={{
