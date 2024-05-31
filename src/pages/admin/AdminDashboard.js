@@ -1,7 +1,7 @@
 //-----------------------------------------------------------View Appointment------------------------------------------------//
 //-----------------------------------------------------------View Appointment------------------------------------------------//
 
-import { get, getDatabase, ref } from "firebase/database";
+import { get, getDatabase, ref, remove } from "firebase/database";
 
 import * as React from "react";
 
@@ -16,24 +16,64 @@ import Admin from "./Admin";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
+import toast from "react-hot-toast";
 
 function AdminDashboard() {
   const [bookingDataArray, setBookingDataArray] = React.useState([]);
-  React.useEffect(() => {
-    const fetchDataForBooking = async () => {
-      const db = getDatabase();
-      const dbRef = ref(db, "UserData");
-      const snapshot = await get(dbRef);
 
-      if (snapshot.exists()) {
-        setBookingDataArray(Object.values(snapshot.val()));
-      } else {
-        console.error("No data available");
+  const fetchDataForBooking = async () => {
+    const db = getDatabase();
+    const dbRef = ref(db, "UserData");
+    const snapshot = await get(dbRef);
+
+    if (snapshot.exists()) {
+      console.log(
+        "data => ",
+        Object.values(snapshot.val()),
+        " => ",
+        snapshot.val()
+      );
+      const dataSnapshot = snapshot.val();
+      const dataArr = [];
+      for (let key in dataSnapshot) {
+        dataArr.push({ key, ...dataSnapshot[key] });
       }
-    };
+      console.log("dataArr =>", dataArr);
+      setBookingDataArray(dataArr);
+    } else {
+      console.error("No data available");
+    }
+  };
 
+
+  React.useEffect(() => {
     fetchDataForBooking();
   }, []);
+
+  const deleteRecord = async (firebaseId) => {
+    try {
+
+      console.log("Attempting to delete record with Firebase ID:", firebaseId);
+
+      const db = getDatabase();
+      const recordRef = ref(db, `UserData/${firebaseId}`);
+
+      // Check if firebaseId is null or undefined
+      if (!firebaseId) {
+        throw new Error("Invalid firebaseId");
+      }
+
+      // Delete the record from the database
+      await remove(recordRef);
+      console.log("Record deleted successfully");
+      toast.success("Record deleted successfully");
+      fetchDataForBooking();
+    } catch (error) {
+      console.error("Error deleting record:", error);
+      toast.error("Failed to delete record");
+    }
+  };
+
   const navigate = useNavigate();
   const goToNewApoinment = () => {
     navigate("/NewApoinment");
@@ -141,6 +181,18 @@ function AdminDashboard() {
             >
               <b>Time</b>
             </TableCell>
+            <TableCell
+              sx={{
+                width: "8%",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                borderRight: 1,
+                borderColor: "grey.300",
+              }}
+            >
+              <b>Action</b>
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -213,6 +265,11 @@ function AdminDashboard() {
                 }}
               >
                 {row.Time}
+              </TableCell>
+              <TableCell>
+                <Button onClick={() => deleteRecord(row.key)} variant="outlined" size="small">
+                  Delete
+                </Button>
               </TableCell>
             </TableRow>
           ))}

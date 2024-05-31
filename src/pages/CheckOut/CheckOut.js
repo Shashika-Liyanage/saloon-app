@@ -226,6 +226,8 @@ const CheckOut = () => {
           <PaymentDetails
             bookingData={bookingData}
             onFormValid={handleFormValid}
+            handleNext={handleNext}
+            disabled={!isFormValid}
           />
         );
 

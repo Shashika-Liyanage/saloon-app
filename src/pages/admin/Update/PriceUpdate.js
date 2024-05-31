@@ -124,7 +124,7 @@ const PriceUpdate = () => {
   const handleTypeChangeSkin = (e) => {
     const { value } = e.target;
     setInputTypeSkin(value);
-    setInputPriceSkin(typeOptionsNail.find((d) => d?.key === value)?.price);
+    setInputPriceSkin(typeOptionsSkin.find((d) => d?.key === value)?.price);
   };
   const handlePriceChangeSkin = (e) => {
     setInputPriceSkin(e.target.value);
@@ -318,6 +318,7 @@ const PriceUpdate = () => {
       }); // Set type and price fields
       clearFields();
       toast.success("New record added successfully");
+      fetchData();
     } catch (error) {
       console.error("Error adding record:", error);
       toast.error("Failed to add record");
@@ -1160,7 +1161,7 @@ const PriceUpdate = () => {
                   variant="contained"
                   color="primary"
                   onClick={addRecord}
-                  disabled={!isCheckboxChecked}
+                  disabled={!(isCheckboxChecked && inputPriceForAdd && inputPriceForAdd)}
                   startIcon={<AddCircleOutlineSharpIcon sx={{ mr: 0.5 }} />}
                 >
                   Add

@@ -11,18 +11,20 @@ import {
   Checkbox,
   FormGroup,
   FormControlLabel,
+  Button,
 } from "@mui/material";
 import Image2 from "../../../src/Assets/debitCard.jpg";
 import Image3 from "../../../src/Assets/debitCardBack.jpg";
 import CardLogo from "../../../src/Assets/cardLogos.png";
 import { CheckBox } from "@mui/icons-material";
 import axios from "axios";
+import PaymentIcon from '@mui/icons-material/Payment';
 
-const PaymentDetails = ({ bookingData, onFormValid }) => {
+const PaymentDetails = ({ bookingData, onFormValid, handleNext, disabled }) => {
   const [emailSent, setEmailSent] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [cardNumberError, setCardNumberError] = useState('');
-  const [cvcError, setCvcError] = useState('');
+  const [cardNumberError, setCardNumberError] = useState("");
+  const [cvcError, setCvcError] = useState("");
 
   const [formData, setFormData] = useState({
     name: bookingData?.Name || "",
@@ -52,24 +54,23 @@ const PaymentDetails = ({ bookingData, onFormValid }) => {
 
       // Validate card number
       if (formattedValue.replace(/-/g, "").length !== 16) {
-        setCardNumberError('Card number must be 16 digits');
+        setCardNumberError("Card number must be 16 digits");
       } else {
-        setCardNumberError('');
+        setCardNumberError("");
       }
     } else {
       trimmedValue =
         typeof value === "string" ? value.trim() : value.toString();
     }
-    
+
     if (name === "cvc") {
       // Validate CVC
       if (!/^\d{3}$/.test(trimmedValue)) {
-        setCvcError('CVC must be a 3-digit number');
+        setCvcError("CVC must be a 3-digit number");
       } else {
-        setCvcError('');
+        setCvcError("");
       }
     }
-
 
     setFormData((prevData) => ({
       ...prevData,
@@ -87,7 +88,6 @@ const PaymentDetails = ({ bookingData, onFormValid }) => {
     onFormValid(isFormValid);
   }, [formData, onFormValid]);
 
-   
   return (
     <div
       style={{ width: "100%", justifyContent: "center", alignItems: "center" }}
@@ -201,13 +201,32 @@ const PaymentDetails = ({ bookingData, onFormValid }) => {
                 justifyContent: "flex-end",
               }}
             >
-              <img
-                className="img"
-                width="30%"
-                height={45}
-                src={CardLogo}
-                alt="ImN"
-              />
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "flex-end",
+                }}
+              >
+                <img
+                  className="img"
+                  width="30%"
+                  // height={45}
+                  src={CardLogo}
+                  alt="ImN"
+                />
+                <Button
+                  disabled={disabled}
+                  onClick={handleNext}
+                  variant="contained"
+                  color="success"
+                  size="large"
+                  sx={{ width: "100%", mt: 3 }}
+                  startIcon={<PaymentIcon/>}
+                >
+                  Create Payment
+                </Button>
+              </div>
             </div>
           </Stack>
         </Grid>
@@ -230,7 +249,6 @@ const PaymentDetails = ({ bookingData, onFormValid }) => {
                     fontSize: "28px",
                     color: "#AF0171",
                     fontFamily: "Georgia, serif",
-                    
                   }}
                 >
                   Booking Details
@@ -243,7 +261,6 @@ const PaymentDetails = ({ bookingData, onFormValid }) => {
                   fullWidth
                   name="name"
                   value={formData.name}
-                  
                   sx={{
                     bgcolor: "#FEE3EC",
                     "& .Mui-disabled": {
@@ -373,7 +390,10 @@ const PaymentDetails = ({ bookingData, onFormValid }) => {
                 <FormControlLabel
                   disabled
                   control={
-                    <Checkbox sx={{ fontWeight: "600", fontFamily: "Georgia, serif", }} defaultChecked />
+                    <Checkbox
+                      sx={{ fontWeight: "600", fontFamily: "Georgia, serif" }}
+                      defaultChecked
+                    />
                   }
                   label="Receipt will be sent to your provided email address."
                 />
