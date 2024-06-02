@@ -331,7 +331,7 @@ const PriceUpdate = () => {
       const type = typeOptions.find((d) => d?.key === inputType)?.type;
 
       console.log("Firebase ID:", firebaseId);
-      console.log("Input Type:", type);
+      console.log("Input Type:", inputType);
       console.log("Input Price:", inputPrice);
 
       const db = getDatabase();
@@ -378,6 +378,7 @@ const PriceUpdate = () => {
       await remove(recordRef);
       console.log("Record deleted successfully");
       toast.success("Record deleted successfully");
+      clearFields();
       fetchData(); // Refresh data
     } catch (error) {
       console.error("Error deleting record:", error);
@@ -400,6 +401,7 @@ const PriceUpdate = () => {
 
       if (snapshot.exists()) {
         const data = snapshot.val();
+        console.log("Shashi", data);
 
         setTypeOptionsSkin(
           Object.keys(data).map((key) => ({
@@ -428,8 +430,9 @@ const PriceUpdate = () => {
         type: inputTypeForAddSkin,
         price: inputPriceForAddSkin,
       }); // Set type and price fields
-      clearFields();
+      
       toast.success("New record added successfully");
+      //clearFields();
     } catch (error) {
       console.error("Error adding record:", error);
       toast.error("Failed to add record");
@@ -460,8 +463,9 @@ const PriceUpdate = () => {
 
       // Update the record in the database
       await set(recordRef, { type: type, price: inputPriceSkin });
-      clearFields();
+    
       toast.success("Record updated successfully");
+      clearFields();
       fetchDataForSkin(); // Refresh data
     } catch (error) {
       console.error("Error updating record:", error);
@@ -487,6 +491,7 @@ const PriceUpdate = () => {
 
       // Delete the record from the database
       await remove(recordRef);
+      clearFields();
       console.log("Record deleted successfully");
       toast.success("Record deleted successfully");
       fetchDataForSkin(); // Refresh data
@@ -598,6 +603,7 @@ const PriceUpdate = () => {
 
       // Delete the record from the database
       await remove(recordRef);
+      clearFields();
       console.log("Record deleted successfully");
       toast.success("Record deleted successfully");
       fetchData(); // Refresh data
@@ -1161,7 +1167,7 @@ const PriceUpdate = () => {
                   variant="contained"
                   color="primary"
                   onClick={addRecord}
-                  disabled={!(isCheckboxChecked && inputPriceForAdd && inputPriceForAdd)}
+                  disabled={!(isCheckboxChecked && inputPriceForAdd && inputTypeForAdd)}
                   startIcon={<AddCircleOutlineSharpIcon sx={{ mr: 0.5 }} />}
                 >
                   Add
@@ -1171,7 +1177,10 @@ const PriceUpdate = () => {
                 <Button
                   variant="contained"
                   color="error"
-                  onClick={() => deleteRecord()}
+                  onClick={() => {
+                    deleteRecord();
+                    clearFields(); // Clear fields after deletion
+                  }}
                   startIcon={<DeleteSharpIcon sx={{ mr: 0.5 }} />}
                 >
                   Delete
@@ -1201,9 +1210,9 @@ const PriceUpdate = () => {
           </div>
         </Fade>
       </Dialog>
-      {/* -----------------------------------------------------Modal for Hair Cut Price End---------------------------------------------------- */}
+      {/* -----------------------------------------------------Modal for Hair Price End---------------------------------------------------- */}
 
-      {/* -----------------------------------------------------Modal for Skin Cut Price Start---------------------------------------------------- */}
+      {/* -----------------------------------------------------Modal for Skin Price Start---------------------------------------------------- */}
 
       <Dialog
         open={showCleanUpModal}
@@ -1249,7 +1258,7 @@ const PriceUpdate = () => {
               </Select>
 
               <TextField
-                id="filled-basic"
+                
                 label="Price"
                 variant="outlined"
                 value={inputPriceSkin}
@@ -1303,7 +1312,7 @@ const PriceUpdate = () => {
                   variant="contained"
                   color="primary"
                   onClick={addRecordForSkin}
-                  disabled={!isCheckboxCheckedSkin}
+                  disabled={!(isCheckboxCheckedSkin && inputPriceForAddSkin && inputTypeForAddSkin)}
                   startIcon={<AddCircleOutlineSharpIcon sx={{ mr: 0.5 }} />}
                 >
                   Add
@@ -1344,9 +1353,9 @@ const PriceUpdate = () => {
         </Fade>
       </Dialog>
 
-      {/* -----------------------------------------------------Modal for Skin Cut Price End---------------------------------------------------- */}
+      {/* -----------------------------------------------------Modal for Skin Price End---------------------------------------------------- */}
 
-      {/* -----------------------------------------------------Modal for Nail Cut Price Start---------------------------------------------------- */}
+      {/* -----------------------------------------------------Modal for Nail Price Start---------------------------------------------------- */}
 
       <Dialog
         open={showPedicureModal}
@@ -1393,7 +1402,7 @@ const PriceUpdate = () => {
               </Select>
 
               <TextField
-                id="filled-basic"
+              
                 label="Price"
                 variant="outlined"
                 value={inputPriceNail}
@@ -1447,7 +1456,7 @@ const PriceUpdate = () => {
                   variant="contained"
                   color="primary"
                   onClick={addRecordForNail}
-                  disabled={!isCheckboxCheckedNail}
+                  disabled={!(isCheckboxCheckedNail && inputPriceForAddNail && inputTypeForAddNail)}
                   startIcon={<AddCircleOutlineSharpIcon sx={{ mr: 0.5 }} />}
                 >
                   Add
@@ -1536,7 +1545,7 @@ const PriceUpdate = () => {
               </Select>
 
               <TextField
-                id="filled-basic"
+              
                 label="Price"
                 variant="outlined"
                 value={inputPriceBody}
@@ -1590,7 +1599,7 @@ const PriceUpdate = () => {
                   variant="contained"
                   color="primary"
                   onClick={addRecordForbody}
-                  disabled={!isCheckboxCheckedBody}
+                  disabled={!(isCheckboxCheckedBody && inputPriceForAddBody && inputTypeForAddBody)}
                   startIcon={<AddCircleOutlineSharpIcon sx={{ mr: 0.5 }} />}
                 >
                   Add
@@ -1631,9 +1640,9 @@ const PriceUpdate = () => {
         </Fade>
       </Dialog>
 
-      {/* -----------------------------------------------------Modal for Body Cut Price End---------------------------------------------------- */}
+      {/* -----------------------------------------------------Modal for Body  Price End---------------------------------------------------- */}
 
-      {/* -----------------------------------------------------Modal for Bridal Cut Price Start---------------------------------------------------- */}
+      {/* -----------------------------------------------------Modal for Bridal  Price Start---------------------------------------------------- */}
 
       <Dialog
         open={showDressingModal}
@@ -1661,10 +1670,10 @@ const PriceUpdate = () => {
             >
               Dressing Pricess
             </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 3 }}>
+            <Typography id="transition-modal-description" sx={{ mt: 5 }}>
               {/* Modal content */}
             </Typography>
-            <Stack direction="row" spacing={3}>
+            <Stack direction="row" spacing={4}>
               <Select
                 value={inputTypeBridal}
                 onChange={handleTypeChangeBridal}
@@ -1679,7 +1688,7 @@ const PriceUpdate = () => {
               </Select>
 
               <TextField
-                id="filled-basic"
+               
                 label="Price"
                 variant="outlined"
                 value={inputPriceBridal}
@@ -1733,7 +1742,7 @@ const PriceUpdate = () => {
                   variant="contained"
                   color="primary"
                   onClick={addRecordForBridal}
-                  disabled={!isCheckboxCheckedBridal}
+                  disabled={!(isCheckboxCheckedBridal && inputPriceForAddBridal && inputTypeForAddBridal)}
                   startIcon={<AddCircleOutlineSharpIcon sx={{ mr: 0.5 }} />}
                 >
                   Add

@@ -2,6 +2,12 @@ import React from "react";
 import "./about.css";
 import map1 from "../../../src/Assets/map1.png";
 import Footer from "../Footer/Footer";
+import HairImage from "../../../src/Assets/hairAb.png";
+import maniPedi from "../../../src/Assets/maniPediAb.jpg";
+import facial from "../../../src/Assets/facialAb.jpg";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
+import PhoneIcon from "@mui/icons-material/Phone";
 
 function About() {
   return (
@@ -32,9 +38,42 @@ function About() {
           experience with LillySalon.
         </p>
       </div>
-
       <div className="image-container">
         <img className="imageMap" src={map1} alt="map" />
+        <div class="contact-box">
+          <div class="contact-info">
+            <div class="icon">
+              <PhoneIcon />
+            </div>
+            <p>0783342597</p>
+          </div>
+          <div class="contact-info">
+            <div class="iconw">
+              <WhatsAppIcon />
+            </div>
+            <p>0783342597</p>
+          </div>
+          <div class="contact-info">
+            <div class="iconG">
+              <AlternateEmailIcon />
+            </div>
+            <p>lilly@gmail.com</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="service-images-container">
+        <div className="service-images">
+          <div className="service-image">
+            <img src={HairImage} alt="Hair Services" />
+          </div>
+          <div className="service-image">
+            <img src={maniPedi} alt="Nail Services" />
+          </div>
+          <div className="service-image">
+            <img src={facial} alt="Bridal Services" />
+          </div>
+        </div>
       </div>
 
       <Footer />

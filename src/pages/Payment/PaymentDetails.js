@@ -12,19 +12,23 @@ import {
   FormGroup,
   FormControlLabel,
   Button,
+  Alert,
 } from "@mui/material";
 import Image2 from "../../../src/Assets/debitCard.jpg";
 import Image3 from "../../../src/Assets/debitCardBack.jpg";
 import CardLogo from "../../../src/Assets/cardLogos.png";
-import { CheckBox } from "@mui/icons-material";
-import axios from "axios";
+//import { CheckBox } from "@mui/icons-material";
+//import axios from "axios";
 import PaymentIcon from '@mui/icons-material/Payment';
+
+
 
 const PaymentDetails = ({ bookingData, onFormValid, handleNext, disabled }) => {
   const [emailSent, setEmailSent] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [cardNumberError, setCardNumberError] = useState("");
   const [cvcError, setCvcError] = useState("");
+  const [dateError, setDateError] = useState("");
 
   const [formData, setFormData] = useState({
     name: bookingData?.Name || "",
@@ -76,17 +80,33 @@ const PaymentDetails = ({ bookingData, onFormValid, handleNext, disabled }) => {
       ...prevData,
       [name]: trimmedValue,
     }));
+
+    // Validate date
+    if (name === "month" || name === "year") {
+      const selectedMonth = name === "month" ? parseInt(value, 10) : parseInt(formData.month, 10);
+      const selectedYear = name === "year" ? parseInt(value, 10) : parseInt(formData.year, 10);
+
+      const currentDate = new Date();
+      const selectedDate = new Date(selectedYear, selectedMonth - 1); // JavaScript months are 0-indexed
+
+      if (selectedDate < currentDate) {
+        setDateError("Date has expired");
+      } else {
+        setDateError("");
+      }
+    }
   };
 
   const handleCloseSnackbar = () => {
     setSnackbarOpen(false);
   };
+
   useEffect(() => {
     const isFormValid = Object.values(formData).every(
       (value) => value.trim() !== ""
-    );
+    ) && !dateError;
     onFormValid(isFormValid);
-  }, [formData, onFormValid]);
+  }, [formData, dateError, onFormValid]);
 
   return (
     <div
@@ -138,48 +158,52 @@ const PaymentDetails = ({ bookingData, onFormValid, handleNext, disabled }) => {
             />
 
             <Stack direction={"row"} spacing={2}>
-              <TextField
-                select
-                id="Month"
-                required
-                name="month"
-                label="Month"
-                variant="outlined"
-                fullWidth
-                sx={{ bgcolor: "white" }}
-                value={formData.month}
-                onChange={handleInputChange}
-              >
-                {Array.from({ length: 12 }, (_, index) => {
-                  const month = index + 1;
-                  return (
-                    <MenuItem key={month} value={month}>
-                      {month}
-                    </MenuItem>
-                  );
-                })}
-              </TextField>
-              <TextField
-                select
-                id="Year"
-                required
-                name="year"
-                label="Year"
-                variant="outlined"
-                fullWidth
-                sx={{ bgcolor: "white" }}
-                value={formData.year}
-                onChange={handleInputChange}
-              >
-                {Array.from({ length: 10 }, (_, index) => {
-                  const year = new Date().getFullYear() + index;
-                  return (
-                    <MenuItem key={year} value={year}>
-                      {year}
-                    </MenuItem>
-                  );
-                })}
-              </TextField>
+            <TextField
+        select
+        id="Month"
+        required
+        name="month"
+        label="Month"
+        variant="outlined"
+        fullWidth
+        sx={{ bgcolor: "white" }}
+        value={formData.month}
+        onChange={handleInputChange}
+      >
+        {Array.from({ length: 12 }, (_, index) => {
+          const month = index + 1;
+          return (
+            <MenuItem key={month} value={month}>
+              {month}
+              {dateError && <p style={{ color: "red" }}>{dateError}</p>}
+            </MenuItem>
+          );
+        })}
+      </TextField>
+      <TextField
+        select
+        id="Year"
+        required
+        name="year"
+        label="Year"
+        variant="outlined"
+        fullWidth
+        sx={{ bgcolor: "white" }}
+        value={formData.year}
+        onChange={handleInputChange}
+      >
+        {Array.from({ length: 10 }, (_, index) => {
+          const year = new Date().getFullYear() + index;
+          return (
+            <MenuItem key={year} value={year}>
+              {year}
+              {dateError && <p style={{ color: "red" }}>{dateError}</p>}
+            </MenuItem>
+          );
+        })}
+        
+      </TextField>
+    
               <TextField
                 id="CVC"
                 required
@@ -221,6 +245,7 @@ const PaymentDetails = ({ bookingData, onFormValid, handleNext, disabled }) => {
                   variant="contained"
                   color="success"
                   size="large"
+                 
                   sx={{ width: "100%", mt: 3 }}
                   startIcon={<PaymentIcon/>}
                 >

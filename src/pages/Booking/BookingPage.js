@@ -376,9 +376,9 @@ const BookingPage = () => {
               type="submit"
               disabled={!isFormFilled()}
               sx={{
-                mb: "10px",
+                mb: "6px",
                 borderRadius: "15px",
-                padding: "15px 30px",
+                padding: "8px",
                 fontSize: "16px",
                 backgroundColor: "#F27BBD",
                 fontFamily: "Georgia",
