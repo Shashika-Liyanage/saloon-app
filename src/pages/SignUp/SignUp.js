@@ -12,14 +12,19 @@ import { auth } from "../../services/firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import toast, { Toaster } from "react-hot-toast";
+import { getDatabase, ref, set } from "firebase/database";
+import { database } from "../../services/firebaseConfig"; // Import your Firebase Realtime Database
 
 const SignUp = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [validationMessages, setValidationMessages] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -46,9 +51,15 @@ const SignUp = () => {
 
     try {
       toast.success("Now you are Registered!!!");
+
+      // Register user with Firebase Auth
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      console.log("Janith", user);
+      console.log("User:", user);
+
+      // Save user details to Firebase Realtime Database
+      await saveData(user.uid);
+
       navigate("/dashboard");
     } catch (error) {
       toast.error("An error occurred during registration.");
@@ -58,11 +69,27 @@ const SignUp = () => {
     }
   };
 
+  const saveData = async (userId) => {
+    const userData = {
+      email,
+      phoneNumber,
+      lastName,
+      firstName,
+      
+    };
+
+    try {
+      const db = getDatabase();
+      await set(ref(db, `users/${userId}`), userData);
+      console.log("User data saved successfully!");
+    } catch (error) {
+      console.error("Error saving user data:", error);
+    }
+  };
+
   return (
-    <form>
-      <Box
-        sx={{ display: "flex", justifyContent: "space-between", mb: "70px" }}
-      >
+    <form onSubmit={onSubmit}>
+      <Box sx={{ display: "flex", justifyContent: "space-between", mb: "70px" }}>
         <Typography
           sx={{
             ml: 26,
@@ -107,6 +134,7 @@ const SignUp = () => {
                 required
                 label="First Name"
                 variant="outlined"
+                onChange={(e) => setFirstName(e.target.value)}
                 fullWidth
                 sx={{ bgcolor: "white" }}
               />
@@ -116,6 +144,7 @@ const SignUp = () => {
                 required
                 label="Last Name"
                 variant="outlined"
+                onChange={(e) => setLastName(e.target.value)}
                 fullWidth
                 sx={{ bgcolor: "white" }}
               />
@@ -194,7 +223,6 @@ const SignUp = () => {
               variant="contained"
               type="submit"
               fullWidth
-              onClick={onSubmit}
             >
               Register Me
             </Button>
