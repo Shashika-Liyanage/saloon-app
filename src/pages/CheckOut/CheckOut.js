@@ -273,7 +273,7 @@ const CheckOut = () => {
             ) : (
               <Box sx={{ display: "flex", flexDirection: "row", pt: 1 }}>
                 <Box sx={{ flex: "1 1 auto" }} />
-                <Button
+                {/* <Button
                
                   onClick={handleNext}
                   variant="contained"
@@ -283,7 +283,7 @@ const CheckOut = () => {
                 >
                   <PaymentIcon/>
                    Create Payment
-                </Button>
+                </Button> */}
               </Box>
             )}
             {getStepContent(activeStep)}

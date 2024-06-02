@@ -16,10 +16,19 @@ import Admin from "./Admin";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
+import DeleteIcon from '@mui/icons-material/Delete';
 import toast from "react-hot-toast";
+
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle"; 
 
 function AdminDashboard() {
   const [bookingDataArray, setBookingDataArray] = React.useState([]);
+  const [open, setOpen] = React.useState(false);
+  const [selectedRecord, setSelectedRecord] = React.useState(null);
 
   const fetchDataForBooking = async () => {
     const db = getDatabase();
@@ -45,25 +54,28 @@ function AdminDashboard() {
     }
   };
 
-
   React.useEffect(() => {
     fetchDataForBooking();
   }, []);
 
-  const deleteRecord = async (firebaseId) => {
-    try {
+  const handleClickOpen = (record) => {
+    setSelectedRecord(record);
+    setOpen(true);
+  };
 
-      console.log("Attempting to delete record with Firebase ID:", firebaseId);
+  const handleClose = () => {
+    setOpen(false);
+    setSelectedRecord(null);
+  };
+
+  const handleDelete = async () => {
+    if (!selectedRecord) return;
+    try {
+      console.log("Attempting to delete record with Firebase ID:", selectedRecord.key);
 
       const db = getDatabase();
-      const recordRef = ref(db, `UserData/${firebaseId}`);
+      const recordRef = ref(db, `UserData/${selectedRecord.key}`);
 
-      // Check if firebaseId is null or undefined
-      if (!firebaseId) {
-        throw new Error("Invalid firebaseId");
-      }
-
-      // Delete the record from the database
       await remove(recordRef);
       console.log("Record deleted successfully");
       toast.success("Record deleted successfully");
@@ -71,6 +83,8 @@ function AdminDashboard() {
     } catch (error) {
       console.error("Error deleting record:", error);
       toast.error("Failed to delete record");
+    } finally {
+      handleClose();
     }
   };
 
@@ -267,7 +281,9 @@ function AdminDashboard() {
                 {row.Time}
               </TableCell>
               <TableCell>
-                <Button onClick={() => deleteRecord(row.key)} variant="outlined" size="small">
+              <Button onClick={() => handleClickOpen(row)} variant="outlined" size="small" color="error">
+                  <DeleteIcon/>
+                 
                   Delete
                 </Button>
               </TableCell>
@@ -284,6 +300,49 @@ function AdminDashboard() {
         Add Appointment
         <AddIcon />
       </Button>
+      <Dialog
+  open={open}
+  onClose={handleClose}
+  aria-labelledby="alert-dialog-title"
+  aria-describedby="alert-dialog-description"
+  PaperProps={{
+    style: {
+      borderRadius: '10px',
+      padding: '20px',
+      minWidth: '400px',
+    },
+  }}
+>
+  <DialogTitle
+    id="alert-dialog-title"
+    sx={{ fontWeight: 'bold', color: '#d32f2f', textAlign: 'center' }}
+  >
+    Confirm Deletion
+  </DialogTitle>
+  <DialogContent>
+    <DialogContentText
+      id="alert-dialog-description"
+      sx={{ color: '#555', textAlign: 'center', marginBottom: '20px' }}
+    >
+      Are you sure you want to delete this appointment?
+    </DialogContentText>
+  </DialogContent>
+  <DialogActions sx={{ justifyContent: 'center' }}>
+    <Button
+      onClick={handleClose}
+      sx={{ color: '#fff', backgroundColor: '#1976d2', marginRight: '10px' }}
+    >
+      No
+    </Button>
+    <Button
+      onClick={handleDelete}
+      sx={{ color: '#fff', backgroundColor: '#d32f2f' }}
+      autoFocus
+    >
+      Yes
+    </Button>
+  </DialogActions>
+</Dialog>
     </Box>
   );
 }
