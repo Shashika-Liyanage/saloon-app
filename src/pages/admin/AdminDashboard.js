@@ -13,17 +13,17 @@ import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 
 import Table from "@mui/material/Table";
 import Admin from "./Admin";
-import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 import toast from "react-hot-toast";
 
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle"; 
+import DialogTitle from "@mui/material/DialogTitle";
 
 function AdminDashboard() {
   const [bookingDataArray, setBookingDataArray] = React.useState([]);
@@ -71,7 +71,10 @@ function AdminDashboard() {
   const handleDelete = async () => {
     if (!selectedRecord) return;
     try {
-      console.log("Attempting to delete record with Firebase ID:", selectedRecord.key);
+      console.log(
+        "Attempting to delete record with Firebase ID:",
+        selectedRecord.key
+      );
 
       const db = getDatabase();
       const recordRef = ref(db, `UserData/${selectedRecord.key}`);
@@ -105,11 +108,27 @@ function AdminDashboard() {
           fontFamily: "Georgia, serif",
         }}
       >
-        Manage Appoinment
+        Manage Appoinments
       </Typography>
-      <Typography sx={{ fontWeight: "500", fontSize: "20px", marginLeft: 36 }}>
-        On going Appointment
+      <Typography
+        sx={{
+          fontWeight: "500",
+          fontSize: "20px",
+          marginLeft: 36,
+          fontFamily: "Georgia, serif",
+        }}
+      >
+        On going Appointments
       </Typography>
+      <Button
+        variant="contained"
+        color="success"
+        sx={{ marginTop: 2, marginLeft: 36, marginBottom: 2 }}
+        onClick={goToNewApoinment}
+      >
+        <AddIcon />
+        Add Appointment
+      </Button>
 
       <Table
         sx={{
@@ -131,6 +150,7 @@ function AdminDashboard() {
                 textOverflow: "ellipsis",
                 borderRight: 1,
                 borderColor: "grey.300",
+                fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
               }}
             >
               <b>Appoinment Date</b>
@@ -143,6 +163,7 @@ function AdminDashboard() {
                 textOverflow: "ellipsis",
                 borderRight: 1,
                 borderColor: "grey.300",
+                fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
               }}
             >
               <b>Customer Email</b>
@@ -155,6 +176,7 @@ function AdminDashboard() {
                 textOverflow: "ellipsis",
                 borderRight: 1,
                 borderColor: "grey.300",
+                fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
               }}
             >
               <b>Customer Name</b>
@@ -167,6 +189,7 @@ function AdminDashboard() {
                 textOverflow: "ellipsis",
                 borderRight: 1,
                 borderColor: "grey.300",
+                fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
               }}
             >
               <b>Phone Number</b>
@@ -179,6 +202,7 @@ function AdminDashboard() {
                 textOverflow: "ellipsis",
                 borderRight: 1,
                 borderColor: "grey.300",
+                fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
               }}
             >
               <b>Service</b>
@@ -191,6 +215,7 @@ function AdminDashboard() {
                 textOverflow: "ellipsis",
                 borderRight: 1,
                 borderColor: "grey.300",
+                fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
               }}
             >
               <b>Time</b>
@@ -203,6 +228,7 @@ function AdminDashboard() {
                 textOverflow: "ellipsis",
                 borderRight: 1,
                 borderColor: "grey.300",
+                fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
               }}
             >
               <b>Action</b>
@@ -221,6 +247,7 @@ function AdminDashboard() {
                   textOverflow: "ellipsis",
                   borderRight: 1,
                   borderColor: "grey.300",
+                  fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
                 }}
               >
                 {row.Date}
@@ -232,6 +259,7 @@ function AdminDashboard() {
                   textOverflow: "ellipsis",
                   borderRight: 1,
                   borderColor: "grey.300",
+                  fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
                 }}
               >
                 {row.Email}
@@ -243,6 +271,7 @@ function AdminDashboard() {
                   textOverflow: "ellipsis",
                   borderRight: 1,
                   borderColor: "grey.300",
+                  fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
                 }}
               >
                 {row.Name}
@@ -254,6 +283,7 @@ function AdminDashboard() {
                   textOverflow: "ellipsis",
                   borderRight: 1,
                   borderColor: "grey.300",
+                  fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
                 }}
               >
                 {row.Phone}
@@ -265,6 +295,7 @@ function AdminDashboard() {
                   textOverflow: "ellipsis",
                   borderRight: 1,
                   borderColor: "grey.300",
+                  fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
                 }}
               >
                 {row.Service}
@@ -276,14 +307,20 @@ function AdminDashboard() {
                   textOverflow: "ellipsis",
                   borderRight: 1,
                   borderColor: "grey.300",
+                  fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
                 }}
               >
                 {row.Time}
               </TableCell>
               <TableCell>
-              <Button onClick={() => handleClickOpen(row)} variant="outlined" size="small" color="error">
-                  <DeleteIcon/>
-                 
+                <Button
+                  onClick={() => handleClickOpen(row)}
+                  variant="outlined"
+                  size="small"
+                  color="error"
+                  fontFamily="Verdana, Geneva, Tahoma, sans-serif"
+                >
+                  <DeleteIcon />
                   Delete
                 </Button>
               </TableCell>
@@ -291,58 +328,54 @@ function AdminDashboard() {
           ))}
         </TableBody>
       </Table>
-      <Button
-        variant="contained"
-        color="success"
-        sx={{ marginTop: 2, marginLeft: 36 }}
-        onClick={goToNewApoinment}
-      >
-        Add Appointment
-        <AddIcon />
-      </Button>
+
       <Dialog
-  open={open}
-  onClose={handleClose}
-  aria-labelledby="alert-dialog-title"
-  aria-describedby="alert-dialog-description"
-  PaperProps={{
-    style: {
-      borderRadius: '10px',
-      padding: '20px',
-      minWidth: '400px',
-    },
-  }}
->
-  <DialogTitle
-    id="alert-dialog-title"
-    sx={{ fontWeight: 'bold', color: '#d32f2f', textAlign: 'center' }}
-  >
-    Confirm Deletion
-  </DialogTitle>
-  <DialogContent>
-    <DialogContentText
-      id="alert-dialog-description"
-      sx={{ color: '#555', textAlign: 'center', marginBottom: '20px' }}
-    >
-      Are you sure you want to delete this appointment?
-    </DialogContentText>
-  </DialogContent>
-  <DialogActions sx={{ justifyContent: 'center' }}>
-    <Button
-      onClick={handleClose}
-      sx={{ color: '#fff', backgroundColor: '#1976d2', marginRight: '10px' }}
-    >
-      No
-    </Button>
-    <Button
-      onClick={handleDelete}
-      sx={{ color: '#fff', backgroundColor: '#d32f2f' }}
-      autoFocus
-    >
-      Yes
-    </Button>
-  </DialogActions>
-</Dialog>
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        PaperProps={{
+          style: {
+            borderRadius: "10px",
+            padding: "20px",
+            minWidth: "400px",
+          },
+        }}
+      >
+        <DialogTitle
+          id="alert-dialog-title"
+          sx={{ fontWeight: "bold", color: "#d32f2f", textAlign: "center" }}
+        >
+          Confirm Deletion
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText
+            id="alert-dialog-description"
+            sx={{ color: "#555", textAlign: "center", marginBottom: "20px" }}
+          >
+            Are you sure you want to delete this appointment?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions sx={{ justifyContent: "center" }}>
+          <Button
+            onClick={handleClose}
+            sx={{
+              color: "#fff",
+              backgroundColor: "#1976d2",
+              marginRight: "10px",
+            }}
+          >
+            No
+          </Button>
+          <Button
+            onClick={handleDelete}
+            sx={{ color: "#fff", backgroundColor: "#d32f2f" }}
+            autoFocus
+          >
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }

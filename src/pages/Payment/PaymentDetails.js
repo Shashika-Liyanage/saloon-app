@@ -259,7 +259,8 @@ const PaymentDetails = ({ bookingData, onFormValid, handleNext, disabled }) => {
           <Card
             sx={{
               borderRadius: 10,
-              bgcolor: "#FDCEDF",
+              backgroundImage: "linear-gradient(40deg, #FFCAD4, #FFCDEA 40%, #F9C5D5 60%)",
+              border: '2.5px solid #B25068',
               marginRight: -10,
               marginLeft: 15,
               marginTop: -2,
@@ -416,11 +417,12 @@ const PaymentDetails = ({ bookingData, onFormValid, handleNext, disabled }) => {
                   disabled
                   control={
                     <Checkbox
-                      sx={{ fontWeight: "600", fontFamily: "Georgia, serif" }}
+                      sx={{ fontWeight: "600", fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
+                    }}
                       defaultChecked
                     />
                   }
-                  label="Receipt will be sent to your provided email address."
+                  label={<span style={{ fontFamily: "Verdana, Geneva, Tahoma, sans-serif" }}>Receipt will be sent to your provided email address.</span>}
                 />
               </FormGroup>
             </CardContent>

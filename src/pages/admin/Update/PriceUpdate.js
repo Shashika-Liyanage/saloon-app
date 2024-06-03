@@ -861,7 +861,7 @@ const PriceUpdate = () => {
        
       }}
       >
-        <Typography sx={{textAlign:"center",fontWeight:"700",fontSize:"30px", marginLeft: 8,   color: "#A91079",fontFamily:"Georgia, serif"}}>Manage Service</Typography>
+        <Typography sx={{textAlign:"center",fontWeight:"700",fontSize:"30px", marginLeft: 8,   color: "#A91079",fontFamily:"Georgia, serif"}}>Manage Services</Typography>
         <Grid
           container
           spacing={2}
