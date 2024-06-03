@@ -9,31 +9,18 @@ const Home = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // const generateRandomColor = (data) => {
-    //   const hash = data.split("").reduce((acc, char) => {
-    //     return char.charCodeAt(0) + ((acc << 5) - acc);
-    //   }, 0);
 
-    //   // Generate a full 6-digit hexadecimal color code
-    //   const color =
-    //     "#" +
-    //     ("000000" + ((hash & 0x00ffffff) | 0xa0a0a0).toString(16)).slice(-6);
-    //   console.log("Generated Color:", color); // Check the generated color
-    //   return color;
-    // };
 
     const unsubscribe = auth.onAuthStateChanged((userData) => {
       setUser(userData);
       if (userData) {
-        // const color = generateRandomColor(userData.email);
-        // Use the color if needed
       }
     });
 
     return () => {
-      unsubscribe(); // Unsubscribe from the auth state listener when component unmounts
+      unsubscribe(); 
     };
-  }, []); // Empty dependency array ensures this effect runs only once
+  }, []); 
 
   // Function to extract first part of the email address before the "@"
   const getFirstNameFromEmail = (email) => {
