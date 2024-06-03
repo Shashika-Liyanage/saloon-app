@@ -54,9 +54,7 @@ const Admin = () => {
   const goToSentMail = () => {
     navigate("/SentMail");
   };
-  const goToSettings = () => {
-    navigate("/Setting");
-  };
+
 
   const handleLogOut = () => {
     signOut(auth)
@@ -169,26 +167,7 @@ const Admin = () => {
           <ForwardToInboxIcon />
           Sent Mail
         </Button>
-        <Button
-          onClick={goToSettings}
-          variant="contained"
-          fullWidth
-          sx={{
-            fontWeight: "450",
-            color: "white",
-            fontWeight: "500",
-            color: "#662549",
-            ml: "20px",
-            backgroundColor: "#FFE5E5",
-            fontFamily: "serif",
-            "&:hover": {
-              backgroundColor: "#FFD1DA",
-            },
-          }}
-        >
-          <SettingsIcon />
-          Settings
-        </Button>
+      
         <Button
           onClick={handleLogOut}
           variant="contained"
