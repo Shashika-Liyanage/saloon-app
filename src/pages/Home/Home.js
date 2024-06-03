@@ -1,16 +1,40 @@
 import React, { useEffect, useState } from "react";
-//import { signOut } from "firebase/auth";
-//import { useNavigate } from "react-router-dom";
 import { auth } from "../../services/firebaseConfig";
 import bg from "../../Assets/salonBg.jpg";
+import { Table } from "react-bootstrap";
+import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { get, getDatabase, ref } from "firebase/database";
 
 const Home = () => {
-  //const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const [userDataShow, setUserDataShow] = useState([]);
 
   useEffect(() => {
+    fetchData();
+  }, []);
 
+  const fetchData = async () => {
+    try {
+      const db = getDatabase();
+      const dbRef = ref(db, "users");
+      const snapshot = await get(dbRef);
 
+      if (snapshot.exists()) {
+        const dataSnapshot = snapshot.val();
+        const dataArr = Object.entries(dataSnapshot).map(([key, value]) => ({
+          key,
+          ...value,
+        }));
+        setUserDataShow(dataArr);
+      } else {
+        console.error("No data available");
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((userData) => {
       setUser(userData);
       if (userData) {
@@ -18,20 +42,15 @@ const Home = () => {
     });
 
     return () => {
-      unsubscribe(); 
+      unsubscribe();
     };
-  }, []); 
+  }, []);
 
-  // Function to extract first part of the email address before the "@"
   const getFirstNameFromEmail = (email) => {
-    // Use a regular expression to match only alphanumeric characters before the "@" symbol
     const cleanEmail = email.match(/^[a-zA-Z]+/);
-    // Check if cleanEmail is not null
     if (cleanEmail) {
-      // Return the matched alphanumeric characters
       return cleanEmail[0];
     } else {
-      // Return an empty string if no match is found
       return "";
     }
   };
@@ -40,16 +59,43 @@ const Home = () => {
     <>
       <div
         style={{
+          position: "fixed",
+          top: "150px",
+          left: "70%",
+          transform: "translateX(-50%)",
+          display: "flex",
+          alignItems: "center",
+          fontSize: "56px",
+          fontWeight: "700",
+          color: "#fff",
+          zIndex: 9999,
+        }}
+      >
+        <span>Hello</span>
+        <span
+          role="img"
+          aria-label="wave"
+          style={{ fontSize: "56px", marginLeft: "20px" }}
+        >
+          👋
+        </span>
+        {user && (
+          <h4 style={{ marginLeft: "10px" }}>
+            {getFirstNameFromEmail(user.email)}
+          </h4>
+        )}
+      </div>
+      <div
+        style={{
           position: "flex-start",
           textAlign: "flex-start",
           backgroundColor: "#D20065",
           borderBottomLeftRadius: "250px",
           borderBottomRightRadius: "250px",
           overflow: "hidden",
+          marginTop: "100px",
         }}
       >
-        {" "}
-        {/* Add background color */}
         <img
           className="img"
           width="30%"
@@ -62,34 +108,41 @@ const Home = () => {
             borderBottomRightRadius: "280px",
           }}
         />
-        <div
-          style={{
-            position: "fixed",
-            top: "150px",
-            left: "70%",
-            transform: "translateX(-50%)",
-            display: "flex",
-            alignItems: "center", // Center items vertically
-            fontSize: "56px",
-            fontWeight: "700",
-            color: "#fff",
-          }}
-        >
-          <span>Hello</span> {/* "Hello" text */}
-          <span
-            role="img"
-            aria-label="wave"
-            style={{ fontSize: "56px", marginLeft: "20px" }} // Adjust spacing between "Hello" and emoji
-          >
-            👋
-          </span>
-          {user && (
-            <h4 style={{ marginLeft: "10px" }}>
-              {getFirstNameFromEmail(user.email)}
-            </h4>
-          )}
-        </div>
       </div>
+      <Table
+        sx={{
+          width: "80%",
+          minWidth: 600,
+          marginLeft: 36,
+          border: 1,
+          borderColor: "grey.300",
+          marginTop: "20px",
+        }}
+        aria-label="simple table"
+      >
+        <TableBody>
+          <TableHead>
+            <TableRow>
+              <TableCell>
+                <b>Name</b>
+              </TableCell>
+              <TableCell>
+                <b>Phone Number</b>
+              </TableCell>
+              <TableCell>
+                <b>Email</b>
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          {userDataShow.map((row, index) => (
+            <TableRow key={index}>
+              <TableCell>{`${row.firstName} ${row.lastName}`}</TableCell>
+              <TableCell>{row.phoneNumber}</TableCell>
+              <TableCell>{row.email}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
     </>
   );
 };
