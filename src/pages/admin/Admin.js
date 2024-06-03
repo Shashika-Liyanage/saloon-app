@@ -12,19 +12,12 @@ import ForwardToInboxIcon from "@mui/icons-material/ForwardToInbox";
 import {
   Button,
   Stack,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
+  
 } from "@mui/material";
-import Paper from "@mui/material/Paper";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import toast from "react-hot-toast";
 import { auth } from "../../services/firebaseConfig";
-import { get, getDatabase, ref } from "firebase/database";
-import Table from "@mui/material/Table";
 import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
 import ManageAccountsRoundedIcon from "@mui/icons-material/ManageAccountsRounded";
 
@@ -118,7 +111,7 @@ const Admin = () => {
           }}
         >
           <AdminPanelSettingsIcon />
-          Manage Service
+          Manage Services
         </Button>
         <Button
           onClick={goToUserManage}
@@ -137,7 +130,7 @@ const Admin = () => {
           }}
         >
           <ManageAccountsRoundedIcon />
-          Manage User
+          Manage Users
         </Button>
         <Button
           onClick={goToAppointment}
@@ -155,7 +148,7 @@ const Admin = () => {
           }}
         >
           <AdminPanelSettingsIcon />
-          Manage Appointment
+          Manage Appointments
         </Button>
 
         <Button
