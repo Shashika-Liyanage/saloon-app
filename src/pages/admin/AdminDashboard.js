@@ -25,37 +25,41 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
+export const fetchDataForBooking = async () => {
+  const db = getDatabase();
+  const dbRef = ref(db, "UserData");
+  const snapshot = await get(dbRef);
+
+  if (snapshot.exists()) {
+    console.log(
+      "data => ",
+      Object.values(snapshot.val()),
+      " => ",
+      snapshot.val()
+    );
+    const dataSnapshot = snapshot.val();
+    const dataArr = [];
+    for (let key in dataSnapshot) {
+      dataArr.push({ key, ...dataSnapshot[key] });
+    }
+    console.log("dataArr =>", dataArr);
+    return dataArr;
+  } else {
+    console.error("No data available");
+    return null;
+  }
+};
+
 function AdminDashboard() {
   const [bookingDataArray, setBookingDataArray] = React.useState([]);
   const [open, setOpen] = React.useState(false);
   const [selectedRecord, setSelectedRecord] = React.useState(null);
 
-  const fetchDataForBooking = async () => {
-    const db = getDatabase();
-    const dbRef = ref(db, "UserData");
-    const snapshot = await get(dbRef);
-
-    if (snapshot.exists()) {
-      console.log(
-        "data => ",
-        Object.values(snapshot.val()),
-        " => ",
-        snapshot.val()
-      );
-      const dataSnapshot = snapshot.val();
-      const dataArr = [];
-      for (let key in dataSnapshot) {
-        dataArr.push({ key, ...dataSnapshot[key] });
-      }
-      console.log("dataArr =>", dataArr);
-      setBookingDataArray(dataArr);
-    } else {
-      console.error("No data available");
-    }
-  };
-
   React.useEffect(() => {
-    fetchDataForBooking();
+    (async function () {
+      const bookingData = await fetchDataForBooking();
+      setBookingDataArray(bookingData);
+    })();
   }, []);
 
   const handleClickOpen = (record) => {

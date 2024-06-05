@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import './Booking.css';
+import "./Booking.css";
 
 import {
   Box,
@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { saveBookingData } from "../redux/BookingDataSlice";
+import { fetchDataForBooking } from "../admin/AdminDashboard";
 
 const BookingPage = () => {
   const [user, setUser] = useState({
@@ -22,17 +23,29 @@ const BookingPage = () => {
     Email: "",
     Service: "",
     Date: new Date().toISOString().split("T")[0],
-    Time: "08:00 AM",
+    Time: "",
     Notes: "",
   });
-  
+
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const data = (e) => {
+  const data = async (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
+
+    const bookingData = await fetchDataForBooking();
+    const bookedTimeSlots = bookingData.map((d) => ({
+      time: d.Time,
+      service: d.Service,
+    }));
+
+    if (name === "Time") {
+      let errMsg = null;
+      if (bookedTimeSlots.some((d) => d.time === value && d.service === user.Service)) errMsg = "Time aleady used";
+      setErrors((ps) => ({ ...ps, Time: errMsg }));
+    }
   };
 
   const validateEmail = (email) => {
@@ -46,11 +59,14 @@ const BookingPage = () => {
   };
 
   const isFormFilled = () => {
-    return Object.values(user).every((value) => value.trim() !== "");
+    return (
+      Object.values(user).every((value) => value.trim() !== "") && !errors?.Time
+    );
   };
 
   const handleServiceChange = (event, value) => {
-    setUser({ ...user, Service: value ? value.label : "" });
+    if(errors.Time) setErrors((ps) => ({...ps, Time: null}))
+    setUser({ ...user, Time: '', Service: value ? value.label : "" });
   };
 
   const handleSubmit = (e) => {
@@ -142,12 +158,12 @@ const BookingPage = () => {
                 onChange={data}
                 className="textFieldCustom"
                 sx={{
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': {
-                      borderColor: '#99154E',
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: "#99154E",
                     },
-                    '&.Mui-focused fieldset': {
-                      borderColor: '#99154E',
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#99154E",
                     },
                   },
                 }}
@@ -164,12 +180,12 @@ const BookingPage = () => {
                 onChange={data}
                 className="textFieldCustom"
                 sx={{
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': {
-                      borderColor: '#99154E',
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: "#99154E",
                     },
-                    '&.Mui-focused fieldset': {
-                      borderColor: '#99154E',
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#99154E",
                     },
                   },
                 }}
@@ -195,12 +211,12 @@ const BookingPage = () => {
                 onChange={data}
                 className="textFieldCustom"
                 sx={{
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': {
-                      borderColor: '#99154E',
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: "#99154E",
                     },
-                    '&.Mui-focused fieldset': {
-                      borderColor: '#99154E',
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#99154E",
                     },
                   },
                 }}
@@ -215,12 +231,12 @@ const BookingPage = () => {
                 fullWidth
                 className="textFieldCustom"
                 sx={{
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': {
-                      borderColor: '#99154E',
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: "#99154E",
                     },
-                    '&.Mui-focused fieldset': {
-                      borderColor: '#99154E',
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#99154E",
                     },
                   },
                 }}
@@ -258,12 +274,12 @@ const BookingPage = () => {
                     value={user.Service}
                     className="textFieldCustom"
                     sx={{
-                      '& .MuiOutlinedInput-root': {
-                        '& fieldset': {
-                          borderColor: '#99154E',
+                      "& .MuiOutlinedInput-root": {
+                        "& fieldset": {
+                          borderColor: "#99154E",
                         },
-                        '&.Mui-focused fieldset': {
-                          borderColor: '#99154E',
+                        "&.Mui-focused fieldset": {
+                          borderColor: "#99154E",
                         },
                       },
                     }}
@@ -287,12 +303,12 @@ const BookingPage = () => {
                 }}
                 className="textFieldCustom"
                 sx={{
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': {
-                      borderColor: '#99154E',
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: "#99154E",
                     },
-                    '&.Mui-focused fieldset': {
-                      borderColor: '#99154E',
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#99154E",
                     },
                   },
                 }}
@@ -316,24 +332,30 @@ const BookingPage = () => {
                 select
                 onChange={data}
                 fullWidth
-                InputLabelProps={{
-                  shrink: true,
-                }}
+                disabled={!user.Service}
+                error={!!errors.Time}
+                helperText={!!errors.Time && errors.Time}
+                InputLabelProps={
+                  {
+                    // shrink: true,
+                  }
+                }
                 SelectProps={{
                   native: true,
                 }}
                 className="textFieldCustom"
                 sx={{
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': {
-                      borderColor: '#99154E',
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: "#99154E",
                     },
-                    '&.Mui-focused fieldset': {
-                      borderColor: '#99154E',
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#99154E",
                     },
                   },
                 }}
               >
+                <option value="" disabled></option>
                 <option value="08:00 AM">08:00 AM</option>
                 <option value="09:00 AM">09:00 AM</option>
                 <option value="10:00 AM">10:00 AM</option>
@@ -357,12 +379,12 @@ const BookingPage = () => {
                 fullWidth
                 className="textFieldCustom"
                 sx={{
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': {
-                      borderColor: '#99154E',
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: "#99154E",
                     },
-                    '&.Mui-focused fieldset': {
-                      borderColor: '#99154E',
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#99154E",
                     },
                   },
                 }}
@@ -370,7 +392,9 @@ const BookingPage = () => {
             </Grid>
           </Grid>
           <h5 className="headN">Marked with * are mandatory fields</h5>
-          <h5 className="headN">If more services are required, add in special note</h5>
+          <h5 className="headN">
+            If more services are required, add in special note
+          </h5>
           <Grid item>
             <Button
               type="submit"
