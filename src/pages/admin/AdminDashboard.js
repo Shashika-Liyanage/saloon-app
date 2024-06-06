@@ -150,7 +150,7 @@ function AdminDashboard() {
           <TableRow>
             <TableCell
               sx={{
-                width: "10%",
+                width: "8%",
                 whiteSpace: "nowrap",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
@@ -163,7 +163,7 @@ function AdminDashboard() {
             </TableCell>
             <TableCell
               sx={{
-                width: "18%",
+                width: "15%",
                 whiteSpace: "nowrap",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
@@ -176,7 +176,7 @@ function AdminDashboard() {
             </TableCell>
             <TableCell
               sx={{
-                width: "15%",
+                width: "8%",
                 whiteSpace: "nowrap",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
@@ -228,7 +228,7 @@ function AdminDashboard() {
             </TableCell>
             <TableCell
               sx={{
-                width: "8%",
+                width: "7%",
                 whiteSpace: "nowrap",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
