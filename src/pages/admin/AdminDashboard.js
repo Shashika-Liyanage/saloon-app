@@ -1,16 +1,8 @@
-//-----------------------------------------------------------View Appointment------------------------------------------------//
-//-----------------------------------------------------------View Appointment------------------------------------------------//
-
 import { get, getDatabase, ref, remove } from "firebase/database";
-
 import * as React from "react";
-
 import Box from "@mui/material/Box";
-
 import Typography from "@mui/material/Typography";
-
 import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
-
 import Table from "@mui/material/Table";
 import Admin from "./Admin";
 import { useNavigate } from "react-router-dom";
@@ -18,7 +10,6 @@ import { Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import toast, { Toaster } from "react-hot-toast";
-
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -26,27 +17,22 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
 export const fetchDataForBooking = async () => {
-  const db = getDatabase();
-  const dbRef = ref(db, "UserData");
-  const snapshot = await get(dbRef);
+  try {
+    const db = getDatabase();
+    const dbRef = ref(db, "UserData");
+    const snapshot = await get(dbRef);
 
-  if (snapshot.exists()) {
-    console.log(
-      "data => ",
-      Object.values(snapshot.val()),
-      " => ",
-      snapshot.val()
-    );
-    const dataSnapshot = snapshot.val();
-    const dataArr = [];
-    for (let key in dataSnapshot) {
-      dataArr.push({ key, ...dataSnapshot[key] });
+    if (snapshot.exists()) {
+      const dataSnapshot = snapshot.val();
+      const dataArr = Object.values(dataSnapshot);
+      return dataArr;
+    } else {
+      console.error("No data available");
+      return [];
     }
-    console.log("dataArr =>", dataArr);
-    return dataArr;
-  } else {
-    console.error("No data available");
-    return null;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return [];
   }
 };
 
@@ -56,10 +42,7 @@ function AdminDashboard() {
   const [selectedRecord, setSelectedRecord] = React.useState(null);
 
   React.useEffect(() => {
-    (async function () {
-      const bookingData = await fetchDataForBooking();
-      setBookingDataArray(bookingData);
-    })();
+    fetchDataForBooking().then((bookingData) => setBookingDataArray(bookingData));
   }, []);
 
   const handleClickOpen = (record) => {
@@ -75,30 +58,25 @@ function AdminDashboard() {
   const handleDelete = async () => {
     if (!selectedRecord) return;
     try {
-      console.log(
-        "Attempting to delete record with Firebase ID:",
-        selectedRecord.key
-      );
-
       const db = getDatabase();
       const recordRef = ref(db, `UserData/${selectedRecord.key}`);
 
       await remove(recordRef);
-      console.log("Appointment Complete successfully");
-      toast.success("Appointment Complete successfully");
-      fetchDataForBooking();
+      toast.success("Appointment Completed successfully");
+      fetchDataForBooking().then((bookingData) => setBookingDataArray(bookingData));
     } catch (error) {
-      console.error("Error uncompleted appointment record:", error);
-      toast.error("Failed to uncompleted appointment record");
+      console.error("Error completing appointment:", error);
+      toast.error("Failed to complete appointment");
     } finally {
       handleClose();
     }
   };
 
   const navigate = useNavigate();
-  const goToNewApoinment = () => {
+  const goToNewAppointment = () => {
     navigate("/NewApoinment");
   };
+
   return (
     <Box>
       <Toaster toastOptions={{ duration: 9000 }} position="top-right" />
@@ -113,7 +91,7 @@ function AdminDashboard() {
           fontFamily: "Georgia, serif",
         }}
       >
-        Manage Appoinments
+        Manage Appointments
       </Typography>
       <Typography
         sx={{
@@ -121,20 +99,21 @@ function AdminDashboard() {
           fontSize: "24px",
           marginLeft: 36,
           fontFamily: "cursive",
-          color: "#3572EF"
+          color: "#3572EF",
         }}
       >
-        On going Appointments
+        Ongoing Appointments: {bookingDataArray.length}
       </Typography>
       <Button
         variant="contained"
         color="success"
         sx={{ marginTop: 2, marginLeft: 36, marginBottom: 2 }}
-        onClick={goToNewApoinment}
+        onClick={goToNewAppointment}
       >
         <AddIcon />
         Add Appointment
       </Button>
+
 
       <Table
         sx={{
@@ -148,183 +127,30 @@ function AdminDashboard() {
       >
         <TableHead sx={{}}>
           <TableRow>
-            <TableCell
-              sx={{
-                width: "10%",
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                borderRight: 1,
-                borderColor: "grey.300",
-                fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
-              }}
-            >
-              <b>Appoinment Date</b>
-            </TableCell>
-            <TableCell
-              sx={{
-                width: "18%",
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                borderRight: 1,
-                borderColor: "grey.300",
-                fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
-              }}
-            >
-              <b>Customer Email</b>
-            </TableCell>
-            <TableCell
-              sx={{
-                width: "15%",
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                borderRight: 1,
-                borderColor: "grey.300",
-                fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
-              }}
-            >
-              <b>Customer Name</b>
-            </TableCell>
-            <TableCell
-              sx={{
-                width: "10%",
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                borderRight: 1,
-                borderColor: "grey.300",
-                fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
-              }}
-            >
-              <b>Phone Number</b>
-            </TableCell>
-            <TableCell
-              sx={{
-                width: "15%",
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                borderRight: 1,
-                borderColor: "grey.300",
-                fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
-              }}
-            >
-              <b>Service</b>
-            </TableCell>
-            <TableCell
-              sx={{
-                width: "8%",
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                borderRight: 1,
-                borderColor: "grey.300",
-                fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
-              }}
-            >
-              <b>Time</b>
-            </TableCell>
-            <TableCell
-              sx={{
-                width: "8%",
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                borderRight: 1,
-                borderColor: "grey.300",
-                fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
-              }}
-            >
-              <b>Action</b>
-            </TableCell>
+            <TableCell sx={{ width: "10%" }}><b>Appointment Date</b></TableCell>
+            <TableCell sx={{ width: "18%" }}><b>Customer Email</b></TableCell>
+            <TableCell sx={{ width: "15%" }}><b>Customer Name</b></TableCell>
+            <TableCell sx={{ width: "10%" }}><b>Phone Number</b></TableCell>
+            <TableCell sx={{ width: "15%" }}><b>Service</b></TableCell>
+            <TableCell sx={{ width: "8%" }}><b>Time</b></TableCell>
+            <TableCell sx={{ width: "8%" }}><b>Action</b></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {bookingDataArray.map((row, index) => (
             <TableRow key={index}>
-              <TableCell
-                component="th"
-                scope="row"
-                sx={{
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  borderRight: 1,
-                  borderColor: "grey.300",
-                  fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
-                }}
-              >
-                {row.Date}
-              </TableCell>
-              <TableCell
-                sx={{
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  borderRight: 1,
-                  borderColor: "grey.300",
-                  fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
-                }}
-              >
-                {row.Email}
-              </TableCell>
-              <TableCell
-                sx={{
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  borderRight: 1,
-                  borderColor: "grey.300",
-                  fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
-                }}
-              >
-                {row.Name}
-              </TableCell>
-              <TableCell
-                sx={{
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  borderRight: 1,
-                  borderColor: "grey.300",
-                  fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
-                }}
-              >
-                {row.Phone}
-              </TableCell>
-              <TableCell
-                sx={{
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  borderRight: 1,
-                  borderColor: "grey.300",
-                  fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
-                }}
-              >
-                {row.Service}
-              </TableCell>
-              <TableCell
-                sx={{
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  borderRight: 1,
-                  borderColor: "grey.300",
-                  fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
-                }}
-              >
-                {row.Time}
-              </TableCell>
+              <TableCell>{row.Date}</TableCell>
+              <TableCell>{row.Email}</TableCell>
+              <TableCell>{row.Name}</TableCell>
+              <TableCell>{row.Phone}</TableCell>
+              <TableCell>{row.Service}</TableCell>
+              <TableCell>{row.Time}</TableCell>
               <TableCell>
                 <Button
                   onClick={() => handleClickOpen(row)}
                   variant="outlined"
                   size="small"
                   color="success"
-                  fontFamily="Verdana, Geneva, Tahoma, sans-serif"
                 >
                   <CheckCircleIcon />
                   Close

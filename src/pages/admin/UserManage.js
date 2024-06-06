@@ -28,6 +28,7 @@ function formatTimestamp(timestamp) {
 
 function UserManage() {
   const [userDataShow, setUserDataShow] = useState([]);
+  const [userCount, setUserCount] = useState(0);
 
   useEffect(() => {
     fetchData();
@@ -46,6 +47,7 @@ function UserManage() {
           ...value,
         }));
         setUserDataShow(dataArr);
+        setUserCount(dataArr.length);
       } else {
         console.error("No data available");
       }
@@ -75,9 +77,9 @@ function UserManage() {
       if (snapshot.exists()) {
         const userData = snapshot.val();
         if (!userData.firstLogin) {
-          await updateLoginTimestamp(userId, "firstLogin"); // Set firstLogin timestamp if it's not already set
+          await updateLoginTimestamp(userId, "firstLogin");
         }
-        await updateLoginTimestamp(userId, "lastLogin"); // Update lastLogin timestamp on every login
+        await updateLoginTimestamp(userId, "lastLogin");
       }
     } catch (error) {
       console.error("Error updating user login:", error);
@@ -95,6 +97,7 @@ function UserManage() {
       console.log("No user signed in.");
     }
   }, []);
+
   const navigate = useNavigate();
   const goToAddUser = () => {
     navigate("/SignUp");
@@ -115,6 +118,17 @@ function UserManage() {
       >
         Manage Users
       </Typography>
+      <Typography
+        sx={{
+          fontWeight: "500",
+          fontSize: "24px",
+          marginLeft: 36,
+          fontFamily: "cursive",
+          color: "#3572EF",
+        }}
+      >
+        Current Users: {userCount}
+      </Typography>
       <Button
         variant="contained"
         color="success"
@@ -123,7 +137,6 @@ function UserManage() {
       >
          <AddIcon />
         Add User
-       
       </Button>
       <Table
         sx={{

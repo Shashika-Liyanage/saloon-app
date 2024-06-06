@@ -5,14 +5,36 @@ import Face6Icon from '@mui/icons-material/Face6';
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import Diversity2Icon from '@mui/icons-material/Diversity2';
 import TableViewIcon from '@mui/icons-material/TableView';
+import { getDatabase, ref, get } from "firebase/database";
 
 const AdDashboard = () => {
   const [visitCount, setVisitCount] = useState(0);
   const [monthlyVisitCount, setMonthlyVisitCount] = useState(0);
-  const [ongoingAppointments, setOngoingAppointments] = useState(25);
+  const [ongoingAppointments, setOngoingAppointments] = useState(0); // Initialize with 0
   const [serviceAmount, setServiceAmount] = useState(5);
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const db = getDatabase();
+        const dbRef = ref(db, "UserData");
+        const snapshot = await get(dbRef);
+
+        if (snapshot.exists()) {
+          const dataSnapshot = snapshot.val();
+          const dataArr = Object.values(dataSnapshot);
+          setOngoingAppointments(dataArr.length); // Assuming dataArr is an array
+        } else {
+          console.error("No data available");
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+
+    // Update visit counts
     let count = localStorage.getItem("page_view");
     let monthlyCount = localStorage.getItem("monthly_page_view");
 
@@ -41,7 +63,7 @@ const AdDashboard = () => {
       maxWidth="md"
       style={{
         marginTop: 20,
-        marginLeft:400,
+        marginLeft: 400,
         padding: 10,
         borderRadius: 20,
         boxShadow: "2px 0px 10px rgba(0, 0, 0, 0.1)"
@@ -61,7 +83,6 @@ const AdDashboard = () => {
             }}
           >
             <Typography variant="h6" gutterBottom>
-            
               {<Face6Icon sx={{ mr: 1 }} />}
               Website visit count:
             </Typography>
@@ -79,11 +100,10 @@ const AdDashboard = () => {
               boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
               background: "linear-gradient(to right, #E6A4B4, #FFD966)",
               fontFamily: "Verdana, Geneva, Tahoma"
-              
             }}
           >
-            <Typography variant="h6" gutterBottom >
-          {<TableViewIcon sx={{ mr: 1 }} />}
+            <Typography variant="h6" gutterBottom>
+              {<TableViewIcon sx={{ mr: 1 }} />}
               Monthly visit count:
             </Typography>
             <Typography variant="h4" className="website-counter">
@@ -103,7 +123,7 @@ const AdDashboard = () => {
             }}
           >
             <Typography variant="h6" gutterBottom>
-            {<EventNoteIcon sx={{ mr: 1 }} />}
+              {<EventNoteIcon sx={{ mr: 1 }} />}
               Ongoing Appointments:
             </Typography>
             <Typography variant="h4" className="website-counter">
@@ -123,7 +143,7 @@ const AdDashboard = () => {
             }}
           >
             <Typography variant="h6" gutterBottom>
-            {<Diversity2Icon sx={{ mr: 1 }} />}
+              {<Diversity2Icon sx={{ mr: 1 }} />}
               Services:
             </Typography>
             <Typography variant="h4" className="website-counter">
