@@ -118,9 +118,10 @@ function AdminDashboard() {
       <Typography
         sx={{
           fontWeight: "500",
-          fontSize: "20px",
+          fontSize: "24px",
           marginLeft: 36,
           fontFamily: "cursive",
+          color: "#3572EF"
         }}
       >
         On going Appointments
@@ -322,7 +323,7 @@ function AdminDashboard() {
                   onClick={() => handleClickOpen(row)}
                   variant="outlined"
                   size="small"
-                  color="warning"
+                  color="success"
                   fontFamily="Verdana, Geneva, Tahoma, sans-serif"
                 >
                   <CheckCircleIcon />
