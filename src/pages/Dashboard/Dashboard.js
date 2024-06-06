@@ -6,23 +6,9 @@ import Typography from "@mui/material/Typography";
 import Footer from "../Footer/Footer";
 import { Divider, Link, Stack } from "@mui/material";
 import Image2 from "../../../src/Assets/Welcome.png";
-import map1 from "../../../src/Assets/map1.png";
 import videoOne from "../../../src/Assets/videoOne.mp4";
 import { useNavigate } from "react-router-dom";
 
-// const salonNameStyle = {
-//   marginRight: "auto",
-//   fontFamily: "Arial, sans-serif",
-//   fontWeight: "bold",
-//   fontSize: "15px",
-//   letterSpacing: "2px",
-//   textTransform: "uppercase",
-// };
-
-// const listStyle = {
-//   marginLeft: "auto",
-//   fontSize: "16px", // Set smaller font size for the list
-// };
 
 const cardContainerStyle = {
   display: "flex",
@@ -359,7 +345,7 @@ const Dashboard = () => {
           </video>
         </div>
         <Divider />
-        <img className="img" src={map1} alt="map" />
+       
         <Footer />
       </div>
     </div>
