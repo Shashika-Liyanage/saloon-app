@@ -19,9 +19,7 @@ import Image3 from "../../../src/Assets/debitCardBack.jpg";
 import CardLogo from "../../../src/Assets/cardLogos.png";
 //import { CheckBox } from "@mui/icons-material";
 //import axios from "axios";
-import PaymentIcon from '@mui/icons-material/Payment';
-
-
+import PaymentIcon from "@mui/icons-material/Payment";
 
 const PaymentDetails = ({ bookingData, onFormValid, handleNext, disabled }) => {
   const [emailSent, setEmailSent] = useState(false);
@@ -83,8 +81,10 @@ const PaymentDetails = ({ bookingData, onFormValid, handleNext, disabled }) => {
 
     // Validate date
     if (name === "month" || name === "year") {
-      const selectedMonth = name === "month" ? parseInt(value, 10) : parseInt(formData.month, 10);
-      const selectedYear = name === "year" ? parseInt(value, 10) : parseInt(formData.year, 10);
+      const selectedMonth =
+        name === "month" ? parseInt(value, 10) : parseInt(formData.month, 10);
+      const selectedYear =
+        name === "year" ? parseInt(value, 10) : parseInt(formData.year, 10);
 
       const currentDate = new Date();
       const selectedDate = new Date(selectedYear, selectedMonth - 1); // JavaScript months are 0-indexed
@@ -102,9 +102,9 @@ const PaymentDetails = ({ bookingData, onFormValid, handleNext, disabled }) => {
   };
 
   useEffect(() => {
-    const isFormValid = Object.values(formData).every(
-      (value) => value.trim() !== ""
-    ) && !dateError;
+    const isFormValid =
+      Object.values(formData).every((value) => value.trim() !== "") &&
+      !dateError;
     onFormValid(isFormValid);
   }, [formData, dateError, onFormValid]);
 
@@ -158,52 +158,51 @@ const PaymentDetails = ({ bookingData, onFormValid, handleNext, disabled }) => {
             />
 
             <Stack direction={"row"} spacing={2}>
-            <TextField
-        select
-        id="Month"
-        required
-        name="month"
-        label="Month"
-        variant="outlined"
-        fullWidth
-        sx={{ bgcolor: "white" }}
-        value={formData.month}
-        onChange={handleInputChange}
-      >
-        {Array.from({ length: 12 }, (_, index) => {
-          const month = index + 1;
-          return (
-            <MenuItem key={month} value={month}>
-              {month}
-              {dateError && <p style={{ color: "red" }}>{dateError}</p>}
-            </MenuItem>
-          );
-        })}
-      </TextField>
-      <TextField
-        select
-        id="Year"
-        required
-        name="year"
-        label="Year"
-        variant="outlined"
-        fullWidth
-        sx={{ bgcolor: "white" }}
-        value={formData.year}
-        onChange={handleInputChange}
-      >
-        {Array.from({ length: 10 }, (_, index) => {
-          const year = new Date().getFullYear() + index;
-          return (
-            <MenuItem key={year} value={year}>
-              {year}
-              {dateError && <p style={{ color: "red" }}>{dateError}</p>}
-            </MenuItem>
-          );
-        })}
-        
-      </TextField>
-    
+              <TextField
+                select
+                id="Month"
+                required
+                name="month"
+                label="Month"
+                variant="outlined"
+                fullWidth
+                sx={{ bgcolor: "white" }}
+                value={formData.month}
+                onChange={handleInputChange}
+              >
+                {Array.from({ length: 12 }, (_, index) => {
+                  const month = index + 1;
+                  return (
+                    <MenuItem key={month} value={month}>
+                      {month}
+                      {dateError && <p style={{ color: "red" }}>{dateError}</p>}
+                    </MenuItem>
+                  );
+                })}
+              </TextField>
+              <TextField
+                select
+                id="Year"
+                required
+                name="year"
+                label="Year"
+                variant="outlined"
+                fullWidth
+                sx={{ bgcolor: "white" }}
+                value={formData.year}
+                onChange={handleInputChange}
+              >
+                {Array.from({ length: 10 }, (_, index) => {
+                  const year = new Date().getFullYear() + index;
+                  return (
+                    <MenuItem key={year} value={year}>
+                      {year}
+                      {dateError && <p style={{ color: "red" }}>{dateError}</p>}
+                    </MenuItem>
+                  );
+                })}
+              </TextField>
+
               <TextField
                 id="CVC"
                 required
@@ -245,9 +244,8 @@ const PaymentDetails = ({ bookingData, onFormValid, handleNext, disabled }) => {
                   variant="contained"
                   color="success"
                   size="large"
-                 
                   sx={{ width: "100%", mt: 3 }}
-                  startIcon={<PaymentIcon/>}
+                  startIcon={<PaymentIcon />}
                 >
                   Create Payment
                 </Button>
@@ -259,8 +257,9 @@ const PaymentDetails = ({ bookingData, onFormValid, handleNext, disabled }) => {
           <Card
             sx={{
               borderRadius: 10,
-              backgroundImage: "linear-gradient(40deg, #FFCAD4, #FFCDEA 40%, #F9C5D5 60%)",
-              border: '2.5px solid #B25068',
+              backgroundImage:
+                "linear-gradient(40deg, #FFCAD4, #FFCDEA 40%, #F9C5D5 60%)",
+              border: "2.5px solid #B25068",
               marginRight: -10,
               marginLeft: 15,
               marginTop: -2,
@@ -417,12 +416,22 @@ const PaymentDetails = ({ bookingData, onFormValid, handleNext, disabled }) => {
                   disabled
                   control={
                     <Checkbox
-                      sx={{ fontWeight: "600", fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
-                    }}
+                      sx={{
+                        fontWeight: "600",
+                        fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
+                      }}
                       defaultChecked
                     />
                   }
-                  label={<span style={{ fontFamily: "Verdana, Geneva, Tahoma, sans-serif" }}>Receipt will be sent to your provided email address.</span>}
+                  label={
+                    <span
+                      style={{
+                        fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
+                      }}
+                    >
+                      Receipt will be sent to your provided email address.
+                    </span>
+                  }
                 />
               </FormGroup>
             </CardContent>

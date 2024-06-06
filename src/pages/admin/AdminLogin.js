@@ -13,27 +13,7 @@ import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 
 const AdminLogin = () => {
-  // State variables to store username and password
-  // const [credentials, setCredentials] = useState({
-  //   username: "",
-  //   password: "",
-  // });
-
-  // Function to handle Google sign-in
-  // const logGoogleUser = async () => {
-  //   try {
-  //     const provider = new GoogleAuthProvider();
-  //     const result = await signInWithPopup(auth, provider);
-  //     console.log("Google sign-in success:", result);
-  //     toast.success("Logged in successfully.");
-  //     // Redirect user to dashboard page after successful sign-in
-
-  //     window.location.href = "/dashboard";
-  //   } catch (error) {
-  //     console.error("Google sign-in error:", error.message);
-  //     toast.error("Google sign-in error:");
-  //   }
-  // };
+  
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -41,6 +21,7 @@ const AdminLogin = () => {
   const onLogin = async (e) => {
     e.preventDefault(); // Prevent default form submission behavior
 
+ 
     try {
       const userCredential = await signInWithEmailAndPassword(
         auth,
@@ -59,8 +40,12 @@ const AdminLogin = () => {
       toast.error("Please Enter the Username and Password");
     }
   };
+  const AdminDash = (e) => {
+    navigate("/AdDashboard");
+  };
 
   return (
+   
     <div
       style={{
         display: "flex",
@@ -69,6 +54,7 @@ const AdminLogin = () => {
         minHeight: "100vh",
       }}
     >
+        <Toaster position="top-right" />
       <Container maxWidth="xs">
         <Paper elevation={3} style={{ padding: 20 }}>
           <Typography
@@ -109,14 +95,12 @@ const AdminLogin = () => {
                   color="primary"
                   type="submit"
                   fullWidth
-                  onClick={onLogin}
+                  onClick={AdminDash}
                 >
                   Login
+                  
                 </Button>
-                <Toaster
-                  toastOptions={{ duration: 9000 }}
-                  position="top-right"
-                />
+                
               </Grid>
             </Grid>
           </form>

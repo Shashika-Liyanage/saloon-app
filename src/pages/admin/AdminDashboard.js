@@ -16,8 +16,8 @@ import Admin from "./Admin";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import DeleteIcon from "@mui/icons-material/Delete";
-import toast from "react-hot-toast";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import toast, { Toaster } from "react-hot-toast";
 
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -80,12 +80,12 @@ function AdminDashboard() {
       const recordRef = ref(db, `UserData/${selectedRecord.key}`);
 
       await remove(recordRef);
-      console.log("Record deleted successfully");
-      toast.success("Record deleted successfully");
+      console.log("Appointment Complete successfully");
+      toast.success("Appointment Complete successfully");
       fetchDataForBooking();
     } catch (error) {
-      console.error("Error deleting record:", error);
-      toast.error("Failed to delete record");
+      console.error("Error uncompleted appointment record:", error);
+      toast.error("Failed to uncompleted appointment record");
     } finally {
       handleClose();
     }
@@ -97,6 +97,7 @@ function AdminDashboard() {
   };
   return (
     <Box>
+      <Toaster toastOptions={{ duration: 9000 }} position="top-right" />
       <Admin />
       <Typography
         sx={{
@@ -115,7 +116,7 @@ function AdminDashboard() {
           fontWeight: "500",
           fontSize: "20px",
           marginLeft: 36,
-          fontFamily: "Georgia, serif",
+          fontFamily: "cursive",
         }}
       >
         On going Appointments
@@ -317,11 +318,11 @@ function AdminDashboard() {
                   onClick={() => handleClickOpen(row)}
                   variant="outlined"
                   size="small"
-                  color="error"
+                  color="warning"
                   fontFamily="Verdana, Geneva, Tahoma, sans-serif"
                 >
-                  <DeleteIcon />
-                  Delete
+                  <CheckCircleIcon />
+                  Close
                 </Button>
               </TableCell>
             </TableRow>

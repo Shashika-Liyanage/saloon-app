@@ -42,6 +42,7 @@ import Admin from "../Admin";
 const PriceUpdate = () => {
   // For the Hair Section
   const [showHaircutModal, setShowHaircutModal] = useState(false);
+
   // For the Skin Section
   const [showCleanUpModal, setshowCleanUpModal] = useState(false);
   //For the Nail Section
@@ -52,6 +53,7 @@ const PriceUpdate = () => {
   const [showDressingModal, setshowDressingModal] = useState(false);
 
   //---------------Hair Section-------------------------------
+
   const [inputType, setInputType] = useState("");
   const [inputPrice, setInputPrice] = useState("");
   const [typeOptions, setTypeOptions] = useState([]);
@@ -288,7 +290,7 @@ const PriceUpdate = () => {
 
       if (snapshot.exists()) {
         const data = snapshot.val();
-        console.log("Eshan", data);
+        console.log("Shashika", data);
         setTypeOptions(
           Object.keys(data).map((key) => ({
             key,
@@ -872,7 +874,7 @@ const PriceUpdate = () => {
               fontWeight={"700"}
               textAlign={"center"}
               variant="h6"
-              fontFamily={"system-ui"}
+              fontFamily={"cursive"}
             >
               Hair Section
             </Typography>
@@ -912,7 +914,7 @@ const PriceUpdate = () => {
               fontWeight={"700"}
               textAlign={"center"}
               variant="h6"
-              fontFamily={"system-ui"}
+              fontFamily={"cursive"}
             >
               Skin Section
             </Typography>
@@ -952,7 +954,7 @@ const PriceUpdate = () => {
               fontWeight={"700"}
               textAlign={"center"}
               variant="h6"
-              fontFamily={"system-ui"}
+              fontFamily={"cursive"}
             >
               Nail Section
             </Typography>
@@ -992,7 +994,7 @@ const PriceUpdate = () => {
               fontWeight={"700"}
               textAlign={"center"}
               variant="h6"
-              fontFamily={"system-ui"}
+              fontFamily={"cursive"}
             >
               Body Section
             </Typography>
@@ -1032,7 +1034,7 @@ const PriceUpdate = () => {
               fontWeight="700"
               textAlign="center"
               variant="h6"
-              fontFamily="system-ui"
+              fontFamily="cursive"
             >
               Bridal Section
             </Typography>
