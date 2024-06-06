@@ -22,7 +22,6 @@ function ReadData() {
       const snapshot = await get(dbRef);
 
       if (snapshot.exists()) {
-        
         setBridalPriceArray(Object.values(snapshot.val()));
       } else {
         console.error("No data available");
@@ -69,6 +68,17 @@ function ReadData() {
             </TableBody>
           </Table>
         </TableContainer>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <img
+            src={salonIcon}
+            alt="Salon Icon"
+            className="icon"
+            style={{ marginRight: "10px" }}
+          />
+          <h3 style={{ color: "#D63484", margin: 0 }}>
+            BRIDAL - Please Contact +94 778512478 More Details
+          </h3>
+        </div>
       </div>
     </div>
   );
@@ -90,7 +100,7 @@ export default function BasicTable() {
         </div>
       </div>
 
-      <ReadData/>
+      <ReadData />
       <Footer />
     </div>
   );
