@@ -15,7 +15,6 @@ import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import emailjs from "emailjs-com";
 import { jsPDF } from "jspdf";
-import PaymentIcon from '@mui/icons-material/Payment';
 
 const steps = ["Finalize the booking"];
 
@@ -23,10 +22,10 @@ const CheckOut = () => {
   const navigate = useNavigate();
   const bookingData = useSelector(selectBookingData);
 
-  const [emailSent, setEmailSent] = useState(false);
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [setEmailSent] = useState(false);
+  const [setSnackbarOpen] = useState(false);
 
-  const [formData, setFormData] = useState({
+  const [formData] = useState({
     name: bookingData?.Name || "",
     phone: bookingData?.Phone || "",
     email: bookingData?.Email || "",
@@ -62,7 +61,7 @@ const CheckOut = () => {
       )
       .then((response) => {
         console.log("Email sent successfully:", response);
-        //setEmailSent(true);
+        setEmailSent(true);
         setSnackbarOpen(true);
       })
       .catch((error) => {
@@ -156,7 +155,7 @@ const CheckOut = () => {
 
   const handleNext = async () => {
     if (activeStep === steps.length - 1) {
-      //handleSendEmail(); // Call the function to send email
+      handleSendEmail(); // Call the function to send email
       saveData(); // Call the function to save data
       generatePDF(); // Generate and download the PDF
     } else {
@@ -164,9 +163,7 @@ const CheckOut = () => {
     }
   };
 
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
+  
 
   const handleReset = () => {
     setActiveStep(0);
@@ -273,17 +270,7 @@ const CheckOut = () => {
             ) : (
               <Box sx={{ display: "flex", flexDirection: "row", pt: 1 }}>
                 <Box sx={{ flex: "1 1 auto" }} />
-                {/* <Button
-               
-                  onClick={handleNext}
-                  variant="contained"
-                  color="success"
-                  disabled={!isFormValid}
-                  sx={{ width: '200px' }} 
-                >
-                  <PaymentIcon/>
-                   Create Payment
-                </Button> */}
+              
               </Box>
             )}
             {getStepContent(activeStep)}

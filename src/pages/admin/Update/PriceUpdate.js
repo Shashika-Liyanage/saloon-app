@@ -42,6 +42,7 @@ import Admin from "../Admin";
 const PriceUpdate = () => {
   // For the Hair Section
   const [showHaircutModal, setShowHaircutModal] = useState(false);
+
   // For the Skin Section
   const [showCleanUpModal, setshowCleanUpModal] = useState(false);
   //For the Nail Section
@@ -52,6 +53,7 @@ const PriceUpdate = () => {
   const [showDressingModal, setshowDressingModal] = useState(false);
 
   //---------------Hair Section-------------------------------
+
   const [inputType, setInputType] = useState("");
   const [inputPrice, setInputPrice] = useState("");
   const [typeOptions, setTypeOptions] = useState([]);
@@ -99,6 +101,7 @@ const PriceUpdate = () => {
   const handlePriceChangeForAdd = (e) => {
     setInputPriceForAdd(e.target.value);
   };
+  
   const handleTypeChange = (e) => {
     const { value } = e.target;
     setInputType(value);
@@ -218,8 +221,7 @@ const PriceUpdate = () => {
     setInputPriceForAddBridal("");
     setInputTypeForAddBridal("");
 
-    // setInputType("");
-    // setInputPrice("");
+    
 
     setIsCheckboxChecked(false);
 
@@ -288,7 +290,7 @@ const PriceUpdate = () => {
 
       if (snapshot.exists()) {
         const data = snapshot.val();
-        console.log("Eshan", data);
+        console.log("Shashika", data);
         setTypeOptions(
           Object.keys(data).map((key) => ({
             key,
@@ -376,9 +378,10 @@ const PriceUpdate = () => {
 
       // Delete the record from the database
       await remove(recordRef);
+      clearFields();
       console.log("Record deleted successfully");
       toast.success("Record deleted successfully");
-      clearFields();
+
       fetchData(); // Refresh data
     } catch (error) {
       console.error("Error deleting record:", error);
@@ -431,8 +434,9 @@ const PriceUpdate = () => {
         price: inputPriceForAddSkin,
       }); // Set type and price fields
       
+      clearFields();
       toast.success("New record added successfully");
-      //clearFields();
+      fetchDataForSkin();
     } catch (error) {
       console.error("Error adding record:", error);
       toast.error("Failed to add record");
@@ -464,8 +468,8 @@ const PriceUpdate = () => {
       // Update the record in the database
       await set(recordRef, { type: type, price: inputPriceSkin });
     
-      toast.success("Record updated successfully");
       clearFields();
+      toast.success("Record updated successfully");
       fetchDataForSkin(); // Refresh data
     } catch (error) {
       console.error("Error updating record:", error);
@@ -715,6 +719,7 @@ const PriceUpdate = () => {
 
       // Delete the record from the database
       await remove(recordRef);
+      clearFields();
       console.log("Record deleted successfully");
       toast.success("Record deleted successfully");
       fetchData(); // Refresh data
@@ -827,6 +832,7 @@ const PriceUpdate = () => {
 
       // Delete the record from the database
       await remove(recordRef);
+      clearFields();
       console.log("Record deleted successfully");
       toast.success("Record deleted successfully");
       fetchData(); // Refresh data
@@ -854,10 +860,10 @@ const PriceUpdate = () => {
       <Box
       sx={{
      
-        width: '60%', // Adjust width as needed
-        height: '80vh', // Adjust height as needed
-        marginLeft: '420px', // Adjust left margin as needed
-        padding: '10px', // Optional padding for inner content spacing
+        width: '60%', 
+        height: '80vh', 
+        marginLeft: '420px', 
+        padding: '10px', 
        
       }}
       >
@@ -872,7 +878,7 @@ const PriceUpdate = () => {
               fontWeight={"700"}
               textAlign={"center"}
               variant="h6"
-              fontFamily={"system-ui"}
+              fontFamily={"cursive"}
             >
               Hair Section
             </Typography>
@@ -912,7 +918,7 @@ const PriceUpdate = () => {
               fontWeight={"700"}
               textAlign={"center"}
               variant="h6"
-              fontFamily={"system-ui"}
+              fontFamily={"cursive"}
             >
               Skin Section
             </Typography>
@@ -952,7 +958,7 @@ const PriceUpdate = () => {
               fontWeight={"700"}
               textAlign={"center"}
               variant="h6"
-              fontFamily={"system-ui"}
+              fontFamily={"cursive"}
             >
               Nail Section
             </Typography>
@@ -982,7 +988,7 @@ const PriceUpdate = () => {
                   onClick={setshowPedicureModal}
                   variant="contained"
                 >
-                  Pedicure &  Price{" "}
+                  Pedi & Meni Price{" "}
                 </Button>
               </Grid>
             </Stack>
@@ -992,7 +998,7 @@ const PriceUpdate = () => {
               fontWeight={"700"}
               textAlign={"center"}
               variant="h6"
-              fontFamily={"system-ui"}
+              fontFamily={"cursive"}
             >
               Body Section
             </Typography>
@@ -1032,7 +1038,7 @@ const PriceUpdate = () => {
               fontWeight="700"
               textAlign="center"
               variant="h6"
-              fontFamily="system-ui"
+              fontFamily="cursive"
             >
               Bridal Section
             </Typography>
@@ -1322,7 +1328,10 @@ const PriceUpdate = () => {
                 <Button
                   variant="contained"
                   color="error"
-                  onClick={() => deleteRecordForSkin()}
+                  onClick={() => {
+                  deleteRecordForSkin();
+                  clearFields();
+                }}
                   startIcon={<DeleteSharpIcon sx={{ mr: 0.5 }} />}
                 >
                   Delete

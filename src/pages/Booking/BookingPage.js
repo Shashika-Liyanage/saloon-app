@@ -254,11 +254,36 @@ const BookingPage = () => {
               <Autocomplete
                 id="service"
                 options={[
-                  { label: "Hair Cut RS:1500" },
-                  { label: "Facial RS:2000" },
-                  { label: "Full Body Waxing Rs:1450 " },
-                  { label: "Spa Pedicure RS:4900" },
-                  { label: "Full Dressing RS 2200" },
+                  { label: "Fringe Cut RS:850" },
+                  { label: "Ironing RS:2200" },
+                  { label: "Hair Massage Oil Treatment Rs:1300 " },
+                  { label: "Straightening - Short RS:11000" },
+                  { label: "Straightening - Long RS:20000" },
+                  { label: "Keratin Hair Spa RS:5000" },
+                  { label: "Hair Wash RS:1500" },
+
+                  { label: "Face Shaving Rs:3500 " },
+                  { label: "Classic Clean Up RS:3500" },
+                  { label: "Eye Brows RS:200" },
+                  { label: "Natural Glow Facial RS:5000" },
+
+                  { label: "Classic Manicure RS:1800" },
+                  { label: "Classic Pedicure Rs:2800 " },
+                  { label: "Spa Manicure RS:3800" },
+                  { label: "Spa Pedicure RS 4200" },
+
+                  { label: "Full Body RS:11200" },
+                  { label: "Half Leg Rs:3200 " },
+                  { label: "Half Arms RS:2500" },
+                  { label: "Classic Full Arms RS: 3300" },
+                  { label: "Full Body Massage RS:9200" },
+                  { label: "Classic - Body Scrub RS:6500" },
+
+                  { label: "Full Dressing RS:5500" },
+                  { label: "Saree Draping Rs:1500 " },
+                  { label: "Make-Up RS:4000" },
+                  { label: "Hair Style RS:2700" },
+
                 ]}
                 getOptionLabel={(option) => option.label}
                 value={{ label: user.Service }}

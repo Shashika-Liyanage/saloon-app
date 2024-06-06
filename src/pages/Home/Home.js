@@ -3,7 +3,7 @@ import { auth } from "../../services/firebaseConfig";
 import bg from "../../Assets/salonBg.jpg";
 import { Table } from "react-bootstrap";
 import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
-import { get, getDatabase, ref } from "firebase/database";
+//import { get, getDatabase, ref } from "firebase/database";
 import { fetchDataForBooking } from "../admin/AdminDashboard";
 
 const Home = () => {
