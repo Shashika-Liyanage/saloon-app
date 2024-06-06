@@ -118,9 +118,10 @@ function AdminDashboard() {
       <Typography
         sx={{
           fontWeight: "500",
-          fontSize: "20px",
+          fontSize: "24px",
           marginLeft: 36,
           fontFamily: "cursive",
+          color: "#3572EF"
         }}
       >
         On going Appointments
@@ -149,7 +150,7 @@ function AdminDashboard() {
           <TableRow>
             <TableCell
               sx={{
-                width: "10%",
+                width: "8%",
                 whiteSpace: "nowrap",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
@@ -162,7 +163,7 @@ function AdminDashboard() {
             </TableCell>
             <TableCell
               sx={{
-                width: "18%",
+                width: "15%",
                 whiteSpace: "nowrap",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
@@ -175,7 +176,7 @@ function AdminDashboard() {
             </TableCell>
             <TableCell
               sx={{
-                width: "15%",
+                width: "8%",
                 whiteSpace: "nowrap",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
@@ -227,7 +228,7 @@ function AdminDashboard() {
             </TableCell>
             <TableCell
               sx={{
-                width: "8%",
+                width: "7%",
                 whiteSpace: "nowrap",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
@@ -322,7 +323,7 @@ function AdminDashboard() {
                   onClick={() => handleClickOpen(row)}
                   variant="outlined"
                   size="small"
-                  color="warning"
+                  color="success"
                   fontFamily="Verdana, Geneva, Tahoma, sans-serif"
                 >
                   <CheckCircleIcon />
